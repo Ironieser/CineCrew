@@ -1,0 +1,124 @@
+{
+  "project_title": "Golden Briefcase Reveal",
+  "global_style": "Neo-noir, high-contrast chiaroscuro, dramatic low angles and tight close-ups; motivated warm golden practical against deep, cool shadows; cinematic suspense with minimalist framing.",
+  "project_settings": {
+    "location_lock": "Shadowy interior room (urban apartment or warehouse), modern city, strictly indoors (NOT outdoors, NOT Mediterranean villa, NOT suburban living room)",
+    "negative_constraints": [
+      "Historical period dress (Victorian, 1920s, 1940s fedoras/trench coats)",
+      "Vintage tech (CRT TVs, rotary phones, typewriters, payphones)",
+      "Futuristic tech (holograms, AR UI, biometric scanners, LED matrix lighting)",
+      "Neon cyberpunk color schemes (magenta/teal glow)",
+      "Bright, high-key or flat lighting; white fluorescent overheads",
+      "Exterior views (windows showing daylight, city skyline, palm trees)",
+      "Outdoor locations (streets, cars, alleys)",
+      "Religious or supernatural depictions inside the briefcase (angels, demons, skulls, cosmic portals)",
+      "Text or symbols that explain or reveal the briefcase's contents",
+      "Explicit references to specific films or characters (Pulp Fiction, Jules, Vincent Vega, Marcellus Wallace)",
+      "Mediterranean or European architectural elements",
+      "Obvious product logos or brand placements",
+      "Smartphones, laptops, modern screens visible in frame",
+      "Gunfire or visible firearms",
+      "Police sirens or flashing red/blue lights",
+      "Comedic tone, slapstick, or camp",
+      "Overt teal–orange blockbuster grading"
+    ],
+    "style_overrides": {
+      "color_palette": "Deep blacks and cool desaturated shadows contrasted with an intense warm golden glow",
+      "lighting_style": "Low-key, high-contrast chiaroscuro; single warm source motivated by the briefcase; rapid falloff into darkness",
+      "architecture": "Industrial urban interior (concrete/brick, minimal ornamentation), timeless and contemporary",
+      "set_design": "Sparse, worn, utilitarian room; clutter minimal; no visible windows or windows blacked out",
+      "props_style": "Sleek black hard-shell briefcase with mechanical combination dials (6-6-6); neutral modern furnishings",
+      "wardrobe": "Contemporary dark suit in matte fabrics; no vintage silhouettes or flashy patterns",
+      "camera_language": "Extreme low angle and tight close-ups; slow push-in; shallow depth of field",
+      "mood_tone": "Mysterious, tense, hypnotic crime-noir with visual contrast and suspense",
+      "vfx_style": "Subtle volumetric warm glow from the case; contents never shown; no exaggerated beams or particles beyond gentle haze"
+    },
+    "era_lock": "Contemporary modern era (1990s–2020s), timeless urban crime-noir"
+  },
+  "narrative_context": {
+    "time_period": "Unspecified modern era",
+    "global_mood": "Mysterious, tense, hypnotic",
+    "key_events": [
+      "Extreme low angle in a shadowy room frames Vincent over a briefcase.",
+      "Vincent turns the combination dials to 6-6-6 and unlocks the case.",
+      "Lid opens; intense warm golden light spills out, piercing the darkness.",
+      "Vincent's face is bathed in the glow; he stares, mesmerized.",
+      "An off-screen voice asks, \"We happy?\"",
+      "Still entranced, Vincent replies, \"Yeah... we happy.\""
+    ],
+    "cultural_context": "Noir/crime overtones with an enigmatic MacGuffin briefcase; emphasis on visual contrast and suspense."
+  },
+  "characters": [
+    {
+      "id": "char_vincent",
+      "name": "Vincent",
+      "description": "Sharp-featured man in a tailored black suit, cigarette at his lips; face lit by warm golden glow against deep shadows.",
+      "clothing_style": "Sharp black suit, crisp white shirt, slim black tie; unlit cigarette.",
+      "voice_preset_id": null,
+      "voice_description": "Soft-spoken, restrained baritone; minimal affect.",
+      "voice_design": null,
+      "personality": "Cool, composed, curious; mesmerized by mystery.",
+      "backstory": "Unspecified; appears connected to clandestine dealings.",
+      "current_motivation": "Open the briefcase and assess its contents; confirm satisfaction to the unseen partner.",
+      "scene_count": 1,
+      "dialogue_lines": 1,
+      "key_relationships": [
+        "char_off_screen_voice"
+      ],
+      "visual_references": null,
+      "audio_references": null
+    },
+    {
+      "id": "char_off_screen_voice",
+      "name": "Off-Screen Voice",
+      "description": "Unseen presence; only a voice, authoritative and close, cutting through silence.",
+      "clothing_style": "",
+      "voice_preset_id": null,
+      "voice_description": "Confident, clipped delivery; interrogative tone; close-mic presence.",
+      "voice_design": null,
+      "personality": "Assertive, probing, in control.",
+      "backstory": "Unspecified.",
+      "current_motivation": "Verify success and assert control over the situation.",
+      "scene_count": 1,
+      "dialogue_lines": 1,
+      "key_relationships": [
+        "char_vincent"
+      ],
+      "visual_references": null,
+      "audio_references": null
+    }
+  ],
+  "locations": [
+    {
+      "id": "loc_int_shadowy_room",
+      "name": "Shadowy Room",
+      "type": "INT",
+      "visual_style": "High-contrast darkness; single warm, directional beam from briefcase; dramatic low angles; faint smoky atmosphere.",
+      "narrative_function": "Concealment and revelation; a tense space focused on the briefcase.",
+      "time_of_day_stats": {},
+      "visual_references": null,
+      "audio_references": null,
+      "usage_count": 1
+    }
+  ],
+  "props": [
+    {
+      "id": "prop_black_briefcase",
+      "name": "Sleek Black Briefcase",
+      "related_character_id": "char_vincent",
+      "visual_description": "Sleek black hard-shell briefcase with chrome latches and a three-dial combination lock set to 6-6-6; opens to reveal an intense, warm golden glow from within.",
+      "importance": "critical",
+      "usage_count": 1,
+      "visual_references": null
+    },
+    {
+      "id": "prop_unlit_cigarette",
+      "name": "Unlit Cigarette",
+      "related_character_id": "char_vincent",
+      "visual_description": "Single unlit cigarette at Vincent’s lips; white filter tip; adds nonchalant, cool demeanor.",
+      "importance": "supporting",
+      "usage_count": 1,
+      "visual_references": null
+    }
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "scene_id": "bp_pulp_fiction_briefcase_glow_52076f",
+  "jobs": [
+    {
+      "job_id": "bp_pulp_fiction_briefcase_glow_52076f_shot_01_vincent_dials_case_a",
+      "scene_id": "bp_pulp_fiction_briefcase_glow_52076f",
+      "shot_id": "shot_01_vincent_dials_case",
+      "segment_id": "shot_01_vincent_dials_case_a",
+      "prompt": "[Camera Move] Slow dolly-in from the extreme low angle, micro rack settling onto the dials. [Character Actions & Reactions] Adult man in a tailored matte black suit with a crisp white shirt and slim black tie; leaning over the briefcase, right hand poised on the combination dials; focused, controlled tension; an unlit cigarette may edge the frame but stays mostly out of view's fingertips land and rotate the wheels one by one: the first clicks into 6, the second into 6, the third into 6; his wrist flexes with measured precision, breath held. As the last number drops into place, the mechanism tightens and a hairline of warm light breathes at the seam of <prop_black_briefcase>; the lid remains closed. [Lip Constraint] Mouth remains tightly closed. No speaking. [Ambient Motion] Sleeve fabric creases subtly; a faint smoky haze eddies near the seam; shallow focus breathes as the dials stop clearly on 6-6-6, setting up the imminent latch release.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": null,
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 4.062,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 65,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    },
+    {
+      "job_id": "bp_pulp_fiction_briefcase_glow_52076f_shot_02_latches_pop_open_a",
+      "scene_id": "bp_pulp_fiction_briefcase_glow_52076f",
+      "shot_id": "shot_02_latches_pop_open",
+      "segment_id": "shot_02_latches_pop_open_a",
+      "prompt": "[Camera Move] Hold for a beat, then rack focus from the numbers to the latch as the camera adds a slight tilt up to follow the lid. [Character Actions & Reactions] A sharp metallic click as the latch snaps free; Adult man in a tailored matte-black suit with a crisp white shirt and slim black tie; hand braced at the latch and lid edge; intent focus, breath held; cigarette unlit if glimpsed's thumb flips the tab and he eases the lid upward, hinge murmuring. A first, controlled spill of warm golden light collects along the opening without showing the inside. [Lip Constraint] Mouth remains tightly closed. No speaking. [Ambient Motion] The glow wavers against subtle haze; soft shadows crawl over Adult man in a tailored matte-black suit with a crisp white shirt and slim black tie; hand braced at the latch and lid edge; intent focus, breath held; cigarette unlit if glimpsed's knuckles; shallow depth blooms along the lid as it rises just enough to motivate the next reveal.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": null,
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 2.312,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 37,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    },
+    {
+      "job_id": "bp_pulp_fiction_briefcase_glow_52076f_shot_03_golden_light_spills_a",
+      "scene_id": "bp_pulp_fiction_briefcase_glow_52076f",
+      "shot_id": "shot_03_golden_light_spills",
+      "segment_id": "shot_03_golden_light_spills_a",
+      "prompt": "[Camera Move] Slow, deliberate dolly-in from the low angle toward the open case and Adult man in a tailored matte-black suit over a crisp white shirt and slim black tie; upper body pitched toward the open case; eyes widening in awe; an unlit cigarette lightly clenched between his lips. [Character Actions & Reactions] The lid clears another inch and a warm golden light swells, spilling across the surface and climbing into Adult man in a tailored matte-black suit over a crisp white shirt and slim black tie; upper body pitched toward the open case; eyes widening in awe; an unlit cigarette lightly clenched between his lips's face; he leans closer, pupils dilate, shoulders slacken then freeze in awe; <prop_unlit_cigarette> rides a minute tremor at his lips, staying unlit. [Lip Constraint] Mouth remains tightly closed. No speaking. [Ambient Motion] The glow expands with rapid falloff into black; hazy air shifts subtly with no distinct particles or beams; lapels and tie edge breathe; end with his face approaching the opening, aligning to cue an inside-the-case POV next.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": null,
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 3.312,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 53,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    },
+    {
+      "job_id": "bp_pulp_fiction_briefcase_glow_52076f_shot_04_vincent_bathed_meson_a",
+      "scene_id": "bp_pulp_fiction_briefcase_glow_52076f",
+      "shot_id": "shot_04_vincent_bathed_meson",
+      "segment_id": "shot_04_vincent_bathed_meson_a",
+      "prompt": "[Camera Move] Subtle inward push from the interior POV, maintaining low-angle alignment on Adult man in a tailored matte-black suit; face close and centered, bathed in warm glow; pupils dilating as his expression slackens into a trance; an unlit cigarette steady between his lips's face. [Character Actions & Reactions] His eyes widen by degrees; micro-muscles in brow and cheeks relax; he tilts infinitesimally closer; the cigarette quivers a hair yet remains unlit; he holds the gaze without blinking for a beat. [Lip Constraint] Mouth remains tightly closed. No speaking. [Ambient Motion] The warm glow breathes gently across his skin; faint haze pools at the vignetted edges; slow chest rise and a soft cloth rustle are visible; finish with a minute shoulder shift that opens an over-the-shoulder line for the next shot.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": null,
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 3.562,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 57,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    },
+    {
+      "job_id": "bp_pulp_fiction_briefcase_glow_52076f_shot_05_voice_we_happy_a",
+      "scene_id": "bp_pulp_fiction_briefcase_glow_52076f",
+      "shot_id": "shot_05_voice_we_happy",
+      "segment_id": "shot_05_voice_we_happy_a",
+      "prompt": "[Camera Move] Static camera holds the OTS composition. [Character Actions & Reactions] An unseen <char_off_screen_voice> cuts through with an authoritative, probing line: \"We happy?\" off-screen. Adult man, tailored matte black suit; shoulder and cheek in low-angle silhouette for an OTS; transfixed, listening; unlit cigarette at lips catching edge glow barely reacts—eyes flicker, a slow nasal inhale, chin dips a hint—yet his gaze remains locked on the glow and posture stays entranced. [Lip Constraint] Mouth remains tightly closed. No speaking. [Ambient Motion] The golden light ripples faintly across his jawline and the case rim; haze shimmers near the lid; deep shadows stay undisturbed; hold the frame to cue a tighter reply.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": null,
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 2.562,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 41,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    },
+    {
+      "job_id": "bp_pulp_fiction_briefcase_glow_52076f_shot_06_vincent_affirms_a",
+      "scene_id": "bp_pulp_fiction_briefcase_glow_52076f",
+      "shot_id": "shot_06_vincent_affirms",
+      "segment_id": "shot_06_vincent_affirms_a",
+      "prompt": "[Camera Move] Slow dolly-in inches closer, keeping the shallow depth on his eyes. [Character Actions & Reactions] Adult man in a tailored matte-black suit; low-angle close-up bathed in a warm glow; gaze locked into the case; speaking softly with minimal movement; an unlit cigarette between his lips exhales a hushed affirmation: \"Yeah... we happy.\" His lips form each word with minimal motion; eyes never leave the glow; the cigarette remains unlit and steady. After the final word, his jaw softens and he holds the gaze. [Lip Constraint] Mouth moves to match speech. [Ambient Motion] The glow pulses almost imperceptibly; a faint wisp of haze drifts; a loose hair and tie tip barely stir; end on a held, centered close-up for a clean out.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": null,
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 3.062,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 49,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    }
+  ],
+  "total_shots": 6,
+  "estimated_duration": 18.3
+}

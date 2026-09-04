@@ -1,0 +1,105 @@
+{
+  "project_title": "Royale with Cheese - LA Morning",
+  "global_style": "Naturalistic 1990s neo-noir; bright Californian sunlight; tight locked close-ups; minimal palette (black suits, tan leather); rhythmic, casual pacing; emphasis on pop-culture dialogue.",
+  "project_settings": {
+    "location_lock": "Los Angeles, California, USA (NOT New York, NOT Europe)",
+    "negative_constraints": [
+      "Mediterranean architecture",
+      "New York brownstones",
+      "nighttime lighting",
+      "European city streets",
+      "Italian countryside"
+    ],
+    "style_overrides": {
+      "color_palette": "Warm California morning sunlight, strong contrast",
+      "architecture": "Automotive interior only, no exterior landmarks",
+      "wardrobe": "Crisp black suits, white shirts, narrow ties"
+    },
+    "era_lock": "1990s America"
+  },
+  "narrative_context": {
+    "time_period": "1990s Los Angeles morning",
+    "global_mood": "Relaxed, cool, rhythmic",
+    "key_events": [
+      "Vincent Vega and Jules Winnfield ride in a moving vintage car, smoking.",
+      "Jules asks a question over the engine hum and shifting light.",
+      "Vincent replies in voiceover: \"They call it a Royale with Cheese.\""
+    ],
+    "cultural_context": "1990s American urban culture; LA car-centric life; casual fast-food pop-culture banter."
+  },
+  "characters": [
+    {
+      "id": "char_vincent_vega",
+      "name": "Vincent Vega",
+      "description": "A man in a crisp black suit, relaxed and composed, smoking casually in a cramped leather car interior; his face catches shifting bright Los Angeles sunlight and moving street shadows.",
+      "clothing_style": "Crisp black suit, white shirt, narrow tie; minimal accessories.",
+      "voice_preset_id": null,
+      "voice_description": "Dry, laid-back, understated; calm delivery with a sardonic edge.",
+      "voice_design": null,
+      "personality": "Cool, detached, amiable; goes with the flow, observant, unhurried.",
+      "backstory": "Professional partner to Jules; accustomed to casual banter during drives.",
+      "current_motivation": "Share a pop-culture observation and keep the ride relaxed.",
+      "scene_count": 1,
+      "dialogue_lines": 1,
+      "key_relationships": [
+        "char_jules_winnfield"
+      ],
+      "visual_references": null,
+      "audio_references": null
+    },
+    {
+      "id": "char_jules_winnfield",
+      "name": "Jules Winnfield",
+      "description": "A man in a crisp black suit, expressive yet controlled, at ease in the cramped leather interior; shifting sunlight and passing shadows play across his features as he engages with rhythmic gestures.",
+      "clothing_style": "Crisp black suit, white shirt, thin tie; confident posture.",
+      "voice_preset_id": null,
+      "voice_description": "Resonant, confident, rhythmic cadence; conversational warmth with a probing edge.",
+      "voice_design": null,
+      "personality": "Commanding yet easygoing; curious, sharp, enjoys playful debate.",
+      "backstory": "Works closely with Vincent; comfortable exchanging questions during drives.",
+      "current_motivation": "Prompt Vincent and keep the conversation flowing.",
+      "scene_count": 1,
+      "dialogue_lines": 1,
+      "key_relationships": [
+        "char_vincent_vega"
+      ],
+      "visual_references": null,
+      "audio_references": null
+    }
+  ],
+  "locations": [
+    {
+      "id": "loc_int_moving_car",
+      "name": "Moving Car - Front Seats",
+      "type": "INT",
+      "visual_style": "Bright California sun casting moving shadows; tight close framing on faces; tan leather interior, reflective windows; rhythmic engine hum; morning clarity.",
+      "narrative_function": "Transit space for intimate conversation.",
+      "time_of_day_stats": {
+        "MORNING": 1
+      },
+      "visual_references": null,
+      "audio_references": null,
+      "usage_count": 1
+    }
+  ],
+  "props": [
+    {
+      "id": "prop_cigarette",
+      "name": "Cigarette",
+      "related_character_id": null,
+      "visual_description": "White filtered cigarette with glowing ember and faint blue-gray smoke trail; handheld between fingers, ash ready to tap.",
+      "importance": "supporting",
+      "usage_count": 1,
+      "visual_references": null
+    },
+    {
+      "id": "prop_vintage_car",
+      "name": "Vintage Car",
+      "related_character_id": null,
+      "visual_description": "Vintage American sedan interior: tan leather seats, chrome accents, narrow windows; slightly cramped front seating and textured dash.",
+      "importance": "critical",
+      "usage_count": 1,
+      "visual_references": null
+    }
+  ]
+}

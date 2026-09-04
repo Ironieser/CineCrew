@@ -1,0 +1,80 @@
+{
+  "project_title": "Gatsby Fireworks Toast",
+  "global_style": "Opulent Art Deco glamour; warm golden palette; shallow depth of field; smooth camera glide; exterior night fireworks backlight; romantic nostalgia.",
+  "project_settings": {
+    "location_lock": null,
+    "negative_constraints": [],
+    "style_overrides": {
+      "color_palette": "Warm golds and champagne tones",
+      "fashion": "1920s formalwear",
+      "lighting": "Fireworks backlight with warm fill"
+    },
+    "era_lock": "Roaring Twenties (1920s)"
+  },
+  "narrative_context": {
+    "time_period": "Roaring Twenties, 1920s night",
+    "global_mood": "Opulent, nostalgic, enchanting",
+    "key_events": [
+      "Camera glides past blurred partygoers toward a tuxedoed man.",
+      "Golden fireworks erupt, bathing the scene in warm light.",
+      "He turns, revealing a rare, magnetic smile.",
+      "He raises a crystal coupe in a silent toast.",
+      "A gentle voiceover: \"I'm Gatsby.\""
+    ],
+    "cultural_context": "Jazz Age opulence and high-society parties; Art Deco aesthetics; champagne-fueled celebration."
+  },
+  "characters": [
+    {
+      "id": "char_gatsby",
+      "name": "Gatsby",
+      "description": "Sharply dressed man in a classic black tuxedo, poised; luminous, magnetic smile under warm fireworks glow.",
+      "clothing_style": "1920s formal: black tuxedo with satin lapels, crisp white shirt, black bow tie, polished shoes.",
+      "voice_preset_id": null,
+      "voice_description": "Gentle, nostalgic male voice; soft, reassuring tone; minimal delivery.",
+      "voice_design": null,
+      "personality": "Charismatic, enigmatic, self-possessed, gracious; projects warmth with restraint.",
+      "backstory": "Little revealed; known simply as \"Gatsby\" amid a lavish 1920s party.",
+      "current_motivation": "To reveal his identity and offer a silent, reassuring toast.",
+      "scene_count": 1,
+      "dialogue_lines": 1,
+      "key_relationships": [],
+      "visual_references": null,
+      "audio_references": null
+    }
+  ],
+  "locations": [
+    {
+      "id": "loc_ext_roaring_twenties_party",
+      "name": "Roaring Twenties Party (Exterior)",
+      "type": "EXT",
+      "visual_style": "Open-air night under golden fireworks; opulent, champagne-lit ambiance; guests blurred; warm Art Deco glamour.",
+      "narrative_function": "Introduction reveal; place of spectacle and allure.",
+      "time_of_day_stats": {
+        "NIGHT": 1
+      },
+      "visual_references": null,
+      "audio_references": null,
+      "usage_count": 1
+    }
+  ],
+  "props": [
+    {
+      "id": "prop_champagne_coupe",
+      "name": "Crystal Champagne Coupe",
+      "related_character_id": "char_gatsby",
+      "visual_description": "Shallow, wide-bowled crystal coupe filled with effervescent champagne, catching warm golden fireworks light during the toast.",
+      "importance": "critical",
+      "usage_count": 1,
+      "visual_references": null
+    },
+    {
+      "id": "prop_fireworks_display",
+      "name": "Golden Fireworks Display",
+      "related_character_id": null,
+      "visual_description": "Magnificent golden fireworks erupting in the night sky, illuminating the party with warm, opulent light.",
+      "importance": "supporting",
+      "usage_count": 1,
+      "visual_references": null
+    }
+  ]
+}

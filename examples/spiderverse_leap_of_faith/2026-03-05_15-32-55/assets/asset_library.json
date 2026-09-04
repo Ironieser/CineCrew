@@ -1,0 +1,86 @@
+{
+  "project_title": "Leap of Faith (Neon Rooftop Excerpt)",
+  "global_style": "Highly stylized, neon-lit comic book aesthetic with halftone textures, bold contrasts, kinetic motion blur, and shifting frame rates; dynamic camera, including 180-degree inversion to dramatize the leap of faith.",
+  "project_settings": {
+    "location_lock": "New York City, USA (NOT Los Angeles, NOT Tokyo)",
+    "negative_constraints": [
+      "Mediterranean architecture",
+      "daytime sunshine",
+      "pastoral countryside",
+      "period costumes",
+      "rural landscapes"
+    ],
+    "style_overrides": {
+      "color_palette": "Neon blues, magentas, cyans; high-contrast blacks",
+      "architecture": "Modern glass-and-steel skyscrapers; urban rooftops",
+      "cinematography": "Comic-book framing, halftone textures, extreme angles, 180-degree inversion",
+      "frame_rate": "Variable frame rates to emphasize emotion and motion"
+    },
+    "era_lock": "Contemporary urban setting"
+  },
+  "narrative_context": {
+    "time_period": "Contemporary New York City, night",
+    "global_mood": "Exhilarating, vertigo-inducing, courageous, introspective",
+    "key_events": [
+      "A young superhero stands at the extreme edge of a New York skyscraper.",
+      "He falls backward into the neon-lit abyss of the city.",
+      "The camera violently inverts 180°, creating the illusion of rising into the sky.",
+      "He spreads his arms, embracing a leap of faith as shattering glass sounds echo."
+    ],
+    "cultural_context": "Superhero genre; urban New York skyline; stylized comic-book/animation language using halftones, bold neon, and variable frame rates."
+  },
+  "characters": [
+    {
+      "id": "char_young_superhero",
+      "name": "Young Superhero",
+      "description": "Young masked hero at skyscraper edge; athletic build; wears black suit under a green jacket, red-and-blue sneakers; poised for a backward fall; silhouetted against neon city glow.",
+      "clothing_style": "Black suit beneath bright green jacket; red-and-blue high-top sneakers; urban streetwear meets superhero stealth.",
+      "voice_preset_id": null,
+      "voice_description": "Youthful, grounded, urban cadence; breathy with exertion; determined yet vulnerable; minimal dialogue.",
+      "voice_design": null,
+      "personality": "Courageous, conflicted, introspective, resilient; embracing risk to grow.",
+      "backstory": "A newly emerging hero confronting fear and self-doubt, learning to trust instinct and take a leap toward identity.",
+      "current_motivation": "Commit to the superhero path by trusting the fall and embracing the leap of faith.",
+      "scene_count": 1,
+      "dialogue_lines": 0,
+      "key_relationships": [],
+      "visual_references": null,
+      "audio_references": null
+    }
+  ],
+  "locations": [
+    {
+      "id": "loc_ext_new_york_skyscraper_rooftop",
+      "name": "New York Skyscraper Rooftop",
+      "type": "EXT",
+      "visual_style": "Neon-lit New York skyline at night; towering glass-and-steel rooftop ledge; comic halftones and bold contrasts; vertiginous depth; 180-degree inversion illusion; kinetic city glow and motion.",
+      "narrative_function": "Turning-point platform for leap of faith.",
+      "time_of_day_stats": {
+        "NIGHT": 1
+      },
+      "visual_references": null,
+      "audio_references": null,
+      "usage_count": 1
+    }
+  ],
+  "props": [
+    {
+      "id": "prop_green_jacket",
+      "name": "Green Jacket",
+      "related_character_id": "char_young_superhero",
+      "visual_description": "Bright green casual jacket worn over a black suit; wind-rippled; high-contrast comic shading; distinctive silhouette accent.",
+      "importance": "supporting",
+      "usage_count": 1,
+      "visual_references": null
+    },
+    {
+      "id": "prop_red_blue_sneakers",
+      "name": "Red-and-Blue Sneakers",
+      "related_character_id": "char_young_superhero",
+      "visual_description": "Red-and-blue high-top sneakers with white soles; graphic outlines and halftone texture; emphasize youth and kinetic movement.",
+      "importance": "supporting",
+      "usage_count": 1,
+      "visual_references": null
+    }
+  ]
+}

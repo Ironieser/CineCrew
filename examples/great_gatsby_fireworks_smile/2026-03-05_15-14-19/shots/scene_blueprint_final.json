@@ -1,0 +1,122 @@
+{
+  "blueprint_id": "bp_great_gatsby_fireworks_smile_5d9d31",
+  "metadata": {
+    "project_name": "Gatsby Fireworks Toast",
+    "target_resolution": "1280x720",
+    "target_aspect_ratio": "16:9",
+    "global_fps": 16
+  },
+  "global_style": "Opulent Art Deco glamour; warm golden palette; shallow depth of field; smooth camera glide; exterior night fireworks backlight; romantic nostalgia.",
+  "final_film_path": null,
+  "shots": [
+    {
+      "shot_id": "shot_01_gatsby_silent_toast",
+      "narrative_layer": {
+        "narrative_action": "The camera glides past blurred partygoers to the back of a tuxedoed man as golden fireworks erupt; he slowly turns, breaks into a rare magnetic smile, and raises a crystal champagne coupe in a silent toast.",
+        "emotional_beat": "revelatory_warmth",
+        "dialogue": {
+          "has_dialogue": true,
+          "speaker_asset_id": "char_gatsby",
+          "listener_asset_id": "group",
+          "text": "I'm Gatsby.",
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 6.5,
+        "camera": {
+          "shot_scale": "MCU",
+          "angle": "low",
+          "movement": "slow_dolly_in"
+        },
+        "lighting": "Fireworks backlight with warm fill",
+        "environment_id": "loc_ext_roaring_twenties_party",
+        "entities": [
+          {
+            "asset_id": "char_gatsby",
+            "position": "center_fg",
+            "action_state": "turning_to_camera_smiling_raising_coupe"
+          },
+          {
+            "asset_id": "prop_champagne_coupe",
+            "position": "center_fg_right",
+            "action_state": "held_in_right_hand_raised_for_toast"
+          },
+          {
+            "asset_id": "prop_fireworks_display",
+            "position": "background_top_center",
+            "action_state": "erupting_bursts"
+          }
+        ],
+        "consistency_constraints": [
+          "ERA LOCK: Roaring Twenties (1920s)",
+          "COLOR_PALETTE: Warm golds and champagne tones",
+          "FASHION: 1920s formalwear",
+          "LIGHTING: Fireworks backlight with warm fill",
+          "Maintain shallow depth of field — background partygoers remain blurred bokeh",
+          "Subtle rack focus to Gatsby during his turn and toast",
+          "Camera maintains slight low angle to place fireworks in the sky behind Gatsby",
+          "Gatsby remains framed center throughout the shot"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Opulent Art Deco glamour with a warm golden palette; shallow depth of field; MCU at a slight low angle. Lighting: fireworks backlight with warm fill—golden rim from <prop_fireworks_display> outlines shoulders and profile edges while a gentle warm bounce lifts tux textures. <char_gatsby> stands center foreground, back to camera, shoulders squared and relaxed; head subtly cocked as if sensing the lens; right hand loosely holding <prop_champagne_coupe> near his right hip, bowl tilted a touch toward level; left arm at his side. He dominates the frame due to the low angle and central placement; eyeline is implied toward the lens but not yet turned; presence is controlled and inviting. Environment: within <loc_ext_roaring_twenties_party>, the first golden bloom of <prop_fireworks_display> is beginning high top center; the background remains a soft bokeh of revelry and lights, placing him against a haloed night sky.",
+          "characters_in_shot": [
+            "char_gatsby"
+          ],
+          "character_appearances": {
+            "char_gatsby": "Adult man, classic 1920s black tuxedo with satin lapels, crisp white shirt, black bow tie, polished shoes; standing upright with back to camera, right hand holding a crystal coupe at waist height; composed, expectant warmth just before turning."
+          },
+          "resolved_t2i": "Opulent Art Deco glamour with a warm golden palette; shallow depth of field; MCU at a slight low angle. Lighting: fireworks backlight with warm fill—golden rim from <prop_fireworks_display> outlines shoulders and profile edges while a gentle warm bounce lifts tux textures. Adult man in a classic 1920s black tuxedo with satin lapels, crisp white shirt, black bow tie, and polished shoes; standing tall with his back to camera, right hand holding a crystal coupe at waist height; composed and poised, an expectant warmth just before he turns. stands center foreground, back to camera, shoulders squared and relaxed; head subtly cocked as if sensing the lens; right hand loosely holding <prop_champagne_coupe> near his right hip, bowl tilted a touch toward level; left arm at his side. He dominates the frame due to the low angle and central placement; eyeline is implied toward the lens but not yet turned; presence is controlled and inviting. Environment: within <loc_ext_roaring_twenties_party>, the first golden bloom of <prop_fireworks_display> is beginning high top center; the background remains a soft bokeh of revelry and lights, placing him against a haloed night sky.",
+          "resolved_ti2i": "Picture 1 is Adult man in a classic 1920s black tuxedo with satin lapels, crisp white shirt, black bow tie, and polished shoes; standing tall with his back to camera, right hand holding a crystal coupe at waist height; composed and poised, an expectant warmth just before he turns..\nOpulent Art Deco glamour with a warm golden palette; shallow depth of field; MCU at a slight low angle. Lighting: fireworks backlight with warm fill—golden rim from <prop_fireworks_display> outlines shoulders and profile edges while a gentle warm bounce lifts tux textures. Picture 1 stands center foreground, back to camera, shoulders squared and relaxed; head subtly cocked as if sensing the lens; right hand loosely holding <prop_champagne_coupe> near his right hip, bowl tilted a touch toward level; left arm at his side. He dominates the frame due to the low angle and central placement; eyeline is implied toward the lens but not yet turned; presence is controlled and inviting. Environment: within <loc_ext_roaring_twenties_party>, the first golden bloom of <prop_fireworks_display> is beginning high top center; the background remains a soft bokeh of revelry and lights, placing him against a haloed night sky.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Slow dolly-in on a low axis, maintaining center framing; subtle rack focus shifts from the golden bokeh and rim to <char_gatsby>'s turning face. <char_gatsby> inhales almost imperceptibly, shoulders soften; he pivots from back to three-quarter and then to face the lens. His expression warms into a rare, magnetic smile as the golden rim slides across his jawline. He lifts <prop_champagne_coupe> smoothly from waist to eye level, crystal catching and refracting the fireworks glow; he holds it steady in a silent, gracious toast, eyeline locking gently to the viewer. Mouth moves to match speech. Ambient motion: <prop_fireworks_display> blossoms behind in layered golden bursts; drifting embers and faint smoke trail down; champagne bubbles rise and glint in the coupe; a light night breeze stirs tux lapels and hair; distant blurred figures and lights in <loc_ext_roaring_twenties_party> shimmer with subtle sway. Camera eases to a tight MCU, low angle maintained, with <char_gatsby> centered, coupe held at eye line and smile settled, ready for a clean cut.",
+          "resolved_i2v": "Slow dolly-in on a low axis, maintaining center framing; subtle rack focus shifts from the golden bokeh and rim to Adult man in a classic 1920s black tuxedo with satin lapels, crisp white shirt, black bow tie, and polished shoes; standing tall with his back to camera, right hand holding a crystal coupe at waist height; composed and poised, an expectant warmth just before he turns.'s turning face. Adult man in a classic 1920s black tuxedo with satin lapels, crisp white shirt, black bow tie, and polished shoes; standing tall with his back to camera, right hand holding a crystal coupe at waist height; composed and poised, an expectant warmth just before he turns. inhales almost imperceptibly, shoulders soften; he pivots from back to three-quarter and then to face the lens. His expression warms into a rare, magnetic smile as the golden rim slides across his jawline. He lifts <prop_champagne_coupe> smoothly from waist to eye level, crystal catching and refracting the fireworks glow; he holds it steady in a silent, gracious toast, eyeline locking gently to the viewer. Mouth moves to match speech. Ambient motion: <prop_fireworks_display> blossoms behind in layered golden bursts; drifting embers and faint smoke trail down; champagne bubbles rise and glint in the coupe; a light night breeze stirs tux lapels and hair; distant blurred figures and lights in <loc_ext_roaring_twenties_party> shimmer with subtle sway. Camera eases to a tight MCU, low angle maintained, with Adult man in a classic 1920s black tuxedo with satin lapels, crisp white shirt, black bow tie, and polished shoes; standing tall with his back to camera, right hand holding a crystal coupe at waist height; composed and poised, an expectant warmth just before he turns. centered, coupe held at eye line and smile settled, ready for a clean cut.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.3,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": true,
+            "sync_method": "musetalk",
+            "audio_source_ref": "assembly_layer.audio_tracks[0]"
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "fade_in",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_01_gatsby_silent_toast_dialogue",
+            "type": "dialogue",
+            "source": "tts_default",
+            "description": "I'm Gatsby."
+          },
+          {
+            "track_id": "shot_01_gatsby_silent_toast_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    }
+  ]
+}

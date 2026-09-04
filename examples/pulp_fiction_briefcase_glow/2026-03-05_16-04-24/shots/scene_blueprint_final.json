@@ -1,0 +1,668 @@
+{
+  "blueprint_id": "bp_pulp_fiction_briefcase_glow_52076f",
+  "metadata": {
+    "project_name": "Golden Briefcase Reveal",
+    "target_resolution": "1280x720",
+    "target_aspect_ratio": "16:9",
+    "global_fps": 16
+  },
+  "global_style": "Neo-noir, high-contrast chiaroscuro, dramatic low angles and tight close-ups; motivated warm golden practical against deep, cool shadows; cinematic suspense with minimalist framing.",
+  "final_film_path": null,
+  "shots": [
+    {
+      "shot_id": "shot_01_vincent_dials_case",
+      "narrative_layer": {
+        "narrative_action": "Vincent leans over the sleek black briefcase and slowly turns the combination dials to 6-6-6.",
+        "emotional_beat": "rising_tension",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 4.0,
+        "camera": {
+          "shot_scale": "ECU",
+          "angle": "low",
+          "movement": "slow_dolly_in"
+        },
+        "lighting": "low-key chiaroscuro pre-glow; cool desaturated shadows with faint warm edge from briefcase seam; rapid falloff into darkness",
+        "environment_id": "loc_int_shadowy_room",
+        "entities": [
+          {
+            "asset_id": "prop_black_briefcase",
+            "position": "center_fg",
+            "action_state": "combination_dials turning to 6-6-6; lid closed"
+          },
+          {
+            "asset_id": "char_vincent",
+            "position": "foreground_right",
+            "action_state": "leaning_over; right hand turning dials"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Shadowy interior room (urban apartment or warehouse), modern city, strictly indoors (NOT outdoors, NOT Mediterranean villa, NOT suburban living room)",
+          "ERA LOCK: Contemporary modern era (1990s–2020s), timeless urban crime-noir",
+          "FORBIDDEN: Historical period dress (Victorian, 1920s, 1940s fedoras/trench coats), Vintage tech (CRT TVs, rotary phones, typewriters, payphones), Futuristic tech (holograms, AR UI, biometric scanners, LED matrix lighting), Neon cyberpunk color schemes (magenta/teal glow), Bright, high-key or flat lighting; white fluorescent overheads, Exterior views (windows showing daylight, city skyline, palm trees), Outdoor locations (streets, cars, alleys), Religious or supernatural depictions inside the briefcase (angels, demons, skulls, cosmic portals), Text or symbols that explain or reveal the briefcase's contents, Explicit references to specific films or characters (Pulp Fiction, Jules, Vincent Vega, Marcellus Wallace), Mediterranean or European architectural elements, Obvious product logos or brand placements, Smartphones, laptops, modern screens visible in frame, Gunfire or visible firearms, Police sirens or flashing red/blue lights, Comedic tone, slapstick, or camp, Overt teal–orange blockbuster grading",
+          "COLOR_PALETTE: Deep blacks and cool desaturated shadows contrasted with an intense warm golden glow",
+          "LIGHTING_STYLE: Low-key, high-contrast chiaroscuro; single warm source motivated by the briefcase; rapid falloff into darkness",
+          "ARCHITECTURE: Industrial urban interior (concrete/brick, minimal ornamentation), timeless and contemporary",
+          "SET_DESIGN: Sparse, worn, utilitarian room; clutter minimal; no visible windows or windows blacked out",
+          "PROPS_STYLE: Sleek black hard-shell briefcase with mechanical combination dials (6-6-6); neutral modern furnishings",
+          "WARDROBE: Contemporary dark suit in matte fabrics; no vintage silhouettes or flashy patterns",
+          "CAMERA_LANGUAGE: Extreme low angle and tight close-ups; slow push-in; shallow depth of field",
+          "MOOD_TONE: Mysterious, tense, hypnotic crime-noir with visual contrast and suspense",
+          "VFX_STYLE: Subtle volumetric warm glow from the case; contents never shown; no exaggerated beams or particles beyond gentle haze",
+          "Shot-specific: Combination dials must clearly read 6-6-6 at the end of the turn",
+          "Shot-specific: Briefcase remains closed; only a hairline warm edge leak permitted",
+          "Shot-specific: Vincent’s cigarette remains unlit (if visible)"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Neo-noir stillness at an extreme low-angle ECU on the lock: low-key chiaroscuro with cool desaturated shadows; a faint warm sliver breathes along the seam of <prop_black_briefcase>, lid shut. The combination dials sit misaligned. From frame right, <char_vincent>'s right hand hovers a millimeter above the knurled wheels, fingertips poised to begin the turn while his off-hand braces the case edge out of frame. Eyeline is angled downward—though his face is largely out of frame, his posture communicates intent and restraint. Power center is the briefcase lock dominating the frame; <char_vincent> intrudes as a precise, tense presence. The industrial interior falls into darkness with rapid falloff; shallow depth isolates the mechanism; a subtle haze rims the warm edge without revealing anything inside.",
+          "characters_in_shot": [
+            "char_vincent"
+          ],
+          "character_appearances": {
+            "char_vincent": "Adult man, tailored matte black suit with crisp white shirt and slim black tie; leaning over the briefcase, right hand poised on the combination dials; focused, controlled tension; unlit cigarette possibly present but mostly out of frame"
+          },
+          "resolved_t2i": "Neo-noir stillness at an extreme low-angle ECU on the lock: low-key chiaroscuro with cool desaturated shadows; a faint warm sliver breathes along the seam of <prop_black_briefcase>, lid shut. The combination dials sit misaligned. From frame right, Adult man in a tailored matte black suit with a crisp white shirt and slim black tie; leaning over the briefcase, right hand poised on the combination dials; focused, controlled tension; an unlit cigarette may edge the frame but stays mostly out of view's right hand hovers a millimeter above the knurled wheels, fingertips poised to begin the turn while his off-hand braces the case edge out of frame. Eyeline is angled downward—though his face is largely out of frame, his posture communicates intent and restraint. Power center is the briefcase lock dominating the frame; Adult man in a tailored matte black suit with a crisp white shirt and slim black tie; leaning over the briefcase, right hand poised on the combination dials; focused, controlled tension; an unlit cigarette may edge the frame but stays mostly out of view intrudes as a precise, tense presence. The industrial interior falls into darkness with rapid falloff; shallow depth isolates the mechanism; a subtle haze rims the warm edge without revealing anything inside.",
+          "resolved_ti2i": "Picture 1 is Adult man in a tailored matte black suit with a crisp white shirt and slim black tie; leaning over the briefcase, right hand poised on the combination dials; focused, controlled tension; an unlit cigarette may edge the frame but stays mostly out of view.\nNeo-noir stillness at an extreme low-angle ECU on the lock: low-key chiaroscuro with cool desaturated shadows; a faint warm sliver breathes along the seam of <prop_black_briefcase>, lid shut. The combination dials sit misaligned. From frame right, Picture 1's right hand hovers a millimeter above the knurled wheels, fingertips poised to begin the turn while his off-hand braces the case edge out of frame. Eyeline is angled downward—though his face is largely out of frame, his posture communicates intent and restraint. Power center is the briefcase lock dominating the frame; Picture 1 intrudes as a precise, tense presence. The industrial interior falls into darkness with rapid falloff; shallow depth isolates the mechanism; a subtle haze rims the warm edge without revealing anything inside.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "[Camera Move] Slow dolly-in from the extreme low angle, micro rack settling onto the dials. [Character Actions & Reactions] <char_vincent>'s fingertips land and rotate the wheels one by one: the first clicks into 6, the second into 6, the third into 6; his wrist flexes with measured precision, breath held. As the last number drops into place, the mechanism tightens and a hairline of warm light breathes at the seam of <prop_black_briefcase>; the lid remains closed. [Lip Constraint] Mouth remains tightly closed. No speaking. [Ambient Motion] Sleeve fabric creases subtly; a faint smoky haze eddies near the seam; shallow focus breathes as the dials stop clearly on 6-6-6, setting up the imminent latch release.",
+          "resolved_i2v": "[Camera Move] Slow dolly-in from the extreme low angle, micro rack settling onto the dials. [Character Actions & Reactions] Adult man in a tailored matte black suit with a crisp white shirt and slim black tie; leaning over the briefcase, right hand poised on the combination dials; focused, controlled tension; an unlit cigarette may edge the frame but stays mostly out of view's fingertips land and rotate the wheels one by one: the first clicks into 6, the second into 6, the third into 6; his wrist flexes with measured precision, breath held. As the last number drops into place, the mechanism tightens and a hairline of warm light breathes at the seam of <prop_black_briefcase>; the lid remains closed. [Lip Constraint] Mouth remains tightly closed. No speaking. [Ambient Motion] Sleeve fabric creases subtly; a faint smoky haze eddies near the seam; shallow focus breathes as the dials stop clearly on 6-6-6, setting up the imminent latch release.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.3,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "fade_in",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_01_vincent_dials_case_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_02_latches_pop_open",
+      "narrative_layer": {
+        "narrative_action": "A sharp click sounds as the latches release and Vincent lifts the lid of the briefcase.",
+        "emotional_beat": "sudden_reveal",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 2.2,
+        "camera": {
+          "shot_scale": "CU",
+          "angle": "low",
+          "movement": "rack_focus + slight_tilt_up"
+        },
+        "lighting": "low-key chiaroscuro; first warm spill emerges as lid lifts; deep cool shadows elsewhere",
+        "environment_id": "loc_int_shadowy_room",
+        "entities": [
+          {
+            "asset_id": "prop_black_briefcase",
+            "position": "center_fg",
+            "action_state": "latches releasing; lid beginning to rise"
+          },
+          {
+            "asset_id": "char_vincent",
+            "position": "foreground_right",
+            "action_state": "hand lifting lid"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Shadowy interior room (urban apartment or warehouse), modern city, strictly indoors (NOT outdoors, NOT Mediterranean villa, NOT suburban living room)",
+          "ERA LOCK: Contemporary modern era (1990s–2020s), timeless urban crime-noir",
+          "FORBIDDEN: Historical period dress (Victorian, 1920s, 1940s fedoras/trench coats), Vintage tech (CRT TVs, rotary phones, typewriters, payphones), Futuristic tech (holograms, AR UI, biometric scanners, LED matrix lighting), Neon cyberpunk color schemes (magenta/teal glow), Bright, high-key or flat lighting; white fluorescent overheads, Exterior views (windows showing daylight, city skyline, palm trees), Outdoor locations (streets, cars, alleys), Religious or supernatural depictions inside the briefcase (angels, demons, skulls, cosmic portals), Text or symbols that explain or reveal the briefcase's contents, Explicit references to specific films or characters (Pulp Fiction, Jules, Vincent Vega, Marcellus Wallace), Mediterranean or European architectural elements, Obvious product logos or brand placements, Smartphones, laptops, modern screens visible in frame, Gunfire or visible firearms, Police sirens or flashing red/blue lights, Comedic tone, slapstick, or camp, Overt teal–orange blockbuster grading",
+          "COLOR_PALETTE: Deep blacks and cool desaturated shadows contrasted with an intense warm golden glow",
+          "LIGHTING_STYLE: Low-key, high-contrast chiaroscuro; single warm source motivated by the briefcase; rapid falloff into darkness",
+          "ARCHITECTURE: Industrial urban interior (concrete/brick, minimal ornamentation), timeless and contemporary",
+          "SET_DESIGN: Sparse, worn, utilitarian room; clutter minimal; no visible windows or windows blacked out",
+          "PROPS_STYLE: Sleek black hard-shell briefcase with mechanical combination dials (6-6-6); neutral modern furnishings",
+          "WARDROBE: Contemporary dark suit in matte fabrics; no vintage silhouettes or flashy patterns",
+          "CAMERA_LANGUAGE: Extreme low angle and tight close-ups; slow push-in; shallow depth of field",
+          "MOOD_TONE: Mysterious, tense, hypnotic crime-noir with visual contrast and suspense",
+          "VFX_STYLE: Subtle volumetric warm glow from the case; contents never shown; no exaggerated beams or particles beyond gentle haze",
+          "Shot-specific: Emphasize the latch release moment; contents must remain unseen as lid begins to rise",
+          "Shot-specific: Initial warm spill should flare subtly; no visible interior details",
+          "Shot-specific: Vincent’s cigarette remains unlit (if visible)"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Low-angle close-up in noir chiaroscuro: <prop_black_briefcase>'s latch is centered, lid still closed, the combination wheels already aligned at 6-6-6. <char_vincent>'s thumb rests beneath the latch tab with tension coiled, fingertips curved over the lid edge ready to lift. His body leans in from frame right, eyeline and posture directed down at the mechanism. The warm seam glints faintly while the rest collapses into cool deep shadow; no interior is visible.",
+          "characters_in_shot": [
+            "char_vincent"
+          ],
+          "character_appearances": {
+            "char_vincent": "Adult man, tailored matte black suit with crisp white shirt and slim black tie; hand braced at the latch and lid edge; intent focus, breath held; cigarette unlit if glimpsed"
+          },
+          "resolved_t2i": "Low-angle close-up in noir chiaroscuro: <prop_black_briefcase>'s latch is centered, lid still closed, the combination wheels already aligned at 6-6-6. Adult man in a tailored matte-black suit with a crisp white shirt and slim black tie; hand braced at the latch and lid edge; intent focus, breath held; cigarette unlit if glimpsed's thumb rests beneath the latch tab with tension coiled, fingertips curved over the lid edge ready to lift. His body leans in from frame right, eyeline and posture directed down at the mechanism. The warm seam glints faintly while the rest collapses into cool deep shadow; no interior is visible.",
+          "resolved_ti2i": "Picture 1 is Adult man in a tailored matte-black suit with a crisp white shirt and slim black tie; hand braced at the latch and lid edge; intent focus, breath held; cigarette unlit if glimpsed.\nLow-angle close-up in noir chiaroscuro: <prop_black_briefcase>'s latch is centered, lid still closed, the combination wheels already aligned at 6-6-6. Picture 1's thumb rests beneath the latch tab with tension coiled, fingertips curved over the lid edge ready to lift. His body leans in from frame right, eyeline and posture directed down at the mechanism. The warm seam glints faintly while the rest collapses into cool deep shadow; no interior is visible.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "[Camera Move] Hold for a beat, then rack focus from the numbers to the latch as the camera adds a slight tilt up to follow the lid. [Character Actions & Reactions] A sharp metallic click as the latch snaps free; <char_vincent>'s thumb flips the tab and he eases the lid upward, hinge murmuring. A first, controlled spill of warm golden light collects along the opening without showing the inside. [Lip Constraint] Mouth remains tightly closed. No speaking. [Ambient Motion] The glow wavers against subtle haze; soft shadows crawl over <char_vincent>'s knuckles; shallow depth blooms along the lid as it rises just enough to motivate the next reveal.",
+          "resolved_i2v": "[Camera Move] Hold for a beat, then rack focus from the numbers to the latch as the camera adds a slight tilt up to follow the lid. [Character Actions & Reactions] A sharp metallic click as the latch snaps free; Adult man in a tailored matte-black suit with a crisp white shirt and slim black tie; hand braced at the latch and lid edge; intent focus, breath held; cigarette unlit if glimpsed's thumb flips the tab and he eases the lid upward, hinge murmuring. A first, controlled spill of warm golden light collects along the opening without showing the inside. [Lip Constraint] Mouth remains tightly closed. No speaking. [Ambient Motion] The glow wavers against subtle haze; soft shadows crawl over Adult man in a tailored matte-black suit with a crisp white shirt and slim black tie; hand braced at the latch and lid edge; intent focus, breath held; cigarette unlit if glimpsed's knuckles; shallow depth blooms along the lid as it rises just enough to motivate the next reveal.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.5,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_02_latches_pop_open_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_03_golden_light_spills",
+      "narrative_layer": {
+        "narrative_action": "An intense warm golden light pours from the briefcase and floods the dark room.",
+        "emotional_beat": "awe_surge",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 3.2,
+        "camera": {
+          "shot_scale": "MLS",
+          "angle": "low",
+          "movement": "slow_dolly_in"
+        },
+        "lighting": "low-key chiaroscuro with intense warm spill from the briefcase; subtle haze for gentle volumetrics; rapid falloff to deep blacks",
+        "environment_id": "loc_int_shadowy_room",
+        "entities": [
+          {
+            "asset_id": "prop_black_briefcase",
+            "position": "foreground_center",
+            "action_state": "open; pouring warm light"
+          },
+          {
+            "asset_id": "char_vincent",
+            "position": "center_midground",
+            "action_state": "leaning_over; staring into light"
+          },
+          {
+            "asset_id": "prop_unlit_cigarette",
+            "position": "near_vincent_face",
+            "action_state": "clenched between lips; unlit"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Shadowy interior room (urban apartment or warehouse), modern city, strictly indoors (NOT outdoors, NOT Mediterranean villa, NOT suburban living room)",
+          "ERA LOCK: Contemporary modern era (1990s–2020s), timeless urban crime-noir",
+          "FORBIDDEN: Historical period dress (Victorian, 1920s, 1940s fedoras/trench coats), Vintage tech (CRT TVs, rotary phones, typewriters, payphones), Futuristic tech (holograms, AR UI, biometric scanners, LED matrix lighting), Neon cyberpunk color schemes (magenta/teal glow), Bright, high-key or flat lighting; white fluorescent overheads, Exterior views (windows showing daylight, city skyline, palm trees), Outdoor locations (streets, cars, alleys), Religious or supernatural depictions inside the briefcase (angels, demons, skulls, cosmic portals), Text or symbols that explain or reveal the briefcase's contents, Explicit references to specific films or characters (Pulp Fiction, Jules, Vincent Vega, Marcellus Wallace), Mediterranean or European architectural elements, Obvious product logos or brand placements, Smartphones, laptops, modern screens visible in frame, Gunfire or visible firearms, Police sirens or flashing red/blue lights, Comedic tone, slapstick, or camp, Overt teal–orange blockbuster grading",
+          "COLOR_PALETTE: Deep blacks and cool desaturated shadows contrasted with an intense warm golden glow",
+          "LIGHTING_STYLE: Low-key, high-contrast chiaroscuro; single warm source motivated by the briefcase; rapid falloff into darkness",
+          "ARCHITECTURE: Industrial urban interior (concrete/brick, minimal ornamentation), timeless and contemporary",
+          "SET_DESIGN: Sparse, worn, utilitarian room; clutter minimal; no visible windows or windows blacked out",
+          "PROPS_STYLE: Sleek black hard-shell briefcase with mechanical combination dials (6-6-6); neutral modern furnishings",
+          "WARDROBE: Contemporary dark suit in matte fabrics; no vintage silhouettes or flashy patterns",
+          "CAMERA_LANGUAGE: Extreme low angle and tight close-ups; slow push-in; shallow depth of field",
+          "MOOD_TONE: Mysterious, tense, hypnotic crime-noir with visual contrast and suspense",
+          "VFX_STYLE: Subtle volumetric warm glow from the case; contents never shown; no exaggerated beams or particles beyond gentle haze",
+          "Shot-specific: No interior contents visible; camera must never cross the plane of the case opening",
+          "Shot-specific: Maintain windowless feel; glow should illuminate only immediate surroundings",
+          "Shot-specific: Haze only to the extent of gentle volumetrics; no floating particles or beams"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Pre-surge tableau at a low-angle medium-long: <prop_black_briefcase> sits foreground center with its lid just cracked, inner edge brightening but not yet pouring; <char_vincent> hovers in center midground, shoulders hunched and drawn forward, gaze locked into the opening; <prop_unlit_cigarette> rests still between his lips. The case anchors the frame like a magnet; <char_vincent> is pulled into its orbit. Cool, near-black surroundings fall away while a hesitant warm rim along the lid hints at the coming flood; gentle haze gathers close to the case without visible particles.",
+          "characters_in_shot": [
+            "char_vincent"
+          ],
+          "character_appearances": {
+            "char_vincent": "Adult man, tailored matte black suit with crisp white shirt and slim black tie; upper body leaning toward the open case; eyes widening with awe; unlit cigarette clenched lightly between lips"
+          },
+          "resolved_t2i": "Pre-surge tableau at a low-angle medium-long: <prop_black_briefcase> sits foreground center with its lid just cracked, inner edge brightening but not yet pouring; Adult man in a tailored matte-black suit over a crisp white shirt and slim black tie; upper body pitched toward the open case; eyes widening in awe; an unlit cigarette lightly clenched between his lips hovers in center midground, shoulders hunched and drawn forward, gaze locked into the opening; <prop_unlit_cigarette> rests still between his lips. The case anchors the frame like a magnet; Adult man in a tailored matte-black suit over a crisp white shirt and slim black tie; upper body pitched toward the open case; eyes widening in awe; an unlit cigarette lightly clenched between his lips is pulled into its orbit. Cool, near-black surroundings fall away while a hesitant warm rim along the lid hints at the coming flood; gentle haze gathers close to the case without visible particles.",
+          "resolved_ti2i": "Picture 1 is Adult man in a tailored matte-black suit over a crisp white shirt and slim black tie; upper body pitched toward the open case; eyes widening in awe; an unlit cigarette lightly clenched between his lips.\nPre-surge tableau at a low-angle medium-long: <prop_black_briefcase> sits foreground center with its lid just cracked, inner edge brightening but not yet pouring; Picture 1 hovers in center midground, shoulders hunched and drawn forward, gaze locked into the opening; <prop_unlit_cigarette> rests still between his lips. The case anchors the frame like a magnet; Picture 1 is pulled into its orbit. Cool, near-black surroundings fall away while a hesitant warm rim along the lid hints at the coming flood; gentle haze gathers close to the case without visible particles.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "[Camera Move] Slow, deliberate dolly-in from the low angle toward the open case and <char_vincent>. [Character Actions & Reactions] The lid clears another inch and a warm golden light swells, spilling across the surface and climbing into <char_vincent>'s face; he leans closer, pupils dilate, shoulders slacken then freeze in awe; <prop_unlit_cigarette> rides a minute tremor at his lips, staying unlit. [Lip Constraint] Mouth remains tightly closed. No speaking. [Ambient Motion] The glow expands with rapid falloff into black; hazy air shifts subtly with no distinct particles or beams; lapels and tie edge breathe; end with his face approaching the opening, aligning to cue an inside-the-case POV next.",
+          "resolved_i2v": "[Camera Move] Slow, deliberate dolly-in from the low angle toward the open case and Adult man in a tailored matte-black suit over a crisp white shirt and slim black tie; upper body pitched toward the open case; eyes widening in awe; an unlit cigarette lightly clenched between his lips. [Character Actions & Reactions] The lid clears another inch and a warm golden light swells, spilling across the surface and climbing into Adult man in a tailored matte-black suit over a crisp white shirt and slim black tie; upper body pitched toward the open case; eyes widening in awe; an unlit cigarette lightly clenched between his lips's face; he leans closer, pupils dilate, shoulders slacken then freeze in awe; <prop_unlit_cigarette> rides a minute tremor at his lips, staying unlit. [Lip Constraint] Mouth remains tightly closed. No speaking. [Ambient Motion] The glow expands with rapid falloff into black; hazy air shifts subtly with no distinct particles or beams; lapels and tie edge breathe; end with his face approaching the opening, aligning to cue an inside-the-case POV next.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.3,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_03_golden_light_spills_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_04_vincent_bathed_meson",
+      "narrative_layer": {
+        "narrative_action": "Vincent’s face is illuminated by the glow as he stares into the briefcase, eyes wide and slack with hypnosis.",
+        "emotional_beat": "mesmerized_stillness",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 3.5,
+        "camera": {
+          "shot_scale": "POV",
+          "angle": "low",
+          "movement": "slow_dolly_in"
+        },
+        "lighting": "low-key chiaroscuro; strong warm glow on Vincent’s face; background collapses to near-black",
+        "environment_id": "loc_int_shadowy_room",
+        "entities": [
+          {
+            "asset_id": "char_vincent",
+            "position": "center_fg",
+            "action_state": "mesmerized stare into the briefcase"
+          },
+          {
+            "asset_id": "prop_unlit_cigarette",
+            "position": "near_vincent_face",
+            "action_state": "between lips; unlit"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Shadowy interior room (urban apartment or warehouse), modern city, strictly indoors (NOT outdoors, NOT Mediterranean villa, NOT suburban living room)",
+          "ERA LOCK: Contemporary modern era (1990s–2020s), timeless urban crime-noir",
+          "FORBIDDEN: Historical period dress (Victorian, 1920s, 1940s fedoras/trench coats), Vintage tech (CRT TVs, rotary phones, typewriters, payphones), Futuristic tech (holograms, AR UI, biometric scanners, LED matrix lighting), Neon cyberpunk color schemes (magenta/teal glow), Bright, high-key or flat lighting; white fluorescent overheads, Exterior views (windows showing daylight, city skyline, palm trees), Outdoor locations (streets, cars, alleys), Religious or supernatural depictions inside the briefcase (angels, demons, skulls, cosmic portals), Text or symbols that explain or reveal the briefcase's contents, Explicit references to specific films or characters (Pulp Fiction, Jules, Vincent Vega, Marcellus Wallace), Mediterranean or European architectural elements, Obvious product logos or brand placements, Smartphones, laptops, modern screens visible in frame, Gunfire or visible firearms, Police sirens or flashing red/blue lights, Comedic tone, slapstick, or camp, Overt teal–orange blockbuster grading",
+          "COLOR_PALETTE: Deep blacks and cool desaturated shadows contrasted with an intense warm golden glow",
+          "LIGHTING_STYLE: Low-key, high-contrast chiaroscuro; single warm source motivated by the briefcase; rapid falloff into darkness",
+          "ARCHITECTURE: Industrial urban interior (concrete/brick, minimal ornamentation), timeless and contemporary",
+          "SET_DESIGN: Sparse, worn, utilitarian room; clutter minimal; no visible windows or windows blacked out",
+          "PROPS_STYLE: Sleek black hard-shell briefcase with mechanical combination dials (6-6-6); neutral modern furnishings",
+          "WARDROBE: Contemporary dark suit in matte fabrics; no vintage silhouettes or flashy patterns",
+          "CAMERA_LANGUAGE: Extreme low angle and tight close-ups; slow push-in; shallow depth of field",
+          "MOOD_TONE: Mysterious, tense, hypnotic crime-noir with visual contrast and suspense",
+          "VFX_STYLE: Subtle volumetric warm glow from the case; contents never shown; no exaggerated beams or particles beyond gentle haze",
+          "Shot-specific: POV from inside the briefcase; use black frame edges to imply aperture; interior contents must remain unseen",
+          "Shot-specific: Catch warm reflections in Vincent’s eyes; cigarette remains unlit"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Interior POV from within <prop_black_briefcase>; frame edges vignetted to near-black, implying a narrow aperture. Suspended at the threshold, <char_vincent>'s face fills center foreground, skin caught in the warm glow; his eyes are on the verge of widening, pupils deep. <prop_unlit_cigarette> sits steady between his lips. He stares directly into the aperture—into us—while the world behind collapses to black. The perspective places him leaning in, drawn and supplicant to the unseen contents.",
+          "characters_in_shot": [
+            "char_vincent"
+          ],
+          "character_appearances": {
+            "char_vincent": "Adult man, tailored matte black suit; face close and centered, bathed in warm glow; eyes dilating, expression slackening into trance; unlit cigarette between lips"
+          },
+          "resolved_t2i": "Interior POV from within <prop_black_briefcase>; frame edges vignetted to near-black, implying a narrow aperture. Suspended at the threshold, Adult man in a tailored matte-black suit; face close and centered, bathed in warm glow; pupils dilating as his expression slackens into a trance; an unlit cigarette steady between his lips's face fills center foreground, skin caught in the warm glow; his eyes are on the verge of widening, pupils deep. <prop_unlit_cigarette> sits steady between his lips. He stares directly into the aperture—into us—while the world behind collapses to black. The perspective places him leaning in, drawn and supplicant to the unseen contents.",
+          "resolved_ti2i": "Picture 1 is Adult man in a tailored matte-black suit; face close and centered, bathed in warm glow; pupils dilating as his expression slackens into a trance; an unlit cigarette steady between his lips.\nInterior POV from within <prop_black_briefcase>; frame edges vignetted to near-black, implying a narrow aperture. Suspended at the threshold, Picture 1's face fills center foreground, skin caught in the warm glow; his eyes are on the verge of widening, pupils deep. <prop_unlit_cigarette> sits steady between his lips. He stares directly into the aperture—into us—while the world behind collapses to black. The perspective places him leaning in, drawn and supplicant to the unseen contents.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "[Camera Move] Subtle inward push from the interior POV, maintaining low-angle alignment on <char_vincent>'s face. [Character Actions & Reactions] His eyes widen by degrees; micro-muscles in brow and cheeks relax; he tilts infinitesimally closer; the cigarette quivers a hair yet remains unlit; he holds the gaze without blinking for a beat. [Lip Constraint] Mouth remains tightly closed. No speaking. [Ambient Motion] The warm glow breathes gently across his skin; faint haze pools at the vignetted edges; slow chest rise and a soft cloth rustle are visible; finish with a minute shoulder shift that opens an over-the-shoulder line for the next shot.",
+          "resolved_i2v": "[Camera Move] Subtle inward push from the interior POV, maintaining low-angle alignment on Adult man in a tailored matte-black suit; face close and centered, bathed in warm glow; pupils dilating as his expression slackens into a trance; an unlit cigarette steady between his lips's face. [Character Actions & Reactions] His eyes widen by degrees; micro-muscles in brow and cheeks relax; he tilts infinitesimally closer; the cigarette quivers a hair yet remains unlit; he holds the gaze without blinking for a beat. [Lip Constraint] Mouth remains tightly closed. No speaking. [Ambient Motion] The warm glow breathes gently across his skin; faint haze pools at the vignetted edges; slow chest rise and a soft cloth rustle are visible; finish with a minute shoulder shift that opens an over-the-shoulder line for the next shot.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.3,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_04_vincent_bathed_meson_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_05_voice_we_happy",
+      "narrative_layer": {
+        "narrative_action": "An unseen voice cuts through the silence and asks a question from off-screen.",
+        "emotional_beat": "tension_probe",
+        "dialogue": {
+          "has_dialogue": true,
+          "speaker_asset_id": "char_off_screen_voice",
+          "listener_asset_id": "char_vincent",
+          "text": "We happy?",
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 2.4,
+        "camera": {
+          "shot_scale": "OTS",
+          "angle": "low",
+          "movement": "static"
+        },
+        "lighting": "low-key chiaroscuro; the open case motivates a warm pool of light; rest of room stays in deep shadow",
+        "environment_id": "loc_int_shadowy_room",
+        "entities": [
+          {
+            "asset_id": "char_vincent",
+            "position": "foreground_left",
+            "action_state": "shoulder/cheek in silhouette; listening, transfixed"
+          },
+          {
+            "asset_id": "prop_black_briefcase",
+            "position": "center_fg",
+            "action_state": "open; glowing"
+          },
+          {
+            "asset_id": "prop_unlit_cigarette",
+            "position": "near_vincent_face",
+            "action_state": "between lips; unlit"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Shadowy interior room (urban apartment or warehouse), modern city, strictly indoors (NOT outdoors, NOT Mediterranean villa, NOT suburban living room)",
+          "ERA LOCK: Contemporary modern era (1990s–2020s), timeless urban crime-noir",
+          "FORBIDDEN: Historical period dress (Victorian, 1920s, 1940s fedoras/trench coats), Vintage tech (CRT TVs, rotary phones, typewriters, payphones), Futuristic tech (holograms, AR UI, biometric scanners, LED matrix lighting), Neon cyberpunk color schemes (magenta/teal glow), Bright, high-key or flat lighting; white fluorescent overheads, Exterior views (windows showing daylight, city skyline, palm trees), Outdoor locations (streets, cars, alleys), Religious or supernatural depictions inside the briefcase (angels, demons, skulls, cosmic portals), Text or symbols that explain or reveal the briefcase's contents, Explicit references to specific films or characters (Pulp Fiction, Jules, Vincent Vega, Marcellus Wallace), Mediterranean or European architectural elements, Obvious product logos or brand placements, Smartphones, laptops, modern screens visible in frame, Gunfire or visible firearms, Police sirens or flashing red/blue lights, Comedic tone, slapstick, or camp, Overt teal–orange blockbuster grading",
+          "COLOR_PALETTE: Deep blacks and cool desaturated shadows contrasted with an intense warm golden glow",
+          "LIGHTING_STYLE: Low-key, high-contrast chiaroscuro; single warm source motivated by the briefcase; rapid falloff into darkness",
+          "ARCHITECTURE: Industrial urban interior (concrete/brick, minimal ornamentation), timeless and contemporary",
+          "SET_DESIGN: Sparse, worn, utilitarian room; clutter minimal; no visible windows or windows blacked out",
+          "PROPS_STYLE: Sleek black hard-shell briefcase with mechanical combination dials (6-6-6); neutral modern furnishings",
+          "WARDROBE: Contemporary dark suit in matte fabrics; no vintage silhouettes or flashy patterns",
+          "CAMERA_LANGUAGE: Extreme low angle and tight close-ups; slow push-in; shallow depth of field",
+          "MOOD_TONE: Mysterious, tense, hypnotic crime-noir with visual contrast and suspense",
+          "VFX_STYLE: Subtle volumetric warm glow from the case; contents never shown; no exaggerated beams or particles beyond gentle haze",
+          "Shot-specific: Speaker remains off-screen; do not introduce additional characters",
+          "Shot-specific: Maintain deep shadows beyond the warm pool; no other practicals",
+          "Shot-specific: Do not reveal inside the briefcase"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Over-the-shoulder low-angle setup from behind <char_vincent>'s left shoulder: the open <prop_black_briefcase> sits center foreground emitting a controlled warm pool; <char_vincent>'s cheek and shoulder edge silhouette the left of frame, head angled toward the case; <prop_unlit_cigarette> protrudes slightly. The surrounding room remains swallowed in black. An instant of taut silence hangs before an unseen presence speaks from off-screen.",
+          "characters_in_shot": [
+            "char_vincent"
+          ],
+          "character_appearances": {
+            "char_vincent": "Adult man, tailored matte black suit; shoulder and cheek in low-angle silhouette for an OTS; transfixed, listening; unlit cigarette at lips catching edge glow"
+          },
+          "resolved_t2i": "Over-the-shoulder low-angle setup from behind Adult man, tailored matte black suit; shoulder and cheek in low-angle silhouette for an OTS; transfixed, listening; unlit cigarette at lips catching edge glow's left shoulder: the open <prop_black_briefcase> sits center foreground emitting a controlled warm pool; Adult man, tailored matte black suit; shoulder and cheek in low-angle silhouette for an OTS; transfixed, listening; unlit cigarette at lips catching edge glow's cheek and shoulder edge silhouette the left of frame, head angled toward the case; <prop_unlit_cigarette> protrudes slightly. The surrounding room remains swallowed in black. An instant of taut silence hangs before an unseen presence speaks from off-screen.",
+          "resolved_ti2i": "Picture 1 is Adult man, tailored matte black suit; shoulder and cheek in low-angle silhouette for an OTS; transfixed, listening; unlit cigarette at lips catching edge glow.\nOver-the-shoulder low-angle setup from behind Picture 1's left shoulder: the open <prop_black_briefcase> sits center foreground emitting a controlled warm pool; Picture 1's cheek and shoulder edge silhouette the left of frame, head angled toward the case; <prop_unlit_cigarette> protrudes slightly. The surrounding room remains swallowed in black. An instant of taut silence hangs before an unseen presence speaks from off-screen.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "[Camera Move] Static camera holds the OTS composition. [Character Actions & Reactions] An unseen <char_off_screen_voice> cuts through with an authoritative, probing line: \"We happy?\" off-screen. <char_vincent> barely reacts—eyes flicker, a slow nasal inhale, chin dips a hint—yet his gaze remains locked on the glow and posture stays entranced. [Lip Constraint] Mouth remains tightly closed. No speaking. [Ambient Motion] The golden light ripples faintly across his jawline and the case rim; haze shimmers near the lid; deep shadows stay undisturbed; hold the frame to cue a tighter reply.",
+          "resolved_i2v": "[Camera Move] Static camera holds the OTS composition. [Character Actions & Reactions] An unseen <char_off_screen_voice> cuts through with an authoritative, probing line: \"We happy?\" off-screen. Adult man, tailored matte black suit; shoulder and cheek in low-angle silhouette for an OTS; transfixed, listening; unlit cigarette at lips catching edge glow barely reacts—eyes flicker, a slow nasal inhale, chin dips a hint—yet his gaze remains locked on the glow and posture stays entranced. [Lip Constraint] Mouth remains tightly closed. No speaking. [Ambient Motion] The golden light ripples faintly across his jawline and the case rim; haze shimmers near the lid; deep shadows stay undisturbed; hold the frame to cue a tighter reply.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.1,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": true,
+            "sync_method": "musetalk",
+            "audio_source_ref": "assembly_layer.audio_tracks[0]"
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_05_voice_we_happy_dialogue",
+            "type": "dialogue",
+            "source": "tts_default",
+            "description": "We happy?"
+          },
+          {
+            "track_id": "shot_05_voice_we_happy_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_06_vincent_affirms",
+      "narrative_layer": {
+        "narrative_action": "Still transfixed by the glow, Vincent softly answers the unseen voice.",
+        "emotional_beat": "quiet_resolution",
+        "dialogue": {
+          "has_dialogue": true,
+          "speaker_asset_id": "char_vincent",
+          "listener_asset_id": "char_off_screen_voice",
+          "text": "Yeah... we happy.",
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 3.0,
+        "camera": {
+          "shot_scale": "CU",
+          "angle": "low",
+          "movement": "slow_dolly_in"
+        },
+        "lighting": "low-key chiaroscuro; warm golden glow wraps Vincent’s face; background nearly black",
+        "environment_id": "loc_int_shadowy_room",
+        "entities": [
+          {
+            "asset_id": "char_vincent",
+            "position": "center_fg",
+            "action_state": "softly answering; gaze locked into case"
+          },
+          {
+            "asset_id": "prop_unlit_cigarette",
+            "position": "near_vincent_face",
+            "action_state": "between lips; unlit"
+          },
+          {
+            "asset_id": "prop_black_briefcase",
+            "position": "bottom_fg",
+            "action_state": "edge of lid barely in frame; out of focus"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Shadowy interior room (urban apartment or warehouse), modern city, strictly indoors (NOT outdoors, NOT Mediterranean villa, NOT suburban living room)",
+          "ERA LOCK: Contemporary modern era (1990s–2020s), timeless urban crime-noir",
+          "FORBIDDEN: Historical period dress (Victorian, 1920s, 1940s fedoras/trench coats), Vintage tech (CRT TVs, rotary phones, typewriters, payphones), Futuristic tech (holograms, AR UI, biometric scanners, LED matrix lighting), Neon cyberpunk color schemes (magenta/teal glow), Bright, high-key or flat lighting; white fluorescent overheads, Exterior views (windows showing daylight, city skyline, palm trees), Outdoor locations (streets, cars, alleys), Religious or supernatural depictions inside the briefcase (angels, demons, skulls, cosmic portals), Text or symbols that explain or reveal the briefcase's contents, Explicit references to specific films or characters (Pulp Fiction, Jules, Vincent Vega, Marcellus Wallace), Mediterranean or European architectural elements, Obvious product logos or brand placements, Smartphones, laptops, modern screens visible in frame, Gunfire or visible firearms, Police sirens or flashing red/blue lights, Comedic tone, slapstick, or camp, Overt teal–orange blockbuster grading",
+          "COLOR_PALETTE: Deep blacks and cool desaturated shadows contrasted with an intense warm golden glow",
+          "LIGHTING_STYLE: Low-key, high-contrast chiaroscuro; single warm source motivated by the briefcase; rapid falloff into darkness",
+          "ARCHITECTURE: Industrial urban interior (concrete/brick, minimal ornamentation), timeless and contemporary",
+          "SET_DESIGN: Sparse, worn, utilitarian room; clutter minimal; no visible windows or windows blacked out",
+          "PROPS_STYLE: Sleek black hard-shell briefcase with mechanical combination dials (6-6-6); neutral modern furnishings",
+          "WARDROBE: Contemporary dark suit in matte fabrics; no vintage silhouettes or flashy patterns",
+          "CAMERA_LANGUAGE: Extreme low angle and tight close-ups; slow push-in; shallow depth of field",
+          "MOOD_TONE: Mysterious, tense, hypnotic crime-noir with visual contrast and suspense",
+          "VFX_STYLE: Subtle volumetric warm glow from the case; contents never shown; no exaggerated beams or particles beyond gentle haze",
+          "Shot-specific: Edge of briefcase may appear soft at bottom of frame to motivate glow; interior contents must stay hidden",
+          "Shot-specific: Vincent delivers line without breaking trance; cigarette remains unlit"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Low-angle close-up held in noir contrast: <char_vincent>'s face centers the frame, wrapped in a warm golden glow; the defocused edge of <prop_black_briefcase>'s lid softens the bottom of frame as a light source cue. <prop_unlit_cigarette> rests between his lips. He is poised to answer—lips gently together, eyes anchored into the case, breath held in quiet resolve while the room behind remains near-black.",
+          "characters_in_shot": [
+            "char_vincent"
+          ],
+          "character_appearances": {
+            "char_vincent": "Adult man, tailored matte black suit; low-angle close-up bathed in warm glow; gaze fixed into the case; softly speaking with minimal movement; unlit cigarette between lips"
+          },
+          "resolved_t2i": "Low-angle close-up held in noir contrast: Adult man in a tailored matte-black suit; low-angle close-up bathed in a warm glow; gaze locked into the case; speaking softly with minimal movement; an unlit cigarette between his lips's face centers the frame, wrapped in a warm golden glow; the defocused edge of <prop_black_briefcase>'s lid softens the bottom of frame as a light-source cue. <prop_unlit_cigarette> rests between his lips. He is poised to answer—lips gently together, eyes anchored into the case, breath held in quiet resolve while the room behind remains near-black.",
+          "resolved_ti2i": "Picture 1 is Adult man in a tailored matte-black suit; low-angle close-up bathed in a warm glow; gaze locked into the case; speaking softly with minimal movement; an unlit cigarette between his lips.\nLow-angle close-up held in noir contrast: Picture 1's face centers the frame, wrapped in a warm golden glow; the defocused edge of <prop_black_briefcase>'s lid softens the bottom of frame as a light-source cue. <prop_unlit_cigarette> rests between his lips. He is poised to answer—lips gently together, eyes anchored into the case, breath held in quiet resolve while the room behind remains near-black.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "[Camera Move] Slow dolly-in inches closer, keeping the shallow depth on his eyes. [Character Actions & Reactions] <char_vincent> exhales a hushed affirmation: \"Yeah... we happy.\" His lips form each word with minimal motion; eyes never leave the glow; the cigarette remains unlit and steady. After the final word, his jaw softens and he holds the gaze. [Lip Constraint] Mouth moves to match speech. [Ambient Motion] The glow pulses almost imperceptibly; a faint wisp of haze drifts; a loose hair and tie tip barely stir; end on a held, centered close-up for a clean out.",
+          "resolved_i2v": "[Camera Move] Slow dolly-in inches closer, keeping the shallow depth on his eyes. [Character Actions & Reactions] Adult man in a tailored matte-black suit; low-angle close-up bathed in a warm glow; gaze locked into the case; speaking softly with minimal movement; an unlit cigarette between his lips exhales a hushed affirmation: \"Yeah... we happy.\" His lips form each word with minimal motion; eyes never leave the glow; the cigarette remains unlit and steady. After the final word, his jaw softens and he holds the gaze. [Lip Constraint] Mouth moves to match speech. [Ambient Motion] The glow pulses almost imperceptibly; a faint wisp of haze drifts; a loose hair and tie tip barely stir; end on a held, centered close-up for a clean out.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.3,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": true,
+            "sync_method": "musetalk",
+            "audio_source_ref": "assembly_layer.audio_tracks[0]"
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_06_vincent_affirms_dialogue",
+            "type": "dialogue",
+            "source": "tts_default",
+            "description": "Yeah... we happy."
+          },
+          {
+            "track_id": "shot_06_vincent_affirms_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    }
+  ]
+}

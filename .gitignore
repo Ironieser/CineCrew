@@ -1,0 +1,47 @@
+# Secrets live in .env (copy .env.example); never commit it
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.Python
+build/
+dist/
+.venv/
+venv/
+env/
+
+# Run outputs
+/data/
+/logs/
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+*.swp
+
+# Heavy media (examples are curated to text/JSON only)
+*.mp4
+*.wav
+*.png
+*.jpg
+*.jpeg
+*.zip
+*.pdf
+*.pptx
+
+# Allow curated example artifacts and dataset reference images
+!examples/**/*.json
+!examples/**/*.md
+!our_dataset/**/*.png
+!our_dataset/**/*.jpg
+
+# Project homepage (docs/website): keep images + page source, exclude heavy video
+!docs/**/*.png
+!docs/**/*.css
+!docs/**/*.js
+!docs/**/*.html

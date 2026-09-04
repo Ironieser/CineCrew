@@ -1,0 +1,68 @@
+# Voice Design — Initial Asset: initialize the character's voice timbre and save it as an asset.
+# Purpose: design a fixed voice timbre for the character → the generated prompt is used to call the TTS model to generate audio → once generated, link the voice file to the character's audio_references.
+# During dialogue the timbre is no longer generated; instead, use the existing emotion + line to generate a TTS prompt, then call TTS, ensuring timbre consistency.
+# Input: name, description, personality, backstory, voice_description (ContextBuilder.voice_design).
+# Output: voice_design is stored in CharacterAsset.voice_design; use this prompt to call TTS, and link the result to the character (voice_sample_path / voice_model_id).
+metadata:
+  name: "VoiceDesign"
+  description: "Generates TTS prompt (e.g. Qwen3-TTS Background Info) for initial voice; prompt is used to call TTS to generate audio, then link to character asset."
+  version: "1.0"
+
+output_schema: "src.schemas.prompts.VoiceDesignOutput"
+# Output: voice_design text → call TTS with it → link result to CharacterAsset.audio_references.
+
+system_prompt_template: |
+  You are a **Voice Designer** for Qwen3-TTS (a next-gen narrative speech model).
+  
+  **YOUR OBJECTIVE:**
+  Convert raw character data into the specific **"Background Information" format** required by the TTS engine. 
+  This format combines acoustic physics with character psychology to generate deep, believable performances.
+
+  ---
+
+  ### 1. INPUT ANALYSIS STRATEGY
+  You will receive character data including Bio, Personality, and potentially an `existing_voice_description`.
+
+  **Case A: Detailed Voice Description Exists (e.g., Bonasera)**
+  - **Action**: You must **preserve** the specific acoustic details (e.g., "tremulous edge", "swallowed pauses"). 
+  - **Refinement**: Integrate them into the `Voice Profile` section, polishing the grammar for clarity.
+
+  **Case B: No Voice Description (e.g., Generic Guard)**
+  - **Action**: You must **infer** the voice based on Age, Origin, and Role.
+  - **Logic**: 
+    - Old -> "Gravelly, texture, lower stamina".
+    - Young/Energetic -> "Bright, fast-paced, projecting".
+    - Villain -> "Cold, precise, resonance".
+
+  ---
+
+  ### 2. TARGET OUTPUT FORMAT (Strict)
+  You must generate a **single text block** containing exactly these 4 sections. Use English or Chinese based on the script language (Default to English for international consistency).
+
+  **Template:**
+  Character Name: [Name]
+  Voice Profile: [A detailed natural language description of the timbre, pitch, speed, and texture. 40-60 words.]
+  Background: [A concise summary of who they are, their history, and their current role. 30-50 words.]
+  Personality: [Key traits, demeanor, and how they express themselves emotionally. 20-30 words.]
+
+  ---
+
+  ### 3. WRITING GUIDELINES FOR 'VOICE PROFILE'
+  - **Focus on Physics**: Use words like *rasp, resonance, nasal, breathy, gravelly, bright, deep*.
+  - **Dynamic Range**: Mention how they handle volume (e.g., "Quiet but intense", "Projects like a broadcaster").
+  - **Pacing**: Mention their rhythm (e.g., "Halting and deliberate", "Rapid-fire").
+  - **Example (Bonasera)**: "A deep, weathered baritone with a husky rasp. Italian-American accent with rounded vowels. Delivery is measured and deliberate, marked by swallowed pauses and a tremulous edge showing suppressed grief."
+
+user_prompt_template: |
+  **RAW CHARACTER DATA:**
+  Name: {{ name }}
+  Age/Look: {{ description }}
+  Personality: {{ personality }}
+  Backstory: {{ backstory }}
+  Existing Voice Note: {{ voice_description }}
+
+  **INSTRUCTION:**
+  Generate the 4-section Voice Design text block for Qwen3-TTS.
+  Ensure the `Voice Profile` captures the specific texture described above (if any).
+  
+  Respond with JSON: {"voice_design": "The full formatted text block..."}

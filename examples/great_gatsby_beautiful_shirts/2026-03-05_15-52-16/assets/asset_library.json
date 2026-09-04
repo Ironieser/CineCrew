@@ -1,0 +1,124 @@
+{
+  "project_title": "Shirts and Tears",
+  "global_style": "Opulent Jazz Age glamour; sunlit pastels; diffused natural light; extreme slow-motion elegance; romantic yet bittersweet tone.",
+  "project_settings": {
+    "location_lock": "North Shore, Long Island, New York, USA",
+    "negative_constraints": [
+      "modern technology",
+      "smartphones",
+      "contemporary casualwear",
+      "minimalist interiors",
+      "mid-century or later design cues"
+    ],
+    "style_overrides": {
+      "color_palette": "soft pastels with warm sunlight",
+      "lighting": "diffused natural daylight, glowing highlights",
+      "set_decoration": "sumptuous, high-end 1920s luxury"
+    },
+    "era_lock": "Early 1920s Jazz Age America"
+  },
+  "narrative_context": {
+    "time_period": "Early 1920s, Jazz Age",
+    "global_mood": "Lavish, romantic, nostalgic; awe melting into aching melancholy.",
+    "key_events": [
+      "Gatsby jubilantly tosses pastel silk and linen shirts from an upper wardrobe balcony.",
+      "Shirts drift in extreme slow-motion, billowing and settling on a massive plush bed.",
+      "Daisy laughs, then, overwhelmed, buries her face in the shirts and weeps.",
+      "A soft voiceover: \"They're such beautiful shirts... I've never seen such beautiful shirts before.\""
+    ],
+    "cultural_context": "American Jazz Age excess and conspicuous consumption; wealth as romantic spectacle; emotional fragility beneath opulence."
+  },
+  "characters": [
+    {
+      "id": "char_gatsby",
+      "name": "Gatsby",
+      "description": "Well-groomed man in his thirties, handsome, athletic, exuding effortless wealth and polish; bright eyes, confident smile.",
+      "clothing_style": "Impeccable 1920s tailoring; pastel silk and linen shirts; crisp trousers; polished oxfords.",
+      "voice_preset_id": null,
+      "voice_description": "Smooth, enthusiastic, upper-class American, mid-30s; controlled yet eager.",
+      "voice_design": null,
+      "personality": "Romantic, performative, idealistic, restless, desperate to impress.",
+      "backstory": "Extremely wealthy host who curates opulence; past feelings for Daisy fuel grand gestures.",
+      "current_motivation": "Dazzle Daisy with extravagant display to win her heart.",
+      "scene_count": 1,
+      "dialogue_lines": 0,
+      "key_relationships": [
+        "char_daisy"
+      ],
+      "visual_references": null,
+      "audio_references": null
+    },
+    {
+      "id": "char_daisy",
+      "name": "Daisy",
+      "description": "Delicate, luminous woman in her twenties, refined features, gentle poise; expressive eyes brimming with conflicting feelings.",
+      "clothing_style": "Elegant 1920s couture; soft fabrics; understated jewelry.",
+      "voice_preset_id": null,
+      "voice_description": "Soft, breathy, refined; fragile tremor when moved to tears.",
+      "voice_design": null,
+      "personality": "Charming, sensitive, conflicted, easily overwhelmed.",
+      "backstory": "A woman of privilege drawn to displays of romance yet burdened by insecurity and expectation.",
+      "current_motivation": "Enjoy the attention yet overwhelmed by emotion as memories and desires surface.",
+      "scene_count": 1,
+      "dialogue_lines": 1,
+      "key_relationships": [
+        "char_gatsby"
+      ],
+      "visual_references": null,
+      "audio_references": null
+    }
+  ],
+  "locations": [
+    {
+      "id": "loc_int_gatsbys_bedroom",
+      "name": "Luxurious Sunlit Bedroom with Open Wardrobe",
+      "type": "INT",
+      "visual_style": "Sun-drenched, massive windows, diffused daylight; colossal open wardrobe with balcony; plush bed; pastel textiles swirling in slow-motion.",
+      "narrative_function": "Place of wealth display and emotional reveal.",
+      "time_of_day_stats": {
+        "DAY": 1
+      },
+      "visual_references": null,
+      "audio_references": null,
+      "usage_count": 1
+    }
+  ],
+  "props": [
+    {
+      "id": "prop_pastel_shirts",
+      "name": "Pastel Silk and Linen Shirts",
+      "related_character_id": "char_gatsby",
+      "visual_description": "Cascade of vibrant pastel shirts—lavender, coral, apple green—silk and linen; light, airy, billowing in slow-motion.",
+      "importance": "critical",
+      "usage_count": 1,
+      "visual_references": null
+    },
+    {
+      "id": "prop_plush_bed",
+      "name": "Massive Plush Bed",
+      "related_character_id": "char_gatsby",
+      "visual_description": "Oversized, sumptuous bed with thick upholstered headboard and heaps of soft bedding; shirts settle atop it.",
+      "importance": "supporting",
+      "usage_count": 1,
+      "visual_references": null
+    },
+    {
+      "id": "prop_open_wardrobe",
+      "name": "Colossal Open Wardrobe with Balcony",
+      "related_character_id": "char_gatsby",
+      "visual_description": "Two-story open wardrobe with upper balcony, gleaming shelves and rails densely packed with colorful shirts.",
+      "importance": "supporting",
+      "usage_count": 1,
+      "visual_references": null
+    },
+    {
+      "id": "prop_massive_windows",
+      "name": "Massive Sunlit Windows",
+      "related_character_id": null,
+      "visual_description": "Floor-to-ceiling windows flooding the bedroom with soft, diffused natural light; gauzy curtains lift gently.",
+      "importance": "background",
+      "usage_count": 1,
+      "visual_references": null
+    }
+  ]
+}

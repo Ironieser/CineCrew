@@ -1,0 +1,504 @@
+{
+  "blueprint_id": "bp_ultraman_tiga_transformation_device_85537c",
+  "metadata": {
+    "project_name": "Sci-Fi Transformation Shot",
+    "target_resolution": "1280x720",
+    "target_aspect_ratio": "16:9",
+    "global_fps": 16
+  },
+  "global_style": "Cinematic sci-fi with shallow depth of field, low slightly wide angle, high-key white light bloom, red-and-white palette, crisp mechanical device design, dramatic exposure blowout.",
+  "final_film_path": null,
+  "shots": [
+    {
+      "shot_id": "shot_01_intense_gaze_holds",
+      "narrative_layer": {
+        "narrative_action": "A determined young man fixes his eyes directly toward the camera with intense resolve against a blurred background.",
+        "emotional_beat": "defiant_resolve",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 2.8,
+        "camera": {
+          "shot_scale": "CU",
+          "angle": "low",
+          "movement": "slow_dolly_in"
+        },
+        "lighting": "high-key white soft fill with shallow depth-of-field; background blurred",
+        "environment_id": "loc_unknown_blurred_background",
+        "entities": [
+          {
+            "asset_id": "char_determined_young_man",
+            "position": "center_fg",
+            "action_state": "locking_gaze_to_camera"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Abstract, indeterminate tech environment with blurred background—non-specific locale (NOT recognizable Earth city, NOT historical site, NOT natural landscape)",
+          "ERA LOCK: Unspecified far-future sci-fi era (NOT contemporary or historical)",
+          "FORBIDDEN: Recognizable real-world cities, landmarks, skylines (e.g., Times Square, Eiffel Tower), Historical architecture (cathedrals, temples, pagodas, castles, stone villages), Religious iconography (crosses, halos, altars, stained glass), Angelic or feathered wings (use crystal/mechanical only), Medieval or fantasy elements (swords, armor, runes, magic circles), Steampunk aesthetics (brass gears, Victorian styling), Retro analog tech (CRT monitors, exposed cables, vacuum tubes), Military insignia, firearms, tactical gear, Contemporary brand logos, text signage, or readable UI text, Lush natural scenery in clear focus (trees, mountains, oceans), Space vistas or starfields; keep environment non-cosmic and abstract, Neon cyberpunk street scenes (wet asphalt, kanji signage, crowded alleys), Rustic materials (wood beams, stone walls), Warm candlelight or firelight; avoid mystical ritual props (candles, incense), Brown/earthy, grungy palettes that detract from high-key white purity",
+          "COLOR_PALETTE: High-key whites, cool grays, subtle iridescent crystal highlights",
+          "MATERIALS: Polished matte white composites, clear/crystal elements, minimal metal",
+          "LIGHTING: Pure white core eruption with exposure blowout and soft cinematic bloom; sharp mechanical snap cue",
+          "ARCHITECTURE: Non-descript abstract futurist forms; no identifiable cultural motifs or signage",
+          "CAMERA_STYLE: Front-facing hero close-up, shallow depth-of-field, blurred background",
+          "PROPS: White intricate activation device with twin crystal wings (crystal/mechanical aesthetic)",
+          "WARDROBE: Modern-futurist jacket; no logos, patches, or military insignia",
+          "VFX: Clean geometric light behaviors; no glyphs, runes, smoke, or particle clutter",
+          "UI_ELEMENTS: Avoid textual HUD; if needed, use minimal geometric overlays only",
+          "ENVIRONMENT: Indeterminate interior or staging area implied; maintain abstraction",
+          "Shot-specific: Maintain shallow depth of field and blurred, non-descript background; no readable text or signage in frame"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Cinematic sci-fi close-up at a low, slightly wide angle with shallow depth-of-field; high-key cool white soft fill and gentle bloom. <char_determined_young_man> stands center foreground, shoulders squared, chin subtly lowered toward camera dominance; his right hand hovers near the jacket’s inner seam as if about to slide inside, while his left arm hangs steady at his side. His eyes lock directly through the lens, unwavering. Body language radiates defiant resolve—he occupies the frame decisively with the blurred world receding behind him. Background remains abstract, indeterminate tech forms dissolved into creamy bokeh; no readable text, symbols, or identifiable locale.",
+          "characters_in_shot": [
+            "char_determined_young_man"
+          ],
+          "character_appearances": {
+            "char_determined_young_man": "Young man, red-and-white sci-fi uniform jacket closed, standing centered and squared to camera, jaw set and eyes blazing with resolve"
+          },
+          "resolved_t2i": "Cinematic sci-fi close-up at a low, slightly wide angle with shallow depth-of-field; high-key cool white soft fill and gentle bloom. Young man, red-and-white sci-fi uniform jacket closed, standing centered and squared to camera, jaw set and eyes blazing with resolve stands center foreground, shoulders squared, chin subtly lowered toward camera dominance; his right hand hovers near the jacket’s inner seam as if about to slide inside, while his left arm hangs steady at his side. His eyes lock directly through the lens, unwavering. Body language radiates defiant resolve—he occupies the frame decisively with the blurred world receding behind him. Background remains abstract, indeterminate tech forms dissolved into creamy bokeh; no readable text, symbols, or identifiable locale.",
+          "resolved_ti2i": "Picture 1 is Young man, red-and-white sci-fi uniform jacket closed, standing centered and squared to camera, jaw set and eyes blazing with resolve.\nCinematic sci-fi close-up at a low, slightly wide angle with shallow depth-of-field; high-key cool white soft fill and gentle bloom. Picture 1 stands center foreground, shoulders squared, chin subtly lowered toward camera dominance; his right hand hovers near the jacket’s inner seam as if about to slide inside, while his left arm hangs steady at his side. His eyes lock directly through the lens, unwavering. Body language radiates defiant resolve—he occupies the frame decisively with the blurred world receding behind him. Background remains abstract, indeterminate tech forms dissolved into creamy bokeh; no readable text, symbols, or identifiable locale.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Slow, deliberate dolly-in toward <char_determined_young_man>. He holds the gaze without blinking, a minute breath draws and settles; his brows tighten and his right hand begins to slip along the jacket seam toward the concealed inner pocket in preparation for the draw. Mouth remains tightly closed. No speaking. The blurred abstract background gently breathes with shallow DOF shifts; soft iridescent highlights slide across matte-white surfaces; a faint draft lifts a wisp of hair and eases the jacket fabric. End with his fingers poised at the inner pocket and a subtle upward anticipation in his posture to cleanly cut into the upward-follow of the next shot.",
+          "resolved_i2v": "Slow, deliberate dolly-in toward Young man, red-and-white sci-fi uniform jacket closed, standing centered and squared to camera, jaw set and eyes blazing with resolve. He holds the gaze without blinking, a minute breath draws and settles; his brows tighten and his right hand begins to slip along the jacket seam toward the concealed inner pocket in preparation for the draw. Mouth remains tightly closed. No speaking. The blurred abstract background gently breathes with shallow DOF shifts; soft iridescent highlights slide across matte-white surfaces; a faint draft lifts a wisp of hair and eases the jacket fabric. End with his fingers poised at the inner pocket and a subtle upward anticipation in his posture to cleanly cut into the upward-follow of the next shot.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.3,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "fade_in",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_01_intense_gaze_holds_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_02_draws_device_high",
+      "narrative_layer": {
+        "narrative_action": "He pulls a white, intricate device from his jacket and thrusts it high into the air.",
+        "emotional_beat": "decisive_action",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 3.2,
+        "camera": {
+          "shot_scale": "MS",
+          "angle": "low",
+          "movement": "tilt_up_follow"
+        },
+        "lighting": "cool high-key whites with soft fill; crisp rim and specular on raised device",
+        "environment_id": "loc_unknown_blurred_background",
+        "entities": [
+          {
+            "asset_id": "char_determined_young_man",
+            "position": "frame_center",
+            "action_state": "drawing_device_and_thrusting_up"
+          },
+          {
+            "asset_id": "prop_transformation_device",
+            "position": "frame_top_center",
+            "action_state": "held_raised_high"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Abstract, indeterminate tech environment with blurred background—non-specific locale (NOT recognizable Earth city, NOT historical site, NOT natural landscape)",
+          "ERA LOCK: Unspecified far-future sci-fi era (NOT contemporary or historical)",
+          "FORBIDDEN: Recognizable real-world cities, landmarks, skylines (e.g., Times Square, Eiffel Tower), Historical architecture (cathedrals, temples, pagodas, castles, stone villages), Religious iconography (crosses, halos, altars, stained glass), Angelic or feathered wings (use crystal/mechanical only), Medieval or fantasy elements (swords, armor, runes, magic circles), Steampunk aesthetics (brass gears, Victorian styling), Retro analog tech (CRT monitors, exposed cables, vacuum tubes), Military insignia, firearms, tactical gear, Contemporary brand logos, text signage, or readable UI text, Lush natural scenery in clear focus (trees, mountains, oceans), Space vistas or starfields; keep environment non-cosmic and abstract, Neon cyberpunk street scenes (wet asphalt, kanji signage, crowded alleys), Rustic materials (wood beams, stone walls), Warm candlelight or firelight; avoid mystical ritual props (candles, incense), Brown/earthy, grungy palettes that detract from high-key white purity",
+          "COLOR_PALETTE: High-key whites, cool grays, subtle iridescent crystal highlights",
+          "MATERIALS: Polished matte white composites, clear/crystal elements, minimal metal",
+          "LIGHTING: Pure white core eruption with exposure blowout and soft cinematic bloom; sharp mechanical snap cue",
+          "ARCHITECTURE: Non-descript abstract futurist forms; no identifiable cultural motifs or signage",
+          "CAMERA_STYLE: Front-facing hero close-up, shallow depth-of-field, blurred background",
+          "PROPS: White intricate activation device with twin crystal wings (crystal/mechanical aesthetic)",
+          "WARDROBE: Modern-futurist jacket; no logos, patches, or military insignia",
+          "VFX: Clean geometric light behaviors; no glyphs, runes, smoke, or particle clutter",
+          "UI_ELEMENTS: Avoid textual HUD; if needed, use minimal geometric overlays only",
+          "ENVIRONMENT: Indeterminate interior or staging area implied; maintain abstraction",
+          "Shot-specific: Keep background fully abstract and blurred; ensure jacket remains logo-free; device remains pristine white with crystal elements; no textual overlays"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Cinematic sci-fi medium shot at a low angle; cool high-key whites with soft fill and a crisp rim poised to catch the raised object; shallow depth-of-field keeps the background abstract and unreadable. <char_determined_young_man> is centered, torso turned square, eyes already lifted slightly above the lens line, elbow bent and wrist poised at the jacket’s inner seam. The outline of <prop_transformation_device> presses faintly beneath the fabric; his shoulders brace and core tightens, on the verge of pulling and thrusting upward. The blurred environment remains an indeterminate futurist staging space—no signage, no symbols, no location cues.",
+          "characters_in_shot": [
+            "char_determined_young_man"
+          ],
+          "character_appearances": {
+            "char_determined_young_man": "Young man, red-and-white sci-fi uniform jacket slightly opening at the seam, posture braced to draw and raise the device, focused and decisive"
+          },
+          "resolved_t2i": "Cinematic sci-fi medium shot at a low angle; cool high-key whites with soft fill and a crisp rim poised to catch the raised object; shallow depth-of-field keeps the background abstract and unreadable. Young man in a red-and-white sci‑fi uniform jacket, seam slightly parted; body coiled to draw and raise the device; focused, resolute gaze; posture braced and decisive at center frame. is centered, torso squared, eyes already lifted slightly above the lens line, elbow bent and wrist poised at the jacket’s inner seam. The outline of <prop_transformation_device> presses faintly beneath the fabric; his shoulders brace and core tightens, on the verge of pulling and thrusting upward. The blurred environment remains an indeterminate futurist staging space—no signage, no symbols, no location cues.",
+          "resolved_ti2i": "Picture 1 is Young man in a red-and-white sci‑fi uniform jacket, seam slightly parted; body coiled to draw and raise the device; focused, resolute gaze; posture braced and decisive at center frame..\nCinematic sci-fi medium shot at a low angle; cool high-key whites with soft fill and a crisp rim poised to catch the raised object; shallow depth-of-field keeps the background abstract and unreadable. Picture 1 is centered, torso squared, eyes already lifted slightly above the lens line, elbow bent and wrist poised at the jacket’s inner seam. The outline of <prop_transformation_device> presses faintly beneath the fabric; his shoulders brace and core tightens, on the verge of pulling and thrusting upward. The blurred environment remains an indeterminate futurist staging space—no signage, no symbols, no location cues.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Camera tilts up to follow <char_determined_young_man> as his right hand draws <prop_transformation_device> from the jacket in one smooth motion and then thrusts it high overhead. His chest expands and stance firms; the device clears the frame line, catching crisp speculars along white and crystal surfaces as it rises. Mouth remains tightly closed. No speaking. The jacket fabric ripples and settles, rim light skims across knuckles, and the abstract background bokeh drifts softly with the tilt. End with his arm locked out and <prop_transformation_device> held near the top-center of frame, mechanism subtly tensing in anticipation to cut cleanly into the ECU of the device.",
+          "resolved_i2v": "Camera tilts up to follow Young man in a red-and-white sci‑fi uniform jacket, seam slightly parted; body coiled to draw and raise the device; focused, resolute gaze; posture braced and decisive at center frame. as his right hand draws <prop_transformation_device> from the jacket in one smooth motion and then thrusts it high overhead. His chest expands and stance firms; the device clears the frame line, catching crisp speculars along white and crystal surfaces as it rises. Mouth remains tightly closed. No speaking. The jacket fabric ripples and settles, rim light skims across knuckles, and the abstract background bokeh drifts softly with the tilt. End with his arm locked out and <prop_transformation_device> held near the top-center of frame, mechanism subtly tensing in anticipation to cut cleanly into the ECU of the device.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.5,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_02_draws_device_high_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_03_crystal_wings_open",
+      "narrative_layer": {
+        "narrative_action": "With a sharp mechanical snap, the device’s twin crystal wings spring open.",
+        "emotional_beat": "activation_release",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 2.2,
+        "camera": {
+          "shot_scale": "ECU",
+          "angle": "eye_level",
+          "movement": "rack_focus"
+        },
+        "lighting": "crisp white accent on device; specular highlights on crystal wings; pre-eruption mechanical snap moment",
+        "environment_id": "loc_unknown_blurred_background",
+        "entities": [
+          {
+            "asset_id": "prop_transformation_device",
+            "position": "center_fg",
+            "action_state": "wings_snap_open"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Abstract, indeterminate tech environment with blurred background—non-specific locale (NOT recognizable Earth city, NOT historical site, NOT natural landscape)",
+          "ERA LOCK: Unspecified far-future sci-fi era (NOT contemporary or historical)",
+          "FORBIDDEN: Recognizable real-world cities, landmarks, skylines (e.g., Times Square, Eiffel Tower), Historical architecture (cathedrals, temples, pagodas, castles, stone villages), Religious iconography (crosses, halos, altars, stained glass), Angelic or feathered wings (use crystal/mechanical only), Medieval or fantasy elements (swords, armor, runes, magic circles), Steampunk aesthetics (brass gears, Victorian styling), Retro analog tech (CRT monitors, exposed cables, vacuum tubes), Military insignia, firearms, tactical gear, Contemporary brand logos, text signage, or readable UI text, Lush natural scenery in clear focus (trees, mountains, oceans), Space vistas or starfields; keep environment non-cosmic and abstract, Neon cyberpunk street scenes (wet asphalt, kanji signage, crowded alleys), Rustic materials (wood beams, stone walls), Warm candlelight or firelight; avoid mystical ritual props (candles, incense), Brown/earthy, grungy palettes that detract from high-key white purity",
+          "COLOR_PALETTE: High-key whites, cool grays, subtle iridescent crystal highlights",
+          "MATERIALS: Polished matte white composites, clear/crystal elements, minimal metal",
+          "LIGHTING: Pure white core eruption with exposure blowout and soft cinematic bloom; sharp mechanical snap cue",
+          "ARCHITECTURE: Non-descript abstract futurist forms; no identifiable cultural motifs or signage",
+          "CAMERA_STYLE: Front-facing hero close-up, shallow depth-of-field, blurred background",
+          "PROPS: White intricate activation device with twin crystal wings (crystal/mechanical aesthetic)",
+          "WARDROBE: Modern-futurist jacket; no logos, patches, or military insignia",
+          "VFX: Clean geometric light behaviors; no glyphs, runes, smoke, or particle clutter",
+          "UI_ELEMENTS: Avoid textual HUD; if needed, use minimal geometric overlays only",
+          "ENVIRONMENT: Indeterminate interior or staging area implied; maintain abstraction",
+          "Shot-specific: Emphasize mechanical snap visually; no glyphs, runes, smoke, or text; maintain shallow DOF with blurred background"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Hyper-clean ECU at eye level with shallow depth-of-field; crisp white accents kiss the edges of <prop_transformation_device>, specular highlights poised along its crystal surfaces. The device sits centered in the foreground, wings still folded tight and aligned, micro-tolerances showing preloaded tension. The blurred background remains an abstract, non-descript futurist void—no glyphs, no text, no identifiable structures—holding a quiet before the snap.",
+          "characters_in_shot": [],
+          "character_appearances": {},
+          "resolved_t2i": "Hyper-clean ECU at eye level with shallow depth-of-field; crisp white accents kiss the edges of <prop_transformation_device>, specular highlights poised along its crystal surfaces. The device sits centered in the foreground, wings still folded tight and aligned, micro-tolerances showing preloaded tension. The blurred background remains an abstract, non-descript futurist void—no glyphs, no text, no identifiable structures—holding a quiet before the snap.",
+          "resolved_ti2i": "Hyper-clean ECU at eye level with shallow depth-of-field; crisp white accents kiss the edges of <prop_transformation_device>, specular highlights poised along its crystal surfaces. The device sits centered in the foreground, wings still folded tight and aligned, micro-tolerances showing preloaded tension. The blurred background remains an abstract, non-descript futurist void—no glyphs, no text, no identifiable structures—holding a quiet before the snap.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Static framing with a precise rack focus across <prop_transformation_device>: focus starts on the central hinge, then snaps to the wing edges as both crystal wings spring outward with a sharp mechanical snap. The opening is symmetrical and clean; micro-vibrations settle quickly as light skims along the facets. Mouth remains tightly closed. No speaking. Ambient motion remains minimal and precise—subtle geometric reflections glide over crystal planes, the shallow DOF breathes after the snap. End with wings fully deployed and a faint, concentrated glow kindling at the core, primed to cut to the face-wash eruption.",
+          "resolved_i2v": "Static framing with a precise rack focus across <prop_transformation_device>: focus starts on the central hinge, then snaps to the wing edges as both crystal wings spring outward with a sharp mechanical snap. The opening is symmetrical and clean; micro-vibrations settle quickly as light skims along the facets. Mouth remains tightly closed. No speaking. Ambient motion remains minimal and precise—subtle geometric reflections glide over crystal planes, the shallow DOF breathes after the snap. End with wings fully deployed and a faint, concentrated glow kindling at the core, primed to cut to the face-wash eruption.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.4,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_03_crystal_wings_open_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_04_white_light_erupts",
+      "narrative_layer": {
+        "narrative_action": "An overwhelmingly brilliant pure white light erupts from the device’s center crystal, washing over his face and blowing out the exposure.",
+        "emotional_beat": "overwhelming_awe",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 3.6,
+        "camera": {
+          "shot_scale": "CU",
+          "angle": "low",
+          "movement": "static"
+        },
+        "lighting": "pure white core eruption with exposure blowout and soft cinematic bloom; face wash with wrap-around highlights",
+        "environment_id": "loc_unknown_blurred_background",
+        "entities": [
+          {
+            "asset_id": "char_determined_young_man",
+            "position": "center_fg",
+            "action_state": "flooded_by_light"
+          },
+          {
+            "asset_id": "prop_transformation_device",
+            "position": "frame_right_fg",
+            "action_state": "emitting_core_light"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Abstract, indeterminate tech environment with blurred background—non-specific locale (NOT recognizable Earth city, NOT historical site, NOT natural landscape)",
+          "ERA LOCK: Unspecified far-future sci-fi era (NOT contemporary or historical)",
+          "FORBIDDEN: Recognizable real-world cities, landmarks, skylines (e.g., Times Square, Eiffel Tower), Historical architecture (cathedrals, temples, pagodas, castles, stone villages), Religious iconography (crosses, halos, altars, stained glass), Angelic or feathered wings (use crystal/mechanical only), Medieval or fantasy elements (swords, armor, runes, magic circles), Steampunk aesthetics (brass gears, Victorian styling), Retro analog tech (CRT monitors, exposed cables, vacuum tubes), Military insignia, firearms, tactical gear, Contemporary brand logos, text signage, or readable UI text, Lush natural scenery in clear focus (trees, mountains, oceans), Space vistas or starfields; keep environment non-cosmic and abstract, Neon cyberpunk street scenes (wet asphalt, kanji signage, crowded alleys), Rustic materials (wood beams, stone walls), Warm candlelight or firelight; avoid mystical ritual props (candles, incense), Brown/earthy, grungy palettes that detract from high-key white purity",
+          "COLOR_PALETTE: High-key whites, cool grays, subtle iridescent crystal highlights",
+          "MATERIALS: Polished matte white composites, clear/crystal elements, minimal metal",
+          "LIGHTING: Pure white core eruption with exposure blowout and soft cinematic bloom; sharp mechanical snap cue",
+          "ARCHITECTURE: Non-descript abstract futurist forms; no identifiable cultural motifs or signage",
+          "CAMERA_STYLE: Front-facing hero close-up, shallow depth-of-field, blurred background",
+          "PROPS: White intricate activation device with twin crystal wings (crystal/mechanical aesthetic)",
+          "WARDROBE: Modern-futurist jacket; no logos, patches, or military insignia",
+          "VFX: Clean geometric light behaviors; no glyphs, runes, smoke, or particle clutter",
+          "UI_ELEMENTS: Avoid textual HUD; if needed, use minimal geometric overlays only",
+          "ENVIRONMENT: Indeterminate interior or staging area implied; maintain abstraction",
+          "Shot-specific: Exposure ramps to near-clipping while preserving facial silhouette edges; maintain shallow DOF; no textual UI or signage visible"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Low-angle cinematic close-up with shallow depth-of-field; the frame is prepared for a pure white core eruption with soft cinematic bloom. <char_determined_young_man> fills center foreground, shoulders angled toward camera; his features are tense but calm, eyes fixed forward. At frame right foreground, <prop_transformation_device> is held near his face with wings open; the central crystal glimmers faintly, not yet erupted. The environment is an abstract, blurred, non-descript futurist space; no symbols or readable elements. The moment hangs on the cusp before the light detonates.",
+          "characters_in_shot": [
+            "char_determined_young_man"
+          ],
+          "character_appearances": {
+            "char_determined_young_man": "Young man, red-and-white sci-fi uniform, face in low-angle close-up; eyes steady, lips pressed, features poised just before being engulfed by intense white light"
+          },
+          "resolved_t2i": "Low-angle cinematic close-up with shallow depth-of-field; the frame is primed for a pure white core eruption with soft cinematic bloom. Young man in a red-and-white sci-fi uniform; low-angle facial close-up; eyes steady and unblinking, lips pressed; calm yet taut, poised on the brink of being swallowed by searing white light fills center foreground, shoulders canted toward camera; his features taut yet controlled, eyes locked forward. At frame right foreground, <prop_transformation_device> is raised beside his face with wings open; the central crystal glimmers faintly, on the verge of ignition. The environment is an abstract, blurred, non-descript futurist space; no symbols or readable elements. The instant teeters on the knife-edge before the light detonates.",
+          "resolved_ti2i": "Picture 1 is Young man in a red-and-white sci-fi uniform; low-angle facial close-up; eyes steady and unblinking, lips pressed; calm yet taut, poised on the brink of being swallowed by searing white light.\nLow-angle cinematic close-up with shallow depth-of-field; the frame is primed for a pure white core eruption with soft cinematic bloom. Picture 1 fills center foreground, shoulders canted toward camera; his features taut yet controlled, eyes locked forward. At frame right foreground, <prop_transformation_device> is raised beside his face with wings open; the central crystal glimmers faintly, on the verge of ignition. The environment is an abstract, blurred, non-descript futurist space; no symbols or readable elements. The instant teeters on the knife-edge before the light detonates.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Static camera as the central crystal of <prop_transformation_device> flares—pure white light erupts, surging across <char_determined_young_man>'s face and blowing out exposure. Wrap-around highlights race from frame right to left; he holds his ground, eyelids fluttering once but gaze remaining resolute into the brightness. Mouth remains tightly closed. No speaking. Clean geometric bands of light expand and soften, bloom swells, and the already-blurred background dissolves rapidly toward featureless white. End with only faint silhouette edges of his profile and hand remaining against the wash, ready to cut into total whiteout.",
+          "resolved_i2v": "Static camera as the central crystal of <prop_transformation_device> flares—an overwhelming pure white eruption surges across Young man in a red-and-white sci-fi uniform; low-angle facial close-up; eyes steady and unblinking, lips pressed; calm yet taut, poised on the brink of being swallowed by searing white light's face, blowing out exposure. Wrap-around highlights sweep from frame right to left; he holds his ground, eyelids fluttering once but gaze remaining resolute into the brightness. Mouth remains tightly closed. No speaking. Clean geometric bands of light expand and soften, bloom swells, and the already-blurred background collapses rapidly into featureless white. End with only faint silhouette edges of his profile and hand remaining against the wash, ready to cut into total whiteout.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.1,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_04_white_light_erupts_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_05_frame_swallowed_white",
+      "narrative_layer": {
+        "narrative_action": "The blinding white light rapidly swallows the entire frame.",
+        "emotional_beat": "total_whiteout",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 2.4,
+        "camera": {
+          "shot_scale": "ECU",
+          "angle": "eye_level",
+          "movement": "static"
+        },
+        "lighting": "blinding pure white full-frame; total overexposure whiteout",
+        "environment_id": "loc_unknown_blurred_background",
+        "entities": [],
+        "consistency_constraints": [
+          "LOCATION LOCK: Abstract, indeterminate tech environment with blurred background—non-specific locale (NOT recognizable Earth city, NOT historical site, NOT natural landscape)",
+          "ERA LOCK: Unspecified far-future sci-fi era (NOT contemporary or historical)",
+          "FORBIDDEN: Recognizable real-world cities, landmarks, skylines (e.g., Times Square, Eiffel Tower), Historical architecture (cathedrals, temples, pagodas, castles, stone villages), Religious iconography (crosses, halos, altars, stained glass), Angelic or feathered wings (use crystal/mechanical only), Medieval or fantasy elements (swords, armor, runes, magic circles), Steampunk aesthetics (brass gears, Victorian styling), Retro analog tech (CRT monitors, exposed cables, vacuum tubes), Military insignia, firearms, tactical gear, Contemporary brand logos, text signage, or readable UI text, Lush natural scenery in clear focus (trees, mountains, oceans), Space vistas or starfields; keep environment non-cosmic and abstract, Neon cyberpunk street scenes (wet asphalt, kanji signage, crowded alleys), Rustic materials (wood beams, stone walls), Warm candlelight or firelight; avoid mystical ritual props (candles, incense), Brown/earthy, grungy palettes that detract from high-key white purity",
+          "COLOR_PALETTE: High-key whites, cool grays, subtle iridescent crystal highlights",
+          "MATERIALS: Polished matte white composites, clear/crystal elements, minimal metal",
+          "LIGHTING: Pure white core eruption with exposure blowout and soft cinematic bloom; sharp mechanical snap cue",
+          "ARCHITECTURE: Non-descript abstract futurist forms; no identifiable cultural motifs or signage",
+          "CAMERA_STYLE: Front-facing hero close-up, shallow depth-of-field, blurred background",
+          "PROPS: White intricate activation device with twin crystal wings (crystal/mechanical aesthetic)",
+          "WARDROBE: Modern-futurist jacket; no logos, patches, or military insignia",
+          "VFX: Clean geometric light behaviors; no glyphs, runes, smoke, or particle clutter",
+          "UI_ELEMENTS: Avoid textual HUD; if needed, use minimal geometric overlays only",
+          "ENVIRONMENT: Indeterminate interior or staging area implied; maintain abstraction",
+          "Shot-specific: Frame becomes pure white; no residual detail; minimal geometric falloff only; no text or symbols emerge"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Extreme close-up framing that is already nearly overexposed; the image is a high-key field with only the faintest residual contours at the extreme edges hinting at former subjects. Lighting is blinding pure white with soft bloom; environment and subjects have dissolved into an abstract, indeterminate void with no readable forms.",
+          "characters_in_shot": [],
+          "character_appearances": {},
+          "resolved_t2i": "Extreme close-up framing that is already nearly overexposed; the image is a high-key field with only the faintest residual contours at the extreme edges hinting at former subjects. Lighting is blinding pure white with soft bloom; environment and subjects have dissolved into an abstract, indeterminate void with no readable forms.",
+          "resolved_ti2i": "Extreme close-up framing that is already nearly overexposed; the image is a high-key field with only the faintest residual contours at the extreme edges hinting at former subjects. Lighting is blinding pure white with soft bloom; environment and subjects have dissolved into an abstract, indeterminate void with no readable forms.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Static camera as the remaining edge detail evaporates—the white field intensifies until the frame becomes a seamless, uniform pure white with no visible contour. Mouth remains tightly closed. No speaking. The bloom breathes once and then steadies; a minimal geometric falloff fades to zero. End by holding on the pristine white frame for a clean cut or dissolve.",
+          "resolved_i2v": "Static camera as the remaining edge detail evaporates—the white field intensifies until the frame becomes a seamless, uniform pure white with no visible contour. Mouth remains tightly closed. No speaking. The bloom breathes once and then steadies; a minimal geometric falloff fades to zero. End by holding on the pristine white frame for a clean cut or dissolve.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.1,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_05_frame_swallowed_white_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    }
+  ]
+}

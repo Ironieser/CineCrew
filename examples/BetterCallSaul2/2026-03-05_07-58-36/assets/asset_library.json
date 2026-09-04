@@ -1,0 +1,141 @@
+{
+  "project_title": "Courtroom Plea",
+  "global_style": "Grounded, realistic cinematography; muted palette; static, deliberate compositions; close-ups emphasizing discomfort; diegetic sound; courtroom wood textures and fluorescent glare.",
+  "project_settings": {
+    "location_lock": "United States courtroom interior (trial-level) — NOT UK/European courts; NOT exterior locations",
+    "negative_constraints": [
+      "British barrister wigs or white powdered wigs",
+      "UK royal crest, British courtroom signage, or Union Jack in courtroom",
+      "European-style enclosed defendant dock or green leather benches",
+      "Flat-panel TV, projector, smartboard, or holographic/futuristic displays used to show the evidence video",
+      "Smartphones or tablets used as the primary display for the evidence video",
+      "News cameras or TV crews inside the courtroom",
+      "Audience applause, laugh track, or comedic sound effects",
+      "Gallery outbursts or audible jury reactions (maintain dead-silent courtroom)",
+      "Graphic violence or depiction of real persons being harmed in the surveillance video",
+      "Excessive gavel use or comedic gavel banging",
+      "Non-American judicial wardrobe (ornate colored robes) or military-style uniforms for the judge",
+      "Exterior establishing shots or non-courtroom architectural elements within the scene"
+    ],
+    "style_overrides": {
+      "legal_system": "United States adversarial trial courtroom with strict decorum",
+      "courtroom_technology": "Aging CRT television on rolling AV cart with wired VCR/DVD player; audio via cart speakers",
+      "architecture": "Wood-paneled American courtroom interior with judge's bench, counsel tables, gallery seating; simple fluorescent lighting",
+      "wardrobe": "Judge in plain black robe (no wig); attorneys in contemporary business suits; Saul wears a cheap tie",
+      "props": "CRT TV on AV cart; remote or wired controls; physical evidence binders; tabletop microphones at counsel tables",
+      "color_palette": "Muted neutrals and warm varnished wood with cool fluorescent whites; avoid neon or glossy cinematic color",
+      "tone": "Tense, awkward, darkly comedic; dead-silent courtroom during the judge's reaction",
+      "sound_design": "Natural room tone only; no music stings; no laugh track",
+      "evidence_display": "The surveillance video must be played on the CRT television and appear low-resolution and slightly blurry"
+    },
+    "era_lock": "Contemporary (2010s–present) United States with legacy AV equipment (CRT television on rolling AV cart)"
+  },
+  "narrative_context": {
+    "time_period": "Unspecified contemporary courtroom setting",
+    "global_mood": "Tense, awkward, darkly comedic",
+    "key_events": [
+      "Saul passionately pleads for leniency, insisting no one was hurt.",
+      "He points to and plays a surveillance video on a CRT television.",
+      "Video shows blurry figures abusing a medical dummy with crude voiceover.",
+      "Judge reacts with unamused disgust in a dead-silent courtroom.",
+      "Saul deflates, lowers his arm, and fidgets with his cheap tie in embarrassment."
+    ],
+    "cultural_context": "Adversarial legal proceedings; strict courtroom decorum; audiovisual evidence presented to the bench; clash between theatrical advocacy and judicial restraint."
+  },
+  "characters": [
+    {
+      "id": "char_saul",
+      "name": "Saul",
+      "description": "Sweating, exhausted man in his 30s–40s, wiry build, anxious eyes, messy hairline. Face flushed, palms animated. Cheap, oversized suit hangs loosely; tie askew.",
+      "clothing_style": "Cheap, oversized suit, scuffed shoes, wide patterned tie, rumpled shirt.",
+      "voice_preset_id": null,
+      "voice_description": "Energetic, slightly nasal midrange, quick cadence; courtroom patter that pushes and pleads.",
+      "voice_design": null,
+      "personality": "Fast-talking, theatrical, desperate, persuasive yet insecure; hustling defender seeking leniency.",
+      "backstory": "Small-time defense attorney used to rough cases; relies on showmanship more than evidence.",
+      "current_motivation": "Convince the Judge to show leniency by reframing the act as harmless youthful stupidity.",
+      "scene_count": 1,
+      "dialogue_lines": 1,
+      "key_relationships": [
+        "char_judge"
+      ],
+      "visual_references": {
+        "canonical_image_path": "our_dataset/BetterCallSaul2/character_list/Saul/best.png",
+        "generation_prompt": null,
+        "generation_params": null,
+        "validation_score": null,
+        "generation_timestamp": null,
+        "variations": []
+      },
+      "audio_references": null
+    },
+    {
+      "id": "char_judge",
+      "name": "Judge",
+      "description": "Elderly, stern-faced judge in black robe, silver hair, deep-set eyes; composed posture behind the bench, expression severe and unimpressed.",
+      "clothing_style": "Traditional black judicial robe, understated accessories.",
+      "voice_preset_id": null,
+      "voice_description": "Measured, resonant baritone; clipped, formal diction; minimal warmth.",
+      "voice_design": null,
+      "personality": "Authoritative, no-nonsense, skeptical, easily displeased by theatrics; values order and decorum.",
+      "backstory": "Veteran jurist with decades on the bench; prioritizes procedure over performance.",
+      "current_motivation": "Maintain courtroom decorum and evaluate Saul’s plea without indulging theatrics.",
+      "scene_count": 1,
+      "dialogue_lines": 0,
+      "key_relationships": [
+        "char_saul"
+      ],
+      "visual_references": {
+        "canonical_image_path": "our_dataset/BetterCallSaul2/character_list/Judge/best.png",
+        "generation_prompt": null,
+        "generation_params": null,
+        "validation_score": null,
+        "generation_timestamp": null,
+        "variations": []
+      },
+      "audio_references": null
+    }
+  ],
+  "locations": [
+    {
+      "id": "loc_int_courtroom",
+      "name": "Courtroom",
+      "type": "INT",
+      "visual_style": "Formal wood-paneled walls; cool overhead lighting; solemn, hushed atmosphere; imposing bench dominates.",
+      "narrative_function": "Place of judgment and confrontation; evidence presentation; power imbalance accentuated.",
+      "time_of_day_stats": {},
+      "visual_references": null,
+      "audio_references": null,
+      "usage_count": 1
+    }
+  ],
+  "props": [
+    {
+      "id": "prop_crt_television",
+      "name": "CRT Television",
+      "related_character_id": "char_saul",
+      "visual_description": "Heavy, boxy cathode-ray tube TV with rounded screen and plastic casing; powered on, screen flickers and audio blares.",
+      "importance": "critical",
+      "usage_count": 1,
+      "visual_references": null
+    },
+    {
+      "id": "prop_rolling_cart",
+      "name": "Rolling AV Cart",
+      "related_character_id": "char_saul",
+      "visual_description": "Sturdy metal audiovisual cart with shelves and four caster wheels; supports the CRT TV.",
+      "importance": "supporting",
+      "usage_count": 1,
+      "visual_references": null
+    },
+    {
+      "id": "prop_judges_bench",
+      "name": "Judge's Bench",
+      "related_character_id": "char_judge",
+      "visual_description": "Large elevated wooden bench with paneled front; physically separates the Judge from the courtroom floor.",
+      "importance": "supporting",
+      "usage_count": 1,
+      "visual_references": null
+    }
+  ]
+}

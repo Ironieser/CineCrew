@@ -1,0 +1,360 @@
+{
+  "blueprint_id": "bp_iron_man_cave_forging_mask_5b4874",
+  "metadata": {
+    "project_name": "Cave Forge Sequence",
+    "target_resolution": "1280x720",
+    "target_aspect_ratio": "16:9",
+    "global_fps": 16
+  },
+  "global_style": "Gritty industrial realism; high-contrast chiaroscuro; dominant orange firelight against deep blacks; sweaty textures, soot, metal gleam and violent sparks; claustrophobic, kinetic framing.",
+  "final_film_path": null,
+  "shots": [
+    {
+      "shot_id": "shot_01_forge_fire_glows",
+      "narrative_layer": {
+        "narrative_action": "The blacksmith stands over the anvil in the dark cave as the raging forge fire casts the only light.",
+        "emotional_beat": "quiet_dread",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 4.0,
+        "camera": {
+          "shot_scale": "MLS",
+          "angle": "eye_level",
+          "movement": "static"
+        },
+        "lighting": "single practical forge glow (chiaroscuro)",
+        "environment_id": "loc_int_cave_forge",
+        "entities": [
+          {
+            "asset_id": "char_blacksmith",
+            "position": "center_midground",
+            "action_state": "standing_over_anvil_looking_down"
+          },
+          {
+            "asset_id": "prop_steel_anvil",
+            "position": "center_fg",
+            "action_state": "stationary"
+          },
+          {
+            "asset_id": "prop_metal_mask",
+            "position": "center_fg",
+            "action_state": "glowing_red_hot_on_anvil"
+          },
+          {
+            "asset_id": "prop_iron_hammer",
+            "position": "frame_right",
+            "action_state": "held_at_side"
+          },
+          {
+            "asset_id": "prop_forge_fire",
+            "position": "background_right",
+            "action_state": "roaring"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Subterranean cave forge, undetermined locale — DO NOT infer or depict a specific country, culture, or fantasy realm (NOT medieval Europe, NOT feudal Japan, NOT Norse, NOT dwarven/Tolkien).",
+          "ERA LOCK: Atemporal, era-agnostic underground workshop — no overt historical markers (NOT medieval, NOT steampunk, NOT cyberpunk, NOT futuristic sci‑fi).",
+          "FORBIDDEN: Medieval castle architecture, Viking/Norse runes, Celtic knotwork, Samurai armor, kabuto, katana, Torii gates, Gothic arches or stained glass, Art Deco motifs, Roman columns or Greek statues, Renaissance paintings, Fantasy dwarven halls (Moria style), Elven motifs, Steampunk gears and brass goggles, Cyberpunk neon and holograms, Futuristic sci‑fi technology, Electric lighting (bulbs, LEDs, fluorescents), Colored stage lighting, Windows, skylights, daylight shafts, Modern power tools (angle grinder, plasma cutter, electric welder), CNC machines, Computer screens or digital displays, Visible wiring and extension cords, Chrome or stainless steel polished finishes, Plastic components, Concrete or tiled walls/floors, White painted walls, Brand logos or modern signage, Safety signage and OSHA tape, Religious iconography, National flags or symbols, Text inscriptions in any language, Ornate jewelry inlays, gemstones, gold leaf, Stylized cultural masks (Kabuki, Oni, Venetian, tribal), Weapons beyond smithing tools, Firearms, Magical effects (glowing runes, enchanted light), Smoke machines or theatrical fog, Crowds or additional people; the blacksmith is alone, External light sources other than the forge fire, Countdown timers or digital clocks",
+          "COLOR_PALETTE: Firelit amber/orange highlights with deep charcoal and black shadows; gritty, high contrast.",
+          "ARCHITECTURE: Natural rough cave walls and stone; minimal, utilitarian forge fixtures only.",
+          "LIGHTING: Single practical source: forge/fire glow; chiaroscuro; no fill, rim, overhead, or electric lights.",
+          "MATERIALS: Black iron/steel, raw stone, soot, ash; avoid polished or decorative finishes.",
+          "PROPS: Manual smithing tools only (anvil, hammer, tongs); no powered equipment.",
+          "COSTUME: Functional, neutral workwear (heavy apron, gloves); no cultural insignia or ornament.",
+          "SET_DRESSING: Sparse, utilitarian; focus on labor and tools; no signage, logos, or decorative motifs.",
+          "MOOD: Tense, gritty, urgent; physical exertion emphasized by sparks and darkness.",
+          "Shot-specific: Forge fire must be visible in background and serve as the sole practical light source; no other light sources or windows.",
+          "Shot-specific: Keep cave walls rough stone; maintain deep shadows around frame edges.",
+          "Shot-specific: The blacksmith remains alone in frame."
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Gritty industrial realism, high-contrast chiaroscuro; the only illumination is the fierce orange glow of <prop_forge_fire>. At eye level in a medium-long shot, <char_blacksmith> stands center-midground, torso angled over <prop_steel_anvil> in the center foreground. His gloved right hand hangs at his side with <prop_iron_hammer> gripped but lowered; his left hand steadies near the anvil edge. <prop_metal_mask> lies red-hot atop <prop_steel_anvil>, its edges shimmering with heat. Eyeline: <char_blacksmith> stares down at <prop_metal_mask>, shoulders subtly coiled as if bracing to begin. He dominates the center of frame, while the tools and glowing workpiece anchor the foreground. In the right background, the mouth of <prop_forge_fire> roars within <loc_int_cave_forge>, casting volatile light across rough stone walls and leaving deep blacks at the frame edges. Atmosphere: a taut, quiet dread hangs in the heat-hazed air, the moment suspended just before movement.",
+          "characters_in_shot": [
+            "char_blacksmith"
+          ],
+          "character_appearances": {
+            "char_blacksmith": "Adult man, heavy leather apron over a grimy grey tank top, thick work gloves and worn work pants, sweat- and soot-smeared, standing rigidly over the anvil with shoulders slightly hunched and eyes locked downward; quiet dread and urgent focus in his posture"
+          },
+          "resolved_t2i": "Gritty industrial realism, high-contrast chiaroscuro; the only illumination is the fierce orange glow of <prop_forge_fire>. At eye level in a medium-long shot, Adult man, heavy leather apron over a grimy grey tank top, thick work gloves and worn work pants, sweat- and soot-smeared, standing rigidly over the anvil with shoulders slightly hunched and eyes locked downward; quiet dread and urgent focus in his posture stands center-midground, torso angled over <prop_steel_anvil> in the center foreground. His gloved right hand hangs at his side with <prop_iron_hammer> gripped but lowered; his left hand steadies near the anvil edge. <prop_metal_mask> lies red-hot atop <prop_steel_anvil>, its edges shimmering with heat. Eyeline: Adult man, heavy leather apron over a grimy grey tank top, thick work gloves and worn work pants, sweat- and soot-smeared, standing rigidly over the anvil with shoulders slightly hunched and eyes locked downward; quiet dread and urgent focus in his posture stares down at <prop_metal_mask>, shoulders subtly coiled as if bracing to begin. He dominates the center of frame, while the tools and glowing workpiece anchor the foreground. In the right background, the mouth of <prop_forge_fire> roars within <loc_int_cave_forge>, casting volatile light across rough stone walls and leaving deep blacks at the frame edges. Atmosphere: a taut, quiet dread hangs in the heat-hazed air, the moment suspended just before movement.",
+          "resolved_ti2i": "Picture 1 is Adult man, heavy leather apron over a grimy grey tank top, thick work gloves and worn work pants, sweat- and soot-smeared, standing rigidly over the anvil with shoulders slightly hunched and eyes locked downward; quiet dread and urgent focus in his posture.\nGritty industrial realism, high-contrast chiaroscuro; the only illumination is the fierce orange glow of <prop_forge_fire>. At eye level in a medium-long shot, Picture 1 stands center-midground, torso angled over <prop_steel_anvil> in the center foreground. His gloved right hand hangs at his side with <prop_iron_hammer> gripped but lowered; his left hand steadies near the anvil edge. <prop_metal_mask> lies red-hot atop <prop_steel_anvil>, its edges shimmering with heat. Eyeline: Picture 1 stares down at <prop_metal_mask>, shoulders subtly coiled as if bracing to begin. He dominates the center of frame, while the tools and glowing workpiece anchor the foreground. In the right background, the mouth of <prop_forge_fire> roars within <loc_int_cave_forge>, casting volatile light across rough stone walls and leaving deep blacks at the frame edges. Atmosphere: a taut, quiet dread hangs in the heat-hazed air, the moment suspended just before movement.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Static camera at eye level, holding a medium-long composition. <char_blacksmith> draws a slow breath; his chest rises and falls. His stance subtly adjusts as a boot scrapes gritty stone; his gloved fingers tighten around <prop_iron_hammer>, tendons flexing. He leans a fraction closer to <prop_steel_anvil>, gaze locked on <prop_metal_mask>, then begins to coil his shoulders, initiating the lift of the hammer from his side without yet bringing it above the work. Mouth remains tightly closed. No speaking. Ambient motion: <prop_forge_fire> flares and gutters, casting rhythmic pulses of orange across rough stone; heat ripples distort the air; a few ash motes drift through the light. Hold on the moment as the hammer just starts to rise into frame, setting up the cut to a low-angle, tighter view of the poised strike.",
+          "resolved_i2v": "Static camera at eye level, holding a medium-long composition. Adult man, heavy leather apron over a grimy grey tank top, thick work gloves and worn work pants, sweat- and soot-smeared, standing rigidly over the anvil with shoulders slightly hunched and eyes locked downward; quiet dread and urgent focus in his posture draws a slow breath; his chest rises and falls. His stance subtly adjusts as a boot scrapes gritty stone; his gloved fingers tighten around <prop_iron_hammer>, tendons flexing. He leans a fraction closer to <prop_steel_anvil>, gaze locked on <prop_metal_mask>, then begins to coil his shoulders, initiating the lift of the hammer from his side without yet bringing it above the work. Mouth remains tightly closed. No speaking. Ambient motion: <prop_forge_fire> flares and gutters, casting rhythmic pulses of orange across rough stone; heat ripples distort the air; a few ash motes drift through the light. Hold on the moment as the hammer just starts to rise into frame, setting up the cut to a low-angle, tighter view of the poised strike.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.1,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "fade_in",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_01_forge_fire_glows_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_02_hammer_raised_high",
+      "narrative_layer": {
+        "narrative_action": "With intense exertion, the blacksmith heaves the massive iron hammer up and poises it above the glowing metal mask on the anvil.",
+        "emotional_beat": "rising_tension",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 3.2,
+        "camera": {
+          "shot_scale": "MCU",
+          "angle": "low",
+          "movement": "slow_dolly_in"
+        },
+        "lighting": "single practical forge glow (chiaroscuro)",
+        "environment_id": "loc_int_cave_forge",
+        "entities": [
+          {
+            "asset_id": "char_blacksmith",
+            "position": "center_fg",
+            "action_state": "heaving_hammer_raised_high_poised_to_strike"
+          },
+          {
+            "asset_id": "prop_iron_hammer",
+            "position": "upper_center_fg",
+            "action_state": "raised_above_mask"
+          },
+          {
+            "asset_id": "prop_metal_mask",
+            "position": "center_fg",
+            "action_state": "glowing_on_anvil"
+          },
+          {
+            "asset_id": "prop_steel_anvil",
+            "position": "center_fg",
+            "action_state": "anchored_under_mask"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Subterranean cave forge, undetermined locale — DO NOT infer or depict a specific country, culture, or fantasy realm (NOT medieval Europe, NOT feudal Japan, NOT Norse, NOT dwarven/Tolkien).",
+          "ERA LOCK: Atemporal, era-agnostic underground workshop — no overt historical markers (NOT medieval, NOT steampunk, NOT cyberpunk, NOT futuristic sci‑fi).",
+          "FORBIDDEN: Medieval castle architecture, Viking/Norse runes, Celtic knotwork, Samurai armor, kabuto, katana, Torii gates, Gothic arches or stained glass, Art Deco motifs, Roman columns or Greek statues, Renaissance paintings, Fantasy dwarven halls (Moria style), Elven motifs, Steampunk gears and brass goggles, Cyberpunk neon and holograms, Futuristic sci‑fi technology, Electric lighting (bulbs, LEDs, fluorescents), Colored stage lighting, Windows, skylights, daylight shafts, Modern power tools (angle grinder, plasma cutter, electric welder), CNC machines, Computer screens or digital displays, Visible wiring and extension cords, Chrome or stainless steel polished finishes, Plastic components, Concrete or tiled walls/floors, White painted walls, Brand logos or modern signage, Safety signage and OSHA tape, Religious iconography, National flags or symbols, Text inscriptions in any language, Ornate jewelry inlays, gemstones, gold leaf, Stylized cultural masks (Kabuki, Oni, Venetian, tribal), Weapons beyond smithing tools, Firearms, Magical effects (glowing runes, enchanted light), Smoke machines or theatrical fog, Crowds or additional people; the blacksmith is alone, External light sources other than the forge fire, Countdown timers or digital clocks",
+          "COLOR_PALETTE: Firelit amber/orange highlights with deep charcoal and black shadows; gritty, high contrast.",
+          "ARCHITECTURE: Natural rough cave walls and stone; minimal, utilitarian forge fixtures only.",
+          "LIGHTING: Single practical source: forge/fire glow; chiaroscuro; no fill, rim, overhead, or electric lights.",
+          "MATERIALS: Black iron/steel, raw stone, soot, ash; avoid polished or decorative finishes.",
+          "PROPS: Manual smithing tools only (anvil, hammer, tongs); no powered equipment.",
+          "COSTUME: Functional, neutral workwear (heavy apron, gloves); no cultural insignia or ornament.",
+          "SET_DRESSING: Sparse, utilitarian; focus on labor and tools; no signage, logos, or decorative motifs.",
+          "MOOD: Tense, gritty, urgent; physical exertion emphasized by sparks and darkness.",
+          "Shot-specific: The hammer must be clearly raised above the glowing mask blank; do NOT show the strike in this shot.",
+          "Shot-specific: Keep the forge fire as off-frame light source; no additional fills or rims.",
+          "Shot-specific: The blacksmith remains alone in frame."
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "High-contrast, firelit chiaroscuro from <prop_forge_fire> as the sole source. Low-angle medium close-up pushes in on <char_blacksmith> at center foreground: his gloved hands grip <prop_iron_hammer> raised above <prop_metal_mask>, which glows atop <prop_steel_anvil> just below frame center. His elbows flare wide, shoulders braced, torso twisted slightly as he lines up the blow. Eyeline: <char_blacksmith> looks down past the hammer head directly to <prop_metal_mask>. The rough stone of <loc_int_cave_forge> recedes into darkness behind him. The moment is suspended with the hammer poised, a breath away from motion, the tension gathering but not yet released.",
+          "characters_in_shot": [
+            "char_blacksmith"
+          ],
+          "character_appearances": {
+            "char_blacksmith": "Adult man, heavy leather apron over grimy grey tank top, thick work gloves, forearms veined and tense; sweat and soot streaks; hammer arm locked overhead, body poised and breath held in rising tension"
+          },
+          "resolved_t2i": "High-contrast, firelit chiaroscuro from <prop_forge_fire> as the sole source. Low-angle medium close-up pushes in on Adult man, heavy leather apron over a grimy grey tank top, thick work gloves, forearms veined and taut; sweat and soot streaks; hammer arm locked overhead, body coiled and breath held, tension rising at center foreground: his gloved hands grip <prop_iron_hammer> raised above <prop_metal_mask>, which glows atop <prop_steel_anvil> just below frame center. His elbows flare wide, shoulders braced, torso twisted slightly as he lines up the blow. Eyeline: Adult man, heavy leather apron over a grimy grey tank top, thick work gloves, forearms veined and taut; sweat and soot streaks; hammer arm locked overhead, body coiled and breath held, tension rising looks down past the hammer head directly to <prop_metal_mask>. The rough stone of <loc_int_cave_forge> recedes into darkness behind him. The moment is suspended with the hammer poised, a breath away from motion, the tension gathering but not yet released.",
+          "resolved_ti2i": "Picture 1 is Adult man, heavy leather apron over a grimy grey tank top, thick work gloves, forearms veined and taut; sweat and soot streaks; hammer arm locked overhead, body coiled and breath held, tension rising.\nHigh-contrast, firelit chiaroscuro from <prop_forge_fire> as the sole source. Low-angle medium close-up pushes in on Picture 1 at center foreground: his gloved hands grip <prop_iron_hammer> raised above <prop_metal_mask>, which glows atop <prop_steel_anvil> just below frame center. His elbows flare wide, shoulders braced, torso twisted slightly as he lines up the blow. Eyeline: Picture 1 looks down past the hammer head directly to <prop_metal_mask>. The rough stone of <loc_int_cave_forge> recedes into darkness behind him. The moment is suspended with the hammer poised, a breath away from motion, the tension gathering but not yet released.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Slow dolly-in from the low angle, creeping closer to the raised hammer and clenched arms. <char_blacksmith>'s muscles quiver with the strain; a minute tremor in <prop_iron_hammer> settles as he aligns the head over <prop_metal_mask>. A bead of sweat crawls down his temple; his grip shifts a hair for precision; his chest tightens as he holds breath for the strike he is about to make. Mouth remains tightly closed. No speaking. Ambient motion: the glow from <prop_forge_fire> breathes brighter then dimmer, heat haze wavering; faint ash motes drift across the shallow depth of field. As the camera nears, he commits—initiating the downward swing without contact—freeze the last frame with the hammer just beginning its descent to set up a hard cut to the impact close-up.",
+          "resolved_i2v": "Slow dolly-in from the low angle, creeping closer to the raised hammer and clenched arms. Adult man, heavy leather apron over a grimy grey tank top, thick work gloves, forearms veined and taut; sweat and soot streaks; hammer arm locked overhead, body coiled and breath held, tension rising's muscles quiver with the strain; a minute tremor in <prop_iron_hammer> settles as he aligns the head over <prop_metal_mask>. A bead of sweat crawls down his temple; his grip shifts a hair for precision; his chest tightens as he holds breath for the strike he is about to make. Mouth remains tightly closed. No speaking. Ambient motion: the glow from <prop_forge_fire> breathes brighter then dimmer, heat haze wavering; faint ash motes drift across the shallow depth of field. As the camera nears, he commits—initiating the downward swing without contact—freeze the last frame with the hammer just beginning its descent to set up a hard cut to the impact close-up.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.3,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_02_hammer_raised_high_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_03_sparks_violently_erupt",
+      "narrative_layer": {
+        "narrative_action": "He slams the hammer onto the red-hot mask, blasting a shower of bright orange sparks that briefly reveal his exhausted, soot-stained face.",
+        "emotional_beat": "explosive_release",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 2.4,
+        "camera": {
+          "shot_scale": "CU",
+          "angle": "eye_level",
+          "movement": "static"
+        },
+        "lighting": "single practical forge glow (chiaroscuro)",
+        "environment_id": "loc_int_cave_forge",
+        "entities": [
+          {
+            "asset_id": "char_blacksmith",
+            "position": "frame_left",
+            "action_state": "mid_strike_face_lit_by_sparks"
+          },
+          {
+            "asset_id": "prop_iron_hammer",
+            "position": "center_fg",
+            "action_state": "impact_on_mask"
+          },
+          {
+            "asset_id": "prop_metal_mask",
+            "position": "center_fg",
+            "action_state": "sparks_erupting_bright_orange"
+          },
+          {
+            "asset_id": "prop_steel_anvil",
+            "position": "center_fg",
+            "action_state": "supporting_impact"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Subterranean cave forge, undetermined locale — DO NOT infer or depict a specific country, culture, or fantasy realm (NOT medieval Europe, NOT feudal Japan, NOT Norse, NOT dwarven/Tolkien).",
+          "ERA LOCK: Atemporal, era-agnostic underground workshop — no overt historical markers (NOT medieval, NOT steampunk, NOT cyberpunk, NOT futuristic sci‑fi).",
+          "FORBIDDEN: Medieval castle architecture, Viking/Norse runes, Celtic knotwork, Samurai armor, kabuto, katana, Torii gates, Gothic arches or stained glass, Art Deco motifs, Roman columns or Greek statues, Renaissance paintings, Fantasy dwarven halls (Moria style), Elven motifs, Steampunk gears and brass goggles, Cyberpunk neon and holograms, Futuristic sci‑fi technology, Electric lighting (bulbs, LEDs, fluorescents), Colored stage lighting, Windows, skylights, daylight shafts, Modern power tools (angle grinder, plasma cutter, electric welder), CNC machines, Computer screens or digital displays, Visible wiring and extension cords, Chrome or stainless steel polished finishes, Plastic components, Concrete or tiled walls/floors, White painted walls, Brand logos or modern signage, Safety signage and OSHA tape, Religious iconography, National flags or symbols, Text inscriptions in any language, Ornate jewelry inlays, gemstones, gold leaf, Stylized cultural masks (Kabuki, Oni, Venetian, tribal), Weapons beyond smithing tools, Firearms, Magical effects (glowing runes, enchanted light), Smoke machines or theatrical fog, Crowds or additional people; the blacksmith is alone, External light sources other than the forge fire, Countdown timers or digital clocks",
+          "COLOR_PALETTE: Firelit amber/orange highlights with deep charcoal and black shadows; gritty, high contrast.",
+          "ARCHITECTURE: Natural rough cave walls and stone; minimal, utilitarian forge fixtures only.",
+          "LIGHTING: Single practical source: forge/fire glow; chiaroscuro; no fill, rim, overhead, or electric lights.",
+          "MATERIALS: Black iron/steel, raw stone, soot, ash; avoid polished or decorative finishes.",
+          "PROPS: Manual smithing tools only (anvil, hammer, tongs); no powered equipment.",
+          "COSTUME: Functional, neutral workwear (heavy apron, gloves); no cultural insignia or ornament.",
+          "SET_DRESSING: Sparse, utilitarian; focus on labor and tools; no signage, logos, or decorative motifs.",
+          "MOOD: Tense, gritty, urgent; physical exertion emphasized by sparks and darkness.",
+          "Shot-specific: Show the moment of hammer contact with the red-hot mask and a violent eruption of bright orange sparks; his face should be briefly illuminated by the sparks.",
+          "Shot-specific: No magical glow effects or colored lighting beyond the forge fire and natural sparks.",
+          "Shot-specific: The blacksmith remains alone in frame."
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Chiaroscuro close-up at eye level, the only light coming from <prop_forge_fire> and the imminent flare of impact. <prop_iron_hammer> hangs a hair's breadth above <prop_metal_mask> on <prop_steel_anvil> at frame center, frozen in the split second before contact. At frame left, part of <char_blacksmith>'s face and shoulder edge into view, eyes locked on the glowing target; his grip and forearm tense in a compressed coil of power. The rough stone and surrounding void of <loc_int_cave_forge> sink into deep black around the peripherals. The air seems to hold its breath: the hammer is about to land.",
+          "characters_in_shot": [
+            "char_blacksmith"
+          ],
+          "character_appearances": {
+            "char_blacksmith": "Adult man, heavy apron and gloves, sweat-slick and soot-streaked face; jaw clenched, eyes narrowed with focus; mid-strike posture with explosive exertion as light from sparks sculpts his features"
+          },
+          "resolved_t2i": "Chiaroscuro close-up at eye level, the only light coming from <prop_forge_fire> and the instantaneous flare of impact. At frame center, <prop_iron_hammer> meets <prop_metal_mask> on <prop_steel_anvil> in the exact beat of contact, detonating a fan of bright orange sparks. At frame left, a sliver of Adult man in a heavy apron and gloves; sweat-slick, soot-smeared face, visibly exhausted. Jaw clenched, eyes narrowed in fierce focus. Caught mid-strike with explosive exertion as the spray of sparks sculpts his features.'s face and shoulder edge into view—eyes narrowed, jaw clenched—his sweat-slick, soot-streaked features carved into stark relief for a heartbeat by the spray. His grip and forearm are corded with strain, a compressed coil releasing its force. The rough stone and surrounding void of <loc_int_cave_forge> swallow the periphery in deep black. The air seems to hold its breath as the blow lands.",
+          "resolved_ti2i": "Picture 1 is Adult man in a heavy apron and gloves; sweat-slick, soot-smeared face, visibly exhausted. Jaw clenched, eyes narrowed in fierce focus. Caught mid-strike with explosive exertion as the spray of sparks sculpts his features..\nChiaroscuro close-up at eye level, the only light coming from <prop_forge_fire> and the instantaneous flare of impact. At frame center, <prop_iron_hammer> meets <prop_metal_mask> on <prop_steel_anvil> in the exact beat of contact, detonating a fan of bright orange sparks. At frame left, a sliver of Picture 1's face and shoulder edge into view—eyes narrowed, jaw clenched—his sweat-slick, soot-streaked features carved into stark relief for a heartbeat by the spray. His grip and forearm are corded with strain, a compressed coil releasing its force. The rough stone and surrounding void of <loc_int_cave_forge> swallow the periphery in deep black. The air seems to hold its breath as the blow lands.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Static camera CU with a subtle micro-jolt at impact. <char_blacksmith> drives <prop_iron_hammer> down into <prop_metal_mask> on <prop_steel_anvil>; the instant of contact detonates a violent fan of bright orange sparks that flare across the frame, carving his sweat- and soot-streaked features into stark relief for a heartbeat. His shoulders compress with the blow, then rebound; eyes squeeze tighter, jaw locked. Mouth remains tightly closed. No speaking. Ambient motion: sparks arc outward, ricochet off stone, and rain in incandescent trails; fleeting heat shimmer ripples; tiny cinders drift and dim as they fall, while the glow from <prop_forge_fire> undulates behind the dying spray. End on the sparks fading and his face slipping back into shadow, holding the CU to allow a clean cut out.",
+          "resolved_i2v": "Static camera CU with a subtle micro-jolt at impact. Adult man in a heavy apron and gloves; sweat-slick, soot-smeared face, visibly exhausted. Jaw clenched, eyes narrowed in fierce focus. Caught mid-strike with explosive exertion as the spray of sparks sculpts his features. drives <prop_iron_hammer> down into the red-hot <prop_metal_mask> on <prop_steel_anvil>; the instant of contact detonates an explosive fan of bright orange sparks that flare across the frame, briefly revealing his exhausted, sweat-slick, soot-streaked face in stark relief. His shoulders compress with the blow, then rebound; eyes squeeze tighter, jaw locked. Mouth remains tightly closed. No speaking. Ambient motion: sparks arc outward, ricochet off stone, and rain in incandescent trails; fleeting heat shimmer ripples; tiny cinders drift and dim as they fall, while the glow from <prop_forge_fire> undulates behind the dying spray. End on the sparks fading and his face slipping back into shadow, holding the CU to allow a clean cut out.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.1,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_03_sparks_violently_erupt_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,356 @@
+{
+  "blueprint_id": "bp_pulp_fiction_royale_with_cheese_3eb0d1",
+  "metadata": {
+    "project_name": "Royale with Cheese - LA Morning",
+    "target_resolution": "1280x720",
+    "target_aspect_ratio": "16:9",
+    "global_fps": 16
+  },
+  "global_style": "Naturalistic 1990s neo-noir; bright Californian sunlight; tight locked close-ups; minimal palette (black suits, tan leather); rhythmic, casual pacing; emphasis on pop-culture dialogue.",
+  "final_film_path": null,
+  "shots": [
+    {
+      "shot_id": "shot_01_sunlit_ride_smoke",
+      "narrative_layer": {
+        "narrative_action": "Vincent and Jules ride in a moving vintage car, casually smoking as shifting sunlight and shadows move across their faces.",
+        "emotional_beat": "relaxed_flow",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 3.8,
+        "camera": {
+          "shot_scale": "MS",
+          "angle": "eye_level",
+          "movement": "static"
+        },
+        "lighting": "warm California morning sunlight, strong contrast, shifting window patterns",
+        "environment_id": "loc_int_moving_car",
+        "entities": [
+          {
+            "asset_id": "char_jules_winnfield",
+            "position": "frame_left_seated",
+            "action_state": "smoking_casual_looking_ahead"
+          },
+          {
+            "asset_id": "char_vincent_vega",
+            "position": "frame_right_seated",
+            "action_state": "smoking_casual_looking_ahead"
+          },
+          {
+            "asset_id": "prop_cigarette",
+            "position": "frame_left_hand",
+            "action_state": "tapping_ash"
+          },
+          {
+            "asset_id": "prop_cigarette",
+            "position": "frame_right_hand",
+            "action_state": "glowing_ember_exhale"
+          },
+          {
+            "asset_id": "prop_vintage_car",
+            "position": "background_full",
+            "action_state": "moving_interior_vibration"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Los Angeles, California, USA (NOT New York, NOT Europe)",
+          "ERA LOCK: 1990s America",
+          "FORBIDDEN: Mediterranean architecture, New York brownstones, nighttime lighting, European city streets, Italian countryside",
+          "COLOR_PALETTE: Warm California morning sunlight, strong contrast",
+          "ARCHITECTURE: Automotive interior only, no exterior landmarks",
+          "WARDROBE: Crisp black suits, white shirts, narrow ties",
+          "Two-shot — both characters must be visible within the frame",
+          "Camera locked to car interior — no exterior landmarks visible through windows",
+          "Shifting sunlight and passing shadows must be evident across faces",
+          "Windows show abstract motion only (blurred), no recognizable LA landmarks",
+          "Cigarette smoke trails should be visible in the air"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Style: Naturalistic 1990s neo-noir with minimalist palette inside <loc_int_moving_car>. Lighting: Warm California morning sunlight with strong contrast; shifting window patterns slice across faces and tan leather. Framing/Positions: <char_jules_winnfield> sits frame-left, shoulders loose, cigarette held just above the door line, ash elongated but not yet flicked; eyeline forward down the road. <char_vincent_vega> sits frame-right, cigarette hovering near his lips, cheeks relaxed as if poised to exhale but holding it a beat; eyeline also forward. Relational dynamics: Both share equal space, mirroring relaxed body language; an unspoken rhythm suggests easy companionship rather than dominance. Environment: The interior of <prop_vintage_car> envelopes them—tan leather, chrome trim and textured dash; windows show only abstract blur from motion, with no exterior landmarks visible; faint smoke hangs in the air.",
+          "characters_in_shot": [
+            "char_jules_winnfield",
+            "char_vincent_vega"
+          ],
+          "character_appearances": {
+            "char_jules_winnfield": "Adult man, crisp black suit, white shirt, narrow tie; seated frame-left in a tan leather car interior, relaxed posture with a cigarette poised to tap ash, calm and at ease",
+            "char_vincent_vega": "Adult man, crisp black suit, white shirt, narrow tie; seated frame-right in a tan leather car interior, relaxed posture with a cigarette near his lips, composed and unhurried"
+          },
+          "resolved_t2i": "Style: Naturalistic 1990s neo-noir with minimalist palette inside <loc_int_moving_car>. Lighting: Warm California morning sunlight with strong contrast; shifting window patterns slice across faces and tan leather. Framing/Positions: Adult man in a crisp black suit, white shirt, and narrow tie; seated frame-left in a tan leather car interior, shoulders loose, relaxed posture with a cigarette poised to tap ash; calm, at ease. sits frame-left, shoulders loose, cigarette held just above the door line, ash elongated but not yet flicked; eyeline forward down the road. Adult man in a crisp black suit, white shirt, and narrow tie; seated frame-right in a tan leather car interior, relaxed posture with a cigarette near his lips; composed, unhurried. sits frame-right, cigarette hovering near his lips, cheeks relaxed as if poised to exhale but holding it a beat; eyeline also forward. Relational dynamics: Both share equal space, mirroring relaxed body language; an unspoken rhythm suggests easy companionship rather than dominance. Environment: The interior of <prop_vintage_car> envelopes them—tan leather, chrome trim and textured dash; windows show only abstract blur from motion, with no exterior landmarks visible; faint smoke hangs in the air.",
+          "resolved_ti2i": "Picture 1 is Adult man in a crisp black suit, white shirt, and narrow tie; seated frame-left in a tan leather car interior, shoulders loose, relaxed posture with a cigarette poised to tap ash; calm, at ease.; Picture 2 is Adult man in a crisp black suit, white shirt, and narrow tie; seated frame-right in a tan leather car interior, relaxed posture with a cigarette near his lips; composed, unhurried..\nStyle: Naturalistic 1990s neo-noir with minimalist palette inside <loc_int_moving_car>. Lighting: Warm California morning sunlight with strong contrast; shifting window patterns slice across faces and tan leather. Framing/Positions: Picture 1 sits frame-left, shoulders loose, cigarette held just above the door line, ash elongated but not yet flicked; eyeline forward down the road. Picture 2 sits frame-right, cigarette hovering near his lips, cheeks relaxed as if poised to exhale but holding it a beat; eyeline also forward. Relational dynamics: Both share equal space, mirroring relaxed body language; an unspoken rhythm suggests easy companionship rather than dominance. Environment: The interior of <prop_vintage_car> envelopes them—tan leather, chrome trim and textured dash; windows show only abstract blur from motion, with no exterior landmarks visible; faint smoke hangs in the air.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Camera Move: Static camera locked to the interior of <loc_int_moving_car>, with subtle engine vibration and gentle bob in the frame. Character Actions & Reactions: <char_jules_winnfield> taps the ash with a small flick; a thin ribbon of ash falls and a lazy smoke coil lifts past his cheek, his gaze staying forward before beginning the slightest turn toward <char_vincent_vega>. <char_vincent_vega> exhales a smooth plume, ember brightening briefly, then lowers his hand, glancing ahead with a micro nod in sync with the car’s roll; as <char_jules_winnfield> begins to angle toward him, <char_vincent_vega> shifts his shoulders minutely to acknowledge. Mouth remains tightly closed. No speaking. Ambient Motion: Bands of sunlight and passing shadow sweep rhythmically across faces and seats; smoke wafts and disperses; reflections slide over chrome; blurred window motion stays abstract with no identifiable landmarks. Forward Continuity: End with <char_jules_winnfield> just initiating a turn toward <char_vincent_vega>, setting up the over-the-shoulder composition of the next shot.",
+          "resolved_i2v": "Camera Move: Static camera locked to the interior of <loc_int_moving_car>, with subtle engine vibration and gentle bob in the frame. Character Actions & Reactions: Adult man in a crisp black suit, white shirt, and narrow tie; seated frame-left in a tan leather car interior, shoulders loose, relaxed posture with a cigarette poised to tap ash; calm, at ease. taps the ash with a small flick; a thin ribbon of ash falls and a lazy smoke coil lifts past his cheek, his gaze staying forward before beginning the slightest turn toward Adult man in a crisp black suit, white shirt, and narrow tie; seated frame-right in a tan leather car interior, relaxed posture with a cigarette near his lips; composed, unhurried.. Adult man in a crisp black suit, white shirt, and narrow tie; seated frame-right in a tan leather car interior, relaxed posture with a cigarette near his lips; composed, unhurried. exhales a smooth plume, ember brightening briefly, then lowers his hand, glancing ahead with a micro nod in sync with the car’s roll; as Adult man in a crisp black suit, white shirt, and narrow tie; seated frame-left in a tan leather car interior, shoulders loose, relaxed posture with a cigarette poised to tap ash; calm, at ease. begins to angle toward him, Adult man in a crisp black suit, white shirt, and narrow tie; seated frame-right in a tan leather car interior, relaxed posture with a cigarette near his lips; composed, unhurried. shifts his shoulders minutely to acknowledge. Mouth remains tightly closed. No speaking. Ambient Motion: Bands of sunlight and passing shadow sweep rhythmically across faces and seats; smoke wafts and disperses; reflections slide over chrome; blurred window motion stays abstract with no identifiable landmarks. Forward Continuity: End with Adult man in a crisp black suit, white shirt, and narrow tie; seated frame-left in a tan leather car interior, shoulders loose, relaxed posture with a cigarette poised to tap ash; calm, at ease. just initiating a turn toward Adult man in a crisp black suit, white shirt, and narrow tie; seated frame-right in a tan leather car interior, relaxed posture with a cigarette near his lips; composed, unhurried., setting up the over-the-shoulder composition of the next shot.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.1,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "fade_in",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_01_sunlit_ride_smoke_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_02_jules_asks_question",
+      "narrative_layer": {
+        "narrative_action": "Over the engine hum and shifting light, Jules turns to Vincent and asks a question.",
+        "emotional_beat": "curious_probe",
+        "dialogue": {
+          "has_dialogue": true,
+          "speaker_asset_id": "char_jules_winnfield",
+          "listener_asset_id": "char_vincent_vega",
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 3.0,
+        "camera": {
+          "shot_scale": "OTS",
+          "angle": "eye_level",
+          "movement": "static"
+        },
+        "lighting": "warm California morning sunlight, strong contrast, shifting window patterns",
+        "environment_id": "loc_int_moving_car",
+        "entities": [
+          {
+            "asset_id": "char_jules_winnfield",
+            "position": "center_fg",
+            "action_state": "turning_to_vincent_speaking"
+          },
+          {
+            "asset_id": "char_vincent_vega",
+            "position": "foreground_right_shoulder",
+            "action_state": "listening_offscreen_left"
+          },
+          {
+            "asset_id": "prop_cigarette",
+            "position": "center_fg_hand",
+            "action_state": "held_between_fingers"
+          },
+          {
+            "asset_id": "prop_vintage_car",
+            "position": "background",
+            "action_state": "moving_interior_vibration"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Los Angeles, California, USA (NOT New York, NOT Europe)",
+          "ERA LOCK: 1990s America",
+          "FORBIDDEN: Mediterranean architecture, New York brownstones, nighttime lighting, European city streets, Italian countryside",
+          "COLOR_PALETTE: Warm California morning sunlight, strong contrast",
+          "ARCHITECTURE: Automotive interior only, no exterior landmarks",
+          "WARDROBE: Crisp black suits, white shirts, narrow ties",
+          "Maintain OTS composition with Vincent's shoulder in the right foreground framing Jules",
+          "Eye-level perspective must be maintained",
+          "Camera locked to car interior — no exterior landmarks visible through windows",
+          "Windows show abstract motion only (blurred), no recognizable LA landmarks",
+          "Cigarette smoke visible around Jules as he speaks"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Style: Tight over-the-shoulder composition inside <loc_int_moving_car> with minimalist neo-noir realism. Lighting: Warm California morning sun with bold contrast; shifting window stripes rake across faces and shoulder line. Framing/Positions: <char_jules_winnfield> is centered in the mid-ground, chin tipped slightly toward the right, cigarette held between fingers near his chest; his lips are just parted as if about to speak but not yet. <char_vincent_vega>'s right shoulder and side of head frame the right foreground as a soft silhouette, anchoring the OTS. Eyelines/Power: <char_jules_winnfield> aims his gaze toward <char_vincent_vega> just off to camera-right, body leaning in a touch—assertive curiosity without aggression; the right-foreground shoulder remains steady, acting as a framing device. Environment: The tan leather and chrome of <prop_vintage_car> form the backdrop; windows show only abstract blurred motion with no landmarks.",
+          "characters_in_shot": [
+            "char_jules_winnfield",
+            "char_vincent_vega"
+          ],
+          "character_appearances": {
+            "char_jules_winnfield": "Adult man, crisp black suit, white shirt, narrow tie; centered in frame, leaned in slightly inquisitive with cigarette between fingers, mid-turn toward his partner, alert and curious",
+            "char_vincent_vega": "Adult man, crisp black suit, white shirt, narrow tie; only right shoulder/head edge visible in the foreground, steady and relaxed, listening posture"
+          },
+          "resolved_t2i": "Style: Tight over-the-shoulder composition inside <loc_int_moving_car> with minimalist neo-noir realism. Lighting: Warm California morning sun with bold contrast; shifting window stripes rake across faces and shoulder line. Framing/Positions: Adult man, crisp black suit, white shirt, narrow tie; centered in frame, leaned in slightly inquisitive with cigarette between fingers, mid-turn toward his partner, alert and curious is centered in the mid-ground, chin tipped slightly toward the right, cigarette held between fingers near his chest; his lips are just parted as if about to speak but not yet. Adult man, crisp black suit, white shirt, narrow tie; only right shoulder/head edge visible in the foreground, steady and relaxed, listening posture's right shoulder and side of head frame the right foreground as a soft silhouette, anchoring the OTS. Eyelines/Power: Adult man, crisp black suit, white shirt, narrow tie; centered in frame, leaned in slightly inquisitive with cigarette between fingers, mid-turn toward his partner, alert and curious aims his gaze toward Adult man, crisp black suit, white shirt, narrow tie; only right shoulder/head edge visible in the foreground, steady and relaxed, listening posture just off to camera-right, body leaning in a touch—assertive curiosity without aggression; the right-foreground shoulder remains steady, acting as a framing device. Environment: The tan leather and chrome of <prop_vintage_car> form the backdrop; windows show only abstract blurred motion with no landmarks.",
+          "resolved_ti2i": "Picture 1 is Adult man, crisp black suit, white shirt, narrow tie; centered in frame, leaned in slightly inquisitive with cigarette between fingers, mid-turn toward his partner, alert and curious; Picture 2 is Adult man, crisp black suit, white shirt, narrow tie; only right shoulder/head edge visible in the foreground, steady and relaxed, listening posture.\nStyle: Tight over-the-shoulder composition inside <loc_int_moving_car> with minimalist neo-noir realism. Lighting: Warm California morning sun with bold contrast; shifting window stripes rake across faces and shoulder line. Framing/Positions: Picture 1 is centered in the mid-ground, chin tipped slightly toward the right, cigarette held between fingers near his chest; his lips are just parted as if about to speak but not yet. Picture 2's right shoulder and side of head frame the right foreground as a soft silhouette, anchoring the OTS. Eyelines/Power: Picture 1 aims his gaze toward Picture 2 just off to camera-right, body leaning in a touch—assertive curiosity without aggression; the right-foreground shoulder remains steady, acting as a framing device. Environment: The tan leather and chrome of <prop_vintage_car> form the backdrop; windows show only abstract blurred motion with no landmarks.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Camera Move: Static OTS at eye level, gently breathing with road vibrations. Character Actions & Reactions: <char_jules_winnfield> completes his turn toward <char_vincent_vega>, brows lifting slightly as he raises the cigarette hand in a small conversational gesture; he asks his question, then holds the gaze. <char_vincent_vega>'s shoulder shifts subtly in acknowledgment; his head angle tilts a fraction as if preparing to respond, staying mostly off-screen. Mouth moves to match speech. Ambient Motion: Fleeting bands of sunlight and shadow travel over <char_jules_winnfield>'s face and the foreground shoulder; faint smoke wisps curl around his words; ash trembles with the car’s hum; blurred window motion remains abstract. Forward Continuity: End with <char_jules_winnfield> finishing his line on a micro-pause, while <char_vincent_vega>'s shoulder dips as if drawing breath—priming a cut to a tight CU on <char_vincent_vega>.",
+          "resolved_i2v": "Camera Move: Static OTS at eye level, gently breathing with road vibrations. Character Actions & Reactions: Adult man, crisp black suit, white shirt, narrow tie; centered in frame, leaned in slightly inquisitive with cigarette between fingers, mid-turn toward his partner, alert and curious completes his turn toward Adult man, crisp black suit, white shirt, narrow tie; only right shoulder/head edge visible in the foreground, steady and relaxed, listening posture, brows lifting slightly as he raises the cigarette hand in a small conversational gesture; he asks his question, then holds the gaze. Adult man, crisp black suit, white shirt, narrow tie; only right shoulder/head edge visible in the foreground, steady and relaxed, listening posture's shoulder shifts subtly in acknowledgment; his head angle tilts a fraction as if preparing to respond, staying mostly off-screen. Mouth moves to match speech. Ambient Motion: Fleeting bands of sunlight and shadow travel over Adult man, crisp black suit, white shirt, narrow tie; centered in frame, leaned in slightly inquisitive with cigarette between fingers, mid-turn toward his partner, alert and curious's face and the foreground shoulder; faint smoke wisps curl around his words; ash trembles with the car’s hum; blurred window motion remains abstract. Forward Continuity: End with Adult man, crisp black suit, white shirt, narrow tie; centered in frame, leaned in slightly inquisitive with cigarette between fingers, mid-turn toward his partner, alert and curious finishing his line on a micro-pause, while Adult man, crisp black suit, white shirt, narrow tie; only right shoulder/head edge visible in the foreground, steady and relaxed, listening posture's shoulder dips as if drawing breath—priming a cut to a tight CU on Adult man, crisp black suit, white shirt, narrow tie; only right shoulder/head edge visible in the foreground, steady and relaxed, listening posture.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.1,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_02_jules_asks_question_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_03_vincent_voiceover_reply",
+      "narrative_layer": {
+        "narrative_action": "As the ride continues, Vincent replies in voiceover to Jules’s question.",
+        "emotional_beat": "playful_reveal",
+        "dialogue": {
+          "has_dialogue": true,
+          "speaker_asset_id": "char_vincent_vega",
+          "listener_asset_id": "char_jules_winnfield",
+          "text": "They call it a Royale with Cheese.",
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 2.5,
+        "camera": {
+          "shot_scale": "CU",
+          "angle": "eye_level",
+          "movement": "rack_focus"
+        },
+        "lighting": "warm California morning sunlight, strong contrast, shifting window patterns",
+        "environment_id": "loc_int_moving_car",
+        "entities": [
+          {
+            "asset_id": "char_vincent_vega",
+            "position": "center_fg",
+            "action_state": "subtle_smirk_looking_ahead"
+          },
+          {
+            "asset_id": "prop_cigarette",
+            "position": "frame_right_hand",
+            "action_state": "smoldering_smoke_trail"
+          },
+          {
+            "asset_id": "prop_vintage_car",
+            "position": "background",
+            "action_state": "chrome_reflections_soft"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Los Angeles, California, USA (NOT New York, NOT Europe)",
+          "ERA LOCK: 1990s America",
+          "FORBIDDEN: Mediterranean architecture, New York brownstones, nighttime lighting, European city streets, Italian countryside",
+          "COLOR_PALETTE: Warm California morning sunlight, strong contrast",
+          "ARCHITECTURE: Automotive interior only, no exterior landmarks",
+          "WARDROBE: Crisp black suits, white shirts, narrow ties",
+          "Hold tight CU on Vincent; Jules should not be visible in this frame",
+          "Use rack focus to settle on Vincent's eyes (from cigarette ember or dashboard details)",
+          "Shifting sunlight and passing shadows must remain on Vincent's face",
+          "Camera locked to car interior — no exterior landmarks visible through windows",
+          "Windows show abstract motion only (blurred), no recognizable LA landmarks"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Style: Tight CU minimalism inside <loc_int_moving_car>, naturalistic 1990s neo-noir. Lighting: Warm California morning sun with strong contrast; moving window patterns swim softly across <char_vincent_vega>'s face. Framing/Positions: <char_vincent_vega> centered; his eyes forward with a hint of amusement, lips closed a breath before speaking; the cigarette rests low at frame edge, ember glowing faintly. Focus Setup: Initial focus clings to a nearby chrome glint or ember-edge while <char_vincent_vega>'s face sits fractionally soft, inviting an impending rack. Environment: Tan leather and chrome of <prop_vintage_car> fill the background; windows show only abstract blur, no exterior landmarks.",
+          "characters_in_shot": [
+            "char_vincent_vega"
+          ],
+          "character_appearances": {
+            "char_vincent_vega": "Adult man, crisp black suit, white shirt, narrow tie; tight close-up with a faint playful smirk forming, calm eyes catching shifting sunlight, cigarette low in frame with a soft ember"
+          },
+          "resolved_t2i": "Style: Tight CU minimalism inside <loc_int_moving_car>, naturalistic 1990s neo-noir. Lighting: Warm California morning sun with strong contrast; moving window patterns swim softly across Adult man in a crisp black suit, white shirt, and narrow tie; tight close-up with a faint, playful smirk forming, calm eyes catching the shifting sunlight, cigarette low in frame with a soft ember.'s face. Framing/Positions: Adult man in a crisp black suit, white shirt, and narrow tie; tight close-up with a faint, playful smirk forming, calm eyes catching the shifting sunlight, cigarette low in frame with a soft ember. centered; his eyes forward with a hint of amusement, lips closed a breath before speaking; the cigarette rests low at frame edge, ember glowing faintly. Focus Setup: Initial focus clings to a nearby chrome glint or ember-edge while Adult man in a crisp black suit, white shirt, and narrow tie; tight close-up with a faint, playful smirk forming, calm eyes catching the shifting sunlight, cigarette low in frame with a soft ember.'s face sits fractionally soft, inviting an impending rack. Environment: Tan leather and chrome of <prop_vintage_car> fill the background; windows show only abstract blur, no exterior landmarks.",
+          "resolved_ti2i": "Picture 1 is Adult man in a crisp black suit, white shirt, and narrow tie; tight close-up with a faint, playful smirk forming, calm eyes catching the shifting sunlight, cigarette low in frame with a soft ember..\nStyle: Tight CU minimalism inside <loc_int_moving_car>, naturalistic 1990s neo-noir. Lighting: Warm California morning sun with strong contrast; moving window patterns swim softly across Picture 1's face. Framing/Positions: Picture 1 centered; his eyes forward with a hint of amusement, lips closed a breath before speaking; the cigarette rests low at frame edge, ember glowing faintly. Focus Setup: Initial focus clings to a nearby chrome glint or ember-edge while Picture 1's face sits fractionally soft, inviting an impending rack. Environment: Tan leather and chrome of <prop_vintage_car> fill the background; windows show only abstract blur, no exterior landmarks.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Camera Move: Begin with a gentle rack focus from the ember/chrome detail to <char_vincent_vega>'s eyes; camera remains interior-locked with subtle road vibration. Character Actions & Reactions: As focus lands, <char_vincent_vega>'s mouth curves into a small smirk and he delivers the line with easy cadence, then lets the smile hang for a beat. Off-screen, the listening presence of <char_jules_winnfield> is implied but not shown. Mouth moves to match speech. Ambient Motion: Sunlight bands and soft shadows drift across his features; thin smoke threads rise and dissipate; chrome reflections creep across the dash; window motion stays abstract and landmark-free. Forward Continuity: End holding steady on <char_vincent_vega>'s eyes and lingering smirk, providing a clean button for the sequence.",
+          "resolved_i2v": "Camera Move: Begin with a gentle rack focus from the ember/chrome detail to Adult man in a crisp black suit, white shirt, and narrow tie; tight close-up with a faint, playful smirk forming, calm eyes catching the shifting sunlight, cigarette low in frame with a soft ember.'s eyes; camera remains interior-locked with subtle road vibration. Character Actions & Reactions: As focus lands, Adult man in a crisp black suit, white shirt, and narrow tie; tight close-up with a faint, playful smirk forming, calm eyes catching the shifting sunlight, cigarette low in frame with a soft ember.'s mouth curves into a small smirk and he delivers the line with easy cadence, then lets the smile hang for a beat. Off-screen, the listening presence of <char_jules_winnfield> is implied but not shown. Mouth moves to match speech. Ambient Motion: Sunlight bands and soft shadows drift across his features; thin smoke threads rise and dissipate; chrome reflections creep across the dash; window motion stays abstract and landmark-free. Forward Continuity: End holding steady on Adult man in a crisp black suit, white shirt, and narrow tie; tight close-up with a faint, playful smirk forming, calm eyes catching the shifting sunlight, cigarette low in frame with a soft ember.'s eyes and lingering smirk, providing a clean button for the sequence.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.4,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": true,
+            "sync_method": "musetalk",
+            "audio_source_ref": "assembly_layer.audio_tracks[0]"
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_03_vincent_voiceover_reply_dialogue",
+            "type": "dialogue",
+            "source": "tts_default",
+            "description": "They call it a Royale with Cheese."
+          },
+          {
+            "track_id": "shot_03_vincent_voiceover_reply_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    }
+  ]
+}

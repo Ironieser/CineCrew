@@ -1,0 +1,164 @@
+{
+  "project_title": "Color Echo",
+  "global_style": "Noir, high-contrast black and white with film grain; winter bleakness. Occasional saturated color bloom emanates only from the television screen.",
+  "project_settings": {
+    "location_lock": null,
+    "negative_constraints": [
+      "Do not introduce vibrant full-color except the television screen",
+      "No sunny weather; maintain heavy snowstorm atmosphere",
+      "No tropical or Mediterranean elements"
+    ],
+    "style_overrides": {
+      "color_palette": "High-contrast black and white with isolated saturated color from TV",
+      "lighting": "Harsh fluorescent in bakery; dim apartment lit by TV glow",
+      "season": "Winter snowstorm"
+    },
+    "era_lock": null
+  },
+  "narrative_context": {
+    "time_period": "Unspecified winter; monochrome present with retro tech (VHS/VCR) and a past-era TV ad",
+    "global_mood": "Tense, melancholic, nostalgic isolation",
+    "key_events": [
+      "Gene mechanically kneads dough, eyes darting nervously in a mall bakery kitchen",
+      "He returns to a dark, rundown apartment amid a heavy snowstorm",
+      "He pushes an old VHS tape into a vintage VCR",
+      "The TV erupts in vivid color, piercing the monochrome room",
+      "Saul Goodman’s energetic ad plays; Gene silently watches the past he left behind"
+    ],
+    "cultural_context": "Noir aesthetics; mall labor anonymity; VHS-era advertising tropes; contrast of monochrome present versus colorful media memory."
+  },
+  "characters": [
+    {
+      "id": "char_gene",
+      "name": "Gene",
+      "description": "Balding middle-aged man with a mustache and thick glasses; anxious, mechanical movements; lives in monochrome.",
+      "clothing_style": "Plain bakery attire with apron; drab winter coat; thick rectangular eyeglasses; neutral tones.",
+      "voice_preset_id": null,
+      "voice_description": "Soft, restrained, hesitant; speaks rarely with cautious pauses.",
+      "voice_design": null,
+      "personality": "Paranoid, hyper-vigilant, withdrawn; routine-bound; exhausted yet careful.",
+      "backstory": "Lives under an alias, hiding from a vibrant past connected to Saul Goodman; keeps low profile working at a mall bakery.",
+      "current_motivation": "Remain unnoticed, survive routine, privately revisit the past via the VHS tape.",
+      "scene_count": 2,
+      "dialogue_lines": 0,
+      "key_relationships": [
+        "char_saul_goodman"
+      ],
+      "visual_references": {
+        "canonical_image_path": "our_dataset/BetterCallSaul1/character_list/Gene/best.png",
+        "generation_prompt": null,
+        "generation_params": null,
+        "validation_score": null,
+        "generation_timestamp": null,
+        "variations": []
+      },
+      "audio_references": null
+    },
+    {
+      "id": "char_saul_goodman",
+      "name": "Saul Goodman",
+      "description": "Young, sharply dressed TV pitchman; colorful presence against monochrome; energetic, points at camera.",
+      "clothing_style": "Flashy suit with bright tie; polished, attention-grabbing TV-ready look.",
+      "voice_preset_id": null,
+      "voice_description": "Fast-talking, confident, bombastic infomercial cadence.",
+      "voice_design": null,
+      "personality": "Charismatic, aggressive showman; persuasive and opportunistic.",
+      "backstory": "Appears in a legal ad promising help to the doomed; symbolizes Gene’s abandoned past.",
+      "current_motivation": "Promote legal services and deliver the 'Better call Saul' pitch.",
+      "scene_count": 1,
+      "dialogue_lines": 1,
+      "key_relationships": [
+        "char_gene"
+      ],
+      "visual_references": {
+        "canonical_image_path": "our_dataset/BetterCallSaul1/character_list/Saul/best.png",
+        "generation_prompt": null,
+        "generation_params": null,
+        "validation_score": null,
+        "generation_timestamp": null,
+        "variations": []
+      },
+      "audio_references": null
+    }
+  ],
+  "locations": [
+    {
+      "id": "loc_int_mall_bakery_kitchen",
+      "name": "Mall Bakery Kitchen",
+      "type": "INT",
+      "visual_style": "Harsh fluorescent light, stainless counters, industrial mixers; stark black-and-white, sterile tension.",
+      "narrative_function": "Monotony and concealment; routine labor under an alias.",
+      "time_of_day_stats": {},
+      "visual_references": null,
+      "audio_references": null,
+      "usage_count": 1
+    },
+    {
+      "id": "loc_int_gene_apartment",
+      "name": "Gene's Apartment",
+      "type": "INT",
+      "visual_style": "Dark, rundown interior; snow-muted windows; CRT TV glow pierces shadows; high-contrast monochrome with color spill.",
+      "narrative_function": "Sanctuary for secrecy and reflection; portal to the past.",
+      "time_of_day_stats": {},
+      "visual_references": null,
+      "audio_references": null,
+      "usage_count": 1
+    }
+  ],
+  "props": [
+    {
+      "id": "prop_vhs_tape",
+      "name": "VHS Tape",
+      "related_character_id": "char_gene",
+      "visual_description": "Worn black VHS cassette with scuffed edges and a faded handwritten label; evokes retro home-video era.",
+      "importance": "critical",
+      "usage_count": 1,
+      "visual_references": null
+    },
+    {
+      "id": "prop_vcr",
+      "name": "Vintage VCR",
+      "related_character_id": "char_gene",
+      "visual_description": "Front-loading VCR with mechanical whirr, LED indicators, and tactile buttons; sturdy plastic housing.",
+      "importance": "supporting",
+      "usage_count": 1,
+      "visual_references": null
+    },
+    {
+      "id": "prop_television",
+      "name": "CRT Television",
+      "related_character_id": "char_gene",
+      "visual_description": "Boxy CRT TV that emits saturated color glow; curved glass screen, thick bezel, retro dials.",
+      "importance": "supporting",
+      "usage_count": 1,
+      "visual_references": null
+    },
+    {
+      "id": "prop_worn_out_couch",
+      "name": "Worn-out Couch",
+      "related_character_id": "char_gene",
+      "visual_description": "Sagging upholstered couch with frayed fabric and flattened cushions; monochrome texture emphasizes fatigue.",
+      "importance": "supporting",
+      "usage_count": 1,
+      "visual_references": null
+    },
+    {
+      "id": "prop_bakery_dough",
+      "name": "Bakery Dough",
+      "related_character_id": "char_gene",
+      "visual_description": "Pale dough mass on a stainless counter; smooth, elastic surface, hand-kneaded in repetitive motions.",
+      "importance": "background",
+      "usage_count": 1,
+      "visual_references": null
+    },
+    {
+      "id": "prop_industrial_mixer",
+      "name": "Industrial Mixer",
+      "related_character_id": null,
+      "visual_description": "Large steel stand mixer with bowl and hook attachment; utilitarian, clean lines, functional bulk.",
+      "importance": "background",
+      "usage_count": 1,
+      "visual_references": null
+    }
+  ]
+}

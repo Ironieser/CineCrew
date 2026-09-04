@@ -1,0 +1,428 @@
+{
+  "blueprint_id": "bp_spiderverse_leap_of_faith_e05a1f",
+  "metadata": {
+    "project_name": "Leap of Faith (Neon Rooftop Excerpt)",
+    "target_resolution": "1280x720",
+    "target_aspect_ratio": "16:9",
+    "global_fps": 16
+  },
+  "global_style": "Highly stylized, neon-lit comic book aesthetic with halftone textures, bold contrasts, kinetic motion blur, and shifting frame rates; dynamic camera, including 180-degree inversion to dramatize the leap of faith.",
+  "final_film_path": null,
+  "shots": [
+    {
+      "shot_id": "shot_01_edge_breath_poise",
+      "narrative_layer": {
+        "narrative_action": "The young superhero stands at the extreme rooftop edge and takes a deep breath.",
+        "emotional_beat": "gathering_courage",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 3.2,
+        "camera": {
+          "shot_scale": "MS",
+          "angle": "dutch",
+          "movement": "slow_dolly_in"
+        },
+        "lighting": "neon-lit night high-contrast rimlight; overcast soft fill from city glow",
+        "environment_id": "loc_ext_new_york_skyscraper_rooftop",
+        "entities": [
+          {
+            "asset_id": "char_young_superhero",
+            "position": "frame_right",
+            "action_state": "toes_over_ledge, steadying breath, gaze outward"
+          },
+          {
+            "asset_id": "prop_green_jacket",
+            "position": "frame_right",
+            "action_state": "fluttering_in_wind, rimlit edge"
+          },
+          {
+            "asset_id": "prop_red_blue_sneakers",
+            "position": "frame_right",
+            "action_state": "on_ledge_edge, toes_over"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: New York City, USA (NOT Los Angeles, NOT Tokyo)",
+          "ERA LOCK: Contemporary urban setting",
+          "FORBIDDEN: Mediterranean architecture, daytime sunshine, pastoral countryside, period costumes, rural landscapes",
+          "COLOR_PALETTE: Neon blues, magentas, cyans; high-contrast blacks",
+          "ARCHITECTURE: Modern glass-and-steel skyscrapers; urban rooftops",
+          "CINEMATOGRAPHY: Comic-book framing, halftone textures, extreme angles, 180-degree inversion",
+          "FRAME_RATE: Variable frame rates to emphasize emotion and motion",
+          "Wardrobe continuity: green jacket and red-and-blue sneakers must be visible as accents.",
+          "Screen direction: rooftop ledge anchors frame_right; city depth expands to frame_left.",
+          "Maintain low-key silhouette with neon rim on shoulders and jawline."
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Stylized comic-book neon aesthetic with halftone textures and bold contrast; dutch-angled medium shot. Neon-lit night high-contrast rimlight with soft city-glow fill. <char_young_superhero> stands at the extreme edge of <loc_ext_new_york_skyscraper_rooftop>, positioned frame_right with the line of the ledge slicing diagonally; the toes of <prop_red_blue_sneakers> hang just beyond the edge. Posture: shoulders slightly forward, hands relaxed at sides, chest lifted as he gathers air; jaw tight, eyes fixed outward toward the vast city to frame_left. <prop_green_jacket> hems lift in the wind but have not yet whipped into full flutter. Eyeline runs past camera-left into the neon abyss; body is canted toward the void while the city expanse dominates negative space, emphasizing his smallness against the skyline. The atmosphere is tense and quiet—the held breath before commitment; glass-and-steel verticals recede toward frame_left, depth exaggerated by high-contrast blacks and neon rims.",
+          "characters_in_shot": [
+            "char_young_superhero"
+          ],
+          "character_appearances": {
+            "char_young_superhero": "Masked young man, black suit beneath bright green jacket and red-and-blue high-top sneakers, toes over rooftop ledge; steadying breath, focused and apprehensive"
+          },
+          "resolved_t2i": "Stylized comic-book neon aesthetic with halftone textures and bold contrast; dutch-angled medium shot. Neon-lit night high-contrast rimlight with soft city-glow fill. Masked young man in a black suit beneath a bright green jacket, red-and-blue high-top sneakers; toes edging over the rooftop ledge; steadying his breath, focused yet apprehensive stands at the extreme edge of <loc_ext_new_york_skyscraper_rooftop>, positioned frame_right with the line of the ledge slicing diagonally; the toes of <prop_red_blue_sneakers> hang just beyond the edge. Posture: shoulders slightly forward, hands relaxed at sides, chest lifted as he gathers air; jaw tight, eyes fixed outward toward the vast city to frame_left. <prop_green_jacket> hems lift in the wind but have not yet whipped into full flutter. Eyeline runs past camera-left into the neon abyss; body is canted toward the void while the city expanse dominates negative space, emphasizing his smallness against the skyline. The atmosphere is tense and quiet—the held breath before commitment; glass-and-steel verticals recede toward frame_left, depth exaggerated by high-contrast blacks and neon rims.",
+          "resolved_ti2i": "Picture 1 is Masked young man in a black suit beneath a bright green jacket, red-and-blue high-top sneakers; toes edging over the rooftop ledge; steadying his breath, focused yet apprehensive.\nStylized comic-book neon aesthetic with halftone textures and bold contrast; dutch-angled medium shot. Neon-lit night high-contrast rimlight with soft city-glow fill. Picture 1 stands at the extreme edge of <loc_ext_new_york_skyscraper_rooftop>, positioned frame_right with the line of the ledge slicing diagonally; the toes of <prop_red_blue_sneakers> hang just beyond the edge. Posture: shoulders slightly forward, hands relaxed at sides, chest lifted as he gathers air; jaw tight, eyes fixed outward toward the vast city to frame_left. <prop_green_jacket> hems lift in the wind but have not yet whipped into full flutter. Eyeline runs past camera-left into the neon abyss; body is canted toward the void while the city expanse dominates negative space, emphasizing his smallness against the skyline. The atmosphere is tense and quiet—the held breath before commitment; glass-and-steel verticals recede toward frame_left, depth exaggerated by high-contrast blacks and neon rims.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "[Camera Move] Slow dolly-in along the rooftop ledge plane at a dutch angle, tightening subtly on <char_young_superhero>'s profile with the edge anchored at frame_right. [Character Actions & Reactions] <char_young_superhero> inhales; chest expands beneath the jacket; fingers flex, then settle; a measured exhale mists briefly; weight shifts infinitesimally backward but heels remain planted; <prop_green_jacket> flutters with increasing amplitude; <prop_red_blue_sneakers> scrape lightly as grip adjusts. [Lip Constraint] Mouth remains tightly closed. No speaking. [Ambient Motion] Neon signage glows and flickers across <loc_ext_new_york_skyscraper_rooftop>; distant traffic lights pulse and headlights drift; wind combs jacket fabric and hair fibers; faint haze and dust motes drift left-to-right; halftone texture shimmers subtly. End with camera nearly parallel to his profile, his center of mass tipped a fraction toward the drop, primed for a clean cut into the over-the-ledge descent of the next shot.",
+          "resolved_i2v": "[Camera Move] Slow dolly-in along the rooftop ledge plane at a dutch angle, tightening subtly on Masked young man in a black suit beneath a bright green jacket, red-and-blue high-top sneakers; toes edging over the rooftop ledge; steadying his breath, focused yet apprehensive's profile with the edge anchored at frame_right. [Character Actions & Reactions] Masked young man in a black suit beneath a bright green jacket, red-and-blue high-top sneakers; toes edging over the rooftop ledge; steadying his breath, focused yet apprehensive inhales; chest expands beneath the jacket; fingers flex, then settle; a measured exhale mists briefly; weight shifts infinitesimally backward but heels remain planted; <prop_green_jacket> flutters with increasing amplitude; <prop_red_blue_sneakers> scrape lightly as grip adjusts. [Lip Constraint] Mouth remains tightly closed. No speaking. [Ambient Motion] Neon signage glows and flickers across <loc_ext_new_york_skyscraper_rooftop>; distant traffic lights pulse and headlights drift; wind combs jacket fabric and hair fibers; faint haze and dust motes drift left-to-right; halftone texture shimmers subtly. End with camera nearly parallel to his profile, his center of mass tipped a fraction toward the drop, primed for a clean cut into the over-the-ledge descent of the next shot.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.3,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "fade_in",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_01_edge_breath_poise_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_02_backward_fall_abyss",
+      "narrative_layer": {
+        "narrative_action": "He lets himself fall backward into the neon-lit abyss of the city.",
+        "emotional_beat": "letting_go",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 2.6,
+        "camera": {
+          "shot_scale": "LS",
+          "angle": "high",
+          "movement": "crane_over_ledge_then_drop_follow"
+        },
+        "lighting": "neon-lit night with deep city glow; low-key high-contrast edges",
+        "environment_id": "loc_ext_new_york_skyscraper_rooftop",
+        "entities": [
+          {
+            "asset_id": "char_young_superhero",
+            "position": "center_fg",
+            "action_state": "falling_backward_from_ledge, arms_tucked"
+          },
+          {
+            "asset_id": "prop_green_jacket",
+            "position": "center_fg",
+            "action_state": "whip_in_wind_during_drop"
+          },
+          {
+            "asset_id": "prop_red_blue_sneakers",
+            "position": "center_fg",
+            "action_state": "leaving_ledge, soles_flash_in_neon"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: New York City, USA (NOT Los Angeles, NOT Tokyo)",
+          "ERA LOCK: Contemporary urban setting",
+          "FORBIDDEN: Mediterranean architecture, daytime sunshine, pastoral countryside, period costumes, rural landscapes",
+          "COLOR_PALETTE: Neon blues, magentas, cyans; high-contrast blacks",
+          "ARCHITECTURE: Modern glass-and-steel skyscrapers; urban rooftops",
+          "CINEMATOGRAPHY: Comic-book framing, halftone textures, extreme angles, 180-degree inversion",
+          "FRAME_RATE: Variable frame rates to emphasize emotion and motion",
+          "Maintain screen direction from shot_01: he releases from frame_right ledge and falls toward frame_bottom-left.",
+          "Wind interaction: jacket flutters aggressively; motion blur streaks align with fall vector.",
+          "Keep rooftop glass-and-steel materials in frame briefly as camera tips over the edge."
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "High-angle long shot framed in bold neon halftones; low-key, high-contrast edges. The camera hovers just over the lip of <loc_ext_new_york_skyscraper_rooftop>, looking down into the city void. <char_young_superhero> is centered at the ledge, shoulders rolling back but weight not yet surrendered; arms still close to his sides; <prop_red_blue_sneakers> toes at the very threshold; <prop_green_jacket> begins to lift and peel from his torso. Rooftop glass-and-steel still occupies the top of frame as the city yawns toward frame_bottom-left. It is the tipping instant before he lets himself fall.",
+          "characters_in_shot": [
+            "char_young_superhero"
+          ],
+          "character_appearances": {
+            "char_young_superhero": "Masked young man, black suit beneath bright green jacket and red-and-blue high-top sneakers, arching at the balance point on the ledge; arms close to body, resolute and calm"
+          },
+          "resolved_t2i": "High-angle long shot framed in bold neon halftones; low-key, high-contrast edges. The camera hovers just over the lip of <loc_ext_new_york_skyscraper_rooftop>, looking down into the city void. Masked young man, black suit beneath bright green jacket and red-and-blue high-top sneakers, arching at the balance point on the ledge; arms close to body, resolute and calm is centered at the ledge, shoulders rolling back but weight not yet surrendered; arms still close to his sides; <prop_red_blue_sneakers> toes at the very threshold; <prop_green_jacket> begins to lift and peel from his torso. Rooftop glass-and-steel still occupies the top of frame as the city yawns toward frame_bottom-left. It is the tipping instant before he lets himself fall.",
+          "resolved_ti2i": "Picture 1 is Masked young man, black suit beneath bright green jacket and red-and-blue high-top sneakers, arching at the balance point on the ledge; arms close to body, resolute and calm.\nHigh-angle long shot framed in bold neon halftones; low-key, high-contrast edges. The camera hovers just over the lip of <loc_ext_new_york_skyscraper_rooftop>, looking down into the city void. Picture 1 is centered at the ledge, shoulders rolling back but weight not yet surrendered; arms still close to his sides; <prop_red_blue_sneakers> toes at the very threshold; <prop_green_jacket> begins to lift and peel from his torso. Rooftop glass-and-steel still occupies the top of frame as the city yawns toward frame_bottom-left. It is the tipping instant before he lets himself fall.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "[Camera Move] Crane glides over the ledge and then tips down, committing into a drop-follow as the rooftop flips past the top of frame. [Character Actions & Reactions] <char_young_superhero> releases his heels; back arcs as he yields to gravity; arms fold in tight to streamline; chin points skyward; <prop_red_blue_sneakers> flash their white soles toward camera as they leave the ledge; <prop_green_jacket> whips hard, sketching cyan/magenta motion streaks along the fall vector. [Lip Constraint] Mouth remains tightly closed. No speaking. [Ambient Motion] The ledge races out of frame; neon signs smear into vertical trails rising past him; wind roars past; grit and paper scraps spiral upward relative to his fall; neighboring tower facades slide by with parallax. End with the camera matching his velocity just above his chest and beginning a slight roll to cue the full 180-degree inversion in the next shot.",
+          "resolved_i2v": "[Camera Move] Crane glides over the ledge and then tips down, committing into a drop-follow as the rooftop flips past the top of frame. [Character Actions & Reactions] Masked young man, black suit beneath bright green jacket and red-and-blue high-top sneakers, arching at the balance point on the ledge; arms close to body, resolute and calm releases his heels; back arcs as he yields to gravity; arms fold in tight to streamline; chin points skyward; <prop_red_blue_sneakers> flash their white soles toward camera as they leave the ledge; <prop_green_jacket> whips hard, sketching cyan/magenta motion streaks along the fall vector. [Lip Constraint] Mouth remains tightly closed. No speaking. [Ambient Motion] The ledge races out of frame; neon signs smear into vertical trails rising past him; wind roars past; grit and paper scraps spiral upward relative to his fall; neighboring tower facades slide by with parallax. End with the camera matching his velocity just above his chest and beginning a slight roll to cue the full 180-degree inversion in the next shot.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.4,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_02_backward_fall_abyss_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_03_world_inverts_rising",
+      "narrative_layer": {
+        "narrative_action": "The world violently inverts 180 degrees, creating the illusion that he rises into the sky as he continues falling.",
+        "emotional_beat": "perspective_shift",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 3.0,
+        "camera": {
+          "shot_scale": "MCU",
+          "angle": "dutch",
+          "movement": "rapid_180_roll_with_speed_ramp"
+        },
+        "lighting": "silhouette backlight neon glow with halftone streaks; high-contrast",
+        "environment_id": "loc_ext_new_york_skyscraper_rooftop",
+        "entities": [
+          {
+            "asset_id": "char_young_superhero",
+            "position": "center_fg",
+            "action_state": "continuing_freefall, orientation_flips_to_appear_rising"
+          },
+          {
+            "asset_id": "prop_green_jacket",
+            "position": "center_fg",
+            "action_state": "trailing_streamers_in_roll, rimlit edges"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: New York City, USA (NOT Los Angeles, NOT Tokyo)",
+          "ERA LOCK: Contemporary urban setting",
+          "FORBIDDEN: Mediterranean architecture, daytime sunshine, pastoral countryside, period costumes, rural landscapes",
+          "COLOR_PALETTE: Neon blues, magentas, cyans; high-contrast blacks",
+          "ARCHITECTURE: Modern glass-and-steel skyscrapers; urban rooftops",
+          "CINEMATOGRAPHY: Comic-book framing, halftone textures, extreme angles, 180-degree inversion",
+          "FRAME_RATE: Variable frame rates to emphasize emotion and motion",
+          "Execute a full 180-degree inversion roll within this shot; horizon flips once, creating rising illusion.",
+          "Use kinetic motion blur and neon streaks during the roll; maintain hero's face silhouette readable.",
+          "Maintain continuity: wardrobe (green jacket, red-and-blue sneakers) and neon rimlight persist through roll."
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Neon silhouette with halftone streaks; high-contrast backlight. Dutch-leaning medium close-up with the city glow behind on <loc_ext_new_york_skyscraper_rooftop>'s skyline. <char_young_superhero> is centered, still falling but the horizon has not yet flipped; shoulders tense, arms close to the torso; <prop_green_jacket> streams backward in thin ribbons of fabric. The air feels electrically charged—the split-second before the world violently inverts to make his fall read as ascent.",
+          "characters_in_shot": [
+            "char_young_superhero"
+          ],
+          "character_appearances": {
+            "char_young_superhero": "Masked young man, black suit beneath bright green jacket and red-and-blue high-top sneakers, in freefall mid-orientation change; composed focus giving way to exhilaration"
+          },
+          "resolved_t2i": "Neon silhouette with halftone streaks; high-contrast backlight. Dutch-leaning medium close-up with the city glow behind on <loc_ext_new_york_skyscraper_rooftop>'s skyline. A masked young man: black suit under a bright green jacket, red-and-blue high-top sneakers; caught in freefall mid-orientation shift, composed focus tipping into exhilaration is centered, still in freefall with the horizon not yet overturned; shoulders braced, arms cinched to his sides; <prop_green_jacket> streams backward in thin ribbons of fabric. The air feels electrically charged—the knifepoint instant before the world whips 180 degrees, making his plunge read as ascent.",
+          "resolved_ti2i": "Picture 1 is A masked young man: black suit under a bright green jacket, red-and-blue high-top sneakers; caught in freefall mid-orientation shift, composed focus tipping into exhilaration.\nNeon silhouette with halftone streaks; high-contrast backlight. Dutch-leaning medium close-up with the city glow behind on <loc_ext_new_york_skyscraper_rooftop>'s skyline. Picture 1 is centered, still in freefall with the horizon not yet overturned; shoulders braced, arms cinched to his sides; <prop_green_jacket> streams backward in thin ribbons of fabric. The air feels electrically charged—the knifepoint instant before the world whips 180 degrees, making his plunge read as ascent.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "[Camera Move] Rapid 180-degree roll with a speed ramp: begin locked on <char_young_superhero>'s face and shoulders, then accelerate through the horizon flip while keeping him pinned center-frame. [Character Actions & Reactions] <char_young_superhero> continues freefall; jaw loosens, gaze lifts; shoulders relax; hands drift outward a few inches in nascent openness; <prop_green_jacket> trails, then snaps into the new orientation with neon rim edges sketching arcs during the roll. [Lip Constraint] Mouth remains tightly closed. No speaking. [Ambient Motion] Window grids and neon bands whirl around him into a luminous halo; halftone speed lines streak with the rotation; variable frame rate strobes through the flip, then smooths as the rising illusion locks. End with the roll completed and the camera settling slightly below his chin so the city now slides downward behind him, setting a clean cut into the low undershot wide where his arms will fully spread.",
+          "resolved_i2v": "[Camera Move] Rapid 180-degree roll with a speed ramp: begin locked on A masked young man: black suit under a bright green jacket, red-and-blue high-top sneakers; caught in freefall mid-orientation shift, composed focus tipping into exhilaration's face and shoulders, then accelerate through the horizon flip while keeping him pinned center-frame. [Character Actions & Reactions] A masked young man: black suit under a bright green jacket, red-and-blue high-top sneakers; caught in freefall mid-orientation shift, composed focus tipping into exhilaration continues freefall; jaw slackens, gaze lifts; shoulders uncoil; hands drift outward a few inches in nascent openness; <prop_green_jacket> trails, then snaps into the new orientation with neon rim edges sketching arcs during the roll. [Lip Constraint] Mouth remains tightly closed. No speaking. [Ambient Motion] Window grids and neon bands whirl around him, coalescing into a luminous halo; halftone speed lines streak with the rotation; variable frame rate strobes through the flip, then smooths as the rising illusion locks. End with the roll complete and the camera settling just below his chin so the city now slides downward behind him, setting a clean cut into the low undershot wide where his arms will fully spread.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.8,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_03_world_inverts_rising_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_04_arms_wide_leap",
+      "narrative_layer": {
+        "narrative_action": "He spreads his arms wide as shattering glass echoes, embracing the leap of faith.",
+        "emotional_beat": "defiant_resolve",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 3.6,
+        "camera": {
+          "shot_scale": "LS",
+          "angle": "undershot",
+          "movement": "tracking_fall_stabilized_slow_dolly_in"
+        },
+        "lighting": "neon backlight with specular glass highlights; high-contrast silhouette",
+        "environment_id": "loc_ext_new_york_skyscraper_rooftop",
+        "entities": [
+          {
+            "asset_id": "char_young_superhero",
+            "position": "center_fg",
+            "action_state": "arms_spread_wide_in_freefall, embracing_leap"
+          },
+          {
+            "asset_id": "prop_green_jacket",
+            "position": "center_fg",
+            "action_state": "billowing_wingspread_silhouette"
+          },
+          {
+            "asset_id": "prop_red_blue_sneakers",
+            "position": "center_fg",
+            "action_state": "toes_pointed_down, trailing_motion_lines"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: New York City, USA (NOT Los Angeles, NOT Tokyo)",
+          "ERA LOCK: Contemporary urban setting",
+          "FORBIDDEN: Mediterranean architecture, daytime sunshine, pastoral countryside, period costumes, rural landscapes",
+          "COLOR_PALETTE: Neon blues, magentas, cyans; high-contrast blacks",
+          "ARCHITECTURE: Modern glass-and-steel skyscrapers; urban rooftops",
+          "CINEMATOGRAPHY: Comic-book framing, halftone textures, extreme angles, 180-degree inversion",
+          "FRAME_RATE: Variable frame rates to emphasize emotion and motion",
+          "Maintain post-inversion orientation from shot_03 so hero appears to ascend; arms fully extended within frame.",
+          "Silhouette readability: strong rimlight on shoulders, forearms, and jacket hem; specular hints imply shattering glass off-screen.",
+          "Keep background city parallax moving upward relative to frame to sustain rising illusion."
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Low undershot long shot in bold neon halftones, high-contrast silhouette. The camera tracks from below as <char_young_superhero> hangs centered above against the city glow of <loc_ext_new_york_skyscraper_rooftop>'s skyline, still in freefall but not yet opening his arms; elbows remain tucked near his ribs; <prop_green_jacket> billows lightly without full span; <prop_red_blue_sneakers> point downward. Specular highlights skim across nearby glass surfaces as if tension is about to snap; the upward-moving city parallax sustains the illusion that he ascends.",
+          "characters_in_shot": [
+            "char_young_superhero"
+          ],
+          "character_appearances": {
+            "char_young_superhero": "Masked young man, black suit beneath bright green jacket and red-and-blue high-top sneakers, freefall with arms poised to spread; serene, defiant resolve"
+          },
+          "resolved_t2i": "Low undershot long shot in bold neon halftones, high-contrast silhouette. The camera tracks from below as Masked young man, black suit beneath bright green jacket and red-and-blue high-top sneakers, freefall with arms poised to spread; serene, defiant resolve hangs centered above against the city glow of <loc_ext_new_york_skyscraper_rooftop>'s skyline, still in freefall but not yet opening his arms; elbows remain tucked near his ribs; <prop_green_jacket> billows lightly without full span; <prop_red_blue_sneakers> point downward. Specular highlights skim across nearby glass surfaces as if tension is about to snap; the upward-moving city parallax sustains the illusion that he ascends.",
+          "resolved_ti2i": "Picture 1 is Masked young man, black suit beneath bright green jacket and red-and-blue high-top sneakers, freefall with arms poised to spread; serene, defiant resolve.\nLow undershot long shot in bold neon halftones, high-contrast silhouette. The camera tracks from below as Picture 1 hangs centered above against the city glow of <loc_ext_new_york_skyscraper_rooftop>'s skyline, still in freefall but not yet opening his arms; elbows remain tucked near his ribs; <prop_green_jacket> billows lightly without full span; <prop_red_blue_sneakers> point downward. Specular highlights skim across nearby glass surfaces as if tension is about to snap; the upward-moving city parallax sustains the illusion that he ascends.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "[Camera Move] Stabilized low-angle tracking follow with a slow dolly-in toward <char_young_superhero>'s silhouette. [Character Actions & Reactions] <char_young_superhero> draws a breath and throws his arms wide in a decisive, expansive motion; chest opens; head tips back into the neon; <prop_green_jacket> blossoms into a winglike billow; <prop_red_blue_sneakers> extend with toes pointed as legs align with the fall. [Lip Constraint] Mouth remains tightly closed. No speaking. [Ambient Motion] A crystalline echo ripples across reflections—specular highlights jitter and crawl along building glass as if shattering off-screen; neon glints skate across his suit; the city streams downward to enhance the rising illusion; thin cloud wisps pass the lens; tiny debris sparkles trail behind; motion blur eases as the frame rate calms into a steadier cadence. End holding on a centered, symmetrical rising silhouette with arms fully extended against magenta-cyan skyglow for a clean button or transition.",
+          "resolved_i2v": "[Camera Move] Stabilized low-angle tracking follow with a slow dolly-in toward Masked young man, black suit beneath bright green jacket and red-and-blue high-top sneakers, freefall with arms poised to spread; serene, defiant resolve's silhouette. [Character Actions & Reactions] Masked young man, black suit beneath bright green jacket and red-and-blue high-top sneakers, freefall with arms poised to spread; serene, defiant resolve draws a breath and throws his arms wide in a decisive, expansive motion; chest opens; head tips back into the neon; <prop_green_jacket> blossoms into a winglike billow; <prop_red_blue_sneakers> extend with toes pointed as legs align with the fall. [Lip Constraint] Mouth remains tightly closed. No speaking. [Ambient Motion] A crystalline echo ripples across reflections—specular highlights jitter and crawl along building glass as if shattering off-screen; neon glints skate across his suit; the city streams downward to enhance the rising illusion; thin cloud wisps pass the lens; tiny debris sparkles trail behind; motion blur eases as the frame rate calms into a steadier cadence. End holding on a centered, symmetrical rising silhouette with arms fully extended against magenta-cyan skyglow for a clean button or transition.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.3,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_04_arms_wide_leap_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    }
+  ]
+}

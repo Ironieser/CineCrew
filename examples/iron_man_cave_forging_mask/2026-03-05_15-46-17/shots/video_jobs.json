@@ -1,0 +1,76 @@
+{
+  "scene_id": "bp_iron_man_cave_forging_mask_5b4874",
+  "jobs": [
+    {
+      "job_id": "bp_iron_man_cave_forging_mask_5b4874_shot_01_forge_fire_glows_a",
+      "scene_id": "bp_iron_man_cave_forging_mask_5b4874",
+      "shot_id": "shot_01_forge_fire_glows",
+      "segment_id": "shot_01_forge_fire_glows_a",
+      "prompt": "Static camera at eye level, holding a medium-long composition. Adult man, heavy leather apron over a grimy grey tank top, thick work gloves and worn work pants, sweat- and soot-smeared, standing rigidly over the anvil with shoulders slightly hunched and eyes locked downward; quiet dread and urgent focus in his posture draws a slow breath; his chest rises and falls. His stance subtly adjusts as a boot scrapes gritty stone; his gloved fingers tighten around <prop_iron_hammer>, tendons flexing. He leans a fraction closer to <prop_steel_anvil>, gaze locked on <prop_metal_mask>, then begins to coil his shoulders, initiating the lift of the hammer from his side without yet bringing it above the work. Mouth remains tightly closed. No speaking. Ambient motion: <prop_forge_fire> flares and gutters, casting rhythmic pulses of orange across rough stone; heat ripples distort the air; a few ash motes drift through the light. Hold on the moment as the hammer just starts to rise into frame, setting up the cut to a low-angle, tighter view of the poised strike.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": null,
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 4.062,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 65,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    },
+    {
+      "job_id": "bp_iron_man_cave_forging_mask_5b4874_shot_02_hammer_raised_high_a",
+      "scene_id": "bp_iron_man_cave_forging_mask_5b4874",
+      "shot_id": "shot_02_hammer_raised_high",
+      "segment_id": "shot_02_hammer_raised_high_a",
+      "prompt": "Slow dolly-in from the low angle, creeping closer to the raised hammer and clenched arms. Adult man, heavy leather apron over a grimy grey tank top, thick work gloves, forearms veined and taut; sweat and soot streaks; hammer arm locked overhead, body coiled and breath held, tension rising's muscles quiver with the strain; a minute tremor in <prop_iron_hammer> settles as he aligns the head over <prop_metal_mask>. A bead of sweat crawls down his temple; his grip shifts a hair for precision; his chest tightens as he holds breath for the strike he is about to make. Mouth remains tightly closed. No speaking. Ambient motion: the glow from <prop_forge_fire> breathes brighter then dimmer, heat haze wavering; faint ash motes drift across the shallow depth of field. As the camera nears, he commits—initiating the downward swing without contact—freeze the last frame with the hammer just beginning its descent to set up a hard cut to the impact close-up.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": null,
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 3.312,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 53,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    },
+    {
+      "job_id": "bp_iron_man_cave_forging_mask_5b4874_shot_03_sparks_violently_erupt_a",
+      "scene_id": "bp_iron_man_cave_forging_mask_5b4874",
+      "shot_id": "shot_03_sparks_violently_erupt",
+      "segment_id": "shot_03_sparks_violently_erupt_a",
+      "prompt": "Static camera CU with a subtle micro-jolt at impact. Adult man in a heavy apron and gloves; sweat-slick, soot-smeared face, visibly exhausted. Jaw clenched, eyes narrowed in fierce focus. Caught mid-strike with explosive exertion as the spray of sparks sculpts his features. drives <prop_iron_hammer> down into the red-hot <prop_metal_mask> on <prop_steel_anvil>; the instant of contact detonates an explosive fan of bright orange sparks that flare across the frame, briefly revealing his exhausted, sweat-slick, soot-streaked face in stark relief. His shoulders compress with the blow, then rebound; eyes squeeze tighter, jaw locked. Mouth remains tightly closed. No speaking. Ambient motion: sparks arc outward, ricochet off stone, and rain in incandescent trails; fleeting heat shimmer ripples; tiny cinders drift and dim as they fall, while the glow from <prop_forge_fire> undulates behind the dying spray. End on the sparks fading and his face slipping back into shadow, holding the CU to allow a clean cut out.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": null,
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 2.562,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 41,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    }
+  ],
+  "total_shots": 3,
+  "estimated_duration": 9.6
+}

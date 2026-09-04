@@ -1,0 +1,628 @@
+{
+  "blueprint_id": "bp_tintin_moroccan_market_chase_3e956f",
+  "metadata": {
+    "project_name": "Moroccan Market Chase",
+    "target_resolution": "1280x720",
+    "target_aspect_ratio": "16:9",
+    "global_fps": 16
+  },
+  "global_style": "High-energy adventure with sun-baked North African palette, saturated colors, kinetic camera, practical stunts, comedic panic amid real danger, stylized realism.",
+  "final_film_path": null,
+  "shots": [
+    {
+      "shot_id": "shot_01_reporter_blazes_market",
+      "narrative_layer": {
+        "narrative_action": "The young reporter races through the Moroccan market on a vintage motorcycle as his bearded companion in the sidecar wildly aims a bazooka.",
+        "emotional_beat": "rising_tension",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 4.0,
+        "camera": {
+          "shot_scale": "MLS",
+          "angle": "low",
+          "movement": "tracking_vehicle_mount_low"
+        },
+        "lighting": "harsh midday sun, hard shadows, dusty air bloom",
+        "environment_id": "loc_ext_moroccan_market",
+        "entities": [
+          {
+            "asset_id": "prop_vintage_motorcycle_sidecar",
+            "position": "center_fg",
+            "action_state": "racing_forward"
+          },
+          {
+            "asset_id": "char_young_reporter",
+            "position": "frame_left",
+            "action_state": "riding_focus_forward"
+          },
+          {
+            "asset_id": "char_bearded_companion",
+            "position": "frame_right",
+            "action_state": "aiming_bazooka_wildly"
+          },
+          {
+            "asset_id": "prop_bazooka",
+            "position": "frame_right_fg",
+            "action_state": "waving_unsteady"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Moroccan market district, North Africa (NOT European city)",
+          "ERA LOCK: Daytime chase, contemporary with vintage tech",
+          "FORBIDDEN: European cobblestone squares, rainy weather, snow, modern glass skyscrapers, nighttime neon signage",
+          "COLOR_PALETTE: warm ochres, terracotta, bright produce colors, sun-bleached neutrals",
+          "ARCHITECTURE: Moroccan medina stalls, narrow alleys, textiles and wooden kiosks",
+          "LIGHTING: harsh midday sun, hard shadows, dusty air bloom",
+          "Keep camera slightly ahead-left of bike at bumper height; maintain low perspective to accentuate speed.",
+          "Bazooka must remain visible frame-right in sidecar throughout this shot; dust trail behind wheels."
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Stylized realism, kinetic chase framing, sun-baked palette. Lighting: harsh midday sun carving hard shadows; warm dust bloom hanging in the air. At <loc_ext_moroccan_market>, <prop_vintage_motorcycle_sidecar> fills center foreground from a low, slightly ahead-left angle, tilted toward a tight alley. <char_young_reporter> sits left in the saddle, body pitched forward over the bars, gloved hands poised on throttle and clutch, eyes locked straight down the alley. In the sidecar frame-right, <char_bearded_companion> compresses his shoulders, elbows tucked, <prop_bazooka> hoisted but not yet swinging, its tube intruding into frame-right foreground. Eyelines: <char_young_reporter> fixes the path ahead; <char_bearded_companion> darts glances between the tube’s sights and flanking stalls. Power dynamic: <char_young_reporter> commands the vector and speed; <char_bearded_companion> visually dominates frame-right with the oversized weapon, adding chaotic tension. Environment: narrow medina passage lined with wooden kiosks and textiles, stacked produce at <prop_fruit_stands> crowding the edges, pedestrians already parting; heat haze hints in the distance.",
+          "characters_in_shot": [
+            "char_young_reporter",
+            "char_bearded_companion"
+          ],
+          "character_appearances": {
+            "char_young_reporter": "Young male, light shirt with sleeves rolled, trousers, leather boots and goggles; dust-streaked face, jaw set, focused rider ready to burst forward",
+            "char_bearded_companion": "Rugged bearded man, utility jacket, trousers, boots and protective goggles; coated in dust, anxious but determined, crouched with a heavy launcher"
+          },
+          "resolved_t2i": "Stylized realism, kinetic chase framing, sun-baked palette. Lighting: harsh midday sun carving hard shadows; warm dust bloom hanging in the air. At <loc_ext_moroccan_market>, <prop_vintage_motorcycle_sidecar> fills center foreground from a low, slightly ahead-left angle, tilted toward a tight alley. Young man in a light shirt with rolled sleeves, trousers, leather boots, and aviator goggles; face streaked with dust, jaw clenched—laser-focused rider coiled to surge ahead. sits left in the saddle, body pitched forward over the bars, gloved hands poised on throttle and clutch, eyes locked straight down the alley. In the sidecar frame-right, Rugged, bearded man in a utility jacket, trousers, boots, and protective goggles; dust-caked, anxious yet resolute, hunched in the sidecar with a heavy launcher. hunches his shoulders, elbows tucked, <prop_bazooka> hoisted but not yet swinging, its tube intruding into frame-right foreground. Eyelines: Young man in a light shirt with rolled sleeves, trousers, leather boots, and aviator goggles; face streaked with dust, jaw clenched—laser-focused rider coiled to surge ahead. fixes the path ahead; Rugged, bearded man in a utility jacket, trousers, boots, and protective goggles; dust-caked, anxious yet resolute, hunched in the sidecar with a heavy launcher. flicks glances between the tube’s sights and the flanking stalls. Power dynamic: Young man in a light shirt with rolled sleeves, trousers, leather boots, and aviator goggles; face streaked with dust, jaw clenched—laser-focused rider coiled to surge ahead. commands the vector and speed; Rugged, bearded man in a utility jacket, trousers, boots, and protective goggles; dust-caked, anxious yet resolute, hunched in the sidecar with a heavy launcher. visually dominates frame-right with the oversized weapon, adding chaotic tension. Environment: narrow medina passage lined with wooden kiosks and textiles, stacked produce at <prop_fruit_stands> crowding the edges, pedestrians already parting; heat haze wavers in the distance.",
+          "resolved_ti2i": "Picture 1 is Young man in a light shirt with rolled sleeves, trousers, leather boots, and aviator goggles; face streaked with dust, jaw clenched—laser-focused rider coiled to surge ahead.; Picture 2 is Rugged, bearded man in a utility jacket, trousers, boots, and protective goggles; dust-caked, anxious yet resolute, hunched in the sidecar with a heavy launcher..\nStylized realism, kinetic chase framing, sun-baked palette. Lighting: harsh midday sun carving hard shadows; warm dust bloom hanging in the air. At <loc_ext_moroccan_market>, <prop_vintage_motorcycle_sidecar> fills center foreground from a low, slightly ahead-left angle, tilted toward a tight alley. Picture 1 sits left in the saddle, body pitched forward over the bars, gloved hands poised on throttle and clutch, eyes locked straight down the alley. In the sidecar frame-right, Picture 2 hunches his shoulders, elbows tucked, <prop_bazooka> hoisted but not yet swinging, its tube intruding into frame-right foreground. Eyelines: Picture 1 fixes the path ahead; Picture 2 flicks glances between the tube’s sights and the flanking stalls. Power dynamic: Picture 1 commands the vector and speed; Picture 2 visually dominates frame-right with the oversized weapon, adding chaotic tension. Environment: narrow medina passage lined with wooden kiosks and textiles, stacked produce at <prop_fruit_stands> crowding the edges, pedestrians already parting; heat haze wavers in the distance.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Low vehicle-mounted tracking move, camera ahead-left at bumper height, hugging the ground as it matches and slightly leads <prop_vintage_motorcycle_sidecar>. <char_young_reporter> twists the throttle and leans into the lane, shoulders tight; his goggles tilt as he steals a micro-glance toward the sidecar before refocusing ahead. <char_bearded_companion> swings <prop_bazooka> in jittery arcs frame-right, trying to steady the sights without pointing at bystanders; he braces his feet as the sidecar jitters over uneven boards. Mouth remains tightly closed. No speaking. Ambient motion: textiles whip across the alley, vendors jerk back, baskets wobble, a plume of dust and paper scraps streams off the wheels, sunlight strobing through latticework. The camera keeps the low, ahead-left perspective as the bike bears down on clustered <prop_fruit_stands> filling the path, ending with them looming large to set up the cut into the POV smash.",
+          "resolved_i2v": "Low vehicle-mounted tracking move, camera ahead-left at bumper height, hugging the ground as it matches and slightly leads <prop_vintage_motorcycle_sidecar>. Young man in a light shirt with rolled sleeves, trousers, leather boots, and aviator goggles; face streaked with dust, jaw clenched—laser-focused rider coiled to surge ahead. twists the throttle and leans into the lane, shoulders tight; his goggles tilt as he steals a micro-glance toward the sidecar before refocusing ahead. Rugged, bearded man in a utility jacket, trousers, boots, and protective goggles; dust-caked, anxious yet resolute, hunched in the sidecar with a heavy launcher. swings <prop_bazooka> in jittery arcs frame-right, trying to steady the sights without pointing at bystanders; he braces his feet as the sidecar jitters over uneven boards. Mouth remains tightly closed. No speaking. Ambient motion: textiles whip across the alley, vendors jerk back, baskets wobble, a plume of dust and paper scraps streams off the wheels, sunlight strobing through latticework. The camera keeps the low, ahead-left perspective as the bike bears down on clustered <prop_fruit_stands> filling the path, ending with them looming large to set up the cut into the POV smash.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.4,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "fade_in",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_01_reporter_blazes_market_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_02_fruit_stands_explode",
+      "narrative_layer": {
+        "narrative_action": "The motorcycle smashes through colorful fruit stands, blasting crates open and sending oranges flying toward the lens.",
+        "emotional_beat": "chaos_escalates",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 2.5,
+        "camera": {
+          "shot_scale": "POV",
+          "angle": "eye_level",
+          "movement": "rapid_forward_POV"
+        },
+        "lighting": "harsh midday sun, hard shadows, dusty air bloom",
+        "environment_id": "loc_ext_moroccan_market",
+        "entities": [
+          {
+            "asset_id": "prop_fruit_stands",
+            "position": "both_sides_fg",
+            "action_state": "splintering_as_bike_blasts_through"
+          },
+          {
+            "asset_id": "prop_oranges",
+            "position": "center_fg",
+            "action_state": "flying_toward_lens"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Moroccan market district, North Africa (NOT European city)",
+          "ERA LOCK: Daytime chase, contemporary with vintage tech",
+          "FORBIDDEN: European cobblestone squares, rainy weather, snow, modern glass skyscrapers, nighttime neon signage",
+          "COLOR_PALETTE: warm ochres, terracotta, bright produce colors, sun-bleached neutrals",
+          "ARCHITECTURE: Moroccan medina stalls, narrow alleys, textiles and wooden kiosks",
+          "LIGHTING: harsh midday sun, hard shadows, dusty air bloom",
+          "POV is from the motorcycle heading forward through stalls; minimal bike visible (just a hint of handlebars acceptable).",
+          "Oranges must impact toward camera; a quick splatter-on-lens gag is acceptable before cutting."
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "High-energy POV composition with saturated produce colors against warm ochres. Lighting: harsh midday sun, crisp shadows, fine dust shimmering. From the POV of <prop_vintage_motorcycle_sidecar> rushing through <loc_ext_moroccan_market>, <prop_fruit_stands> crowd both sides of the frame in the near foreground, their wooden slats flexing, crates stacked precariously and teetering. At center ahead, a lattice of crates hangs in the path, oranges piled high at the top edge of the stack; a faint hint of handlebars and the top of the headlamp sits at the extreme bottom frame but the road dominates the view. The exact split-second before contact: the front crates vibrate on their nails, oranges closest to the edge just starting to roll forward but not yet airborne. Alley textiles flutter, casting hard-edged shadow stripes across the route.",
+          "characters_in_shot": [],
+          "character_appearances": {},
+          "resolved_t2i": "High-energy POV composition with saturated produce colors against warm ochres. Lighting: harsh midday sun, crisp shadows, fine dust shimmering. From the POV of <prop_vintage_motorcycle_sidecar> rushing through <loc_ext_moroccan_market>, <prop_fruit_stands> crowd both sides of the frame in the near foreground, their wooden slats flexing, crates stacked precariously and teetering. At center ahead, a lattice of crates hangs in the path, oranges piled high at the top edge of the stack; a faint hint of handlebars and the top of the headlamp sits at the extreme bottom frame but the road dominates the view. The exact split-second before contact: the front crates vibrate on their nails, oranges closest to the edge just starting to roll forward but not yet airborne. Alley textiles flutter, casting hard-edged shadow stripes across the route.",
+          "resolved_ti2i": "High-energy POV composition with saturated produce colors against warm ochres. Lighting: harsh midday sun, crisp shadows, fine dust shimmering. From the POV of <prop_vintage_motorcycle_sidecar> rushing through <loc_ext_moroccan_market>, <prop_fruit_stands> crowd both sides of the frame in the near foreground, their wooden slats flexing, crates stacked precariously and teetering. At center ahead, a lattice of crates hangs in the path, oranges piled high at the top edge of the stack; a faint hint of handlebars and the top of the headlamp sits at the extreme bottom frame but the road dominates the view. The exact split-second before contact: the front crates vibrate on their nails, oranges closest to the edge just starting to roll forward but not yet airborne. Alley textiles flutter, casting hard-edged shadow stripes across the route.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Rapid forward POV with a touch of handheld bounce as the camera punches into the line of <prop_fruit_stands>. Crates splinter open in a shower of slats; <prop_oranges> explode toward the lens, tumbling and spinning in all directions, a few slamming straight at camera. Mouth remains tightly closed. No speaking. Ambient motion: splinters and packing straw whirl past, fabrics rip free and sail overhead, dust puffs into the sun-beam; a brief smear of crushed orange juices across the lens before it clears in the airstream. As debris parts, the camera finds an improvised <prop_debris_ramp> dead ahead in the alley, beginning a slight upward tilt to lead into the launch.",
+          "resolved_i2v": "Rapid forward POV with a touch of handheld bounce as the camera punches into the line of <prop_fruit_stands>. Crates splinter open in a shower of slats; <prop_oranges> explode toward the lens, tumbling and spinning in all directions, a few slamming straight at camera. Mouth remains tightly closed. No speaking. Ambient motion: splinters and packing straw whirl past, fabrics rip free and sail overhead, dust puffs into the sun-beam; a brief smear of crushed orange juices across the lens before it clears in the airstream. As debris parts, the camera finds an improvised <prop_debris_ramp> dead ahead in the alley, beginning a slight upward tilt to lead into the launch.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.8,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_02_fruit_stands_explode_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_03_bike_launches_debris",
+      "narrative_layer": {
+        "narrative_action": "The motorcycle hits a makeshift debris ramp and launches into the air over the cluttered alley.",
+        "emotional_beat": "suspense_peaks",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 3.0,
+        "camera": {
+          "shot_scale": "LS",
+          "angle": "low",
+          "movement": "crane_up_follow"
+        },
+        "lighting": "harsh midday sun, hard shadows, dusty air bloom",
+        "environment_id": "loc_ext_moroccan_market",
+        "entities": [
+          {
+            "asset_id": "prop_debris_ramp",
+            "position": "center_midground",
+            "action_state": "improvised_from_toppled_crates_and_boards"
+          },
+          {
+            "asset_id": "prop_vintage_motorcycle_sidecar",
+            "position": "center_fg",
+            "action_state": "launching_off_ramp"
+          },
+          {
+            "asset_id": "char_young_reporter",
+            "position": "frame_left",
+            "action_state": "standing_on_pegs_launch"
+          },
+          {
+            "asset_id": "char_bearded_companion",
+            "position": "frame_right",
+            "action_state": "bracing_with_bazooka"
+          },
+          {
+            "asset_id": "prop_bazooka",
+            "position": "frame_right_fg",
+            "action_state": "clutched_pointing_forward"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Moroccan market district, North Africa (NOT European city)",
+          "ERA LOCK: Daytime chase, contemporary with vintage tech",
+          "FORBIDDEN: European cobblestone squares, rainy weather, snow, modern glass skyscrapers, nighttime neon signage",
+          "COLOR_PALETTE: warm ochres, terracotta, bright produce colors, sun-bleached neutrals",
+          "ARCHITECTURE: Moroccan medina stalls, narrow alleys, textiles and wooden kiosks",
+          "LIGHTING: harsh midday sun, hard shadows, dusty air bloom",
+          "Ramp must read as organic market debris (wooden crates, boards, fabric) — no visible metal stunt ramp.",
+          "Crane follows arc of bike to apex; retain low vantage to emphasize height and stakes."
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Adventurous widescreen composition with sun-scorched tones and saturated market colors. Lighting: hard noon sun, deep shadow pockets, dust bloom catching light. In <loc_ext_moroccan_market>, a low-angle long shot frames <prop_debris_ramp> assembled from toppled wooden crates, boards, and torn fabrics at center midground. <prop_vintage_motorcycle_sidecar> is lined up in center foreground, front wheel just compressing the last boards but not yet leaving the ramp. <char_young_reporter> stands on the pegs, hips back, knees bent, arms taut on the bars, eyes locked forward along the launch path. In the sidecar, <char_bearded_companion> leans back to brace, <prop_bazooka> clutched and pointed forward but steady, gaze flicking from the ramp crest to the tube’s mouth. Power dynamic: <char_young_reporter> radiates control and commitment; <char_bearded_companion> occupies space with the weapon yet yields to the rider’s decisive posture. Bystanders and kiosks flank the narrow alley, textiles strung overhead fluttering in the heat.",
+          "characters_in_shot": [
+            "char_young_reporter",
+            "char_bearded_companion"
+          ],
+          "character_appearances": {
+            "char_young_reporter": "Young male, light shirt sleeves rolled, trousers, boots, goggles; dust-streaked, focused, rising off the saddle onto pegs to commit to the jump",
+            "char_bearded_companion": "Rugged bearded man, utility jacket, goggles and boots; tense, gripping sidecar rails with <prop_bazooka> hugged forward, bracing for impact"
+          },
+          "resolved_t2i": "Adventurous widescreen composition with sun-scorched tones and saturated market colors. Lighting: hard noon sun, deep shadow pockets, dust bloom catching light. In <loc_ext_moroccan_market>, a low-angle long shot frames <prop_debris_ramp> assembled from toppled wooden crates, boards, and torn fabrics at center midground. <prop_vintage_motorcycle_sidecar> is lined up in center foreground, front wheel just compressing the last boards but not yet leaving the ramp. Young male with rolled light shirt sleeves, trousers, boots, and goggles; dust-streaked, laser-focused, rising off the saddle onto the pegs to commit to the jump. stands on the pegs, hips back, knees bent, arms taut on the bars, eyes locked forward along the launch path. In the sidecar, Rugged bearded man in a utility jacket, goggles, and boots; tense, gripping the sidecar rails with <prop_bazooka> hugged forward, bracing for impact. leans back to brace, <prop_bazooka> clutched and pointed forward but steady, gaze flicking from the ramp crest to the tube’s mouth. Power dynamic: Young male with rolled light shirt sleeves, trousers, boots, and goggles; dust-streaked, laser-focused, rising off the saddle onto the pegs to commit to the jump. radiates control and commitment; Rugged bearded man in a utility jacket, goggles, and boots; tense, gripping the sidecar rails with <prop_bazooka> hugged forward, bracing for impact. occupies space with the weapon yet yields to the rider’s decisive posture. Bystanders and kiosks flank the narrow alley, textiles strung overhead fluttering in the heat.",
+          "resolved_ti2i": "Picture 1 is Young male with rolled light shirt sleeves, trousers, boots, and goggles; dust-streaked, laser-focused, rising off the saddle onto the pegs to commit to the jump.; Picture 2 is Rugged bearded man in a utility jacket, goggles, and boots; tense, gripping the sidecar rails with <prop_bazooka> hugged forward, bracing for impact..\nAdventurous widescreen composition with sun-scorched tones and saturated market colors. Lighting: hard noon sun, deep shadow pockets, dust bloom catching light. In <loc_ext_moroccan_market>, a low-angle long shot frames <prop_debris_ramp> assembled from toppled wooden crates, boards, and torn fabrics at center midground. <prop_vintage_motorcycle_sidecar> is lined up in center foreground, front wheel just compressing the last boards but not yet leaving the ramp. Picture 1 stands on the pegs, hips back, knees bent, arms taut on the bars, eyes locked forward along the launch path. In the sidecar, Picture 2 leans back to brace, <prop_bazooka> clutched and pointed forward but steady, gaze flicking from the ramp crest to the tube’s mouth. Power dynamic: Picture 1 radiates control and commitment; Picture 2 occupies space with the weapon yet yields to the rider’s decisive posture. Bystanders and kiosks flank the narrow alley, textiles strung overhead fluttering in the heat.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Low crane-up follow: the camera rides just ahead and below the front wheel, then ascends with the arc as <prop_vintage_motorcycle_sidecar> surges up <prop_debris_ramp>. <char_young_reporter> yanks slightly on the bars and shifts weight back, the suspension decompressing as the front wheel lifts; he keeps his gaze forward, jaw tight. <char_bearded_companion> squeezes the rails and hugs <prop_bazooka> to keep it aimed downrange; the tube wobbles a hair as the sidecar leaves the ramp, then steadies as he locks his elbows. Mouth remains tightly closed. No speaking. Ambient motion: fabric banners snap as the bike passes underneath, dust and straw trail off the ramp, loose fruit bits ping away; harsh sunlight rakes across as the camera rises, revealing more sky. The move reaches the apex with the sidecar occupant prominent, framing his face and the tube to flow into the next close-up.",
+          "resolved_i2v": "Low crane-up follow: the camera rides just ahead and below the front wheel, then ascends with the arc as <prop_vintage_motorcycle_sidecar> surges up <prop_debris_ramp>. Young male with rolled light shirt sleeves, trousers, boots, and goggles; dust-streaked, laser-focused, rising off the saddle onto the pegs to commit to the jump. yanks slightly on the bars and shifts weight back, the suspension decompressing as the front wheel lifts; he keeps his gaze forward, jaw tight. Rugged bearded man in a utility jacket, goggles, and boots; tense, gripping the sidecar rails with <prop_bazooka> hugged forward, bracing for impact. squeezes the rails and hugs <prop_bazooka> to keep it aimed downrange; the tube wobbles a hair as the sidecar leaves the ramp, then steadies as he locks his elbows. Mouth remains tightly closed. No speaking. Ambient motion: fabric banners snap as the bike passes underneath, dust and straw trail off the ramp, loose fruit bits ping away; harsh sunlight rakes across as the camera rises, revealing more sky. The move reaches the apex with the sidecar occupant prominent, framing his face and the tube to flow into the next close-up.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.4,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_03_bike_launches_debris_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_04_bazooka_accidental_fire",
+      "narrative_layer": {
+        "narrative_action": "Midair, the bearded companion accidentally fires the bazooka from the sidecar.",
+        "emotional_beat": "sudden_shock",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 2.0,
+        "camera": {
+          "shot_scale": "CU",
+          "angle": "dutch",
+          "movement": "static_with_recoil_shake"
+        },
+        "lighting": "harsh midday sun, hard shadows, dusty air bloom",
+        "environment_id": "loc_ext_moroccan_market",
+        "entities": [
+          {
+            "asset_id": "char_bearded_companion",
+            "position": "center_fg",
+            "action_state": "recoiling_as_trigger_pulled_midair"
+          },
+          {
+            "asset_id": "prop_bazooka",
+            "position": "frame_left_fg",
+            "action_state": "discharging_midair"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Moroccan market district, North Africa (NOT European city)",
+          "ERA LOCK: Daytime chase, contemporary with vintage tech",
+          "FORBIDDEN: European cobblestone squares, rainy weather, snow, modern glass skyscrapers, nighttime neon signage",
+          "COLOR_PALETTE: warm ochres, terracotta, bright produce colors, sun-bleached neutrals",
+          "ARCHITECTURE: Moroccan medina stalls, narrow alleys, textiles and wooden kiosks",
+          "LIGHTING: harsh midday sun, hard shadows, dusty air bloom",
+          "Visible muzzle flash and backblast smoke; shoulder kick registers in frame.",
+          "Background should be abstracted motion blur/sky and sun-bleached textiles — keep focus on face and bazooka mouth."
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Close, canted composition for sudden-shock. Lighting: hard sun bleaching highlights; dusty air softens the edges. The frame isolates <char_bearded_companion> at center foreground, torso twisted with tension, eyes huge and fixed past the sights. <prop_bazooka> dominates frame-left foreground, its mouth aimed downrange; his trigger finger is compressed against the trigger but has not yet broken the shot. Eyeline: he stares through the sight line, not blinking. Power dynamic: the weapon visually overpowers, crowding the frame while he shrinks behind it, bracing. Background is an abstracted blur of sky and sun-bleached textiles from <loc_ext_moroccan_market>, suggesting midair motion without pulling focus.",
+          "characters_in_shot": [
+            "char_bearded_companion"
+          ],
+          "character_appearances": {
+            "char_bearded_companion": "Rugged bearded man, utility jacket and goggles; midair tension, shoulders hunched, eyes wide in shock as finger tightens on the trigger"
+          },
+          "resolved_t2i": "Close, canted composition for sudden-shock. Lighting: hard sun bleaching highlights; dusty air softens the edges. The frame isolates Rugged bearded man in a utility jacket and goggles; midair, shoulders hunched with tension, eyes wide in shock as his finger tightens on the trigger at center foreground, torso twisted with tension, eyes huge and fixed past the sights. <prop_bazooka> dominates frame-left foreground, its mouth aimed downrange; his trigger finger is compressed against the trigger but has not yet broken the shot. Eyeline: he stares through the sight line, not blinking. Power dynamic: the weapon visually overpowers, crowding the frame while he shrinks behind it, bracing. Background is an abstracted blur of sky and sun-bleached textiles from <loc_ext_moroccan_market>, suggesting midair motion without pulling focus.",
+          "resolved_ti2i": "Picture 1 is Rugged bearded man in a utility jacket and goggles; midair, shoulders hunched with tension, eyes wide in shock as his finger tightens on the trigger.\nClose, canted composition for sudden-shock. Lighting: hard sun bleaching highlights; dusty air softens the edges. The frame isolates Picture 1 at center foreground, torso twisted with tension, eyes huge and fixed past the sights. <prop_bazooka> dominates frame-left foreground, its mouth aimed downrange; his trigger finger is compressed against the trigger but has not yet broken the shot. Eyeline: he stares through the sight line, not blinking. Power dynamic: the weapon visually overpowers, crowding the frame while he shrinks behind it, bracing. Background is an abstracted blur of sky and sun-bleached textiles from <loc_ext_moroccan_market>, suggesting midair motion without pulling focus.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Static Dutch angle with recoil shake: <prop_bazooka> discharges in a bright muzzle flash at frame-left; backblast smoke jets rearward, and the tube snaps against <char_bearded_companion>’s shoulder as he recoils, mouth clamped, eyes flaring. Mouth remains tightly closed. No speaking. Ambient motion: hot wind tugs at his goggles strap and jacket collar; the blurred background streaks slightly with the midair movement as smoke lingers and curls behind. The rocket streaks off frame in the aim direction, leading the cut toward the distant target.",
+          "resolved_i2v": "Static Dutch angle with recoil shake: <prop_bazooka> discharges in a bright muzzle flash at frame-left; backblast smoke jets rearward, and the tube snaps against Rugged bearded man in a utility jacket and goggles; midair, shoulders hunched with tension, eyes wide in shock as his finger tightens on the trigger’s shoulder as he recoils, mouth clamped, eyes flaring. Mouth remains tightly closed. No speaking. Ambient motion: hot wind tugs at his goggles strap and jacket collar; the blurred background streaks slightly with the midair movement as smoke lingers and curls behind. The rocket streaks off frame in the aim direction, leading the cut toward the distant target.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.1,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_04_bazooka_accidental_fire_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_05_dam_explosion_boom",
+      "narrative_layer": {
+        "narrative_action": "A massive explosion strikes the distant dam, sending a plume up from its concrete face.",
+        "emotional_beat": "catastrophe_triggered",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 3.5,
+        "camera": {
+          "shot_scale": "ELS",
+          "angle": "eye_level",
+          "movement": "slow_zoom_in"
+        },
+        "lighting": "blinding midday sun, hard contrast, heat haze",
+        "environment_id": "loc_ext_distant_dam",
+        "entities": [],
+        "consistency_constraints": [
+          "LOCATION LOCK: Moroccan market district, North Africa (NOT European city)",
+          "ERA LOCK: Daytime chase, contemporary with vintage tech",
+          "FORBIDDEN: European cobblestone squares, rainy weather, snow, modern glass skyscrapers, nighttime neon signage",
+          "COLOR_PALETTE: warm ochres, terracotta, bright produce colors, sun-bleached neutrals",
+          "ARCHITECTURE: Moroccan medina stalls, narrow alleys, textiles and wooden kiosks",
+          "LIGHTING: harsh midday sun, hard shadows, dusty air bloom",
+          "Show monolithic concrete dam in arid hills; large explosion plume blooms off its face; no city skyline or modern glass buildings.",
+          "Market stalls should NOT appear here; keep frame to dam, hills, and plume with heat haze shimmer."
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Epic scale, sun-blasted landscape. Lighting: blinding midday sun with hard contrast and heat haze shimmer. In <loc_ext_distant_dam>, an extra-long shot frames the monolithic concrete face of the dam embedded in arid hills. The structure is intact; a faint incoming smoke trail converges toward the dam’s midsection but no detonation has occurred yet. The foreground is empty scrub; no markets or urban skyline intrude. The air wavers with heat, washing the colors to pale stone and sun-bleached tones.",
+          "characters_in_shot": [],
+          "character_appearances": {},
+          "resolved_t2i": "Epic scale, sun-blasted landscape. Lighting: blinding midday sun with hard contrast and heat haze shimmer. In <loc_ext_distant_dam>, an extra-long shot frames the monolithic concrete face of the dam embedded in arid hills. The structure is intact; a faint incoming smoke trail converges toward the dam’s midsection but no detonation has occurred yet. The foreground is empty scrub; no markets or urban skyline intrude. The air wavers with heat, washing the colors to pale stone and sun-bleached tones.",
+          "resolved_ti2i": "Epic scale, sun-blasted landscape. Lighting: blinding midday sun with hard contrast and heat haze shimmer. In <loc_ext_distant_dam>, an extra-long shot frames the monolithic concrete face of the dam embedded in arid hills. The structure is intact; a faint incoming smoke trail converges toward the dam’s midsection but no detonation has occurred yet. The foreground is empty scrub; no markets or urban skyline intrude. The air wavers with heat, washing the colors to pale stone and sun-bleached tones.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Static wide that eases into a slow zoom-in as the rocket impacts: a forceful plume erupts from the dam’s face, rolling upward and outward in a billow of dust and debris. Mouth remains tightly closed. No speaking. Ambient motion: heat haze shimmers intensify around the blast; a few startled birds scatter from the cliffs; fine particulate drifts in the bright light. As the plume expands, water begins to surge through the breach and spillway, churning white against concrete, building momentum that barrels down-valley—framing holds on the growing outflow to motivate the impending flood cut.",
+          "resolved_i2v": "Static wide that eases into a slow zoom-in as the rocket impacts: a forceful plume erupts from the dam’s face, rolling upward and outward in a billow of dust and debris. Mouth remains tightly closed. No speaking. Ambient motion: heat haze shimmers intensify around the blast; a few startled birds scatter from the cliffs; fine particulate drifts in the bright light. As the plume expands, water begins to surge through the breach and spillway, churning white against concrete, building momentum that barrels down-valley—framing holds on the growing outflow to motivate the impending flood cut.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.3,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_05_dam_explosion_boom_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_06_flood_surge_pursues",
+      "narrative_layer": {
+        "narrative_action": "A towering wall of floodwater surges into the narrow market streets right behind them, sweeping stalls and debris in its wake.",
+        "emotional_beat": "catastrophe_unleashed",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 4.0,
+        "camera": {
+          "shot_scale": "LS",
+          "angle": "low",
+          "movement": "tracking_vehicle_mount_reverse"
+        },
+        "lighting": "harsh midday sun, hard shadows, dusty air bloom",
+        "environment_id": "loc_ext_moroccan_market",
+        "entities": [
+          {
+            "asset_id": "prop_vintage_motorcycle_sidecar",
+            "position": "center_fg",
+            "action_state": "speeding_away_from_flood"
+          },
+          {
+            "asset_id": "char_young_reporter",
+            "position": "frame_left",
+            "action_state": "gunning_engine_glancing_back"
+          },
+          {
+            "asset_id": "char_bearded_companion",
+            "position": "frame_right",
+            "action_state": "clutching_bazooka_eyes_wide"
+          },
+          {
+            "asset_id": "prop_bazooka",
+            "position": "frame_right_fg",
+            "action_state": "held_tightly"
+          },
+          {
+            "asset_id": "prop_fruit_stands",
+            "position": "background_sides",
+            "action_state": "being_swept_by_flood"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Moroccan market district, North Africa (NOT European city)",
+          "ERA LOCK: Daytime chase, contemporary with vintage tech",
+          "FORBIDDEN: European cobblestone squares, rainy weather, snow, modern glass skyscrapers, nighttime neon signage",
+          "COLOR_PALETTE: warm ochres, terracotta, bright produce colors, sun-bleached neutrals",
+          "ARCHITECTURE: Moroccan medina stalls, narrow alleys, textiles and wooden kiosks",
+          "LIGHTING: harsh midday sun, hard shadows, dusty air bloom",
+          "Camera rig faces backward from a lead vehicle to keep the riders and towering flood wall in the same frame.",
+          "Flood wall must visually tower at least a story above the riders; stalls and debris visibly swept along."
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Sun-scorched chaos with kinetic framing. Lighting: harsh midday sun, hard-edged shadows, dust turning to mist in humid air. A reverse-mounted long shot races backward through <loc_ext_moroccan_market> alleys, framing <prop_vintage_motorcycle_sidecar> center foreground charging toward camera. <char_young_reporter> leans forward, right hand ready to punch the throttle, head turned just enough to glance back over his shoulder. In the sidecar, <char_bearded_companion> hunches low, both hands locked around <prop_bazooka>, shoulders tight. Eyelines: <char_young_reporter> alternates between the path ahead and the threat behind; <char_bearded_companion> stares wide-eyed at the looming danger. Power dynamic: the rider asserts control of escape; the sidecar passenger is consumed by fear, clutching the weapon. Behind them, a towering wall of churning floodwater presses into the alley, still a moment from overtaking; <prop_fruit_stands> along the sides quiver, some already tipping into the flow.",
+          "characters_in_shot": [
+            "char_young_reporter",
+            "char_bearded_companion"
+          ],
+          "character_appearances": {
+            "char_young_reporter": "Young male, light shirt rolled sleeves, trousers, boots, goggles; drenched with sweat and dust, glancing back while gunning the engine, determined",
+            "char_bearded_companion": "Rugged bearded man, utility jacket and goggles; gripping <prop_bazooka> tight in the sidecar, eyes wide with panic as water bears down"
+          },
+          "resolved_t2i": "Sun-scorched chaos with kinetic framing. Lighting: harsh midday sun, hard-edged shadows, dust turning to mist in humid air. A reverse-mounted long shot races backward through <loc_ext_moroccan_market> alleys, framing <prop_vintage_motorcycle_sidecar> center foreground charging toward camera. Young male in a light shirt with rolled sleeves, trousers, boots, and goggles; slick with sweat and dust, glancing back while gunning the engine, jaw set with determination, centered on the bike. leans forward, right hand ready to punch the throttle, head turned just enough to glance back over his shoulder. In the sidecar, Rugged bearded man in a utility jacket and goggles; crouched in the sidecar gripping <prop_bazooka> tight, eyes blown wide with panic as the water bears down, shoulders tense and braced. hunches low, both hands locked around <prop_bazooka>, shoulders tight. Eyelines: Young male in a light shirt with rolled sleeves, trousers, boots, and goggles; slick with sweat and dust, glancing back while gunning the engine, jaw set with determination, centered on the bike. alternates between the path ahead and the threat behind; Rugged bearded man in a utility jacket and goggles; crouched in the sidecar gripping <prop_bazooka> tight, eyes blown wide with panic as the water bears down, shoulders tense and braced. stares wide-eyed at the looming danger. Power dynamic: the rider asserts control of escape; the sidecar passenger is consumed by fear, clutching the weapon. Behind them, a towering wall of churning floodwater presses into the alley, still a moment from overtaking; <prop_fruit_stands> along the sides quiver, some already tipping into the flow.",
+          "resolved_ti2i": "Picture 1 is Young male in a light shirt with rolled sleeves, trousers, boots, and goggles; slick with sweat and dust, glancing back while gunning the engine, jaw set with determination, centered on the bike.; Picture 2 is Rugged bearded man in a utility jacket and goggles; crouched in the sidecar gripping <prop_bazooka> tight, eyes blown wide with panic as the water bears down, shoulders tense and braced..\nSun-scorched chaos with kinetic framing. Lighting: harsh midday sun, hard-edged shadows, dust turning to mist in humid air. A reverse-mounted long shot races backward through <loc_ext_moroccan_market> alleys, framing <prop_vintage_motorcycle_sidecar> center foreground charging toward camera. Picture 1 leans forward, right hand ready to punch the throttle, head turned just enough to glance back over his shoulder. In the sidecar, Picture 2 hunches low, both hands locked around <prop_bazooka>, shoulders tight. Eyelines: Picture 1 alternates between the path ahead and the threat behind; Picture 2 stares wide-eyed at the looming danger. Power dynamic: the rider asserts control of escape; the sidecar passenger is consumed by fear, clutching the weapon. Behind them, a towering wall of churning floodwater presses into the alley, still a moment from overtaking; <prop_fruit_stands> along the sides quiver, some already tipping into the flow.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Reverse vehicle-mount tracking shot maintaining the riders in the lower center as the camera retreats at speed. <char_young_reporter> slams the throttle and tucks low, then flicks a look back at the advancing water before refocusing and weaving between kiosks. <char_bearded_companion> braces, hugging <prop_bazooka> tight; he jostles with each bump, boots planted as he watches the flood wall rise. Mouth remains tightly closed. No speaking. Ambient motion: the flood surges forward, foamy chop devouring the alley and lifting crates, awnings, and signage into a roiling mass; textiles whip free and snap overhead; dust turns to spray, glittering in hard sunlight. The camera dips slightly lower as the flood fills more of the background frame, keeping the bike centered as it accelerates away, setting a clean cut point into the next beat.",
+          "resolved_i2v": "Reverse vehicle-mount tracking shot maintaining the riders in the lower center as the camera retreats at speed. Young male in a light shirt with rolled sleeves, trousers, boots, and goggles; slick with sweat and dust, glancing back while gunning the engine, jaw set with determination, centered on the bike. slams the throttle and tucks low, then flicks a look back at the advancing water before refocusing and weaving between kiosks. Rugged bearded man in a utility jacket and goggles; crouched in the sidecar gripping <prop_bazooka> tight, eyes blown wide with panic as the water bears down, shoulders tense and braced. braces, hugging <prop_bazooka> tight; he jostles with each bump, boots planted as he watches the flood wall rise. Mouth remains tightly closed. No speaking. Ambient motion: the flood surges forward, foamy chop devouring the alley and lifting crates, awnings, and signage into a roiling mass; textiles whip free and snap overhead; dust turns to spray, glittering in hard sunlight. The camera dips slightly lower as the flood fills more of the background frame, keeping the bike centered as it accelerates away, setting a clean cut point into the next beat.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.4,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_06_flood_surge_pursues_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    }
+  ]
+}

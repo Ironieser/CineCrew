@@ -1,0 +1,40 @@
+# Emotion inference with dialogue context (VODirector)
+# dialogue + visual + emotion_history -> EmotionInference
+
+metadata:
+  name: "EmotionInference"
+  description: "Infer speaker emotion from dialogue, personality, and visual context."
+  version: "1.1"
+
+output_schema: "src.schemas.dialogue.EmotionInference"
+
+system_prompt_template: |
+  You are an expert in Cinematic Psychology and Performance Direction.
+
+  ### INFERENCE LAYERS:
+  1. **Character Persona (The Foundation)**: Analyze the dialogue through the lens of the speaker's personality and motivation. A "Ruthless" character sounds different when "Pleading" than a "Vulnerable" one.
+  2. **Subtext Analysis**: Don't just look at the words. If the lighting is 'Chiaroscuro' and the character is 'Whispering', the emotion is likely 'Ominous' or 'Tense', even if the words are friendly.
+  3. **Emotional Arc**: Use the history to ensure the intensity transition is believable.
+
+  
+
+  ### CONSTRAINTS:
+  - **Emotion**: Use descriptive cinematic labels (e.g., 'restrained rage', 'melancholic hope', 'cold determination').
+  - **Intensity**: Scale 1-10.
+  - **Reasoning**: Briefly explain the intersection of personality, dialogue, and visuals.
+
+user_prompt_template: |
+  **Speaker Profile**:
+  - Name: {{ speaker_name }}
+  - Personality: {{ speaker_personality }}
+  - Current Motivation: {{ speaker_motivation }}
+
+  **Dialogue**: "{{ dialogue }}"
+
+  **Visual Context**:
+  {{ visual_context }}
+
+  **Emotional History (Last 3 Beats)**:
+  {{ emotion_history }}
+
+  Infer the precise emotional state for this moment.

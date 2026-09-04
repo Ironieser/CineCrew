@@ -1,0 +1,30 @@
+{
+  "scene_id": "bp_great_gatsby_fireworks_smile_5d9d31",
+  "jobs": [
+    {
+      "job_id": "bp_great_gatsby_fireworks_smile_5d9d31_shot_01_gatsby_silent_toast_a",
+      "scene_id": "bp_great_gatsby_fireworks_smile_5d9d31",
+      "shot_id": "shot_01_gatsby_silent_toast",
+      "segment_id": "shot_01_gatsby_silent_toast_a",
+      "prompt": "Slow dolly-in on a low axis, maintaining center framing; subtle rack focus shifts from the golden bokeh and rim to Adult man in a classic 1920s black tuxedo with satin lapels, crisp white shirt, black bow tie, and polished shoes; standing tall with his back to camera, right hand holding a crystal coupe at waist height; composed and poised, an expectant warmth just before he turns.'s turning face. Adult man in a classic 1920s black tuxedo with satin lapels, crisp white shirt, black bow tie, and polished shoes; standing tall with his back to camera, right hand holding a crystal coupe at waist height; composed and poised, an expectant warmth just before he turns. inhales almost imperceptibly, shoulders soften; he pivots from back to three-quarter and then to face the lens. His expression warms into a rare, magnetic smile as the golden rim slides across his jawline. He lifts <prop_champagne_coupe> smoothly from waist to eye level, crystal catching and refracting the fireworks glow; he holds it steady in a silent, gracious toast, eyeline locking gently to the viewer. Mouth moves to match speech. Ambient motion: <prop_fireworks_display> blossoms behind in layered golden bursts; drifting embers and faint smoke trail down; champagne bubbles rise and glint in the coupe; a light night breeze stirs tux lapels and hair; distant blurred figures and lights in <loc_ext_roaring_twenties_party> shimmer with subtle sway. Camera eases to a tight MCU, low angle maintained, with Adult man in a classic 1920s black tuxedo with satin lapels, crisp white shirt, black bow tie, and polished shoes; standing tall with his back to camera, right hand holding a crystal coupe at waist height; composed and poised, an expectant warmth just before he turns. centered, coupe held at eye line and smile settled, ready for a clean cut.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": null,
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 6.562,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 105,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    }
+  ],
+  "total_shots": 1,
+  "estimated_duration": 6.5
+}

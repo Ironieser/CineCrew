@@ -1,0 +1,76 @@
+{
+  "scene_id": "bp_pulp_fiction_royale_with_cheese_3eb0d1",
+  "jobs": [
+    {
+      "job_id": "bp_pulp_fiction_royale_with_cheese_3eb0d1_shot_01_sunlit_ride_smoke_a",
+      "scene_id": "bp_pulp_fiction_royale_with_cheese_3eb0d1",
+      "shot_id": "shot_01_sunlit_ride_smoke",
+      "segment_id": "shot_01_sunlit_ride_smoke_a",
+      "prompt": "Camera Move: Static camera locked to the interior of <loc_int_moving_car>, with subtle engine vibration and gentle bob in the frame. Character Actions & Reactions: Adult man in a crisp black suit, white shirt, and narrow tie; seated frame-left in a tan leather car interior, shoulders loose, relaxed posture with a cigarette poised to tap ash; calm, at ease. taps the ash with a small flick; a thin ribbon of ash falls and a lazy smoke coil lifts past his cheek, his gaze staying forward before beginning the slightest turn toward Adult man in a crisp black suit, white shirt, and narrow tie; seated frame-right in a tan leather car interior, relaxed posture with a cigarette near his lips; composed, unhurried.. Adult man in a crisp black suit, white shirt, and narrow tie; seated frame-right in a tan leather car interior, relaxed posture with a cigarette near his lips; composed, unhurried. exhales a smooth plume, ember brightening briefly, then lowers his hand, glancing ahead with a micro nod in sync with the car’s roll; as Adult man in a crisp black suit, white shirt, and narrow tie; seated frame-left in a tan leather car interior, shoulders loose, relaxed posture with a cigarette poised to tap ash; calm, at ease. begins to angle toward him, Adult man in a crisp black suit, white shirt, and narrow tie; seated frame-right in a tan leather car interior, relaxed posture with a cigarette near his lips; composed, unhurried. shifts his shoulders minutely to acknowledge. Mouth remains tightly closed. No speaking. Ambient Motion: Bands of sunlight and passing shadow sweep rhythmically across faces and seats; smoke wafts and disperses; reflections slide over chrome; blurred window motion stays abstract with no identifiable landmarks. Forward Continuity: End with Adult man in a crisp black suit, white shirt, and narrow tie; seated frame-left in a tan leather car interior, shoulders loose, relaxed posture with a cigarette poised to tap ash; calm, at ease. just initiating a turn toward Adult man in a crisp black suit, white shirt, and narrow tie; seated frame-right in a tan leather car interior, relaxed posture with a cigarette near his lips; composed, unhurried., setting up the over-the-shoulder composition of the next shot.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": null,
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 3.812,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 61,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    },
+    {
+      "job_id": "bp_pulp_fiction_royale_with_cheese_3eb0d1_shot_02_jules_asks_question_a",
+      "scene_id": "bp_pulp_fiction_royale_with_cheese_3eb0d1",
+      "shot_id": "shot_02_jules_asks_question",
+      "segment_id": "shot_02_jules_asks_question_a",
+      "prompt": "Camera Move: Static OTS at eye level, gently breathing with road vibrations. Character Actions & Reactions: Adult man, crisp black suit, white shirt, narrow tie; centered in frame, leaned in slightly inquisitive with cigarette between fingers, mid-turn toward his partner, alert and curious completes his turn toward Adult man, crisp black suit, white shirt, narrow tie; only right shoulder/head edge visible in the foreground, steady and relaxed, listening posture, brows lifting slightly as he raises the cigarette hand in a small conversational gesture; he asks his question, then holds the gaze. Adult man, crisp black suit, white shirt, narrow tie; only right shoulder/head edge visible in the foreground, steady and relaxed, listening posture's shoulder shifts subtly in acknowledgment; his head angle tilts a fraction as if preparing to respond, staying mostly off-screen. Mouth moves to match speech. Ambient Motion: Fleeting bands of sunlight and shadow travel over Adult man, crisp black suit, white shirt, narrow tie; centered in frame, leaned in slightly inquisitive with cigarette between fingers, mid-turn toward his partner, alert and curious's face and the foreground shoulder; faint smoke wisps curl around his words; ash trembles with the car’s hum; blurred window motion remains abstract. Forward Continuity: End with Adult man, crisp black suit, white shirt, narrow tie; centered in frame, leaned in slightly inquisitive with cigarette between fingers, mid-turn toward his partner, alert and curious finishing his line on a micro-pause, while Adult man, crisp black suit, white shirt, narrow tie; only right shoulder/head edge visible in the foreground, steady and relaxed, listening posture's shoulder dips as if drawing breath—priming a cut to a tight CU on Adult man, crisp black suit, white shirt, narrow tie; only right shoulder/head edge visible in the foreground, steady and relaxed, listening posture.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": null,
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 3.062,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 49,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    },
+    {
+      "job_id": "bp_pulp_fiction_royale_with_cheese_3eb0d1_shot_03_vincent_voiceover_reply_a",
+      "scene_id": "bp_pulp_fiction_royale_with_cheese_3eb0d1",
+      "shot_id": "shot_03_vincent_voiceover_reply",
+      "segment_id": "shot_03_vincent_voiceover_reply_a",
+      "prompt": "Camera Move: Begin with a gentle rack focus from the ember/chrome detail to Adult man in a crisp black suit, white shirt, and narrow tie; tight close-up with a faint, playful smirk forming, calm eyes catching the shifting sunlight, cigarette low in frame with a soft ember.'s eyes; camera remains interior-locked with subtle road vibration. Character Actions & Reactions: As focus lands, Adult man in a crisp black suit, white shirt, and narrow tie; tight close-up with a faint, playful smirk forming, calm eyes catching the shifting sunlight, cigarette low in frame with a soft ember.'s mouth curves into a small smirk and he delivers the line with easy cadence, then lets the smile hang for a beat. Off-screen, the listening presence of <char_jules_winnfield> is implied but not shown. Mouth moves to match speech. Ambient Motion: Sunlight bands and soft shadows drift across his features; thin smoke threads rise and dissipate; chrome reflections creep across the dash; window motion stays abstract and landmark-free. Forward Continuity: End holding steady on Adult man in a crisp black suit, white shirt, and narrow tie; tight close-up with a faint, playful smirk forming, calm eyes catching the shifting sunlight, cigarette low in frame with a soft ember.'s eyes and lingering smirk, providing a clean button for the sequence.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": null,
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 2.562,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 41,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    }
+  ],
+  "total_shots": 3,
+  "estimated_duration": 9.3
+}

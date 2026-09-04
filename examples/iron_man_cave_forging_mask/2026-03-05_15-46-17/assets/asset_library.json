@@ -1,0 +1,140 @@
+{
+  "project_title": "Cave Forge Sequence",
+  "global_style": "Gritty industrial realism; high-contrast chiaroscuro; dominant orange firelight against deep blacks; sweaty textures, soot, metal gleam and violent sparks; claustrophobic, kinetic framing.",
+  "project_settings": {
+    "location_lock": "Subterranean cave forge, undetermined locale — DO NOT infer or depict a specific country, culture, or fantasy realm (NOT medieval Europe, NOT feudal Japan, NOT Norse, NOT dwarven/Tolkien).",
+    "negative_constraints": [
+      "Medieval castle architecture",
+      "Viking/Norse runes",
+      "Celtic knotwork",
+      "Samurai armor, kabuto, katana",
+      "Torii gates",
+      "Gothic arches or stained glass",
+      "Art Deco motifs",
+      "Roman columns or Greek statues",
+      "Renaissance paintings",
+      "Fantasy dwarven halls (Moria style)",
+      "Elven motifs",
+      "Steampunk gears and brass goggles",
+      "Cyberpunk neon and holograms",
+      "Futuristic sci‑fi technology",
+      "Electric lighting (bulbs, LEDs, fluorescents)",
+      "Colored stage lighting",
+      "Windows, skylights, daylight shafts",
+      "Modern power tools (angle grinder, plasma cutter, electric welder)",
+      "CNC machines",
+      "Computer screens or digital displays",
+      "Visible wiring and extension cords",
+      "Chrome or stainless steel polished finishes",
+      "Plastic components",
+      "Concrete or tiled walls/floors",
+      "White painted walls",
+      "Brand logos or modern signage",
+      "Safety signage and OSHA tape",
+      "Religious iconography",
+      "National flags or symbols",
+      "Text inscriptions in any language",
+      "Ornate jewelry inlays, gemstones, gold leaf",
+      "Stylized cultural masks (Kabuki, Oni, Venetian, tribal)",
+      "Weapons beyond smithing tools",
+      "Firearms",
+      "Magical effects (glowing runes, enchanted light)",
+      "Smoke machines or theatrical fog",
+      "Crowds or additional people; the blacksmith is alone",
+      "External light sources other than the forge fire",
+      "Countdown timers or digital clocks"
+    ],
+    "style_overrides": {
+      "color_palette": "Firelit amber/orange highlights with deep charcoal and black shadows; gritty, high contrast.",
+      "architecture": "Natural rough cave walls and stone; minimal, utilitarian forge fixtures only.",
+      "lighting": "Single practical source: forge/fire glow; chiaroscuro; no fill, rim, overhead, or electric lights.",
+      "materials": "Black iron/steel, raw stone, soot, ash; avoid polished or decorative finishes.",
+      "props": "Manual smithing tools only (anvil, hammer, tongs); no powered equipment.",
+      "costume": "Functional, neutral workwear (heavy apron, gloves); no cultural insignia or ornament.",
+      "set_dressing": "Sparse, utilitarian; focus on labor and tools; no signage, logos, or decorative motifs.",
+      "mood": "Tense, gritty, urgent; physical exertion emphasized by sparks and darkness."
+    },
+    "era_lock": "Atemporal, era-agnostic underground workshop — no overt historical markers (NOT medieval, NOT steampunk, NOT cyberpunk, NOT futuristic sci‑fi)."
+  },
+  "narrative_context": {
+    "time_period": "Unspecified (timeless underground forge)",
+    "global_mood": "Tense, gritty, urgent",
+    "key_events": [
+      "A lone blacksmith hammers a red-hot metal mask on an anvil.",
+      "Each strike explodes sparks, briefly lighting his exhausted, soot-stained face.",
+      "He works against the clock with intense physical exertion.",
+      "Forge fire serves as the only light source, heightening drama."
+    ],
+    "cultural_context": "Undisclosed; emphasis on craftsmanship and labor within a subterranean workshop."
+  },
+  "characters": [
+    {
+      "id": "char_blacksmith",
+      "name": "Blacksmith",
+      "description": "Muscular, sweat- and soot-covered man in a grimy grey tank top; exhausted, determined eyes; powerful arms; face intermittently illuminated by forge sparks in a dark cave.",
+      "clothing_style": "Grimy grey tank top, heavy work pants, worn leather boots, soot smudges.",
+      "voice_preset_id": null,
+      "voice_description": "Low, breathy grunts; strained breathing under exertion.",
+      "voice_design": null,
+      "personality": "Relentless, focused, stoic, driven by urgency.",
+      "backstory": "Unstated; a skilled metalworker operating in a hidden cave forge.",
+      "current_motivation": "Shape a metal mask before time runs out.",
+      "scene_count": 1,
+      "dialogue_lines": 0,
+      "key_relationships": [],
+      "visual_references": null,
+      "audio_references": null
+    }
+  ],
+  "locations": [
+    {
+      "id": "loc_int_cave_forge",
+      "name": "Cave Forge",
+      "type": "INT",
+      "visual_style": "Dark, gritty cave; roaring forge fire casts fierce orange glow; high-contrast shadows, smoky air, showers of sparks.",
+      "narrative_function": "Workshop under pressure",
+      "time_of_day_stats": {},
+      "visual_references": null,
+      "audio_references": null,
+      "usage_count": 1
+    }
+  ],
+  "props": [
+    {
+      "id": "prop_steel_anvil",
+      "name": "Steel Anvil",
+      "related_character_id": "char_blacksmith",
+      "visual_description": "Heavy steel anvil with worn edges, solidly anchored, glinting under orange forge light.",
+      "importance": "supporting",
+      "usage_count": 1,
+      "visual_references": null
+    },
+    {
+      "id": "prop_iron_hammer",
+      "name": "Iron Hammer",
+      "related_character_id": "char_blacksmith",
+      "visual_description": "Massive iron sledgehammer, darkened head and sturdy handle, used for powerful forging strikes.",
+      "importance": "critical",
+      "usage_count": 1,
+      "visual_references": null
+    },
+    {
+      "id": "prop_metal_mask",
+      "name": "Metal Mask",
+      "related_character_id": "char_blacksmith",
+      "visual_description": "Glowing red-hot metal mask blank on the anvil, edges sparkling as it’s shaped under heavy blows.",
+      "importance": "critical",
+      "usage_count": 1,
+      "visual_references": null
+    },
+    {
+      "id": "prop_forge_fire",
+      "name": "Forge Fire",
+      "related_character_id": "char_blacksmith",
+      "visual_description": "Raging forge with fierce orange flames and intense heat; primary light source driving dramatic contrast.",
+      "importance": "supporting",
+      "usage_count": 1,
+      "visual_references": null
+    }
+  ]
+}

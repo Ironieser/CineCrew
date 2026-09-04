@@ -1,0 +1,122 @@
+{
+  "scene_id": "bp_devil_wears_prada_temporal_tracking_6f93a0",
+  "jobs": [
+    {
+      "job_id": "bp_devil_wears_prada_temporal_tracking_6f93a0_shot_01_confident_street_strut_a",
+      "scene_id": "bp_devil_wears_prada_temporal_tracking_6f93a0",
+      "shot_id": "shot_01_confident_street_strut",
+      "segment_id": "shot_01_confident_street_strut_a",
+      "prompt": "Camera Move: Static gimbal begins a smooth parallel track left-to-right, eye level, keeping Woman in her late 20s to early 30s wearing a dark green double-breasted coat; shoulders squared, chin level, stride decisive and propulsive; focused gaze, composed and commanding presence. centered as the city scrolls behind her. Character Actions & Reactions: Woman in her late 20s to early 30s wearing a dark green double-breasted coat; shoulders squared, chin level, stride decisive and propulsive; focused gaze, composed and commanding presence. drops her poised front heel with a crisp click and launches into a power-walk; shoulders remain square, chin steady. <prop_dark_green_double_breasted_coat> ripples and sways with each step, hemline pulsing outward then settling. <prop_paper_coffee_cup> stays perfectly upright and locked to a consistent position near her torso, not rotating or tilting despite the stride; her hand absorbs micro-shock to maintain alignment. Eyeline remains forward, unflinching, body language radiating control. Lip Constraint: Mouth remains tightly closed. No speaking. Ambient Motion: Reflections slide along shop windows; a distant <prop_yellow_taxi> glides through traffic; pedestrians blur in the far background; a faint steam wisp rises from a street vent; subtle wind lifts a strand of hair and flutters the coat edges. Forward Continuity: End the shot with a <prop_yellow_taxi> beginning to enter the foreground frame from the left, setting up a full occlusion for the next shot while Woman in her late 20s to early 30s wearing a dark green double-breasted coat; shoulders squared, chin level, stride decisive and propulsive; focused gaze, composed and commanding presence. remains centered.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": null,
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 3.562,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 57,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    },
+    {
+      "job_id": "bp_devil_wears_prada_temporal_tracking_6f93a0_shot_02_taxi_occlusion_transform_a",
+      "scene_id": "bp_devil_wears_prada_temporal_tracking_6f93a0",
+      "shot_id": "shot_02_taxi_occlusion_transform",
+      "segment_id": "shot_02_taxi_occlusion_transform_a",
+      "prompt": "Camera Move: Maintain smooth gimbal parallel track left-to-right, eye level, matching Woman, 20s–30s, seamless transition from dark green coat to white tweed with thigh-high Chanel boots during occlusion; stride continuous, self-assured and composed's pace while allowing the <prop_yellow_taxi> to overtake foreground. Character Actions & Reactions: As <prop_yellow_taxi> crosses, it fully occludes Woman, 20s–30s, seamless transition from dark green coat to white tweed with thigh-high Chanel boots during occlusion; stride continuous, self-assured and composed from view. During the occlusion, her wardrobe transitions seamlessly: <prop_dark_green_double_breasted_coat> swaps to <prop_white_tweed_coat>, and <prop_thigh_high_chanel_boots> become visible as she continues the same rhythmic stride. She re-emerges centered, stride never breaking, chin slightly lifted in triumph; <prop_paper_coffee_cup> remains perfectly upright and in the same relative screen position. Lip Constraint: Mouth remains tightly closed. No speaking. Ambient Motion: Taxi wheels roll with subtle suspension bounce; window reflections smear across its side; background pedestrians and signage slide laterally; faint breeze skims the coat surface and stirs a few strands of hair. Forward Continuity: End as the taxi clears frame to the right with Woman, 20s–30s, seamless transition from dark green coat to white tweed with thigh-high Chanel boots during occlusion; stride continuous, self-assured and composed fully revealed in the white tweed look, centered and mid-stride, matching pace and screen position to flow into the next shot.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": null,
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 2.562,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 41,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    },
+    {
+      "job_id": "bp_devil_wears_prada_temporal_tracking_6f93a0_shot_03_white_look_stride_a",
+      "scene_id": "bp_devil_wears_prada_temporal_tracking_6f93a0",
+      "shot_id": "shot_03_white_look_stride",
+      "segment_id": "shot_03_white_look_stride_a",
+      "prompt": "Camera Move: Continue smooth parallel gimbal track left-to-right at eye level, matching Woman in her 20s–30s; white tweed coat with thigh-high Chanel boots; tall, commanding posture; energized momentum with controlled focus.'s pace and keeping her centered in a medium shot. Character Actions & Reactions: Woman in her 20s–30s; white tweed coat with thigh-high Chanel boots; tall, commanding posture; energized momentum with controlled focus. steps down into a renewed, assertive strut; <prop_thigh_high_chanel_boots> land with clean, rhythmic clicks. <prop_white_tweed_coat> responds with crisp fabric flutter and a subtle texture shimmer as it catches the light. <prop_paper_coffee_cup> remains perfectly upright and locked to its screen position, hand absorbing micro-shock to maintain alignment. Her chin stays level, gaze unwavering, shoulders relaxed but strong. Lip Constraint: Mouth remains tightly closed. No speaking. Ambient Motion: Building reflections glide across glass; a blurred yellow cab crosses the far background; street banners shift gently; hair and coat edges stir in a light cross-breeze; faint dust motes and steam waft through shafts of soft daylight. Forward Continuity: End with a slender <prop_narrow_streetlamp> beginning to enter frame from the left foreground, aligning to sweep across Woman in her 20s–30s; white tweed coat with thigh-high Chanel boots; tall, commanding posture; energized momentum with controlled focus.'s upper body in the next shot while she stays centered.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": null,
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 3.062,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 49,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    },
+    {
+      "job_id": "bp_devil_wears_prada_temporal_tracking_6f93a0_shot_04_streetlamp_second_transform_a",
+      "scene_id": "bp_devil_wears_prada_temporal_tracking_6f93a0",
+      "shot_id": "shot_04_streetlamp_second_transform",
+      "segment_id": "shot_04_streetlamp_second_transform_a",
+      "prompt": "Camera Move: Maintain the smooth parallel left-to-right gimbal track, MCU framing, letting the <prop_narrow_streetlamp> drift across the frame. Character Actions & Reactions: As A woman in her 20s–30s, shifting from a white tweed ensemble to a sleek black evening jacket as a vertical occluder passes; upper body poised and composed, eyes locked forward. advances, the <prop_narrow_streetlamp> sweeps over her upper body, briefly occluding her torso and shoulders. During this occlusion, her wardrobe transitions seamlessly from <prop_white_tweed_coat> to <prop_black_evening_jacket>. She emerges with the same stride and cadence, chin slightly higher; <prop_paper_coffee_cup> remains perfectly upright and locked in the same screen position. Eyeline stays forward; a subtle boost of confidence registers in her posture. Lip Constraint: Mouth remains tightly closed. No speaking. Ambient Motion: City reflections slide; distant traffic rolls; a hanging banner ripples; hair flickers in a light breeze; the lamp’s shadow briefly grazes her shoulder as it passes. Forward Continuity: As the lamp clears frame, subtly lower the camera by a few inches to prefigure the low-angle push-in of the next shot while keeping A woman in her 20s–30s, shifting from a white tweed ensemble to a sleek black evening jacket as a vertical occluder passes; upper body poised and composed, eyes locked forward. centered and moving.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": null,
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 2.312,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 37,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    },
+    {
+      "job_id": "bp_devil_wears_prada_temporal_tracking_6f93a0_shot_05_black_jacket_finish_a",
+      "scene_id": "bp_devil_wears_prada_temporal_tracking_6f93a0",
+      "shot_id": "shot_05_black_jacket_finish",
+      "segment_id": "shot_05_black_jacket_finish_a",
+      "prompt": "Camera Move: Continue the parallel left-to-right gimbal with a subtle push-in from a low angle, maintaining Woman, 20s–30s, sleek black evening jacket with sharp lapels, runway-dominant stride; chin up, unstoppable confidence centered. Character Actions & Reactions: Woman, 20s–30s, sleek black evening jacket with sharp lapels, runway-dominant stride; chin up, unstoppable confidence powers forward with a runway-precise cadence; the sharp lapels of <prop_black_evening_jacket> catch light on each step. Her posture remains unbroken—chin up, shoulders confident. <prop_paper_coffee_cup> stays perfectly upright and fixed in its relative screen position, steady through micro-impacts. She breathes calmly, gaze unwavering, owning the lane. Lip Constraint: Mouth remains tightly closed. No speaking. Ambient Motion: Building reflections scroll and stretch upward due to low angle; flags flutter against facades; a yellow cab glints in the distance; soft steam slides along the curb; subtle wind lifts hair ends and flicks the jacket hem. Forward Continuity: End on a strong centered stride as the push-in eases to a composed hero frame, preserving lateral motion for a potential out or logo resolve.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": null,
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 3.562,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 57,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    }
+  ],
+  "total_shots": 5,
+  "estimated_duration": 14.700000000000001
+}

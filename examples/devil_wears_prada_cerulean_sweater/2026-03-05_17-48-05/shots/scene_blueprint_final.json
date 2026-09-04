@@ -1,0 +1,216 @@
+{
+  "blueprint_id": "bp_devil_wears_prada_cerulean_sweater_2342ad",
+  "metadata": {
+    "project_name": "Cerulean Confrontation",
+    "target_resolution": "1280x720",
+    "target_aspect_ratio": "16:9",
+    "global_fps": 16
+  },
+  "global_style": "Cold, minimalist high-fashion editorial aesthetic; sterile lighting; tight, highly detailed close-ups; emphasis on micro-expressions and texture; subdued palette with a cerulean accent.",
+  "final_film_path": null,
+  "shots": [
+    {
+      "shot_id": "shot_01_miranda_cold_stare",
+      "narrative_layer": {
+        "narrative_action": "Miranda silently looks Andy up and down with piercing contempt.",
+        "emotional_beat": "freezing_contempt",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 3.6,
+        "camera": {
+          "shot_scale": "CU",
+          "angle": "low",
+          "movement": "slow_dolly_in"
+        },
+        "lighting": "sterile cool high-key office with subtle rim from glass reflections",
+        "environment_id": "loc_int_fashion_office",
+        "entities": [
+          {
+            "asset_id": "char_miranda_priestly",
+            "position": "frame_right",
+            "action_state": "looking_offscreen_left"
+          },
+          {
+            "asset_id": "prop_gold_rimmed_glasses",
+            "position": "frame_right",
+            "action_state": "worn_on_face_glinting"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Manhattan, New York, USA",
+          "ERA LOCK: Mid-2000s American fashion industry",
+          "FORBIDDEN: warm rustic decor, Mediterranean architecture, bohemian clutter, runway show environment, boutique retail space",
+          "COLOR_PALETTE: cool, desaturated editorial tones with cerulean accent",
+          "ARCHITECTURE: modern corporate office with glass, chrome, minimalist lines",
+          "WARDROBE: high-end fashion editorial attire",
+          "Miranda framed frame_right, gaze oriented offscreen_left toward Andy",
+          "Glasses must catch a cool specular highlight; avoid any warm cast"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Cold, minimalist editorial close-up; sterile cool high-key lighting with subtle rim from glass reflections outlines <char_miranda_priestly>. Low-angle CU: <char_miranda_priestly> occupies frame_right, torso slightly angled toward offscreen_left, chin lifted a touch, shoulders squared. <prop_gold_rimmed_glasses> rest on the bridge of the nose, catching a narrow cool specular streak. Her pupils are locked offscreen_left toward <char_andrea_sachs>, lips pressed into a thin line. She dominates the frame, the empty space to the left implying the subordinate presence she assesses. Environment hints of <loc_int_fashion_office>: blurred chrome edges and glass partitions, all in cool, desaturated tones with a faint cerulean reflection.",
+          "characters_in_shot": [
+            "char_miranda_priestly"
+          ],
+          "character_appearances": {
+            "char_miranda_priestly": "Middle-aged woman, tailored monochrome couture suit with discreet luxury accessories and gold-rimmed glasses, standing poised and dominating, icy contempt fixed offscreen left"
+          },
+          "resolved_t2i": "Cold, minimalist editorial close-up; sterile cool high-key lighting with subtle rim from glass reflections outlines Middle-aged woman, tailored monochrome couture suit with discreet luxury accessories and gold-rimmed glasses, standing poised and dominating, icy contempt fixed offscreen left. Low-angle CU: Middle-aged woman, tailored monochrome couture suit with discreet luxury accessories and gold-rimmed glasses, standing poised and dominating, icy contempt fixed offscreen left occupies frame_right, torso slightly angled toward offscreen_left, chin lifted a touch, shoulders squared. <prop_gold_rimmed_glasses> rest on the bridge of the nose, catching a narrow cool specular streak. Her pupils are locked offscreen_left toward <char_andrea_sachs>, lips pressed into a thin line. She dominates the frame, the empty space to the left implying the subordinate presence she assesses. Environment hints of <loc_int_fashion_office>: blurred chrome edges and glass partitions, all in cool, desaturated tones with a faint cerulean reflection.",
+          "resolved_ti2i": "Picture 1 is Middle-aged woman, tailored monochrome couture suit with discreet luxury accessories and gold-rimmed glasses, standing poised and dominating, icy contempt fixed offscreen left.\nCold, minimalist editorial close-up; sterile cool high-key lighting with subtle rim from glass reflections outlines Picture 1. Low-angle CU: Picture 1 occupies frame_right, torso slightly angled toward offscreen_left, chin lifted a touch, shoulders squared. <prop_gold_rimmed_glasses> rest on the bridge of the nose, catching a narrow cool specular streak. Her pupils are locked offscreen_left toward <char_andrea_sachs>, lips pressed into a thin line. She dominates the frame, the empty space to the left implying the subordinate presence she assesses. Environment hints of <loc_int_fashion_office>: blurred chrome edges and glass partitions, all in cool, desaturated tones with a faint cerulean reflection.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Camera: slow, deliberate dolly-in at low angle, tightening toward <char_miranda_priestly>'s eyes. As the camera advances, her gaze travels once—subtly scanning up and down across offscreen_left—then returns to settle, a fractional head tilt telegraphing judgment. <prop_gold_rimmed_glasses> catch and release a cold glint as her focus shifts; she draws a restrained breath, jaw tight, shoulders immobile. Mouth remains tightly closed. No speaking. Ambient motion: reflections slide along the glass partition of <loc_int_fashion_office>, a faint draft stirs a few strands of her silver bob, and distant bokeh highlights drift. End with her eyes locking to the height corresponding to the unseen <prop_cerulean_sweater>, holding for a clean cut into the next shot.",
+          "resolved_i2v": "Camera: slow, deliberate dolly-in at low angle, tightening toward Middle-aged woman, tailored monochrome couture suit with discreet luxury accessories and gold-rimmed glasses, standing poised and dominating, icy contempt fixed offscreen left's eyes. As the camera advances, her gaze travels once—subtly scanning up and down across offscreen_left—then returns to settle, a fractional head tilt telegraphing judgment. <prop_gold_rimmed_glasses> catch and release a cold glint as her focus shifts; she draws a restrained breath, jaw tight, shoulders immobile. Mouth remains tightly closed. No speaking. Ambient motion: reflections slide along the glass partition of <loc_int_fashion_office>, a faint draft stirs a few strands of her silver bob, and distant bokeh highlights drift. End with her eyes locking to the height corresponding to the unseen <prop_cerulean_sweater>, holding for a clean cut into the next shot.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.3,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "fade_in",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_01_miranda_cold_stare_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_02_sweater_closeup_cerulean",
+      "narrative_layer": {
+        "narrative_action": "Andy’s lumpy cerulean sweater is shown as Miranda speaks in voiceover.",
+        "emotional_beat": "dismissive_authority",
+        "dialogue": {
+          "has_dialogue": true,
+          "speaker_asset_id": "char_miranda_priestly",
+          "listener_asset_id": "char_andrea_sachs",
+          "text": "That sweater is not just blue. It's actually cerulean.",
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 4.0,
+        "camera": {
+          "shot_scale": "ECU",
+          "angle": "eye_level",
+          "movement": "slow_dolly_in with rack_focus"
+        },
+        "lighting": "sterile cool high-key with soft side light to reveal knit texture",
+        "environment_id": "loc_int_fashion_office",
+        "entities": [
+          {
+            "asset_id": "char_andrea_sachs",
+            "position": "center_fg",
+            "action_state": "standing_still"
+          },
+          {
+            "asset_id": "prop_cerulean_sweater",
+            "position": "center_fg",
+            "action_state": "worn_on_torso_texture_emphasized"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Manhattan, New York, USA",
+          "ERA LOCK: Mid-2000s American fashion industry",
+          "FORBIDDEN: warm rustic decor, Mediterranean architecture, bohemian clutter, runway show environment, boutique retail space",
+          "COLOR_PALETTE: cool, desaturated editorial tones with cerulean accent",
+          "ARCHITECTURE: modern corporate office with glass, chrome, minimalist lines",
+          "WARDROBE: high-end fashion editorial attire",
+          "Cerulean sweater must be the most saturated element; surrounding tones remain cool and desaturated",
+          "Texture/pilling of knit must be readable; minimize specular glare via soft side light and slight rack_focus",
+          "Background should fall off to soft bokeh; any visible environment must read as glass/chrome office surfaces"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Cold, minimalist editorial extreme close-up; sterile cool high-key with soft side light reveals knit texture without glare. Eye-level ECU of <prop_cerulean_sweater> worn by <char_andrea_sachs> at center_fg: the pilled, uneven knit fills the frame, the most saturated cerulean element against muted surroundings. <char_andrea_sachs>'s shoulders angle a touch forward, body held still, fingertips poised near the hem just at the edge of focus as if about to fidget. The atmosphere is clinical and dismissive, as if the fabric is under examination. Background collapses into cool, desaturated bokeh of <loc_int_fashion_office> glass and chrome.",
+          "characters_in_shot": [
+            "char_andrea_sachs"
+          ],
+          "character_appearances": {
+            "char_andrea_sachs": "Young woman, lumpy cerulean sweater over basic office wear, shoulders slightly hunched and tense, self-conscious under scrutiny"
+          },
+          "resolved_t2i": "Cold, minimalist editorial extreme close-up; sterile cool high-key with soft side light reveals the knit texture without glare. Eye-level ECU of <prop_cerulean_sweater> worn by Young woman in a lumpy cerulean sweater over basic office wear; shoulders slightly hunched, tension taut in her frame; self-conscious under scrutiny. at center_fg: the pilled, uneven knit swallows the frame, the most saturated cerulean against muted surroundings. Young woman in a lumpy cerulean sweater over basic office wear; shoulders slightly hunched, tension taut in her frame; self-conscious under scrutiny.'s shoulders angle a touch forward, body held rigid, fingertips poised near the hem just at the edge of focus as if about to fidget. The atmosphere is clinical and faintly contemptuous, as though the fabric is under examination. Background collapses into cool, desaturated bokeh of <loc_int_fashion_office> glass and chrome.",
+          "resolved_ti2i": "Picture 1 is Young woman in a lumpy cerulean sweater over basic office wear; shoulders slightly hunched, tension taut in her frame; self-conscious under scrutiny..\nCold, minimalist editorial extreme close-up; sterile cool high-key with soft side light reveals the knit texture without glare. Eye-level ECU of <prop_cerulean_sweater> worn by Picture 1 at center_fg: the pilled, uneven knit swallows the frame, the most saturated cerulean against muted surroundings. Picture 1's shoulders angle a touch forward, body held rigid, fingertips poised near the hem just at the edge of focus as if about to fidget. The atmosphere is clinical and faintly contemptuous, as though the fabric is under examination. Background collapses into cool, desaturated bokeh of <loc_int_fashion_office> glass and chrome.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Camera: slow dolly-in at eye level with a gentle rack focus from surface pills to the broader weave of <prop_cerulean_sweater>, preserving cerulean dominance while the background melts deeper into blur. <char_andrea_sachs>'s chest rises and falls shallowly; her shoulders tighten a fraction and a thumb grazes a loose fiber near the hem before stilling in response to the unseen authority. Mouth remains tightly closed. No speaking. Ambient motion: soft reflections from overhead fluorescents drift across the knit, bokeh highlights from <loc_int_fashion_office> glass shift slightly, and the fabric subtly moves with each micro-breath. End by settling focus on a clean patch of knit dead center, holding steady to facilitate a crisp cut back to the observer.",
+          "resolved_i2v": "Camera: slow dolly-in at eye level with a gentle rack focus from surface pills to the broader weave of <prop_cerulean_sweater>, preserving cerulean dominance while the background melts deeper into blur. Young woman in a lumpy cerulean sweater over basic office wear; shoulders slightly hunched, tension taut in her frame; self-conscious under scrutiny.'s chest rises and falls shallowly; her shoulders tighten a fraction, and a thumb grazes a loose fiber near the hem before stilling in response to the unseen authority. Mouth remains tightly closed. No speaking. Ambient motion: soft reflections from overhead fluorescents drift across the knit, bokeh highlights from <loc_int_fashion_office> glass shift slightly, and the fabric subtly moves with each micro-breath. End by settling focus on a clean patch of knit dead center, holding steady to facilitate a crisp cut back to the observer.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.3,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": true,
+            "sync_method": "musetalk",
+            "audio_source_ref": "assembly_layer.audio_tracks[0]"
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_02_sweater_closeup_cerulean_dialogue",
+            "type": "dialogue",
+            "source": "tts_default",
+            "description": "That sweater is not just blue. It's actually cerulean."
+          },
+          {
+            "track_id": "shot_02_sweater_closeup_cerulean_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    }
+  ]
+}

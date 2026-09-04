@@ -1,0 +1,76 @@
+{
+  "scene_id": "bp_great_gatsby_beautiful_shirts_063a71",
+  "jobs": [
+    {
+      "job_id": "bp_great_gatsby_beautiful_shirts_063a71_shot_01_gatsby_tosses_shirts_a",
+      "scene_id": "bp_great_gatsby_beautiful_shirts_063a71",
+      "shot_id": "shot_01_gatsby_tosses_shirts",
+      "segment_id": "shot_01_gatsby_tosses_shirts_a",
+      "prompt": "Camera: slow tilt up from <prop_plush_bed> toward the balcony, arcing to follow the descending path of <prop_pastel_shirts>. Action: Male, early 30s, pastel silk shirt with crisp trousers and polished oxfords, exhilarated showman poised on the wardrobe balcony unleashes the cascade with a theatrical flourish; his fingers open and flick, and the silks peel away in extreme slow-motion, sleeves puffing and panels unfurling. He leans over the rail, eyes tracking the drift, shoulders opening in presentation; his expression warms with contained delight. Reaction: no other characters visible. Lip constraint: Mouth remains tightly closed. No speaking. Ambient motion: <prop_massive_windows> curtains breathe on a gentle draft; dust motes drift; the bed’s coverlet ripples slightly where fabric is about to land; each shirt ripples and rotates, catching glowing highlights. Forward continuity: the tilt settles beneath the falling fabrics, holding the bed centered as the camera eases toward a higher vantage, ready to cut into the next overhead shot of the shirts settling.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": null,
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 4.562,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 73,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    },
+    {
+      "job_id": "bp_great_gatsby_beautiful_shirts_063a71_shot_02_shirts_fall_settle_a",
+      "scene_id": "bp_great_gatsby_beautiful_shirts_063a71",
+      "shot_id": "shot_02_shirts_fall_settle",
+      "segment_id": "shot_02_shirts_fall_settle_a",
+      "prompt": "Camera: slow crane down in an overhead perspective, riding the drift of <prop_pastel_shirts> while keeping shallow focus on texture. Action: the shirts billow, fold, and glide in extreme slow-motion; collars flutter, buttons catch highlights; they ease down and alight in quiet waves on <prop_plush_bed>, air sighing out as fabric settles into soft, colorful heaps. Reaction: no characters on screen; voiceover from <char_daisy> is heard off-screen only. Lip constraint: Mouth remains tightly closed. No speaking. Ambient motion: sunlight blooms gently through <prop_massive_windows>; gauzy curtains lift and fall; dust motes dance in the glow; the bedding compresses and slowly rebounds where each shirt lands. Forward continuity: the crane eases to a near-static hold on the freshest pile centered in frame, inviting a cut to an eye-level close position where <char_daisy> will occupy the same mound in the next shot.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": null,
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 6.062,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 97,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    },
+    {
+      "job_id": "bp_great_gatsby_beautiful_shirts_063a71_shot_03_daisy_weeps_shirts_a",
+      "scene_id": "bp_great_gatsby_beautiful_shirts_063a71",
+      "shot_id": "shot_03_daisy_weeps_shirts",
+      "segment_id": "shot_03_daisy_weeps_shirts_a",
+      "prompt": "Camera: slow dolly in at eye level, compressing to an intimate close on Female, mid-20s, elegant 1920s couture with understated jewelry; seated amid pastel shirts on the bed; delighted at first, then overwhelmed and tearful.'s face and hands. Action: her shoulders quiver with a stifled, silent laugh; the smile falters; eyes brim and then a few luminous tears slip free as she folds forward, burying her face into <prop_pastel_shirts>. Her fingers knead the silk, drawing it close; breath turns shallow and tremulous as she stills. Reaction: she remains huddled in the fabric, trembling softly. Lip constraint: Mouth remains tightly closed. No speaking. Ambient motion: gauzy curtains at <prop_massive_windows> drift in the daylight; dust motes glint and drift; loose hems of the shirts flutter and settle; the mattress compresses subtly under her movement. Forward continuity: the dolly comes to rest on a tight frame of her head bowed into the shirts, holding long enough for a gentle linger or dissolve.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": null,
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 5.562,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 89,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    }
+  ],
+  "total_shots": 3,
+  "estimated_duration": 16.0
+}

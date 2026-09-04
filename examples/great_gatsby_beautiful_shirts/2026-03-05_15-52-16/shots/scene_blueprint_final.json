@@ -1,0 +1,345 @@
+{
+  "blueprint_id": "bp_great_gatsby_beautiful_shirts_063a71",
+  "metadata": {
+    "project_name": "Shirts and Tears",
+    "target_resolution": "1280x720",
+    "target_aspect_ratio": "16:9",
+    "global_fps": 16
+  },
+  "global_style": "Opulent Jazz Age glamour; sunlit pastels; diffused natural light; extreme slow-motion elegance; romantic yet bittersweet tone.",
+  "final_film_path": null,
+  "shots": [
+    {
+      "shot_id": "shot_01_gatsby_tosses_shirts",
+      "narrative_layer": {
+        "narrative_action": "Gatsby stands on the wardrobe balcony and excitedly tosses a cascade of pastel silk and linen shirts down.",
+        "emotional_beat": "exuberant_display",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 4.5,
+        "camera": {
+          "shot_scale": "LS",
+          "angle": "low",
+          "movement": "slow_tilt_up_follow_shirts"
+        },
+        "lighting": "diffused natural daylight, glowing highlights",
+        "environment_id": "loc_int_gatsbys_bedroom",
+        "entities": [
+          {
+            "asset_id": "char_gatsby",
+            "position": "background_upper_center",
+            "action_state": "tossing_shirts_down"
+          },
+          {
+            "asset_id": "prop_open_wardrobe",
+            "position": "background_center",
+            "action_state": "balcony_visible"
+          },
+          {
+            "asset_id": "prop_pastel_shirts",
+            "position": "midair_center",
+            "action_state": "cascading_downward"
+          },
+          {
+            "asset_id": "prop_plush_bed",
+            "position": "foreground_lower_right",
+            "action_state": "awaiting_shirts"
+          },
+          {
+            "asset_id": "prop_massive_windows",
+            "position": "background_left",
+            "action_state": "gauzy_curtains_swaying"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: North Shore, Long Island, New York, USA",
+          "ERA LOCK: Early 1920s Jazz Age America",
+          "FORBIDDEN: modern technology, smartphones, contemporary casualwear, minimalist interiors, mid-century or later design cues",
+          "COLOR_PALETTE: soft pastels with warm sunlight",
+          "LIGHTING: diffused natural daylight, glowing highlights",
+          "SET_DECORATION: sumptuous, high-end 1920s luxury",
+          "Gatsby must be framed from a low angle to emphasize spectacle and status",
+          "Open wardrobe balcony must remain visible in frame",
+          "Shirts motion must be captured in extreme slow-motion as they leave Gatsby’s hands",
+          "Maintain pastel fabric tones; avoid saturated primaries"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Opulent Jazz Age glamour with soft pastels and warm sunlight. Diffused natural daylight with glowing highlights pours through <prop_massive_windows>. Low-angle long shot inside <loc_int_gatsbys_bedroom>: <char_gatsby> stands on the upper rail of <prop_open_wardrobe> at background_upper_center, torso pitched forward, arms brimming with <prop_pastel_shirts>. His wrists tilt as the top layer begins to slip, but nothing has left his hands yet. Chin lifted, eyes fixed downward toward <prop_plush_bed> in the foreground; he commands the vertical space from balcony to bed. The wardrobe balcony remains clearly visible behind him. Below, the massive plush bed at foreground lower right lies pristine and expectant. Gauzy curtains at the sunlit windows stir faintly; dust motes sparkle in the beam, all poised at the brink of an extravagant release.",
+          "characters_in_shot": [
+            "char_gatsby"
+          ],
+          "character_appearances": {
+            "char_gatsby": "Male, early 30s, pastel silk shirt with crisp trousers and polished oxfords, exhilarated showman poised on the wardrobe balcony"
+          },
+          "resolved_t2i": "Opulent Jazz Age glamour with soft pastels and warm sunlight. Diffused natural daylight with glowing highlights pours through <prop_massive_windows>. Low-angle long shot inside <loc_int_gatsbys_bedroom>: Male, early 30s, pastel silk shirt with crisp trousers and polished oxfords, exhilarated showman poised on the wardrobe balcony stands on the upper rail of <prop_open_wardrobe> at background_upper_center, torso pitched forward, arms brimming with <prop_pastel_shirts>. His wrists tilt as the top layer begins to slip, but nothing has left his hands yet. Chin lifted, eyes fixed downward toward <prop_plush_bed> in the foreground; he commands the vertical space from balcony to bed. The wardrobe balcony remains clearly visible behind him. Below, the massive plush bed at foreground lower right lies pristine and expectant. Gauzy curtains at the sunlit windows stir faintly; dust motes sparkle in the beam, all poised at the brink of an extravagant release.",
+          "resolved_ti2i": "Picture 1 is Male, early 30s, pastel silk shirt with crisp trousers and polished oxfords, exhilarated showman poised on the wardrobe balcony.\nOpulent Jazz Age glamour with soft pastels and warm sunlight. Diffused natural daylight with glowing highlights pours through <prop_massive_windows>. Low-angle long shot inside <loc_int_gatsbys_bedroom>: Picture 1 stands on the upper rail of <prop_open_wardrobe> at background_upper_center, torso pitched forward, arms brimming with <prop_pastel_shirts>. His wrists tilt as the top layer begins to slip, but nothing has left his hands yet. Chin lifted, eyes fixed downward toward <prop_plush_bed> in the foreground; he commands the vertical space from balcony to bed. The wardrobe balcony remains clearly visible behind him. Below, the massive plush bed at foreground lower right lies pristine and expectant. Gauzy curtains at the sunlit windows stir faintly; dust motes sparkle in the beam, all poised at the brink of an extravagant release.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Camera: slow tilt up from <prop_plush_bed> toward the balcony, arcing to follow the descending path of <prop_pastel_shirts>. Action: <char_gatsby> unleashes the cascade with a theatrical flourish; his fingers open and flick, and the silks peel away in extreme slow-motion, sleeves puffing and panels unfurling. He leans over the rail, eyes tracking the drift, shoulders opening in presentation; his expression warms with contained delight. Reaction: no other characters visible. Lip constraint: Mouth remains tightly closed. No speaking. Ambient motion: <prop_massive_windows> curtains breathe on a gentle draft; dust motes drift; the bed’s coverlet ripples slightly where fabric is about to land; each shirt ripples and rotates, catching glowing highlights. Forward continuity: the tilt settles beneath the falling fabrics, holding the bed centered as the camera eases toward a higher vantage, ready to cut into the next overhead shot of the shirts settling.",
+          "resolved_i2v": "Camera: slow tilt up from <prop_plush_bed> toward the balcony, arcing to follow the descending path of <prop_pastel_shirts>. Action: Male, early 30s, pastel silk shirt with crisp trousers and polished oxfords, exhilarated showman poised on the wardrobe balcony unleashes the cascade with a theatrical flourish; his fingers open and flick, and the silks peel away in extreme slow-motion, sleeves puffing and panels unfurling. He leans over the rail, eyes tracking the drift, shoulders opening in presentation; his expression warms with contained delight. Reaction: no other characters visible. Lip constraint: Mouth remains tightly closed. No speaking. Ambient motion: <prop_massive_windows> curtains breathe on a gentle draft; dust motes drift; the bed’s coverlet ripples slightly where fabric is about to land; each shirt ripples and rotates, catching glowing highlights. Forward continuity: the tilt settles beneath the falling fabrics, holding the bed centered as the camera eases toward a higher vantage, ready to cut into the next overhead shot of the shirts settling.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.3,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "fade_in",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_01_gatsby_tosses_shirts_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_02_shirts_fall_settle",
+      "narrative_layer": {
+        "narrative_action": "Pastel shirts billow, fold, and glide through the air before gently settling onto the plush bed.",
+        "emotional_beat": "romantic_awe",
+        "dialogue": {
+          "has_dialogue": true,
+          "speaker_asset_id": "char_daisy",
+          "listener_asset_id": "char_gatsby",
+          "text": "They're such beautiful shirts... I've never seen such beautiful shirts before.",
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 6.0,
+        "camera": {
+          "shot_scale": "MCU",
+          "angle": "overhead",
+          "movement": "slow_crane_down_follow_fabric"
+        },
+        "lighting": "diffused natural daylight, glowing highlights",
+        "environment_id": "loc_int_gatsbys_bedroom",
+        "entities": [
+          {
+            "asset_id": "prop_pastel_shirts",
+            "position": "center_fg",
+            "action_state": "billowing_glide"
+          },
+          {
+            "asset_id": "prop_plush_bed",
+            "position": "center_bg",
+            "action_state": "receiving_shirts_gently"
+          },
+          {
+            "asset_id": "prop_massive_windows",
+            "position": "background_upper",
+            "action_state": "soft_glow_through_gauze"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: North Shore, Long Island, New York, USA",
+          "ERA LOCK: Early 1920s Jazz Age America",
+          "FORBIDDEN: modern technology, smartphones, contemporary casualwear, minimalist interiors, mid-century or later design cues",
+          "COLOR_PALETTE: soft pastels with warm sunlight",
+          "LIGHTING: diffused natural daylight, glowing highlights",
+          "SET_DECORATION: sumptuous, high-end 1920s luxury",
+          "Daisy’s line is voiceover only; Daisy and Gatsby are NOT visible in this shot",
+          "Fabric movement must be rendered in extreme slow-motion",
+          "Use shallow depth of field to emphasize silk and linen textures",
+          "No harsh shadows; maintain gentle overhead perspective onto bed"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Romantic stillness, sunlit pastels under diffused natural daylight with glowing highlights. Overhead medium close-up in <loc_int_gatsbys_bedroom>: a bouquet of <prop_pastel_shirts> hangs inches above <prop_plush_bed>, sleeves and collars suspended mid-swirl, not yet touching. Silk and linen textures gleam against a shallow depth of field. The bed’s plush surface centers the frame, unpressed and waiting. At background upper, the hazy glow of <prop_massive_windows> filters through gauzy curtains. No characters are visible; the poised fabric holds all attention in the split second before contact.",
+          "characters_in_shot": [],
+          "character_appearances": {},
+          "resolved_t2i": "Romantic stillness, sunlit pastels under diffused natural daylight with glowing highlights. Overhead medium close-up in <loc_int_gatsbys_bedroom>: a bouquet of <prop_pastel_shirts> hangs inches above <prop_plush_bed>, sleeves and collars suspended mid-swirl, not yet touching. Silk and linen textures gleam against a shallow depth of field. The bed’s plush surface centers the frame, unpressed and waiting. At background upper, the hazy glow of <prop_massive_windows> filters through gauzy curtains. No characters are visible; the poised fabric holds all attention in the split second before contact.",
+          "resolved_ti2i": "Romantic stillness, sunlit pastels under diffused natural daylight with glowing highlights. Overhead medium close-up in <loc_int_gatsbys_bedroom>: a bouquet of <prop_pastel_shirts> hangs inches above <prop_plush_bed>, sleeves and collars suspended mid-swirl, not yet touching. Silk and linen textures gleam against a shallow depth of field. The bed’s plush surface centers the frame, unpressed and waiting. At background upper, the hazy glow of <prop_massive_windows> filters through gauzy curtains. No characters are visible; the poised fabric holds all attention in the split second before contact.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Camera: slow crane down in an overhead perspective, riding the drift of <prop_pastel_shirts> while keeping shallow focus on texture. Action: the shirts billow, fold, and glide in extreme slow-motion; collars flutter, buttons catch highlights; they ease down and alight in quiet waves on <prop_plush_bed>, air sighing out as fabric settles into soft, colorful heaps. Reaction: no characters on screen; voiceover from <char_daisy> is heard off-screen only. Lip constraint: Mouth remains tightly closed. No speaking. Ambient motion: sunlight blooms gently through <prop_massive_windows>; gauzy curtains lift and fall; dust motes dance in the glow; the bedding compresses and slowly rebounds where each shirt lands. Forward continuity: the crane eases to a near-static hold on the freshest pile centered in frame, inviting a cut to an eye-level close position where <char_daisy> will occupy the same mound in the next shot.",
+          "resolved_i2v": "Camera: slow crane down in an overhead perspective, riding the drift of <prop_pastel_shirts> while keeping shallow focus on texture. Action: the shirts billow, fold, and glide in extreme slow-motion; collars flutter, buttons catch highlights; they ease down and alight in quiet waves on <prop_plush_bed>, air sighing out as fabric settles into soft, colorful heaps. Reaction: no characters on screen; voiceover from <char_daisy> is heard off-screen only. Lip constraint: Mouth remains tightly closed. No speaking. Ambient motion: sunlight blooms gently through <prop_massive_windows>; gauzy curtains lift and fall; dust motes dance in the glow; the bedding compresses and slowly rebounds where each shirt lands. Forward continuity: the crane eases to a near-static hold on the freshest pile centered in frame, inviting a cut to an eye-level close position where <char_daisy> will occupy the same mound in the next shot.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.3,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": true,
+            "sync_method": "musetalk",
+            "audio_source_ref": "assembly_layer.audio_tracks[0]"
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_02_shirts_fall_settle_dialogue",
+            "type": "dialogue",
+            "source": "tts_default",
+            "description": "They're such beautiful shirts... I've never seen such beautiful shirts before."
+          },
+          {
+            "track_id": "shot_02_shirts_fall_settle_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_03_daisy_weeps_shirts",
+      "narrative_layer": {
+        "narrative_action": "Amid the piled shirts, Daisy laughs with delight, then buries her face in them and begins to weep.",
+        "emotional_beat": "delight_to_sorrow",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 5.5,
+        "camera": {
+          "shot_scale": "CU",
+          "angle": "eye_level",
+          "movement": "slow_dolly_in"
+        },
+        "lighting": "diffused natural daylight, glowing highlights",
+        "environment_id": "loc_int_gatsbys_bedroom",
+        "entities": [
+          {
+            "asset_id": "char_daisy",
+            "position": "seated_center",
+            "action_state": "laughing_then_burying_face_weeping"
+          },
+          {
+            "asset_id": "prop_pastel_shirts",
+            "position": "foreground_lower_center",
+            "action_state": "piled_around_daisy"
+          },
+          {
+            "asset_id": "prop_plush_bed",
+            "position": "center_bg",
+            "action_state": "supporting_daisy"
+          },
+          {
+            "asset_id": "prop_massive_windows",
+            "position": "background_soft",
+            "action_state": "warm_backlight_glow"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: North Shore, Long Island, New York, USA",
+          "ERA LOCK: Early 1920s Jazz Age America",
+          "FORBIDDEN: modern technology, smartphones, contemporary casualwear, minimalist interiors, mid-century or later design cues",
+          "COLOR_PALETTE: soft pastels with warm sunlight",
+          "LIGHTING: diffused natural daylight, glowing highlights",
+          "SET_DECORATION: sumptuous, high-end 1920s luxury",
+          "Maintain eye-level intimacy on Daisy throughout the shot",
+          "Keep Daisy’s tears subtle and luminous; avoid harsh streaking",
+          "Pastel shirt palette must remain consistent with previous shots",
+          "Background windows should stay softly blown with gauzy curtains; no hard speculars"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Soft, intimate eye-level close-up drenched in diffused natural daylight with glowing highlights; warm pastel palette in <loc_int_gatsbys_bedroom>. <char_daisy> sits centered on <prop_plush_bed>, cocooned by a halo of <prop_pastel_shirts> piled around her. Shoulders slightly forward, fingers clutching a handful of silk against her chest; her eyes shine, lips closed in a tremulous smile, breath poised at the edge of a laugh that has not yet escaped. Her eyeline dips to the fabric in her hands, then flicks up toward an unseen presence before returning down, revealing a flicker of conflict beneath delight. Behind, <prop_massive_windows> bloom softly through gauzy curtains, isolating her in opulent textures.",
+          "characters_in_shot": [
+            "char_daisy"
+          ],
+          "character_appearances": {
+            "char_daisy": "Female, mid-20s, elegant 1920s couture with understated jewelry, seated amid pastel shirts on the bed, delighted then overwhelmed and tearful"
+          },
+          "resolved_t2i": "Soft, intimate eye-level close-up bathed in diffused natural daylight with glowing highlights; a warm pastel palette saturates <loc_int_gatsbys_bedroom>. Female, mid-20s, elegant 1920s couture with understated jewelry; seated amid pastel shirts on the bed; delighted at first, then overwhelmed and tearful. sits centered on <prop_plush_bed>, cocooned in a halo of <prop_pastel_shirts> heaped around her. Shoulders pitched forward, fingers clutching a spill of silk to her chest; her eyes gleam, lips closed in a tremulous smile, breath trembling on the precipice of a laugh that has not yet escaped. Her eyeline dips to the fabric cupped in her hands, then flicks up toward an unseen presence before slipping back down, exposing a tremor of conflict beneath delight. Behind, <prop_massive_windows> bloom softly through gauzy curtains, isolating her within opulent textures.",
+          "resolved_ti2i": "Picture 1 is Female, mid-20s, elegant 1920s couture with understated jewelry; seated amid pastel shirts on the bed; delighted at first, then overwhelmed and tearful..\nSoft, intimate eye-level close-up bathed in diffused natural daylight with glowing highlights; a warm pastel palette saturates <loc_int_gatsbys_bedroom>. Picture 1 sits centered on <prop_plush_bed>, cocooned in a halo of <prop_pastel_shirts> heaped around her. Shoulders pitched forward, fingers clutching a spill of silk to her chest; her eyes gleam, lips closed in a tremulous smile, breath trembling on the precipice of a laugh that has not yet escaped. Her eyeline dips to the fabric cupped in her hands, then flicks up toward an unseen presence before slipping back down, exposing a tremor of conflict beneath delight. Behind, <prop_massive_windows> bloom softly through gauzy curtains, isolating her within opulent textures.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Camera: slow dolly in at eye level, compressing to an intimate close on <char_daisy>'s face and hands. Action: her shoulders quiver with a stifled, silent laugh; the smile falters; eyes well and then a few luminous tears slip free as she folds forward, burying her face into <prop_pastel_shirts>. Her fingers knead the silk, drawing it close; breath becomes shallow and tremulous as she stills. Reaction: she remains huddled in the fabric, trembling softly. Lip constraint: Mouth remains tightly closed. No speaking. Ambient motion: gauzy curtains at <prop_massive_windows> drift in the daylight; dust motes glint and drift; loose hems of the shirts flutter and settle; the mattress compresses subtly under her movement. Forward continuity: the dolly comes to rest on a tight frame of her head bowed into the shirts, holding long enough for a gentle linger or dissolve.",
+          "resolved_i2v": "Camera: slow dolly in at eye level, compressing to an intimate close on Female, mid-20s, elegant 1920s couture with understated jewelry; seated amid pastel shirts on the bed; delighted at first, then overwhelmed and tearful.'s face and hands. Action: her shoulders quiver with a stifled, silent laugh; the smile falters; eyes brim and then a few luminous tears slip free as she folds forward, burying her face into <prop_pastel_shirts>. Her fingers knead the silk, drawing it close; breath turns shallow and tremulous as she stills. Reaction: she remains huddled in the fabric, trembling softly. Lip constraint: Mouth remains tightly closed. No speaking. Ambient motion: gauzy curtains at <prop_massive_windows> drift in the daylight; dust motes glint and drift; loose hems of the shirts flutter and settle; the mattress compresses subtly under her movement. Forward continuity: the dolly comes to rest on a tight frame of her head bowed into the shirts, holding long enough for a gentle linger or dissolve.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.3,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_03_daisy_weeps_shirts_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    }
+  ]
+}

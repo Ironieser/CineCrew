@@ -1,0 +1,92 @@
+{
+  "project_title": "Sci-Fi Transformation Shot",
+  "global_style": "Cinematic sci-fi with shallow depth of field, low slightly wide angle, high-key white light bloom, red-and-white palette, crisp mechanical device design, dramatic exposure blowout.",
+  "project_settings": {
+    "location_lock": "Abstract, indeterminate tech environment with blurred background—non-specific locale (NOT recognizable Earth city, NOT historical site, NOT natural landscape)",
+    "negative_constraints": [
+      "Recognizable real-world cities, landmarks, skylines (e.g., Times Square, Eiffel Tower)",
+      "Historical architecture (cathedrals, temples, pagodas, castles, stone villages)",
+      "Religious iconography (crosses, halos, altars, stained glass)",
+      "Angelic or feathered wings (use crystal/mechanical only)",
+      "Medieval or fantasy elements (swords, armor, runes, magic circles)",
+      "Steampunk aesthetics (brass gears, Victorian styling)",
+      "Retro analog tech (CRT monitors, exposed cables, vacuum tubes)",
+      "Military insignia, firearms, tactical gear",
+      "Contemporary brand logos, text signage, or readable UI text",
+      "Lush natural scenery in clear focus (trees, mountains, oceans)",
+      "Space vistas or starfields; keep environment non-cosmic and abstract",
+      "Neon cyberpunk street scenes (wet asphalt, kanji signage, crowded alleys)",
+      "Rustic materials (wood beams, stone walls)",
+      "Warm candlelight or firelight; avoid mystical ritual props (candles, incense)",
+      "Brown/earthy, grungy palettes that detract from high-key white purity"
+    ],
+    "style_overrides": {
+      "color_palette": "High-key whites, cool grays, subtle iridescent crystal highlights",
+      "materials": "Polished matte white composites, clear/crystal elements, minimal metal",
+      "lighting": "Pure white core eruption with exposure blowout and soft cinematic bloom; sharp mechanical snap cue",
+      "architecture": "Non-descript abstract futurist forms; no identifiable cultural motifs or signage",
+      "camera_style": "Front-facing hero close-up, shallow depth-of-field, blurred background",
+      "props": "White intricate activation device with twin crystal wings (crystal/mechanical aesthetic)",
+      "wardrobe": "Modern-futurist jacket; no logos, patches, or military insignia",
+      "vfx": "Clean geometric light behaviors; no glyphs, runes, smoke, or particle clutter",
+      "ui_elements": "Avoid textual HUD; if needed, use minimal geometric overlays only",
+      "environment": "Indeterminate interior or staging area implied; maintain abstraction"
+    },
+    "era_lock": "Unspecified far-future sci-fi era (NOT contemporary or historical)"
+  },
+  "narrative_context": {
+    "time_period": "Unspecified futuristic sci-fi",
+    "global_mood": "Intense, awe-struck, transformative",
+    "key_events": [
+      "Young man fixes a resolute gaze toward camera.",
+      "He draws a white, intricate device from his jacket.",
+      "Twin crystal wings snap open with a sharp mechanical sound.",
+      "Pure white light erupts from the center crystal, blowing out exposure.",
+      "The light swallows the entire frame into blinding white."
+    ],
+    "cultural_context": "Techno-mystical transformation imagery emphasizing heroic resolve and ritualized activation of advanced technology."
+  },
+  "characters": [
+    {
+      "id": "char_determined_young_man",
+      "name": "Determined Young Man",
+      "description": "Young man in a red-and-white sci-fi uniform with intense, resolute gaze; stands firm, ready to act.",
+      "clothing_style": "Red-and-white sci-fi uniform; fitted jacket with concealed pocket for device.",
+      "voice_preset_id": null,
+      "voice_description": "Young, steady, clear; controlled intensity.",
+      "voice_design": null,
+      "personality": "Focused, courageous, resolute; committed to activating the device.",
+      "backstory": "Not revealed in excerpt; carries a specialized device suggesting crucial purpose.",
+      "current_motivation": "Trigger the device’s transformation/light effect with unwavering resolve.",
+      "scene_count": 1,
+      "dialogue_lines": 0,
+      "key_relationships": [],
+      "visual_references": null,
+      "audio_references": null
+    }
+  ],
+  "locations": [
+    {
+      "id": "loc_unknown_blurred_background",
+      "name": "Blurred Background Setting",
+      "type": "UNKNOWN",
+      "visual_style": "Shallow depth of field; background defocused; low, slightly wide-angle perspective; exposure blown out by pure white light.",
+      "narrative_function": "Focus space for transformation moment and light engulfing effect.",
+      "time_of_day_stats": {},
+      "visual_references": null,
+      "audio_references": null,
+      "usage_count": 1
+    }
+  ],
+  "props": [
+    {
+      "id": "prop_transformation_device",
+      "name": "White Intricate Device",
+      "related_character_id": "char_determined_young_man",
+      "visual_description": "Compact white handheld device with twin crystal wings that snap open; central crystal core emits overwhelming pure white light; polished, precise mechanical components; sized to fit a jacket pocket.",
+      "importance": "critical",
+      "usage_count": 1,
+      "visual_references": null
+    }
+  ]
+}

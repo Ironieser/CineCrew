@@ -1,0 +1,103 @@
+{
+  "project_title": "Cerulean Confrontation",
+  "global_style": "Cold, minimalist high-fashion editorial aesthetic; sterile lighting; tight, highly detailed close-ups; emphasis on micro-expressions and texture; subdued palette with a cerulean accent.",
+  "project_settings": {
+    "location_lock": "Manhattan, New York, USA",
+    "negative_constraints": [
+      "warm rustic decor",
+      "Mediterranean architecture",
+      "bohemian clutter",
+      "runway show environment",
+      "boutique retail space"
+    ],
+    "style_overrides": {
+      "color_palette": "cool, desaturated editorial tones with cerulean accent",
+      "architecture": "modern corporate office with glass, chrome, minimalist lines",
+      "wardrobe": "high-end fashion editorial attire"
+    },
+    "era_lock": "Mid-2000s American fashion industry"
+  },
+  "narrative_context": {
+    "time_period": "Mid-2000s, Manhattan fashion editorial office",
+    "global_mood": "Tense, freezing contempt; meticulous, intimidating scrutiny",
+    "key_events": [
+      "Silent visual standoff between Miranda and Andy",
+      "Miranda’s gaze dismantles Andy’s confidence",
+      "Miranda’s dismissive voiceover defines the sweater as cerulean"
+    ],
+    "cultural_context": "High-fashion editorial hierarchy where precise color language signals expertise and power; junior assistants navigate exacting standards and silent authority."
+  },
+  "characters": [
+    {
+      "id": "char_miranda_priestly",
+      "name": "Miranda Priestly",
+      "description": "Imposing fashion editor with sleek silver bob, gold-rimmed glasses, razor-sharp gaze; immaculate high-end presence in a cold-toned office.",
+      "clothing_style": "Tailored couture suits, monochrome palettes, discreet luxury accessories (gold-rimmed glasses), heels.",
+      "voice_preset_id": null,
+      "voice_description": "Quiet, dismissive, precise; icy control with minimal inflection.",
+      "voice_design": null,
+      "personality": "Cold, calculating, perfectionist; exacting authority; intimidating poise.",
+      "backstory": "Powerful fashion editor known for uncompromising standards; commands the room with silent dominance.",
+      "current_motivation": "Undercut Andy’s confidence and assert taste authority by dissecting her sweater’s color.",
+      "scene_count": 1,
+      "dialogue_lines": 1,
+      "key_relationships": [
+        "char_andrea_sachs"
+      ],
+      "visual_references": null,
+      "audio_references": null
+    },
+    {
+      "id": "char_andrea_sachs",
+      "name": "Andrea \"Andy\" Sachs",
+      "description": "Nervous young assistant; anxious posture; lumpy, textured cerulean blue sweater; overwhelmed by Miranda’s piercing gaze.",
+      "clothing_style": "Lumpy cerulean sweater over basic office wear; practical, understated.",
+      "voice_preset_id": null,
+      "voice_description": "Soft, tentative; often silent under pressure.",
+      "voice_design": null,
+      "personality": "Earnest, inexperienced, insecure; eager to learn, vulnerable to criticism.",
+      "backstory": "New to high-fashion editorial environment; lacks industry fluency; striving to fit in.",
+      "current_motivation": "Survive Miranda’s critique, retain dignity, and seek approval.",
+      "scene_count": 1,
+      "dialogue_lines": 0,
+      "key_relationships": [
+        "char_miranda_priestly"
+      ],
+      "visual_references": null,
+      "audio_references": null
+    }
+  ],
+  "locations": [
+    {
+      "id": "loc_int_fashion_office",
+      "name": "High-End Fashion Office",
+      "type": "INT",
+      "visual_style": "Pristine, cold-toned, minimalist; glass and chrome surfaces; crisp, sterile lighting; executive desk and designer details; freezing atmosphere.",
+      "narrative_function": "Place of power; intimidation and critique.",
+      "time_of_day_stats": {},
+      "visual_references": null,
+      "audio_references": null,
+      "usage_count": 1
+    }
+  ],
+  "props": [
+    {
+      "id": "prop_cerulean_sweater",
+      "name": "Cerulean Blue Sweater",
+      "related_character_id": "char_andrea_sachs",
+      "visual_description": "Lumpy, textured knit in saturated cerulean; close-up reveals pilling and uneven texture; humble, out-of-place in an elite office.",
+      "importance": "critical",
+      "usage_count": 1,
+      "visual_references": null
+    },
+    {
+      "id": "prop_gold_rimmed_glasses",
+      "name": "Gold-Rimmed Glasses",
+      "related_character_id": "char_miranda_priestly",
+      "visual_description": "Thin gold-rimmed eyeglasses with elegant minimalist frames; catch the cold office light; emblem of authority and scrutiny.",
+      "importance": "supporting",
+      "usage_count": 1,
+      "visual_references": null
+    }
+  ]
+}

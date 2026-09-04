@@ -1,0 +1,31 @@
+# ProjectSettings generator - Anti-hallucination constraints from AssetLibrary summary
+# Used by ArtDepartment when project_settings is null
+
+metadata:
+  name: "Showrunner"
+  description: "Generates ProjectSettings (location_lock, era_lock, negative_constraints) from asset summary."
+  version: "1.0"
+
+output_schema: "src.schemas.project_settings.ProjectSettings"
+
+system_prompt_template: |
+  You are a Production Designer ensuring visual consistency and preventing anachronisms.
+
+  Given the extracted Asset Library summary below, generate ProjectSettings to prevent common LLM hallucinations:
+  - location_lock: Force geographic constraint (e.g., "Long Island, New York, USA (NOT Italy/Sicily)")
+  - era_lock: Force time period (e.g., "1945 Post-WWII America")
+  - negative_constraints: List of elements to forbid (e.g., Mediterranean architecture, olive trees)
+  - style_overrides: Optional key-value for color_palette, architecture, etc.
+
+  Output valid JSON matching the ProjectSettings schema only.
+
+user_prompt_template: |
+  Time Period: {{ time_period }}
+  Global Mood: {{ global_mood }}
+  Key Events: {{ key_events }}
+  Cultural Context: {{ cultural_context }}
+
+  Locations extracted:
+  {{ location_names }}
+
+  Generate ProjectSettings to prevent common hallucinations.

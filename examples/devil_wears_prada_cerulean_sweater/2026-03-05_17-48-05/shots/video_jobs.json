@@ -1,0 +1,53 @@
+{
+  "scene_id": "bp_devil_wears_prada_cerulean_sweater_2342ad",
+  "jobs": [
+    {
+      "job_id": "bp_devil_wears_prada_cerulean_sweater_2342ad_shot_01_miranda_cold_stare_a",
+      "scene_id": "bp_devil_wears_prada_cerulean_sweater_2342ad",
+      "shot_id": "shot_01_miranda_cold_stare",
+      "segment_id": "shot_01_miranda_cold_stare_a",
+      "prompt": "Camera: slow, deliberate dolly-in at low angle, tightening toward Middle-aged woman, tailored monochrome couture suit with discreet luxury accessories and gold-rimmed glasses, standing poised and dominating, icy contempt fixed offscreen left's eyes. As the camera advances, her gaze travels once—subtly scanning up and down across offscreen_left—then returns to settle, a fractional head tilt telegraphing judgment. <prop_gold_rimmed_glasses> catch and release a cold glint as her focus shifts; she draws a restrained breath, jaw tight, shoulders immobile. Mouth remains tightly closed. No speaking. Ambient motion: reflections slide along the glass partition of <loc_int_fashion_office>, a faint draft stirs a few strands of her silver bob, and distant bokeh highlights drift. End with her eyes locking to the height corresponding to the unseen <prop_cerulean_sweater>, holding for a clean cut into the next shot.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": null,
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 3.562,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 57,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    },
+    {
+      "job_id": "bp_devil_wears_prada_cerulean_sweater_2342ad_shot_02_sweater_closeup_cerulean_a",
+      "scene_id": "bp_devil_wears_prada_cerulean_sweater_2342ad",
+      "shot_id": "shot_02_sweater_closeup_cerulean",
+      "segment_id": "shot_02_sweater_closeup_cerulean_a",
+      "prompt": "Camera: slow dolly-in at eye level with a gentle rack focus from surface pills to the broader weave of <prop_cerulean_sweater>, preserving cerulean dominance while the background melts deeper into blur. Young woman in a lumpy cerulean sweater over basic office wear; shoulders slightly hunched, tension taut in her frame; self-conscious under scrutiny.'s chest rises and falls shallowly; her shoulders tighten a fraction, and a thumb grazes a loose fiber near the hem before stilling in response to the unseen authority. Mouth remains tightly closed. No speaking. Ambient motion: soft reflections from overhead fluorescents drift across the knit, bokeh highlights from <loc_int_fashion_office> glass shift slightly, and the fabric subtly moves with each micro-breath. End by settling focus on a clean patch of knit dead center, holding steady to facilitate a crisp cut back to the observer.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": null,
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 4.062,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 65,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    }
+  ],
+  "total_shots": 2,
+  "estimated_duration": 7.6
+}

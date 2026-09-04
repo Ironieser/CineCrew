@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Better Call CineCrew: Consistent Ultra-Long Narrative-to-Film Generation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-glow"></div>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <div class="brand">
+        <img class="brand-logo" src="assets/logo.png" alt="Better Call CineCrew logo" />
+        <div class="brand-copy">
+          <div class="brand-title">Better Call CineCrew</div>
+          <div class="brand-subtitle">Consistent Ultra-Long Narrative-to-Film Generation</div>
+        </div>
+      </div>
+
+      <nav class="site-nav">
+        <a href="#hero">Home</a>
+        <a href="#demo">Demo</a>
+        <a href="#method">Method</a>
+        <a href="#comparison">Comparison</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="hero" class="hero section">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">ECCV 2026 · Project Homepage</div>
+          <h1>Better Call CineCrew: <span>Consistent Ultra-Long</span> Narrative-to-Film Generation</h1>
+          <p>
+            A multi-agent cinematic studio for transforming scripts into coherent, multi-shot,
+            long-form film sequences with stable characters, scene continuity, and production-aware storytelling.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#demo">Watch Demo</a>
+            <a class="btn btn-secondary" href="#method">Method</a>
+            <a class="btn btn-secondary" href="#comparison">Comparison</a>
+          </div>
+        </div>
+
+        <div class="hero-media card">
+          <video class="hero-video" src="videos/hero_montage.mp4" poster="assets/hero_poster.png" controls autoplay muted loop playsinline></video>
+        </div>
+      </div>
+    </section>
+
+    <section id="demo" class="section">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Featured Demo</div>
+          <h2>The Monkey King at Hogwarts</h2>
+          <p>
+            A featured long-form demo showing script-driven story progression, cross-shot character consistency,
+            cinematic staging, and agent-based production planning.
+          </p>
+        </div>
+
+        <div class="demo-grid">
+          <div class="card script-card">
+            <div class="mini-label">Original Script</div>
+            <p class="script-lead">
+              In a magical academy, the <span class="blue">young wizard Harry</span> meets the
+              <span class="gold">Monkey King Sun Wukong</span>. What begins as a suspicious first encounter
+              turns into an unlikely friendship after they work together to stop a
+              <span class="rose">runaway broom accident</span> and leave the courtyard side by side.
+            </p>
+
+            <div class="assets-head">Reference Assets</div>
+            <div class="asset-strip">
+              <button class="asset-thumb active" data-src="assets/harry.png" data-label="Harry">
+                <img src="assets/harry.png" alt="Harry" />
+              </button>
+              <button class="asset-thumb" data-src="assets/wukong.png" data-label="Wukong">
+                <img src="assets/wukong.png" alt="Wukong" />
+              </button>
+              <button class="asset-thumb" data-src="assets/hallway.png" data-label="Hallway">
+                <img src="assets/hallway.png" alt="Hallway" />
+              </button>
+              <button class="asset-thumb" data-src="assets/training_room.png" data-label="Training Room">
+                <img src="assets/training_room.png" alt="Training Room" />
+              </button>
+              <button class="asset-thumb" data-src="assets/courtyard.png" data-label="Courtyard">
+                <img src="assets/courtyard.png" alt="Courtyard" />
+              </button>
+              <button class="asset-thumb" data-src="assets/broom.png" data-label="Broom">
+                <img src="assets/broom.png" alt="Broom" />
+              </button>
+            </div>
+
+            <div class="asset-preview-wrap">
+              <div class="asset-preview-head">
+                <div>
+                  <div class="asset-preview-title">Selected Asset</div>
+                  <div class="asset-preview-subtitle" id="assetLabel">Harry</div>
+                </div>
+              </div>
+              <div class="asset-preview">
+                <img id="assetPreview" src="assets/harry.png" alt="Selected asset preview" />
+              </div>
+            </div>
+          </div>
+
+          <div class="card full-demo-card">
+            <div class="mini-label">Full Demo Video</div>
+            <div class="video-subtitle">With audio (open to watch full screen)</div>
+            <video class="full-demo-video" src="videos/the_monkey_king_at_hogwarts.mp4" poster="assets/demo_poster.png" controls playsinline></video>
+          </div>
+        </div>
+
+        <div class="card timeline-card">
+          <div class="mini-label">Story Timeline</div>
+          <p class="timeline-intro">
+            A compact narrative timeline of the featured demo, showing how the story unfolds from mythic arrival
+            to cinematic resolution and quiet friendship.
+          </p>
+
+          <div class="timeline-scroll">
+            <div class="timeline-row">
+              <div class="timeline-item">
+                <div class="timeline-shot">Shot 0</div>
+                <div class="timeline-title">Huaguo Mountain</div>
+                <p>Sun Wukong stands above the sea of clouds at dawn as mythic wind and mist begin the journey.</p>
+              </div>
+              <div class="timeline-link"></div>
+
+              <div class="timeline-item">
+                <div class="timeline-shot">Shot 1</div>
+                <div class="timeline-title">Arrival</div>
+                <p>He lands inside the academy hallway, surrounded by fading white mist and wet stone reflections.</p>
+              </div>
+              <div class="timeline-link"></div>
+
+              <div class="timeline-item">
+                <div class="timeline-shot">Shot 2</div>
+                <div class="timeline-title">First Meeting</div>
+                <p>Harry appears and the two size each other up in a tense but controlled first encounter.</p>
+              </div>
+              <div class="timeline-link"></div>
+
+              <div class="timeline-item">
+                <div class="timeline-shot">Shot 3</div>
+                <div class="timeline-title">The Warning</div>
+                <p>Harry explains that something is wrong in the training room ahead.</p>
+              </div>
+              <div class="timeline-link"></div>
+
+              <div class="timeline-item">
+                <div class="timeline-shot">Shot 4</div>
+                <div class="timeline-title">Doorway</div>
+                <p>They arrive at the training room entrance, where something inside is already clearly off.</p>
+              </div>
+              <div class="timeline-link"></div>
+
+              <div class="timeline-item">
+                <div class="timeline-shot">Shot 5</div>
+                <div class="timeline-title">Accident Reveal</div>
+                <p>A runaway broom and flying papers turn the room into a contained magical accident.</p>
+              </div>
+              <div class="timeline-link"></div>
+
+              <div class="timeline-item">
+                <div class="timeline-shot">Shot 6</div>
+                <div class="timeline-title">Wukong Reacts</div>
+                <p>Wukong reads the danger quickly and begins moving into action.</p>
+              </div>
+              <div class="timeline-link"></div>
+
+              <div class="timeline-item">
+                <div class="timeline-shot">Shot 7</div>
+                <div class="timeline-title">Teamwork</div>
+                <p>Harry and Wukong cooperate to slow, redirect, and finally contain the broom.</p>
+              </div>
+              <div class="timeline-link"></div>
+
+              <div class="timeline-item">
+                <div class="timeline-shot">Shot 8</div>
+                <div class="timeline-title">Post-Action Dialogue</div>
+                <p>With the room calm again, tension gives way to dry humor and mutual respect.</p>
+              </div>
+              <div class="timeline-link"></div>
+
+              <div class="timeline-item">
+                <div class="timeline-shot">Shot 9</div>
+                <div class="timeline-title">Exit</div>
+                <p>They leave the training room together, now clearly moving as companions.</p>
+              </div>
+              <div class="timeline-link"></div>
+
+              <div class="timeline-item">
+                <div class="timeline-shot">Shot 10</div>
+                <div class="timeline-title">Courtyard</div>
+                <p>In the open courtyard, their conversation becomes warmer and more relaxed.</p>
+              </div>
+              <div class="timeline-link"></div>
+
+              <div class="timeline-item">
+                <div class="timeline-shot">Shot 11</div>
+                <div class="timeline-title">Bench Ending</div>
+                <p>They sit together as the camera pulls back, ending on the quiet start of a new friendship.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="method" class="section">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Method</div>
+          <h2>Multi-agent cinematic production from script to film</h2>
+          <p>
+            Our framework organizes long-form generation as a virtual production studio, where specialized agents
+            collaborate over story, acting, camera language, asset control, audio, and post-production decisions.
+          </p>
+        </div>
+
+        <div class="method-grid">
+          <div class="card abstract-card">
+            <div class="mini-label">Abstract</div>
+            <p>
+              Better Call CineCrew tackles ultra-long narrative-to-film generation with a multi-agent production
+              framework that decomposes the filmmaking process into specialized roles. Instead of treating long video
+              generation as a single monolithic synthesis problem, our system coordinates story analysis, cinematic
+              planning, character and scene memory, acting direction, voice control, execution, and post-production
+              into a coherent pipeline. This design improves long-range consistency in identity, shot structure,
+              narrative flow, and audiovisual presentation across multi-shot sequences.
+            </p>
+          </div>
+
+          <div class="card teaser-card">
+            <div class="mini-label">Task Overview</div>
+            <div class="teaser-media">
+              <img src="assets/teaser.png" alt="Better Call CineCrew teaser" />
+            </div>
+            <p class="caption">
+              Figure: Better Call CineCrew organizes narrative understanding, cinematic planning, acting control,
+              asset grounding, video execution, and post-production into a unified long-form film generation studio.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="comparison" class="section comparison-section">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Baseline Comparison</div>
+      <h2>Comparison against LTX-Studio</h2>
+      <p>
+        We compare against the strongest currently available commercial baseline, LTX-Studio,
+        on three representative cases.
+      </p>
+    </div>
+
+    <div class="comparison-panel">
+      <div class="comparison-head">
+        <div class="comparison-copy">
+          <h3 id="comparisonTitle">Movie 1 · "Spider Man"</h3>
+
+          <div class="comparison-text-block">
+            <div class="comparison-text-label">Plot</div>
+            <p id="comparisonPlot">
+              In a quiet barn, Jonathan unveils the alien spacecraft hidden beneath a tarp, forcing Clark to confront his true origins. He solemnly hands Clark a glowing alien key, explaining it holds the answer to the universe's greatest question. As Clark expresses fear and reluctance, Jonathan pulls him into a deeply emotional hug, encouraging his son to discover his true destiny.
+            </p>
+          </div>
+
+          <div class="comparison-text-block">
+            <div class="comparison-text-label">Our Advantage</div>
+            <p id="comparisonAdvantage">
+              Our method involves maintaining strict multi-scene character consistency and accurate narrative execution. Across different shots, unveiling the spaceship, handing over the glowing key, and the backlit hug, the model preserves the facial features and specific clothing details of both characters. Furthermore, it accurately translates key plot points into precise physical interactions and natural emotional expressions, visualising the script's core narrative.
+            </p>
+          </div>
+        </div>
+
+        <div class="comparison-nav">
+          <button id="prevCase" class="icon-btn" type="button" aria-label="Previous case">‹</button>
+          <button id="nextCase" class="icon-btn" type="button" aria-label="Next case">›</button>
+        </div>
+      </div>
+
+      <div class="comparison-grid">
+        <div class="comparison-card">
+          <div class="comparison-label">LTX-Studio</div>
+          <video id="baselineVideo" src="videos/comparison/case1_ltx.mp4" controls playsinline></video>
+        </div>
+
+        <div class="comparison-card">
+          <div class="comparison-label ours">Better Call CineCrew</div>
+          <video id="oursVideo" src="videos/comparison/case1_ours.mp4" controls playsinline></video>
+        </div>
+      </div>
+
+      <div class="comparison-switcher">
+        <div class="switcher-top">
+          <span>Case navigator</span>
+          <span id="caseCounter">1 / 3</span>
+        </div>
+
+        <input id="caseSlider" class="case-slider" type="range" min="0" max="2" step="1" value="0" />
+
+        <div class="case-buttons">
+          <button class="case-btn active" data-index="0" type="button">Movie 1 · "Spider Man"</button>
+          <button class="case-btn" data-index="1" type="button">TV Drama 2 · "Better Call Saul Ep1"</button>
+          <button class="case-btn" data-index="2" type="button">TV Drama 3 · "Better Call Saul Ep2"</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

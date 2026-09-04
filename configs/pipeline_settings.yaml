@@ -1,0 +1,82 @@
+# Pipeline-level settings (shared across agents), used by the engine and the entry point.
+#
+# Trace logs (the reasoning layer): every Agent.run() is written to disk automatically,
+# and an index.md is produced when the pipeline finishes.
+# - run_dataset_story.py creates data/runs/<type>/<run_id>/ per run; its logs/ holds this run's trace.
+# - trace_log_dir: fallback output root used only when run_root is not specified (default data/logs).
+# - trace_logs_enabled: master switch; the env var TRACE_LOGS=0 also disables it.
+
+pipeline:
+  default_llm_model: null  # Use Config.MODEL_NAME from src.config
+  max_retries: 3
+  trace_log_dir: "data/logs"
+  trace_logs_enabled: true
+
+  # FilmDSL / Blueprint pipeline. One SceneBlueprint is filled layer by layer; list
+  # order is execution order, and `enabled: false` skips a stage.
+  #
+  #   art_department     -> Blueprint.metadata + global_style + AssetLibrary  (init)
+  #   story_editor       -> shots[].narrative_layer            (Layer 1: narrative)
+  #   cinematographer    -> shots[].staging_layer              (Layer 2: staging)
+  #   dsl_validator      -> validate staging_layer entity IDs
+  #   vo_director        -> shots[].narrative_layer.dialogue + performance emotion (Layer 1 refinement)
+  #   technical_director -> shots[].render_layer               (Layer 3: T2I/I2V prompts)
+  #   dailies_reviewer   -> closed-loop refinement of resolved prompts (5-shot window)
+  #   production_operator-> shots[].assembly_layer (Layer 4) + VideoJobBatch (video_jobs.json)
+  #                         + optional execution with VLM review (see options below)
+  stages:
+    - id: art_department
+      enabled: true
+      generate_references: false   # render character sheets / location establishing shots (T2I_*) for assets without an image
+    - id: story_editor
+      enabled: true
+    - id: cinematographer
+      enabled: true
+    - id: dsl_validator
+      enabled: true
+      auto_correct: true     # remap / LLM-repair / drop unknown asset IDs (false = report only)
+    - id: vo_director
+      enabled: true
+      infer_emotion: true    # per-shot performance emotion (Acting Coach); one LLM call per shot
+      design_voices: false   # write a fixed TTS voice identity into each CharacterAsset.voice_design
+    - id: technical_director
+      enabled: true
+    - id: dailies_reviewer
+      enabled: true
+      max_rounds: 2          # coarse-to-fine refinement passes; stops early on convergence
+    - id: production_operator
+      enabled: true
+      execute: false         # true -> render keyframes (T2I_*) and clips (VIDEO_*) into <run>/media/
+      judge: true            # VLM VisualJudge scores every keyframe/clip; rejected ones are retried
+      max_retries: 1         # extra attempts per keyframe/clip after a rejection (uses the judge's revised prompt)
+      keyframes: true        # render a keyframe per shot and use it as the I2V reference (false = reference sheets only)
+      stitch: true           # cut all clips together into <run>/media/film.mp4 (ffmpeg; fade-in on the first shot)
+
+  # ── Modular ablations ──────────────────────────────────────────────────────
+  # The cascade is config-driven, so ablations are just config/env changes —
+  # no code edits. Each stage writes one Blueprint layer the next stage reads,
+  # so removing a stage cleanly removes that capability:
+  #   - drop `dsl_validator`        -> no entity-ID validation/auto-correct
+  #   - drop `dailies_reviewer`     -> no closed-loop prompt refinement (the "ours w/o critic" setting)
+  #   - drop `cinematographer`      -> no Layer-2 staging (downstream stages then degrade/skip)
+  # Memory ablations (no stage change):
+  #   - DISABLE_KNOWLEDGE=1 (env)   -> no workflow memory (rules under configs/knowledge are not injected)
+  #   - skip character-image linking in the entry script -> no asset (reference-image) memory
+  # See DEV_NOTES.md "Ablation cascade" for the full axis -> toggle map.
+
+# Truncation and field-length limits (in characters).
+# Design principle: "two-point truncation" — the script is physically truncated in
+# only two places; everything downstream reuses script_segment.
+limits:
+  # === Physical input truncation (only these two) ===
+  script_art_department: 20000          # Gate A: max script length fed to ArtDepartment (global view)
+  script_segment_dsl: 10000            # Gate B: script segment used to build the DSL; reused downstream (no re-truncation)
+  # === Field / content length constraints (not script truncation) ===
+  subject_action_max: 100              # subject_action summary length
+  director_note_excerpt: 500           # director-note content compression
+
+knowledge:
+  base_dir: "configs/knowledge"
+  rules_subfolder: "rules"
+  domain_subfolder: "domain"
+  errors_subfolder: "errors"

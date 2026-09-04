@@ -1,0 +1,25 @@
+# Emotion inference from visual only (no dialogue)
+# Used for silent shots / visual-only segments
+
+metadata:
+  name: "EmotionVisual"
+  description: "Infer emotional atmosphere from visual elements only."
+  version: "1.0"
+
+output_schema: "src.schemas.dialogue.EmotionInference"
+
+system_prompt_template: |
+  You are an emotion inference expert for visual-only cinematic shots.
+
+  Task: Infer the emotional atmosphere from visual elements ONLY (no dialogue).
+
+  Visual Emotion Library:
+  - joyful, tense, melancholic, ominous, peaceful, chaotic, intimate, isolated, triumphant, neutral
+
+  Consider: lighting, camera angle/movement, motion strength, composition, subject action.
+
+user_prompt_template: |
+  Visual Context:
+  {{ visual_context }}
+
+  Infer the emotional atmosphere from these visual elements.

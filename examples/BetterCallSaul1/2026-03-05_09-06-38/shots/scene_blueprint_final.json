@@ -1,0 +1,662 @@
+{
+  "blueprint_id": "bp_bettercallsaul1_4f040b",
+  "metadata": {
+    "project_name": "Color Echo",
+    "target_resolution": "1280x720",
+    "target_aspect_ratio": "16:9",
+    "global_fps": 16
+  },
+  "global_style": "Noir, high-contrast black and white with film grain; winter bleakness. Occasional saturated color bloom emanates only from the television screen.",
+  "final_film_path": null,
+  "shots": [
+    {
+      "shot_id": "shot_01_gene_kneads_nervously",
+      "narrative_layer": {
+        "narrative_action": "Gene mechanically kneads bakery dough, his eyes darting around the kitchen.",
+        "emotional_beat": "quiet_dread",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 3.5,
+        "camera": {
+          "shot_scale": "MCU",
+          "angle": "high",
+          "movement": "slow_dolly_in"
+        },
+        "lighting": "harsh fluorescent high-contrast",
+        "environment_id": "loc_int_mall_bakery_kitchen",
+        "entities": [
+          {
+            "asset_id": "char_gene",
+            "position": "center_fg",
+            "action_state": "kneading_dough_eyes_darting"
+          },
+          {
+            "asset_id": "prop_bakery_dough",
+            "position": "center_fg",
+            "action_state": "being_kneaded"
+          },
+          {
+            "asset_id": "prop_industrial_mixer",
+            "position": "background_right",
+            "action_state": "idle"
+          }
+        ],
+        "consistency_constraints": [
+          "FORBIDDEN: Do not introduce vibrant full-color except the television screen, No sunny weather; maintain heavy snowstorm atmosphere, No tropical or Mediterranean elements",
+          "COLOR_PALETTE: High-contrast black and white with isolated saturated color from TV",
+          "LIGHTING: Harsh fluorescent in bakery; dim apartment lit by TV glow",
+          "SEASON: Winter snowstorm",
+          "Gene must wear plain bakery attire with apron.",
+          "No exterior windows or weather visible from kitchen.",
+          "Maintain monochrome; no color accents in kitchen equipment or surfaces."
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Noir, high-contrast black-and-white still at a harshly lit stainless counter inside <loc_int_mall_bakery_kitchen>. High-angle MCU frames <char_gene> centered foreground: shoulders rounded, elbows tucked, hands hovering just above <prop_bakery_dough> with fingertips barely touching, about to press but not yet. His jaw is tight; behind thick glasses his eyes angle toward background right, checking the idle <prop_industrial_mixer>, then back to the dough—caught in the instant before another mechanical knead. The high angle imposes the sterile kitchen’s dominance; <char_gene> appears small and contained within rigid lines. Environment is stark: polished counter edges, the silent <prop_industrial_mixer> sits background right; no windows, no exterior cues.",
+          "characters_in_shot": [
+            "char_gene"
+          ],
+          "character_appearances": {
+            "char_gene": "Male, middle-aged, plain bakery attire with apron, shoulders hunched and tense, anxious focus with darting eyes"
+          },
+          "resolved_t2i": "Noir, high-contrast black-and-white still at a harshly lit stainless counter inside <loc_int_mall_bakery_kitchen>. High-angle MCU frames Middle-aged man in plain bakery whites and an apron; shoulders hunched with tension; behind thick glasses, anxious eyes dart restlessly; posture small and contained at the counter. centered foreground: shoulders rounded, elbows tucked, hands hovering just above <prop_bakery_dough> with fingertips barely touching, about to press but not yet. His jaw is tight; behind thick glasses his eyes angle toward background right, checking the idle <prop_industrial_mixer>, then back to the dough—caught in the instant before another mechanical knead. The high angle imposes the sterile kitchen’s dominance; Middle-aged man in plain bakery whites and an apron; shoulders hunched with tension; behind thick glasses, anxious eyes dart restlessly; posture small and contained at the counter. appears small and contained within rigid lines. Environment is stark: polished counter edges, the silent <prop_industrial_mixer> sits background right; no windows, no exterior cues.",
+          "resolved_ti2i": "Picture 1 is Middle-aged man in plain bakery whites and an apron; shoulders hunched with tension; behind thick glasses, anxious eyes dart restlessly; posture small and contained at the counter..\nNoir, high-contrast black-and-white still at a harshly lit stainless counter inside <loc_int_mall_bakery_kitchen>. High-angle MCU frames Picture 1 centered foreground: shoulders rounded, elbows tucked, hands hovering just above <prop_bakery_dough> with fingertips barely touching, about to press but not yet. His jaw is tight; behind thick glasses his eyes angle toward background right, checking the idle <prop_industrial_mixer>, then back to the dough—caught in the instant before another mechanical knead. The high angle imposes the sterile kitchen’s dominance; Picture 1 appears small and contained within rigid lines. Environment is stark: polished counter edges, the silent <prop_industrial_mixer> sits background right; no windows, no exterior cues.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": {
+            "character_consistency": [
+              {
+                "asset_id": "char_gene",
+                "method": "ip_adapter_faceid",
+                "reference_image_paths": [
+                  "our_dataset/BetterCallSaul1/character_list/Gene/best.png"
+                ],
+                "weight": 0.85
+              }
+            ]
+          },
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Slow dolly in from the high angle toward <char_gene>. He presses down and folds <prop_bakery_dough> in precise, repetitive motions; his eyes flick left, then right, then down to his hands, a small shoulder twitch at a distant clank before rhythm resumes. Mouth remains tightly closed. No speaking. Fluorescent lights hum with a faint flicker; ventilation stirs the edge of his apron; the idle <prop_industrial_mixer> vibrates imperceptibly on its feet; fine flour dust motes drift through the light. End with the dolly settling closer on his tense face and hands, ready to cut away from this confined routine.",
+          "resolved_i2v": "Slow dolly in from the high angle toward Middle-aged man in plain bakery whites and an apron; shoulders hunched with tension; behind thick glasses, anxious eyes dart restlessly; posture small and contained at the counter.. He presses down and folds <prop_bakery_dough> in precise, repetitive motions; his eyes flick left, then right, then down to his hands, a small shoulder twitch at a distant clank before rhythm resumes. Mouth remains tightly closed. No speaking. Fluorescent lights hum with a faint flicker; ventilation stirs the edge of his apron; the idle <prop_industrial_mixer> vibrates imperceptibly on its feet; fine flour dust motes drift through the light. End with the dolly settling closer on his tense face and hands, ready to cut away from this confined routine.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.3,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "fade_in",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_01_gene_kneads_nervously_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_02_returns_snowbound_home",
+      "narrative_layer": {
+        "narrative_action": "Gene returns through the snowstorm and steps into his dark, rundown apartment.",
+        "emotional_beat": "weary_resignation",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 3.5,
+        "camera": {
+          "shot_scale": "LS",
+          "angle": "eye_level",
+          "movement": "static"
+        },
+        "lighting": "near-dark apartment with faint snow-muted spill from doorway",
+        "environment_id": "loc_int_gene_apartment",
+        "entities": [
+          {
+            "asset_id": "char_gene",
+            "position": "frame_left",
+            "action_state": "entering_and_closing_door"
+          },
+          {
+            "asset_id": "prop_worn_out_couch",
+            "position": "background_right",
+            "action_state": "idle"
+          },
+          {
+            "asset_id": "prop_television",
+            "position": "background_center",
+            "action_state": "screen_off"
+          }
+        ],
+        "consistency_constraints": [
+          "FORBIDDEN: Do not introduce vibrant full-color except the television screen, No sunny weather; maintain heavy snowstorm atmosphere, No tropical or Mediterranean elements",
+          "COLOR_PALETTE: High-contrast black and white with isolated saturated color from TV",
+          "LIGHTING: Harsh fluorescent in bakery; dim apartment lit by TV glow",
+          "SEASON: Winter snowstorm",
+          "Before TV is on, room must remain very dim; TV screen must be dark.",
+          "Imply heavy snowstorm via wet coat/trace snow on shoulders; never show sunny exterior."
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Noir, high-contrast black-and-white interior at eye level in <loc_int_gene_apartment>. Wide static frame: the door hangs ajar at frame left, a narrow wedge of faint snow-muted spill tracing the threshold. <char_gene> is half inside, one foot still at the sill, hand gripping the knob, shoulders slumped; damp specks of snow cling to his coat. His eyeline is low toward the floor as if measuring silence before committing to enter. In the dim room beyond, <prop_television> sits dark at background center and <prop_worn_out_couch> slumps background right; the space feels cavernous and swallowing, dwarfing him.",
+          "characters_in_shot": [
+            "char_gene"
+          ],
+          "character_appearances": {
+            "char_gene": "Male, middle-aged, drab winter coat with trace snow on shoulders, weary posture, cautious movements"
+          },
+          "resolved_t2i": "Noir, high-contrast black-and-white interior at eye level in <loc_int_gene_apartment>. Wide static frame: the door hangs ajar at frame left, a narrow wedge of faint snow-muted spill tracing the threshold. Middle-aged man in a drab winter coat, shoulders dusted with snow; weary posture, cautious, deliberate movements. is half inside, one foot still at the sill, hand gripping the knob, shoulders slumped; damp specks of snow cling to his coat. His eyeline is low toward the floor as if measuring silence before committing to enter. In the dim room beyond, <prop_television> sits dark at background center and <prop_worn_out_couch> slumps background right; the space feels cavernous and swallowing, dwarfing him.",
+          "resolved_ti2i": "Picture 1 is Middle-aged man in a drab winter coat, shoulders dusted with snow; weary posture, cautious, deliberate movements..\nNoir, high-contrast black-and-white interior at eye level in <loc_int_gene_apartment>. Wide static frame: the door hangs ajar at frame left, a narrow wedge of faint snow-muted spill tracing the threshold. Picture 1 is half inside, one foot still at the sill, hand gripping the knob, shoulders slumped; damp specks of snow cling to his coat. His eyeline is low toward the floor as if measuring silence before committing to enter. In the dim room beyond, <prop_television> sits dark at background center and <prop_worn_out_couch> slumps background right; the space feels cavernous and swallowing, dwarfing him.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": {
+            "character_consistency": [
+              {
+                "asset_id": "char_gene",
+                "method": "ip_adapter_faceid",
+                "reference_image_paths": [
+                  "our_dataset/BetterCallSaul1/character_list/Gene/best.png"
+                ],
+                "weight": 0.85
+              }
+            ]
+          },
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Static camera. <char_gene> steps fully in, shoulders sinking as he eases the door shut with a muted thud; a few flecks of snow fall from his coat onto the floor as he steadies himself and exhales softly. Mouth remains tightly closed. No speaking. A thin draft of cold air dies as the seal closes; faint radiator ticks answer from somewhere off-frame while the snow-muted light fades, leaving him mostly silhouette. He turns his body toward <prop_television> and shuffles deeper into the dark room, setting up the approach to the couch and VCR.",
+          "resolved_i2v": "Static camera. Middle-aged man in a drab winter coat, shoulders dusted with snow; weary posture, cautious, deliberate movements. steps fully in, shoulders sinking as he eases the door shut with a muted thud; a few flecks of snow fall from his coat onto the floor as he steadies himself and exhales softly. Mouth remains tightly closed. No speaking. A thin draft of cold air dies as the seal closes; faint radiator ticks answer from somewhere off-frame while the snow-muted light fades, leaving him mostly silhouette. He turns his body toward <prop_television> and shuffles deeper into the dark room, setting up the approach to the couch and VCR.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.1,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_02_returns_snowbound_home_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_03_sinks_inserts_vhs",
+      "narrative_layer": {
+        "narrative_action": "He sinks onto the worn-out couch and pushes a VHS tape into the vintage VCR.",
+        "emotional_beat": "anticipatory_ritual",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 3.0,
+        "camera": {
+          "shot_scale": "OTS",
+          "angle": "eye_level",
+          "movement": "rack_focus"
+        },
+        "lighting": "low-key apartment; pre-TV darkness; minimal practical bounce",
+        "environment_id": "loc_int_gene_apartment",
+        "entities": [
+          {
+            "asset_id": "char_gene",
+            "position": "foreground_left",
+            "action_state": "leaning_forward_inserting_tape"
+          },
+          {
+            "asset_id": "prop_vhs_tape",
+            "position": "center_fg",
+            "action_state": "being_inserted"
+          },
+          {
+            "asset_id": "prop_vcr",
+            "position": "center_fg",
+            "action_state": "tray_open_ready"
+          },
+          {
+            "asset_id": "prop_worn_out_couch",
+            "position": "background_left",
+            "action_state": "sagging"
+          }
+        ],
+        "consistency_constraints": [
+          "FORBIDDEN: Do not introduce vibrant full-color except the television screen, No sunny weather; maintain heavy snowstorm atmosphere, No tropical or Mediterranean elements",
+          "COLOR_PALETTE: High-contrast black and white with isolated saturated color from TV",
+          "LIGHTING: Harsh fluorescent in bakery; dim apartment lit by TV glow",
+          "SEASON: Winter snowstorm",
+          "No colored practicals or LEDs visible; retain monochrome before TV powers up.",
+          "Keep shot constrained to hands/VCR — Gene’s face may be partially visible as shoulder/cheek only."
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Noir, high-contrast black-and-white OTS at eye level from behind <char_gene> in <loc_int_gene_apartment>. His shoulder and cheek edge frame the left foreground. His right hand holds <prop_vhs_tape> aligned at the lip of <prop_vcr>’s open tray, the cassette hovering just before engagement—corner poised to enter but not yet pushed. His posture leans forward, elbows tight. Eyeline drops toward the slot, breath held. <prop_worn_out_couch> sags background left; the room is near-black, TV still off-screen and dark.",
+          "characters_in_shot": [
+            "char_gene"
+          ],
+          "character_appearances": {
+            "char_gene": "Male, middle-aged, drab winter coat sleeves and plain shirt visible, focused and deliberate, ritualistic calm over tension"
+          },
+          "resolved_t2i": "Noir, high-contrast black-and-white OTS at eye level from behind Male, middle-aged; drab winter coat sleeves over a plain shirt; back to camera with shoulder and cheek edge in foreground; leaning forward, focused and deliberate; movements measured, a ritualized calm suppressing underlying tension. in <loc_int_gene_apartment>. The left foreground is carved by the edge of his shoulder and cheek. His right hand presents <prop_vhs_tape> at the lip of <prop_vcr>’s open tray, the cassette hovering on the brink—corner poised to enter but not yet pushed. He leans forward, elbows cinched in. Eyeline drops to the slot; breath held. <prop_worn_out_couch> sags background left; the room is near-black, the TV still off-screen and dark.",
+          "resolved_ti2i": "Picture 1 is Male, middle-aged; drab winter coat sleeves over a plain shirt; back to camera with shoulder and cheek edge in foreground; leaning forward, focused and deliberate; movements measured, a ritualized calm suppressing underlying tension..\nNoir, high-contrast black-and-white OTS at eye level from behind Picture 1 in <loc_int_gene_apartment>. The left foreground is carved by the edge of his shoulder and cheek. His right hand presents <prop_vhs_tape> at the lip of <prop_vcr>’s open tray, the cassette hovering on the brink—corner poised to enter but not yet pushed. He leans forward, elbows cinched in. Eyeline drops to the slot; breath held. <prop_worn_out_couch> sags background left; the room is near-black, the TV still off-screen and dark.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": {
+            "character_consistency": [
+              {
+                "asset_id": "char_gene",
+                "method": "ip_adapter_faceid",
+                "reference_image_paths": [
+                  "our_dataset/BetterCallSaul1/character_list/Gene/best.png"
+                ],
+                "weight": 0.85
+              }
+            ]
+          },
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Rack focus from <char_gene>’s hand and <prop_vhs_tape> to the face of <prop_vcr> as he advances the cassette with a smooth, practiced push. The tray accepts it with a tactile clunk; rollers draw it inward as a soft whirr spins up. Mouth remains tightly closed. No speaking. Cloth rustles quietly; a faint, non-colored indicator glows in monochrome; dust motes drift in the minimal light. End with focus settled on the VCR transport engaging, framing the lower stack so the next cut can reveal the TV’s wake-up.",
+          "resolved_i2v": "Rack focus glides from Male, middle-aged; drab winter coat sleeves over a plain shirt; back to camera with shoulder and cheek edge in foreground; leaning forward, focused and deliberate; movements measured, a ritualized calm suppressing underlying tension.’s hand and <prop_vhs_tape> to the face of <prop_vcr> as he advances the cassette with a smooth, practiced push. The tray accepts it with a tactile clunk; rollers draw it inward as a soft whirr spins up. Mouth remains tightly closed. No speaking. Cloth rustles quietly; a faint, non-colored indicator glows in monochrome; dust motes drift in the minimal light. End with focus settled on the VCR transport engaging, framing the lower stack so the next cut can reveal the TV’s wake-up.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.4,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_03_sinks_inserts_vhs_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_04_tv_color_burst",
+      "narrative_layer": {
+        "narrative_action": "The VCR whirs to life as the television screen blooms into vivid color in the dark room.",
+        "emotional_beat": "jolt_of_nostalgia",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 2.8,
+        "camera": {
+          "shot_scale": "MS",
+          "angle": "eye_level",
+          "movement": "slow_dolly_in"
+        },
+        "lighting": "TV glow in darkness; isolated saturated color spill in otherwise monochrome room",
+        "environment_id": "loc_int_gene_apartment",
+        "entities": [
+          {
+            "asset_id": "prop_television",
+            "position": "center_fg",
+            "action_state": "screen_blooming_color"
+          },
+          {
+            "asset_id": "prop_vcr",
+            "position": "foreground_below",
+            "action_state": "whirring_to_life"
+          }
+        ],
+        "consistency_constraints": [
+          "FORBIDDEN: Do not introduce vibrant full-color except the television screen, No sunny weather; maintain heavy snowstorm atmosphere, No tropical or Mediterranean elements",
+          "COLOR_PALETTE: High-contrast black and white with isolated saturated color from TV",
+          "LIGHTING: Harsh fluorescent in bakery; dim apartment lit by TV glow",
+          "SEASON: Winter snowstorm",
+          "Only TV emits saturated color; all other elements remain monochrome.",
+          "Keep room near-black to emphasize color burst; avoid any competing light sources."
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Noir, high-contrast setup in <loc_int_gene_apartment>: eye-level MS with <prop_television> centered foreground, screen dark and convex, a faint static sheen barely visible, and <prop_vcr> below mid-foreground, transport engaged. The room around it is near-black; no other light sources or color present. This is the breath before the first glow—power has engaged but the screen has not yet bloomed.",
+          "characters_in_shot": [],
+          "character_appearances": {},
+          "resolved_t2i": "Noir, high-contrast setup in <loc_int_gene_apartment>: eye-level MS with <prop_television> centered foreground, screen dark and convex, a faint static sheen barely visible, and <prop_vcr> below mid-foreground, transport engaged. The room around it is near-black; no other light sources or color present. This is the breath before the first glow—power has engaged but the screen has not yet bloomed.",
+          "resolved_ti2i": "Noir, high-contrast setup in <loc_int_gene_apartment>: eye-level MS with <prop_television> centered foreground, screen dark and convex, a faint static sheen barely visible, and <prop_vcr> below mid-foreground, transport engaged. The room around it is near-black; no other light sources or color present. This is the breath before the first glow—power has engaged but the screen has not yet bloomed.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Slow dolly in toward <prop_television> as <prop_vcr> whirs to life; the CRT flickers from black to a brief gray scanline shimmer, then blooms into saturated color within the screen, casting a soft, isolated color spill onto adjacent surfaces while the rest of the room remains monochrome. Mouth remains tightly closed. No speaking. A gentle degauss thump ripples; static noise crawls at the edges; the transport hum steadies beneath. End with the screen filling more of frame, primed to cut into the ad content.",
+          "resolved_i2v": "Slow dolly in toward <prop_television> as <prop_vcr> whirs to life; the CRT flickers from black to a brief gray scanline shimmer, then blooms into saturated color within the screen, casting a soft, isolated color spill onto adjacent surfaces while the rest of the room remains monochrome. Mouth remains tightly closed. No speaking. A gentle degauss thump ripples; static noise crawls at the edges; the transport hum steadies beneath. End with the screen filling more of frame, primed to cut into the ad content.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.3,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_04_tv_color_burst_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_05_saul_ad_shouts",
+      "narrative_layer": {
+        "narrative_action": "On the TV, Saul Goodman points at the camera and delivers his energetic pitch.",
+        "emotional_beat": "rising_tension",
+        "dialogue": {
+          "has_dialogue": true,
+          "speaker_asset_id": "char_saul_goodman",
+          "listener_asset_id": "char_gene",
+          "text": "Do you feel doomed? I'm Saul Goodman and I'll do the fighting for you! Better call Saul!",
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 4.5,
+        "camera": {
+          "shot_scale": "CU",
+          "angle": "eye_level",
+          "movement": "static"
+        },
+        "lighting": "TV glow key lighting; surrounding room remains dark monochrome",
+        "environment_id": "loc_int_gene_apartment",
+        "entities": [
+          {
+            "asset_id": "prop_television",
+            "position": "center_fg",
+            "action_state": "displaying_saul_ad"
+          },
+          {
+            "asset_id": "char_saul_goodman",
+            "position": "center_screen",
+            "action_state": "pointing_and_delivering_pitch"
+          }
+        ],
+        "consistency_constraints": [
+          "FORBIDDEN: Do not introduce vibrant full-color except the television screen, No sunny weather; maintain heavy snowstorm atmosphere, No tropical or Mediterranean elements",
+          "COLOR_PALETTE: High-contrast black and white with isolated saturated color from TV",
+          "LIGHTING: Harsh fluorescent in bakery; dim apartment lit by TV glow",
+          "SEASON: Winter snowstorm",
+          "Saul Goodman must appear in flashy suit with bright tie within TV frame only.",
+          "No camera reflections or moiré on the CRT; keep screen crisp; color restricted to TV content."
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Inside the frame of <prop_television> at eye-level CU: <char_saul_goodman> fills the screen, shoulders squared, bright suit and tie saturated within the TV image. One hand is lifted mid-raise, poised to point directly at the lens; his mouth is set, about to open but not yet; eyes locked straight into camera with electric focus. The TV bezel and room beyond remain dark monochrome, isolating the vivid screen content.",
+          "characters_in_shot": [
+            "char_saul_goodman"
+          ],
+          "character_appearances": {
+            "char_saul_goodman": "Young man, flashy suit with bright tie, energetic TV pitchman stance, aggressive confidence"
+          },
+          "resolved_t2i": "Inside the frame of <prop_television> at eye-level CU: Young man in a flashy suit with a bright tie, striking an energetic TV pitchman stance, exuding aggressive confidence. fills the screen, shoulders squared, bright suit and tie saturated within the TV image. One hand is lifted mid-raise, poised to point directly at the lens; his mouth is set, about to open but not yet; eyes locked straight into camera with electric focus. The TV bezel and room beyond remain dark monochrome, isolating the vivid screen content.",
+          "resolved_ti2i": "Picture 1 is Young man in a flashy suit with a bright tie, striking an energetic TV pitchman stance, exuding aggressive confidence..\nInside the frame of <prop_television> at eye-level CU: Picture 1 fills the screen, shoulders squared, bright suit and tie saturated within the TV image. One hand is lifted mid-raise, poised to point directly at the lens; his mouth is set, about to open but not yet; eyes locked straight into camera with electric focus. The TV bezel and room beyond remain dark monochrome, isolating the vivid screen content.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": {
+            "character_consistency": [
+              {
+                "asset_id": "char_saul_goodman",
+                "method": "ip_adapter_faceid",
+                "reference_image_paths": [
+                  "our_dataset/BetterCallSaul1/character_list/Saul/best.png"
+                ],
+                "weight": 0.85
+              }
+            ]
+          },
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Static camera locked on the CRT. <char_saul_goodman> snaps his finger-point toward the lens and launches into a rapid, energetic pitch, leaning in and chopping the air with his free hand as the ad drives forward. Mouth moves to match speech. Subtle CRT scanline shimmer and phosphor persistence play across the image; color saturation pulses slightly with editorial beats; faint speaker buzz and the underlying VCR whirr persist. End on his iconic held pose—finger extended at camera—ready to cut to the viewer’s reaction.",
+          "resolved_i2v": "Static camera locked on the CRT. Young man in a flashy suit with a bright tie, striking an energetic TV pitchman stance, exuding aggressive confidence. snaps his finger-point toward the lens and launches into a rapid, energetic pitch, leaning in and chopping the air with his free hand as the ad drives forward. Mouth moves to match speech. Subtle CRT scanline shimmer and phosphor persistence play across the image; color saturation pulses slightly with editorial beats; faint speaker buzz and the underlying VCR whirr persist. End on his iconic held pose—finger extended at camera—ready to cut to the viewer’s reaction.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.1,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": true,
+            "sync_method": "musetalk",
+            "audio_source_ref": "assembly_layer.audio_tracks[0]"
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_05_saul_ad_shouts_dialogue",
+            "type": "dialogue",
+            "source": "tts_default",
+            "description": "Do you feel doomed? I'm Saul Goodman and I'll do the fighting for you! Better ca"
+          },
+          {
+            "track_id": "shot_05_saul_ad_shouts_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_06_gene_watches_silently",
+      "narrative_layer": {
+        "narrative_action": "Gene silently watches the screen as the TV's colorful glow washes over his face.",
+        "emotional_beat": "melancholic_longing",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 4.0,
+        "camera": {
+          "shot_scale": "MCU",
+          "angle": "eye_level",
+          "movement": "slow_dolly_in"
+        },
+        "lighting": "colorful TV glow washing Gene’s face against deep monochrome shadows",
+        "environment_id": "loc_int_gene_apartment",
+        "entities": [
+          {
+            "asset_id": "char_gene",
+            "position": "center_fg",
+            "action_state": "watching_tv_silent"
+          }
+        ],
+        "consistency_constraints": [
+          "FORBIDDEN: Do not introduce vibrant full-color except the television screen, No sunny weather; maintain heavy snowstorm atmosphere, No tropical or Mediterranean elements",
+          "COLOR_PALETTE: High-contrast black and white with isolated saturated color from TV",
+          "LIGHTING: Harsh fluorescent in bakery; dim apartment lit by TV glow",
+          "SEASON: Winter snowstorm",
+          "Color wash on Gene’s face must be motivated solely by TV; no other light sources.",
+          "Background must stay near-black; do not lift shadows."
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Noir, high-contrast eye-level MCU in <loc_int_gene_apartment>. <char_gene> sits centered foreground, shoulders slightly caved; his face is mostly in monochrome shadow with a faint edge of anticipated glow along the cheek and glasses frame, just before full illumination. His eyes are locked toward the off-frame TV; lips pressed, expression held neutral and guarded in the instant before the color spill reaches him. The background falls into near-black.",
+          "characters_in_shot": [
+            "char_gene"
+          ],
+          "character_appearances": {
+            "char_gene": "Male, middle-aged, drab winter coat still on, seated, withdrawn, eyes fixed on screen with quiet ache"
+          },
+          "resolved_t2i": "Noir, high-contrast eye-level MCU in <loc_int_gene_apartment>. Middle-aged male in a drab winter coat, still on; seated and withdrawn, eyes fixed on the screen with a quiet ache. sits centered in the foreground, shoulders slightly caved; his face is largely swallowed by monochrome shadow with a faint anticipatory rim of glow along the cheek and glasses frame, just before full illumination. His eyes are locked on the off-frame TV; lips pressed, expression held neutral and guarded in the instant before the color spill reaches him. The background falls into near-black.",
+          "resolved_ti2i": "Picture 1 is Middle-aged male in a drab winter coat, still on; seated and withdrawn, eyes fixed on the screen with a quiet ache..\nNoir, high-contrast eye-level MCU in <loc_int_gene_apartment>. Picture 1 sits centered in the foreground, shoulders slightly caved; his face is largely swallowed by monochrome shadow with a faint anticipatory rim of glow along the cheek and glasses frame, just before full illumination. His eyes are locked on the off-frame TV; lips pressed, expression held neutral and guarded in the instant before the color spill reaches him. The background falls into near-black.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": {
+            "character_consistency": [
+              {
+                "asset_id": "char_gene",
+                "method": "ip_adapter_faceid",
+                "reference_image_paths": [
+                  "our_dataset/BetterCallSaul1/character_list/Gene/best.png"
+                ],
+                "weight": 0.85
+              }
+            ]
+          },
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Slow dolly in toward <char_gene> as the TV’s colored light swells across his features, sliding over his glasses and cheekbones; pupils tighten, a tiny swallow works his throat, and his breath rises shallowly without breaking the silence. Mouth remains tightly closed. No speaking. The color flicker plays across his lenses and skin while the rest of the room stays black; faint apartment creaks and distant storm hush persist; stray dust motes drift through the glow. End with a close, centered hold on his face lit by the TV, inviting a contemplative cut.",
+          "resolved_i2v": "Slow dolly in toward Middle-aged male in a drab winter coat, still on; seated and withdrawn, eyes fixed on the screen with a quiet ache. as the TV’s colored light swells across his features, sliding over his glasses and cheekbones; pupils tighten, a tiny swallow works his throat, and his breath rises shallowly without breaking the silence. Mouth remains tightly closed. No speaking. The color flicker plays across his lenses and skin while the rest of the room stays black; faint apartment creaks and the distant hush of a storm persist; stray dust motes drift through the glow. End with a close, centered hold on his face lit by the TV, inviting a contemplative cut.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.3,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_06_gene_watches_silently_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    }
+  ]
+}

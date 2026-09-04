@@ -1,0 +1,121 @@
+{
+  "project_title": "Manhattan Strut Sequence",
+  "global_style": "High-fashion, glossy urban aesthetic; smooth continuous tracking; seamless match-cut transformations; kinetic edit rhythm driven by heel clicks and pulsing music.",
+  "project_settings": {
+    "location_lock": "Manhattan, New York City, USA",
+    "negative_constraints": [],
+    "style_overrides": {
+      "color_palette": "sleek monochrome with dark green, white, black accents",
+      "architecture": "dense New York urban streetscape, contemporary signage, yellow cabs"
+    },
+    "era_lock": "Contemporary (unspecified exact year)"
+  },
+  "narrative_context": {
+    "time_period": "Contemporary, Manhattan",
+    "global_mood": "Assertive, stylish, kinetic, transformational",
+    "key_events": [
+      "Andy power-walks along a bustling Manhattan street in a single smooth tracking shot.",
+      "Passing behind a yellow taxi triggers a seamless outfit change to a white tweed look with thigh-high Chanel boots.",
+      "Passing behind a narrow streetlamp triggers a second seamless change to a sleek black evening jacket.",
+      "The paper coffee cup remains perfectly aligned in her hand through all transitions; heel clicks and music drive momentum."
+    ],
+    "cultural_context": "Urban fashion-as-performance, Manhattan street-as-runway sensibility; brand-conscious styling and music-video pacing emphasize confidence and transformation."
+  },
+  "characters": [
+    {
+      "id": "char_andy",
+      "name": "Andy",
+      "description": "Fashion-forward woman in her 20s–30s, confident posture, decisive stride, polished grooming; carries a paper coffee cup; aura of control; high heels clicking underscore her presence.",
+      "clothing_style": "High-fashion outerwear transformations: heavy dark green double-breasted coat; white tweed coat with thigh-high Chanel boots; sleek tailored black evening jacket. Polished, runway-ready styling.",
+      "voice_preset_id": null,
+      "voice_description": "Confident, crisp, modern New York edge; poised and deliberate.",
+      "voice_design": null,
+      "personality": "Dominant, self-assured, stylish, relentless, focused; treats the city like her runway; unfazed by chaos; enjoys precise control and continuity.",
+      "backstory": "A high-powered, style-savvy figure in Manhattan whose presence turns sidewalks into runways; accustomed to commanding attention.",
+      "current_motivation": "Project unwavering confidence and control while showcasing seamless high-fashion transformations without breaking stride.",
+      "scene_count": 1,
+      "dialogue_lines": 0,
+      "key_relationships": [],
+      "visual_references": null,
+      "audio_references": null
+    }
+  ],
+  "locations": [
+    {
+      "id": "loc_ext_manhattan_street",
+      "name": "Manhattan Street",
+      "type": "EXT",
+      "visual_style": "Bustling Manhattan avenue; constant foot and car traffic; yellow taxi; narrow streetlamp; smooth lateral tracking; glossy, high-fashion sheen; seamless transition points; urban soundscape of heel clicks, engines, and music.",
+      "narrative_function": "Runway-like urban path enabling seamless outfit transformations in a single tracking shot.",
+      "time_of_day_stats": {},
+      "visual_references": null,
+      "audio_references": null,
+      "usage_count": 1
+    }
+  ],
+  "props": [
+    {
+      "id": "prop_paper_coffee_cup",
+      "name": "Paper Coffee Cup",
+      "related_character_id": "char_andy",
+      "visual_description": "White disposable paper coffee cup with tight-fitting plastic lid; medium size; held upright and fixed in position throughout the walk.",
+      "importance": "critical",
+      "usage_count": 1,
+      "visual_references": null
+    },
+    {
+      "id": "prop_dark_green_double_breasted_coat",
+      "name": "Dark Green Double-Breasted Coat",
+      "related_character_id": "char_andy",
+      "visual_description": "Heavy dark green double-breasted overcoat with structured shoulders; mid-thigh length; dramatic movement as she strides.",
+      "importance": "supporting",
+      "usage_count": 1,
+      "visual_references": null
+    },
+    {
+      "id": "prop_white_tweed_coat",
+      "name": "White Tweed Coat",
+      "related_character_id": "char_andy",
+      "visual_description": "Chic white tweed coat with a tailored silhouette; textured weave; luminous, elevated fashion look for the transformation beat.",
+      "importance": "supporting",
+      "usage_count": 1,
+      "visual_references": null
+    },
+    {
+      "id": "prop_thigh_high_chanel_boots",
+      "name": "Thigh-High Chanel Boots",
+      "related_character_id": "char_andy",
+      "visual_description": "Thigh-high black Chanel boots with sleek leather finish and high heel; luxury detail accenting the white tweed look.",
+      "importance": "supporting",
+      "usage_count": 1,
+      "visual_references": null
+    },
+    {
+      "id": "prop_black_evening_jacket",
+      "name": "Black Evening Jacket",
+      "related_character_id": "char_andy",
+      "visual_description": "Sleek, tailored black evening jacket with sharp lapels and minimalist high-fashion cut.",
+      "importance": "supporting",
+      "usage_count": 1,
+      "visual_references": null
+    },
+    {
+      "id": "prop_yellow_taxi",
+      "name": "Yellow Taxi",
+      "related_character_id": null,
+      "visual_description": "NYC yellow taxi cab with roof light and classic livery; passes between camera and subject to facilitate a seamless outfit change.",
+      "importance": "background",
+      "usage_count": 1,
+      "visual_references": null
+    },
+    {
+      "id": "prop_narrow_streetlamp",
+      "name": "Narrow Streetlamp",
+      "related_character_id": null,
+      "visual_description": "Slim, modern urban streetlamp providing a brief occlusion that enables the second seamless transformation.",
+      "importance": "supporting",
+      "usage_count": 1,
+      "visual_references": null
+    }
+  ]
+}

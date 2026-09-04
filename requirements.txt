@@ -1,0 +1,9 @@
+# LLM / T2I / video access — everything goes through the OpenAI API shape.
+# openai >= 2.0 is required for the Videos API (client.videos.*).
+openai>=2.0.0
+instructor>=1.0.0
+pydantic>=2.0.0
+
+# Agent configs and prompt templating
+PyYAML>=6.0
+Jinja2>=3.0.0

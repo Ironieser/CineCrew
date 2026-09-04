@@ -1,0 +1,475 @@
+{
+  "blueprint_id": "bp_bettercallsaul2_815968",
+  "metadata": {
+    "project_name": "Courtroom Plea",
+    "target_resolution": "1280x720",
+    "target_aspect_ratio": "16:9",
+    "global_fps": 16
+  },
+  "global_style": "Grounded, realistic cinematography; muted palette; static, deliberate compositions; close-ups emphasizing discomfort; diegetic sound; courtroom wood textures and fluorescent glare.",
+  "final_film_path": null,
+  "shots": [
+    {
+      "shot_id": "shot_01_saul_pleads_leniency",
+      "narrative_layer": {
+        "narrative_action": "Saul stands before the bench, waving his arms as he pleads directly to the Judge.",
+        "emotional_beat": "pleading_insistence",
+        "dialogue": {
+          "has_dialogue": true,
+          "speaker_asset_id": "char_saul",
+          "listener_asset_id": "char_judge",
+          "text": "Oh, to be nineteen again! They did a dumb thing, but remember: nobody got hurt! Not a soul!",
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 4.0,
+        "camera": {
+          "shot_scale": "MS",
+          "angle": "eye_level",
+          "movement": "slow_dolly_in"
+        },
+        "lighting": "simple fluorescent overhead, soft fill",
+        "environment_id": "loc_int_courtroom",
+        "entities": [
+          {
+            "asset_id": "char_saul",
+            "position": "center_fg",
+            "action_state": "waving_arms_pleading_toward_bench"
+          },
+          {
+            "asset_id": "prop_judges_bench",
+            "position": "background_center",
+            "action_state": "static"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: United States courtroom interior (trial-level) — NOT UK/European courts; NOT exterior locations",
+          "ERA LOCK: Contemporary (2010s–present) United States with legacy AV equipment (CRT television on rolling AV cart)",
+          "FORBIDDEN: British barrister wigs or white powdered wigs, UK royal crest, British courtroom signage, or Union Jack in courtroom, European-style enclosed defendant dock or green leather benches, Flat-panel TV, projector, smartboard, or holographic/futuristic displays used to show the evidence video, Smartphones or tablets used as the primary display for the evidence video, News cameras or TV crews inside the courtroom, Audience applause, laugh track, or comedic sound effects, Gallery outbursts or audible jury reactions (maintain dead-silent courtroom), Graphic violence or depiction of real persons being harmed in the surveillance video, Excessive gavel use or comedic gavel banging, Non-American judicial wardrobe (ornate colored robes) or military-style uniforms for the judge, Exterior establishing shots or non-courtroom architectural elements within the scene",
+          "LEGAL_SYSTEM: United States adversarial trial courtroom with strict decorum",
+          "COURTROOM_TECHNOLOGY: Aging CRT television on rolling AV cart with wired VCR/DVD player; audio via cart speakers",
+          "ARCHITECTURE: Wood-paneled American courtroom interior with judge's bench, counsel tables, gallery seating; simple fluorescent lighting",
+          "WARDROBE: Judge in plain black robe (no wig); attorneys in contemporary business suits; Saul wears a cheap tie",
+          "PROPS: CRT TV on AV cart; remote or wired controls; physical evidence binders; tabletop microphones at counsel tables",
+          "COLOR_PALETTE: Muted neutrals and warm varnished wood with cool fluorescent whites; avoid neon or glossy cinematic color",
+          "TONE: Tense, awkward, darkly comedic; dead-silent courtroom during the judge's reaction",
+          "SOUND_DESIGN: Natural room tone only; no music stings; no laugh track",
+          "EVIDENCE_DISPLAY: The surveillance video must be played on the CRT television and appear low-resolution and slightly blurry",
+          "Shot-specific: Saul’s wide, cheap tie must be visibly askew; Judge remains off-camera in this shot"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Style: Grounded, realistic, muted neutrals and warm wood tones within <loc_int_courtroom>. Lighting: simple fluorescent overhead with soft fill, gentle sheen on varnished wood. <char_saul> stands center foreground facing <prop_judges_bench> at background center; shoulders squared, elbows lifted, open hands hovered at chest height just before beginning to gesture. Eyeline: <char_saul> looks upward past camera line toward the elevated position of <char_judge> (off-frame), signaling the power imbalance. Body language contrast: <char_saul> leans forward into the space, trying to command attention; the massive <prop_judges_bench> looms behind, emphasizing authority over him. Environment: Wood-paneled American courtroom, tabletop microphones and binders implied at counsel tables, cool fluorescent whites; no audience movement visible.",
+          "characters_in_shot": [
+            "char_saul"
+          ],
+          "character_appearances": {
+            "char_saul": "Man in his 30s–40s, cheap oversized suit with a wide patterned tie visibly askew, flushed and sweating, posture taut and poised mid-plea"
+          },
+          "resolved_t2i": "Style: Grounded, realistic, muted neutrals and warm wood tones within <loc_int_courtroom>. Lighting: simple fluorescent overhead with soft fill, gentle sheen on varnished wood. Man in his 30s–40s, cheap oversized suit with a wide patterned tie visibly askew, flushed and sweating, posture taut and poised mid-plea stands center foreground facing <prop_judges_bench> at background center; shoulders squared, elbows lifted, open hands hovered at chest height just before beginning to gesture. Eyeline: Man in his 30s–40s, cheap oversized suit with a wide patterned tie visibly askew, flushed and sweating, posture taut and poised mid-plea looks upward past camera line toward the elevated position of <char_judge> (off-frame), signaling the power imbalance. Body language contrast: Man in his 30s–40s, cheap oversized suit with a wide patterned tie visibly askew, flushed and sweating, posture taut and poised mid-plea leans forward into the space, trying to command attention; the massive <prop_judges_bench> looms behind, emphasizing authority over him. Environment: Wood-paneled American courtroom, tabletop microphones and binders implied at counsel tables, cool fluorescent whites; no audience movement visible.",
+          "resolved_ti2i": "Picture 1 is Man in his 30s–40s, cheap oversized suit with a wide patterned tie visibly askew, flushed and sweating, posture taut and poised mid-plea.\nStyle: Grounded, realistic, muted neutrals and warm wood tones within <loc_int_courtroom>. Lighting: simple fluorescent overhead with soft fill, gentle sheen on varnished wood. Picture 1 stands center foreground facing <prop_judges_bench> at background center; shoulders squared, elbows lifted, open hands hovered at chest height just before beginning to gesture. Eyeline: Picture 1 looks upward past camera line toward the elevated position of <char_judge> (off-frame), signaling the power imbalance. Body language contrast: Picture 1 leans forward into the space, trying to command attention; the massive <prop_judges_bench> looms behind, emphasizing authority over him. Environment: Wood-paneled American courtroom, tabletop microphones and binders implied at counsel tables, cool fluorescent whites; no audience movement visible.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": {
+            "character_consistency": [
+              {
+                "asset_id": "char_saul",
+                "method": "ip_adapter_faceid",
+                "reference_image_paths": [
+                  "our_dataset/BetterCallSaul2/character_list/Saul/best.png"
+                ],
+                "weight": 0.85
+              }
+            ]
+          },
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Camera Move: Slow dolly in at eye level, framing tightens from MS toward Saul’s upper torso and hands. Character Actions & Reactions: <char_saul> launches into open-palmed gestures toward <prop_judges_bench>, shoulders rising and falling with emphasis; he glances up at the unseen <char_judge> as if seeking approval, then back to center, intensifying his plea. Mouth moves to match speech. Ambient Motion: Tie end flutters slightly with each gesture; sweat glints and gathers at his temple; dust motes drift in the overhead light; subtle fluorescent flicker plays across the wood. The move settles with his near hand starting to extend toward frame-right, setting up the cut to his pointing in the next shot.",
+          "resolved_i2v": "Camera Move: Slow dolly in at eye level, framing tightens from MS toward Saul’s upper torso and hands. Character Actions & Reactions: Man in his 30s–40s, cheap oversized suit with a wide patterned tie visibly askew, flushed and sweating, posture taut and poised mid-plea launches into open-palmed gestures toward <prop_judges_bench>, shoulders rising and falling with emphasis; he glances up at the unseen <char_judge> as if seeking approval, then back to center, intensifying his plea. Mouth moves to match speech. Ambient Motion: Tie end flutters slightly with each gesture; sweat glints and gathers at his temple; dust motes drift in the overhead light; subtle fluorescent flicker plays across the wood. The move settles with his near hand starting to extend toward frame-right, setting up the cut to his pointing in the next shot.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.3,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": true,
+            "sync_method": "musetalk",
+            "audio_source_ref": "assembly_layer.audio_tracks[0]"
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "fade_in",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_01_saul_pleads_leniency_dialogue",
+            "type": "dialogue",
+            "source": "tts_default",
+            "description": "Oh, to be nineteen again! They did a dumb thing, but remember: nobody got hurt! "
+          },
+          {
+            "track_id": "shot_01_saul_pleads_leniency_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_02_tv_video_plays",
+      "narrative_layer": {
+        "narrative_action": "With a confident flourish, Saul points to the CRT television on the rolling cart as it flickers on and loudly plays a chaotic surveillance video.",
+        "emotional_beat": "rising_tension",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 3.0,
+        "camera": {
+          "shot_scale": "MLS",
+          "angle": "eye_level",
+          "movement": "rack_focus"
+        },
+        "lighting": "simple fluorescent overhead, soft fill",
+        "environment_id": "loc_int_courtroom",
+        "entities": [
+          {
+            "asset_id": "char_saul",
+            "position": "frame_left",
+            "action_state": "arm_extended_pointing_toward_tv"
+          },
+          {
+            "asset_id": "prop_rolling_cart",
+            "position": "frame_right",
+            "action_state": "stationary"
+          },
+          {
+            "asset_id": "prop_crt_television",
+            "position": "frame_right",
+            "action_state": "screen_flickering_playback"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: United States courtroom interior (trial-level) — NOT UK/European courts; NOT exterior locations",
+          "ERA LOCK: Contemporary (2010s–present) United States with legacy AV equipment (CRT television on rolling AV cart)",
+          "FORBIDDEN: British barrister wigs or white powdered wigs, UK royal crest, British courtroom signage, or Union Jack in courtroom, European-style enclosed defendant dock or green leather benches, Flat-panel TV, projector, smartboard, or holographic/futuristic displays used to show the evidence video, Smartphones or tablets used as the primary display for the evidence video, News cameras or TV crews inside the courtroom, Audience applause, laugh track, or comedic sound effects, Gallery outbursts or audible jury reactions (maintain dead-silent courtroom), Graphic violence or depiction of real persons being harmed in the surveillance video, Excessive gavel use or comedic gavel banging, Non-American judicial wardrobe (ornate colored robes) or military-style uniforms for the judge, Exterior establishing shots or non-courtroom architectural elements within the scene",
+          "LEGAL_SYSTEM: United States adversarial trial courtroom with strict decorum",
+          "COURTROOM_TECHNOLOGY: Aging CRT television on rolling AV cart with wired VCR/DVD player; audio via cart speakers",
+          "ARCHITECTURE: Wood-paneled American courtroom interior with judge's bench, counsel tables, gallery seating; simple fluorescent lighting",
+          "WARDROBE: Judge in plain black robe (no wig); attorneys in contemporary business suits; Saul wears a cheap tie",
+          "PROPS: CRT TV on AV cart; remote or wired controls; physical evidence binders; tabletop microphones at counsel tables",
+          "COLOR_PALETTE: Muted neutrals and warm varnished wood with cool fluorescent whites; avoid neon or glossy cinematic color",
+          "TONE: Tense, awkward, darkly comedic; dead-silent courtroom during the judge's reaction",
+          "SOUND_DESIGN: Natural room tone only; no music stings; no laugh track",
+          "EVIDENCE_DISPLAY: The surveillance video must be played on the CRT television and appear low-resolution and slightly blurry",
+          "Shot-specific: Keep Saul frame-left and CRT on frame-right; rack focus from Saul’s pointing hand to the flickering CRT screen; on-screen content remains indistinct and non-graphic"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Style: Grounded realism with muted palette inside <loc_int_courtroom>. Lighting: simple fluorescent overhead, soft fill. Framing at MLS: <char_saul> stands frame-left in profile toward frame-right, arm extended with index finger aimed toward <prop_crt_television> resting on <prop_rolling_cart> at frame-right. The CRT screen is dark with a faint standby glow, cart cables slack along the shelf. Eyeline: <char_saul> splits his glance—chin tipped toward the off-frame <char_judge> while pointing, trying to direct attention to the TV. Dominance: <char_saul> reaches across the space, but the inert, boxy CRT claims visual gravity. Environment: Wood-paneled walls, counsel tables soft in the background; quiet, orderly courtroom.",
+          "characters_in_shot": [
+            "char_saul"
+          ],
+          "character_appearances": {
+            "char_saul": "Man in his 30s–40s, cheap oversized suit, wide tie still askew, arm extended in a confident showman’s point toward the TV, nervous energy beneath the bravado"
+          },
+          "resolved_t2i": "Style: Grounded realism with muted palette inside <loc_int_courtroom>. Lighting: simple fluorescent overhead, soft fill. Framing at MLS: Man in his 30s–40s, cheap oversized suit, wide tie still askew, arm extended in a confident showman’s point toward the TV, nervous energy beneath the bravado stands frame-left in profile toward frame-right, arm extended with index finger aimed toward <prop_crt_television> resting on <prop_rolling_cart> at frame-right. The CRT screen is dark with a faint standby glow, cart cables slack along the shelf. Eyeline: Man in his 30s–40s, cheap oversized suit, wide tie still askew, arm extended in a confident showman’s point toward the TV, nervous energy beneath the bravado splits his glance—chin tipped toward the off-frame <char_judge> while pointing, trying to direct attention to the TV. Dominance: Man in his 30s–40s, cheap oversized suit, wide tie still askew, arm extended in a confident showman’s point toward the TV, nervous energy beneath the bravado reaches across the space, but the inert, boxy CRT claims visual gravity. Environment: Wood-paneled walls, counsel tables soft in the background; quiet, orderly courtroom.",
+          "resolved_ti2i": "Picture 1 is Man in his 30s–40s, cheap oversized suit, wide tie still askew, arm extended in a confident showman’s point toward the TV, nervous energy beneath the bravado.\nStyle: Grounded realism with muted palette inside <loc_int_courtroom>. Lighting: simple fluorescent overhead, soft fill. Framing at MLS: Picture 1 stands frame-left in profile toward frame-right, arm extended with index finger aimed toward <prop_crt_television> resting on <prop_rolling_cart> at frame-right. The CRT screen is dark with a faint standby glow, cart cables slack along the shelf. Eyeline: Picture 1 splits his glance—chin tipped toward the off-frame <char_judge> while pointing, trying to direct attention to the TV. Dominance: Picture 1 reaches across the space, but the inert, boxy CRT claims visual gravity. Environment: Wood-paneled walls, counsel tables soft in the background; quiet, orderly courtroom.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": {
+            "character_consistency": [
+              {
+                "asset_id": "char_saul",
+                "method": "ip_adapter_faceid",
+                "reference_image_paths": [
+                  "our_dataset/BetterCallSaul2/character_list/Saul/best.png"
+                ],
+                "weight": 0.85
+              }
+            ]
+          },
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Camera Move: Begin focused on <char_saul>’s extended hand at frame-left, then perform a smooth rack focus to <prop_crt_television> at frame-right as the screen comes to life. Character Actions & Reactions: <char_saul> holds the point with a flourish, shoulders squared; as the screen activates, his posture lifts with forced confidence and then tenses slightly as the image proves indistinct. Mouth remains tightly closed. No speaking. Ambient Motion: The CRT screen flickers to a low-resolution, slightly blurry feed; scanlines roll subtly; a small static shimmer crawls along the edges; the <prop_rolling_cart> vibrates faintly as the TV activates; coiled cables sway a touch. On-screen content stays vague: shadowy, non-graphic silhouettes and a jittery timestamp remain unreadable. Hold on the glowing CRT to set up a cut to the Judge’s reaction.",
+          "resolved_i2v": "Camera Move: Begin focused on Man in his 30s–40s, cheap oversized suit, wide tie still askew, arm extended in a confident showman’s point toward the TV, nervous energy beneath the bravado’s extended hand at frame-left, then perform a smooth rack focus to <prop_crt_television> at frame-right as the screen comes to life. Character Actions & Reactions: Man in his 30s–40s, cheap oversized suit, wide tie still askew, arm extended in a confident showman’s point toward the TV, nervous energy beneath the bravado holds the point with a flourish, shoulders squared; as the screen activates, his posture lifts with forced confidence and then tenses slightly as the image proves indistinct. Mouth remains tightly closed. No speaking. Ambient Motion: The CRT screen flickers to a low-resolution, slightly blurry feed; scanlines roll subtly; a small static shimmer crawls along the edges; the <prop_rolling_cart> vibrates faintly as the TV activates; coiled cables sway a touch. On-screen content stays vague: shadowy, non-graphic silhouettes and a jittery timestamp remain unreadable. Hold on the glowing CRT to set up a cut to the Judge’s reaction.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.4,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_02_tv_video_plays_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_03_judge_disgust_reaction",
+      "narrative_layer": {
+        "narrative_action": "The Judge stares down at Saul with absolute, unamused disgust in a dead-silent room.",
+        "emotional_beat": "cold_disapproval",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 3.0,
+        "camera": {
+          "shot_scale": "CU",
+          "angle": "low",
+          "movement": "static"
+        },
+        "lighting": "simple fluorescent overhead, minimal fill",
+        "environment_id": "loc_int_courtroom",
+        "entities": [
+          {
+            "asset_id": "char_judge",
+            "position": "center_fg",
+            "action_state": "staring_down_unamused"
+          },
+          {
+            "asset_id": "prop_judges_bench",
+            "position": "background_center",
+            "action_state": "static"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: United States courtroom interior (trial-level) — NOT UK/European courts; NOT exterior locations",
+          "ERA LOCK: Contemporary (2010s–present) United States with legacy AV equipment (CRT television on rolling AV cart)",
+          "FORBIDDEN: British barrister wigs or white powdered wigs, UK royal crest, British courtroom signage, or Union Jack in courtroom, European-style enclosed defendant dock or green leather benches, Flat-panel TV, projector, smartboard, or holographic/futuristic displays used to show the evidence video, Smartphones or tablets used as the primary display for the evidence video, News cameras or TV crews inside the courtroom, Audience applause, laugh track, or comedic sound effects, Gallery outbursts or audible jury reactions (maintain dead-silent courtroom), Graphic violence or depiction of real persons being harmed in the surveillance video, Excessive gavel use or comedic gavel banging, Non-American judicial wardrobe (ornate colored robes) or military-style uniforms for the judge, Exterior establishing shots or non-courtroom architectural elements within the scene",
+          "LEGAL_SYSTEM: United States adversarial trial courtroom with strict decorum",
+          "COURTROOM_TECHNOLOGY: Aging CRT television on rolling AV cart with wired VCR/DVD player; audio via cart speakers",
+          "ARCHITECTURE: Wood-paneled American courtroom interior with judge's bench, counsel tables, gallery seating; simple fluorescent lighting",
+          "WARDROBE: Judge in plain black robe (no wig); attorneys in contemporary business suits; Saul wears a cheap tie",
+          "PROPS: CRT TV on AV cart; remote or wired controls; physical evidence binders; tabletop microphones at counsel tables",
+          "COLOR_PALETTE: Muted neutrals and warm varnished wood with cool fluorescent whites; avoid neon or glossy cinematic color",
+          "TONE: Tense, awkward, darkly comedic; dead-silent courtroom during the judge's reaction",
+          "SOUND_DESIGN: Natural room tone only; no music stings; no laugh track",
+          "EVIDENCE_DISPLAY: The surveillance video must be played on the CRT television and appear low-resolution and slightly blurry",
+          "Shot-specific: Judge framed alone in CU from slightly low angle to emphasize authority; no crowd reactions visible or audible"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Style: Realistic, austere close-up from a slightly low angle within <loc_int_courtroom>. Lighting: overhead fluorescent with minimal fill, casting sober shadows into the eye sockets. <char_judge> fills center foreground behind the edge of <prop_judges_bench>; chin slightly lowered, eyes fixed downward toward where <char_saul> would stand. Eyeline and power: <char_judge> looks down past the lens, dominating the frame; no other faces intrude. Environment: Wood-paneled backdrop, American bench detailing; quiet, grave decorum with no visible gallery reaction.",
+          "characters_in_shot": [
+            "char_judge"
+          ],
+          "character_appearances": {
+            "char_judge": "Elderly man, plain black judicial robe, silver hair, composed posture behind the bench, eyes narrowed in unamused disgust"
+          },
+          "resolved_t2i": "Style: Realistic, austere close-up from a slightly low angle within <loc_int_courtroom>. Lighting: overhead fluorescent with minimal fill, casting sober shadows into the eye sockets. Elderly man in a plain black judicial robe, silver hair, composed behind the bench, chin slightly lowered, eyes narrowed in unamused disgust fills center foreground behind the edge of <prop_judges_bench>; chin slightly lowered, eyes fixed downward toward where <char_saul> would stand. Eyeline and power: Elderly man in a plain black judicial robe, silver hair, composed behind the bench, chin slightly lowered, eyes narrowed in unamused disgust looks down past the lens, dominating the frame; no other faces intrude. Environment: Wood-paneled backdrop, American bench detailing; quiet, grave decorum with no visible gallery reaction.",
+          "resolved_ti2i": "Picture 1 is Elderly man in a plain black judicial robe, silver hair, composed behind the bench, chin slightly lowered, eyes narrowed in unamused disgust.\nStyle: Realistic, austere close-up from a slightly low angle within <loc_int_courtroom>. Lighting: overhead fluorescent with minimal fill, casting sober shadows into the eye sockets. Picture 1 fills center foreground behind the edge of <prop_judges_bench>; chin slightly lowered, eyes fixed downward toward where <char_saul> would stand. Eyeline and power: Picture 1 looks down past the lens, dominating the frame; no other faces intrude. Environment: Wood-paneled backdrop, American bench detailing; quiet, grave decorum with no visible gallery reaction.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": {
+            "character_consistency": [
+              {
+                "asset_id": "char_judge",
+                "method": "ip_adapter_faceid",
+                "reference_image_paths": [
+                  "our_dataset/BetterCallSaul2/character_list/Judge/best.png"
+                ],
+                "weight": 0.85
+              }
+            ]
+          },
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Camera Move: Static CU from a low angle, unflinching. Character Actions & Reactions: <char_judge> tightens his stare, eyelids narrowing incrementally; a controlled exhale lifts and lowers his chest; the head tilts by a few degrees as his expression settles into cold disapproval, gaze unwavering toward the floor of the court. Mouth remains tightly closed. No speaking. Ambient Motion: Subtle fluorescent flicker rolls across the bench’s varnished edge; a faint shimmer of dust moves through the light; robe fabric breathes slightly with his posture. Hold the locked stare downward to flow into the cut back to Saul’s embarrassment.",
+          "resolved_i2v": "Camera Move: Static CU from a low angle, unflinching. Character Actions & Reactions: Elderly man in a plain black judicial robe, silver hair, composed behind the bench, chin slightly lowered, eyes narrowed in unamused disgust tightens his stare, eyelids narrowing incrementally; a controlled exhale lifts and lowers his chest; the head tilts by a few degrees as his expression settles into cold disapproval, gaze unwavering toward the floor of the court. Mouth remains tightly closed. No speaking. Ambient Motion: Subtle fluorescent flicker rolls across the bench’s varnished edge; a faint shimmer of dust moves through the light; robe fabric breathes slightly with his posture. Hold the locked stare downward to flow into the cut back to Saul’s embarrassment.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.1,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_03_judge_disgust_reaction_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_04_saul_deflates_tie",
+      "narrative_layer": {
+        "narrative_action": "Saul's passion drains as he freezes, lowers his pointing arm, and silently adjusts his cheap tie in embarrassment.",
+        "emotional_beat": "embarrassed_deflation",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 3.5,
+        "camera": {
+          "shot_scale": "MCU",
+          "angle": "eye_level",
+          "movement": "slow_dolly_in"
+        },
+        "lighting": "simple fluorescent overhead, soft fill",
+        "environment_id": "loc_int_courtroom",
+        "entities": [
+          {
+            "asset_id": "char_saul",
+            "position": "center_fg",
+            "action_state": "lowering_arm_then_adjusting_tie_avoiding_eye_contact"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: United States courtroom interior (trial-level) — NOT UK/European courts; NOT exterior locations",
+          "ERA LOCK: Contemporary (2010s–present) United States with legacy AV equipment (CRT television on rolling AV cart)",
+          "FORBIDDEN: British barrister wigs or white powdered wigs, UK royal crest, British courtroom signage, or Union Jack in courtroom, European-style enclosed defendant dock or green leather benches, Flat-panel TV, projector, smartboard, or holographic/futuristic displays used to show the evidence video, Smartphones or tablets used as the primary display for the evidence video, News cameras or TV crews inside the courtroom, Audience applause, laugh track, or comedic sound effects, Gallery outbursts or audible jury reactions (maintain dead-silent courtroom), Graphic violence or depiction of real persons being harmed in the surveillance video, Excessive gavel use or comedic gavel banging, Non-American judicial wardrobe (ornate colored robes) or military-style uniforms for the judge, Exterior establishing shots or non-courtroom architectural elements within the scene",
+          "LEGAL_SYSTEM: United States adversarial trial courtroom with strict decorum",
+          "COURTROOM_TECHNOLOGY: Aging CRT television on rolling AV cart with wired VCR/DVD player; audio via cart speakers",
+          "ARCHITECTURE: Wood-paneled American courtroom interior with judge's bench, counsel tables, gallery seating; simple fluorescent lighting",
+          "WARDROBE: Judge in plain black robe (no wig); attorneys in contemporary business suits; Saul wears a cheap tie",
+          "PROPS: CRT TV on AV cart; remote or wired controls; physical evidence binders; tabletop microphones at counsel tables",
+          "COLOR_PALETTE: Muted neutrals and warm varnished wood with cool fluorescent whites; avoid neon or glossy cinematic color",
+          "TONE: Tense, awkward, darkly comedic; dead-silent courtroom during the judge's reaction",
+          "SOUND_DESIGN: Natural room tone only; no music stings; no laugh track",
+          "EVIDENCE_DISPLAY: The surveillance video must be played on the CRT television and appear low-resolution and slightly blurry",
+          "Shot-specific: Saul’s downward gaze and nervous tie adjustment must be clearly readable; no dialogue in this beat"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Style: Intimate, grounded realism in <loc_int_courtroom>; muted colors. Lighting: simple fluorescent overhead with soft fill easing shadows. <char_saul> stands center foreground; one arm still slightly raised from the point, fingers hovering near his chest; the other hand hangs, not yet lifting. Eyeline: his gaze drops away from the elevated <char_judge> (off-frame), chin tucking toward his collarbone. Power dynamic: <char_saul> shrinks within the frame, space around him feels larger. Environment: Warm wood textures and cool fluorescent highlights; courtroom remains orderly and still.",
+          "characters_in_shot": [
+            "char_saul"
+          ],
+          "character_appearances": {
+            "char_saul": "Man in his 30s–40s, cheap oversized suit, wide patterned tie still askew, flushed and sweaty, shoulders slumping as embarrassment takes hold"
+          },
+          "resolved_t2i": "Style: Intimate, grounded realism in <loc_int_courtroom>; muted colors. Lighting: plain overhead fluorescents with a soft fill easing the shadows. Man in his late 30s to early 40s, cheap oversized suit, wide patterned tie still askew, flushed and sweaty, shoulders slumping as embarrassment takes hold, standing center foreground stands center foreground; one arm still slightly raised from the point, fingers hovering near his chest; the other hand hangs, not yet lifting. Eyeline: his gaze falls away from the elevated <char_judge> (off-frame), chin tucking toward his collarbone. Power dynamic: Man in his late 30s to early 40s, cheap oversized suit, wide patterned tie still askew, flushed and sweaty, shoulders slumping as embarrassment takes hold, standing center foreground seems to shrink within the frame; the space around him feels larger, making him look small. Environment: Warm wood textures and cool fluorescent highlights; the courtroom remains orderly and still.",
+          "resolved_ti2i": "Picture 1 is Man in his late 30s to early 40s, cheap oversized suit, wide patterned tie still askew, flushed and sweaty, shoulders slumping as embarrassment takes hold, standing center foreground.\nStyle: Intimate, grounded realism in <loc_int_courtroom>; muted colors. Lighting: plain overhead fluorescents with a soft fill easing the shadows. Picture 1 stands center foreground; one arm still slightly raised from the point, fingers hovering near his chest; the other hand hangs, not yet lifting. Eyeline: his gaze falls away from the elevated <char_judge> (off-frame), chin tucking toward his collarbone. Power dynamic: Picture 1 seems to shrink within the frame; the space around him feels larger, making him look small. Environment: Warm wood textures and cool fluorescent highlights; the courtroom remains orderly and still.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": {
+            "character_consistency": [
+              {
+                "asset_id": "char_saul",
+                "method": "ip_adapter_faceid",
+                "reference_image_paths": [
+                  "our_dataset/BetterCallSaul2/character_list/Saul/best.png"
+                ],
+                "weight": 0.85
+              }
+            ]
+          },
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Camera Move: Slow, gentle dolly in from MCU toward a tighter framing on torso and face. Character Actions & Reactions: <char_saul> freezes, then his extended arm sinks to his side; he inhales shallowly and reaches up with shaky fingers to fuss at the knot of his wide tie, trying to straighten it but only making a minor adjustment; shoulders sag as he avoids any upward glance. Mouth remains tightly closed. No speaking. Ambient Motion: A faint ripple of light plays across his suit from overhead fluorescents; the tie fabric twitches and settles; perspiration beads at his temple; dust motes drift in the glow. End on his fingers resting against the knot, eyes downcast, ready for a cut out.",
+          "resolved_i2v": "Camera Move: Slow, gentle dolly in from MCU toward a tighter framing on torso and face. Character Actions & Reactions: Man in his late 30s to early 40s, cheap oversized suit, wide patterned tie still askew, flushed and sweaty, shoulders slumping as embarrassment takes hold, standing center foreground freezes, then his extended arm sinks to his side; he inhales shallowly and reaches up with shaky fingers to fuss at the knot of his wide tie, trying to straighten it but managing only a minor adjustment; his shoulders sag as he avoids any upward glance. Mouth remains tightly closed. No speaking. Ambient Motion: A faint ripple of light plays across his suit from overhead fluorescents; the tie fabric twitches and settles; perspiration beads at his temple; dust motes drift in the glow. End on his fingers resting against the knot, eyes downcast, ready for a cut out.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.3,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_04_saul_deflates_tie_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    }
+  ]
+}

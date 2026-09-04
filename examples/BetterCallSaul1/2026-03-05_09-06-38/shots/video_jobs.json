@@ -1,0 +1,145 @@
+{
+  "scene_id": "bp_bettercallsaul1_4f040b",
+  "jobs": [
+    {
+      "job_id": "bp_bettercallsaul1_4f040b_shot_01_gene_kneads_nervously_a",
+      "scene_id": "bp_bettercallsaul1_4f040b",
+      "shot_id": "shot_01_gene_kneads_nervously",
+      "segment_id": "shot_01_gene_kneads_nervously_a",
+      "prompt": "Slow dolly in from the high angle toward Middle-aged man in plain bakery whites and an apron; shoulders hunched with tension; behind thick glasses, anxious eyes dart restlessly; posture small and contained at the counter.. He presses down and folds <prop_bakery_dough> in precise, repetitive motions; his eyes flick left, then right, then down to his hands, a small shoulder twitch at a distant clank before rhythm resumes. Mouth remains tightly closed. No speaking. Fluorescent lights hum with a faint flicker; ventilation stirs the edge of his apron; the idle <prop_industrial_mixer> vibrates imperceptibly on its feet; fine flour dust motes drift through the light. End with the dolly settling closer on his tense face and hands, ready to cut away from this confined routine.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": "our_dataset/BetterCallSaul1/character_list/Gene/best.png",
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 3.562,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 57,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    },
+    {
+      "job_id": "bp_bettercallsaul1_4f040b_shot_02_returns_snowbound_home_a",
+      "scene_id": "bp_bettercallsaul1_4f040b",
+      "shot_id": "shot_02_returns_snowbound_home",
+      "segment_id": "shot_02_returns_snowbound_home_a",
+      "prompt": "Static camera. Middle-aged man in a drab winter coat, shoulders dusted with snow; weary posture, cautious, deliberate movements. steps fully in, shoulders sinking as he eases the door shut with a muted thud; a few flecks of snow fall from his coat onto the floor as he steadies himself and exhales softly. Mouth remains tightly closed. No speaking. A thin draft of cold air dies as the seal closes; faint radiator ticks answer from somewhere off-frame while the snow-muted light fades, leaving him mostly silhouette. He turns his body toward <prop_television> and shuffles deeper into the dark room, setting up the approach to the couch and VCR.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": "our_dataset/BetterCallSaul1/character_list/Gene/best.png",
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 3.562,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 57,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    },
+    {
+      "job_id": "bp_bettercallsaul1_4f040b_shot_03_sinks_inserts_vhs_a",
+      "scene_id": "bp_bettercallsaul1_4f040b",
+      "shot_id": "shot_03_sinks_inserts_vhs",
+      "segment_id": "shot_03_sinks_inserts_vhs_a",
+      "prompt": "Rack focus glides from Male, middle-aged; drab winter coat sleeves over a plain shirt; back to camera with shoulder and cheek edge in foreground; leaning forward, focused and deliberate; movements measured, a ritualized calm suppressing underlying tension.’s hand and <prop_vhs_tape> to the face of <prop_vcr> as he advances the cassette with a smooth, practiced push. The tray accepts it with a tactile clunk; rollers draw it inward as a soft whirr spins up. Mouth remains tightly closed. No speaking. Cloth rustles quietly; a faint, non-colored indicator glows in monochrome; dust motes drift in the minimal light. End with focus settled on the VCR transport engaging, framing the lower stack so the next cut can reveal the TV’s wake-up.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": "our_dataset/BetterCallSaul1/character_list/Gene/best.png",
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 3.062,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 49,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    },
+    {
+      "job_id": "bp_bettercallsaul1_4f040b_shot_04_tv_color_burst_a",
+      "scene_id": "bp_bettercallsaul1_4f040b",
+      "shot_id": "shot_04_tv_color_burst",
+      "segment_id": "shot_04_tv_color_burst_a",
+      "prompt": "Slow dolly in toward <prop_television> as <prop_vcr> whirs to life; the CRT flickers from black to a brief gray scanline shimmer, then blooms into saturated color within the screen, casting a soft, isolated color spill onto adjacent surfaces while the rest of the room remains monochrome. Mouth remains tightly closed. No speaking. A gentle degauss thump ripples; static noise crawls at the edges; the transport hum steadies beneath. End with the screen filling more of frame, primed to cut into the ad content.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": null,
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 2.812,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 45,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    },
+    {
+      "job_id": "bp_bettercallsaul1_4f040b_shot_05_saul_ad_shouts_a",
+      "scene_id": "bp_bettercallsaul1_4f040b",
+      "shot_id": "shot_05_saul_ad_shouts",
+      "segment_id": "shot_05_saul_ad_shouts_a",
+      "prompt": "Static camera locked on the CRT. Young man in a flashy suit with a bright tie, striking an energetic TV pitchman stance, exuding aggressive confidence. snaps his finger-point toward the lens and launches into a rapid, energetic pitch, leaning in and chopping the air with his free hand as the ad drives forward. Mouth moves to match speech. Subtle CRT scanline shimmer and phosphor persistence play across the image; color saturation pulses slightly with editorial beats; faint speaker buzz and the underlying VCR whirr persist. End on his iconic held pose—finger extended at camera—ready to cut to the viewer’s reaction.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": "our_dataset/BetterCallSaul1/character_list/Saul/best.png",
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 4.562,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 73,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    },
+    {
+      "job_id": "bp_bettercallsaul1_4f040b_shot_06_gene_watches_silently_a",
+      "scene_id": "bp_bettercallsaul1_4f040b",
+      "shot_id": "shot_06_gene_watches_silently",
+      "segment_id": "shot_06_gene_watches_silently_a",
+      "prompt": "Slow dolly in toward Middle-aged male in a drab winter coat, still on; seated and withdrawn, eyes fixed on the screen with a quiet ache. as the TV’s colored light swells across his features, sliding over his glasses and cheekbones; pupils tighten, a tiny swallow works his throat, and his breath rises shallowly without breaking the silence. Mouth remains tightly closed. No speaking. The color flicker plays across his lenses and skin while the rest of the room stays black; faint apartment creaks and the distant hush of a storm persist; stray dust motes drift through the glow. End with a close, centered hold on his face lit by the TV, inviting a contemplative cut.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": "our_dataset/BetterCallSaul1/character_list/Gene/best.png",
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 4.062,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 65,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    }
+  ],
+  "total_shots": 6,
+  "estimated_duration": 21.3
+}

@@ -1,0 +1,1116 @@
+{
+  "blueprint_id": "bp_bettercallsaul3_9ae391",
+  "metadata": {
+    "project_name": "Sun-baked Street Confrontation",
+    "target_resolution": "1280x720",
+    "target_aspect_ratio": "16:9",
+    "global_fps": 16
+  },
+  "global_style": "Gritty, handheld realism; harsh high-contrast sunlight; heat haze; fast pacing; comedic edge within danger.",
+  "final_film_path": null,
+  "shots": [
+    {
+      "shot_id": "shot_01_saul_drives_street",
+      "narrative_layer": {
+        "narrative_action": "Saul drives his battered yellow compact car along the sun-baked street.",
+        "emotional_beat": "false_calm",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 3.0,
+        "camera": {
+          "shot_scale": "LS",
+          "angle": "eye_level",
+          "movement": "handheld_tracking_parallel"
+        },
+        "lighting": "high-noon harsh sunlight",
+        "environment_id": "loc_ext_sun_baked_street",
+        "entities": [
+          {
+            "asset_id": "prop_battered_yellow_compact_car",
+            "position": "center_fg",
+            "action_state": "moving_left_to_right"
+          },
+          {
+            "asset_id": "char_saul",
+            "position": "seated_center",
+            "action_state": "driving_forward"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Albuquerque, New Mexico, USA — sun-baked urban arterial street (NOT coastal, NOT European/Mediterranean)",
+          "ERA LOCK: Contemporary (2020s) — summer, midday (NOT historical period)",
+          "FORBIDDEN: Mediterranean/European architecture (stone villages, Venetian canals, gondolas), Old European cobblestone streets, Olive trees, Ocean, beach, boardwalk, coastal scenery, Rain, snow, puddles, wet asphalt, umbrellas, Golden-hour or nighttime lighting, Vintage cars (pre-1990 classics), UK/EU license plates, right-hand drive vehicles, double-decker buses, Non-English-only signage (e.g., Mandarin-only billboards), Police on-scene, squad cars, sirens, arrests, Ambulance/gurney/EMT medical intervention, Graphic injury or blood, Payphones, CRT monitors, VHS camcorders, cassette recorders, Flip phones, Quiet suburban cul-de-sac, picket-fence neighborhoods, Skyscraper downtown canyon (e.g., Manhattan), Historical costumes or mid-century wardrobes, Snow-capped mountains visible nearby, Palm-lined boulevards and tropical vegetation, Rural dirt road or farm setting",
+          "COLOR_PALETTE: sun-bleached warm tones, hard mid-day contrast, asphalt grays",
+          "LIGHTING: high noon, harsh direct sunlight, short shadows, heat shimmer",
+          "ARCHITECTURE: Southwestern US low-rise commercial strip: stucco, brick, chain storefronts, parking lot edges",
+          "ENVIRONMENT: dry inland urban street, clear sky, heat haze",
+          "VEHICLES: contemporary US sedans/SUVs (2015–2026), US license plates",
+          "WARDROBE: summer streetwear: t-shirts, shorts, skate shoes, caps",
+          "PROPS: modern skateboards, smartphones",
+          "SIGNAGE_LANGUAGE: English primary; bilingual English/Spanish acceptable",
+          "CAMERA_STYLE: handheld, kinetic, aggressive framings, chaotic coverage",
+          "TONE: confrontational, darkly comedic, chaotic",
+          "SOUND_DESIGN: street noise, heated shouting, skateboard wheels on asphalt; no sirens",
+          "GEOGRAPHY: Albuquerque, New Mexico, USA",
+          "STREET_TYPE: wide sun-baked arterial with strip-mall frontage, minimal shade",
+          "DAY_PART: midday (12–2pm), peak summer heat",
+          "Windshield intact — no shatter yet",
+          "Battered yellow compact car with one red door visible"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Gritty handheld realism at eye level under high-noon harsh sunlight. <prop_battered_yellow_compact_car> with a mismatched red door tracks center frame, aligned mid-lane, windshield fully intact. Through the glass, <char_saul> sits upright with both hands on the wheel, shoulders squared, squinting ahead; jaw tight, intent on the road. Eyeline: <char_saul> scans forward, no visible engagement with anyone else yet, owning the small interior space while the wide street dominates around him. Environment: a wide Albuquerque arterial with heat haze, asphalt grays, low-rise stucco and brick storefronts with English/Spanish signage at the parking-lot edges, clear sky, short shadows.",
+          "characters_in_shot": [
+            "char_saul"
+          ],
+          "character_appearances": {
+            "char_saul": "Older man, sun-faded short-sleeve button-down and dusty slacks, seated behind the wheel, sweaty brow, focused and wary"
+          },
+          "resolved_t2i": "Gritty handheld realism at eye level under high-noon harsh sunlight. <prop_battered_yellow_compact_car> with a mismatched red door tracks center frame, aligned mid-lane, windshield fully intact. Through the glass, Older man, sun-faded short-sleeve button-down and dusty slacks, seated behind the wheel, sweaty brow, focused and wary sits upright with both hands on the wheel, shoulders squared, squinting ahead; jaw tight, intent on the road. Eyeline: Older man, sun-faded short-sleeve button-down and dusty slacks, seated behind the wheel, sweaty brow, focused and wary scans forward, no visible engagement with anyone else yet, owning the small interior space while the wide street dominates around him. Environment: a wide Albuquerque arterial with heat haze, asphalt grays, low-rise stucco and brick storefronts with English/Spanish signage at the parking-lot edges, clear sky, short shadows.",
+          "resolved_ti2i": "Picture 1 is Older man, sun-faded short-sleeve button-down and dusty slacks, seated behind the wheel, sweaty brow, focused and wary.\nGritty handheld realism at eye level under high-noon harsh sunlight. <prop_battered_yellow_compact_car> with a mismatched red door tracks center frame, aligned mid-lane, windshield fully intact. Through the glass, Picture 1 sits upright with both hands on the wheel, shoulders squared, squinting ahead; jaw tight, intent on the road. Eyeline: Picture 1 scans forward, no visible engagement with anyone else yet, owning the small interior space while the wide street dominates around him. Environment: a wide Albuquerque arterial with heat haze, asphalt grays, low-rise stucco and brick storefronts with English/Spanish signage at the parking-lot edges, clear sky, short shadows.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": {
+            "character_consistency": [
+              {
+                "asset_id": "char_saul",
+                "method": "ip_adapter_faceid",
+                "reference_image_paths": [
+                  "our_dataset/BetterCallSaul3/character_list/Saul/best.png"
+                ],
+                "weight": 0.85
+              }
+            ]
+          },
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Handheld tracking parallel along the curb with slight bob and vibration as the car moves left-to-right. <char_saul> makes micro-adjustments on the wheel, a quick glance to the side mirror then back to the road, shoulders subtly flexing with the bumps. Mouth remains tightly closed. No speaking. Ambient motion: heat shimmer ripples, glare skates across the intact windshield, a few contemporary US sedans with US license plates drift in the opposite lane, roadside dust kicks up and trails briefly. End with the lens drifting toward the windshield centerline, setting up a cut into an interior POV for the impending impact.",
+          "resolved_i2v": "Handheld tracking parallel along the curb with slight bob and vibration as the car moves left-to-right. Older man, sun-faded short-sleeve button-down and dusty slacks, seated behind the wheel, sweaty brow, focused and wary makes micro-adjustments on the wheel, a quick glance to the side mirror then back to the road, shoulders subtly flexing with the bumps. Mouth remains tightly closed. No speaking. Ambient motion: heat shimmer ripples, glare skates across the intact windshield, a few contemporary US sedans with US license plates drift in the opposite lane, roadside dust kicks up and trails briefly. End with the lens drifting toward the windshield centerline, setting up a cut into an interior POV for the impending impact.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.8,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "fade_in",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_01_saul_drives_street_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_02_teen_smashes_windshield",
+      "narrative_layer": {
+        "narrative_action": "A teenage skateboarder flies into frame and smashes onto Saul’s windshield, shattering it.",
+        "emotional_beat": "shock_impact",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 2.0,
+        "camera": {
+          "shot_scale": "POV",
+          "angle": "eye_level",
+          "movement": "handheld_jolt"
+        },
+        "lighting": "high-noon harsh sunlight",
+        "environment_id": "loc_ext_sun_baked_street",
+        "entities": [
+          {
+            "asset_id": "char_teen_scammer",
+            "position": "center_fg",
+            "action_state": "colliding_with_windshield"
+          },
+          {
+            "asset_id": "prop_shattered_windshield",
+            "position": "center_fg",
+            "action_state": "shattering_on_impact"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Albuquerque, New Mexico, USA — sun-baked urban arterial street (NOT coastal, NOT European/Mediterranean)",
+          "ERA LOCK: Contemporary (2020s) — summer, midday (NOT historical period)",
+          "FORBIDDEN: Mediterranean/European architecture (stone villages, Venetian canals, gondolas), Old European cobblestone streets, Olive trees, Ocean, beach, boardwalk, coastal scenery, Rain, snow, puddles, wet asphalt, umbrellas, Golden-hour or nighttime lighting, Vintage cars (pre-1990 classics), UK/EU license plates, right-hand drive vehicles, double-decker buses, Non-English-only signage (e.g., Mandarin-only billboards), Police on-scene, squad cars, sirens, arrests, Ambulance/gurney/EMT medical intervention, Graphic injury or blood, Payphones, CRT monitors, VHS camcorders, cassette recorders, Flip phones, Quiet suburban cul-de-sac, picket-fence neighborhoods, Skyscraper downtown canyon (e.g., Manhattan), Historical costumes or mid-century wardrobes, Snow-capped mountains visible nearby, Palm-lined boulevards and tropical vegetation, Rural dirt road or farm setting",
+          "COLOR_PALETTE: sun-bleached warm tones, hard mid-day contrast, asphalt grays",
+          "LIGHTING: high noon, harsh direct sunlight, short shadows, heat shimmer",
+          "ARCHITECTURE: Southwestern US low-rise commercial strip: stucco, brick, chain storefronts, parking lot edges",
+          "ENVIRONMENT: dry inland urban street, clear sky, heat haze",
+          "VEHICLES: contemporary US sedans/SUVs (2015–2026), US license plates",
+          "WARDROBE: summer streetwear: t-shirts, shorts, skate shoes, caps",
+          "PROPS: modern skateboards, smartphones",
+          "SIGNAGE_LANGUAGE: English primary; bilingual English/Spanish acceptable",
+          "CAMERA_STYLE: handheld, kinetic, aggressive framings, chaotic coverage",
+          "TONE: confrontational, darkly comedic, chaotic",
+          "SOUND_DESIGN: street noise, heated shouting, skateboard wheels on asphalt; no sirens",
+          "GEOGRAPHY: Albuquerque, New Mexico, USA",
+          "STREET_TYPE: wide sun-baked arterial with strip-mall frontage, minimal shade",
+          "DAY_PART: midday (12–2pm), peak summer heat",
+          "Show impact moment — teen and shattered windshield visible",
+          "Interior POV from Saul — Saul not visible",
+          "Shattered windshield continuity begins"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Interior POV from the driver’s seat at eye level in harsh midday sun: the windshield is still intact, glare dicing across the glass. <char_teen_scammer> hangs mid-flight a split second from impact, arms tucked and knees bent, skateboard edge just dropping into the lower frame. Eyeline: <char_teen_scammer> locked on the glass, panic flickering. Power relationship: the incoming body dominates the frame, the car interior feels vulnerable. Environment glimpsed through the glass: sun-baked arterial, stucco storefronts, heat shimmer, short shadows.",
+          "characters_in_shot": [
+            "char_teen_scammer"
+          ],
+          "character_appearances": {
+            "char_teen_scammer": "Teen boy, graphic t-shirt, shorts, skate shoes, mid-air lunge toward the windshield, face tense with shock"
+          },
+          "resolved_t2i": "Interior POV from the driver’s seat at eye level in harsh midday sun: the windshield is still intact, glare dicing across the glass. Teenage boy in a graphic T-shirt, shorts, and skate shoes; suspended in a mid-air lunge toward the windshield; face tense with shock. hangs mid-flight a split second from impact, arms tucked and knees bent, skateboard edge just dropping into the lower frame. Eyeline: Teenage boy in a graphic T-shirt, shorts, and skate shoes; suspended in a mid-air lunge toward the windshield; face tense with shock. locked on the glass, panic flickering. Power relationship: the incoming body dominates the frame, the car interior feels vulnerable. Environment glimpsed through the glass: sun-baked arterial, stucco storefronts, heat shimmer, short shadows.",
+          "resolved_ti2i": "Picture 1 is Teenage boy in a graphic T-shirt, shorts, and skate shoes; suspended in a mid-air lunge toward the windshield; face tense with shock..\nInterior POV from the driver’s seat at eye level in harsh midday sun: the windshield is still intact, glare dicing across the glass. Picture 1 hangs mid-flight a split second from impact, arms tucked and knees bent, skateboard edge just dropping into the lower frame. Eyeline: Picture 1 locked on the glass, panic flickering. Power relationship: the incoming body dominates the frame, the car interior feels vulnerable. Environment glimpsed through the glass: sun-baked arterial, stucco storefronts, heat shimmer, short shadows.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": {
+            "character_consistency": [
+              {
+                "asset_id": "char_teen_scammer",
+                "method": "ip_adapter_faceid",
+                "reference_image_paths": [
+                  "our_dataset/BetterCallSaul3/character_list/TeenScammer1/best.png"
+                ],
+                "weight": 0.85
+              }
+            ]
+          },
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Handheld jolt forward as the collision happens; <char_teen_scammer> slams onto the windshield, the board clips the hood and tumbles out of view. Cracks spiderweb explosively from the point of contact, safety glass granules tremble and sparkle in the sun. Mouth remains tightly closed. No speaking. Ambient motion: the whole cabin shakes, a wiper twitches, outside heat haze wobbles the strip beyond; the teen slides down out of frame, leaving a crazed lattice of cracks that become our fractured view. End with the POV settling through the shattered pattern toward the asphalt where the teen will land, motivating a cut to the exterior.",
+          "resolved_i2v": "Handheld jolt forward as the collision happens; Teenage boy in a graphic T-shirt, shorts, and skate shoes; suspended in a mid-air lunge toward the windshield; face tense with shock. slams onto the windshield, the board clips the hood and tumbles out of view. Cracks spiderweb explosively from the point of contact, safety glass granules tremble and sparkle in the sun. Mouth remains tightly closed. No speaking. Ambient motion: the whole cabin shakes, a wiper twitches, outside heat haze wobbles the strip beyond; the teen slides down out of frame, leaving a crazed lattice of cracks that become our fractured view. End with the POV settling through the shattered pattern toward the asphalt where the teen will land, motivating a cut to the exterior.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.8,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_02_teen_smashes_windshield_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_03_teen_screams_extortion",
+      "narrative_layer": {
+        "narrative_action": "The teen rolls onto the asphalt, clutches his leg, and screams while his friend rushes in filming.",
+        "emotional_beat": "feigned_distress",
+        "dialogue": {
+          "has_dialogue": true,
+          "speaker_asset_id": "char_teen_scammer",
+          "listener_asset_id": "char_saul",
+          "text": "My leg! You broke my leg!",
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 3.5,
+        "camera": {
+          "shot_scale": "MS",
+          "angle": "eye_level",
+          "movement": "handheld_slight_push_in"
+        },
+        "lighting": "high-noon harsh sunlight",
+        "environment_id": "loc_ext_sun_baked_street",
+        "entities": [
+          {
+            "asset_id": "char_teen_scammer",
+            "position": "center_fg",
+            "action_state": "clutching_leg_screaming"
+          },
+          {
+            "asset_id": "char_scammer_friend",
+            "position": "frame_right",
+            "action_state": "filming_with_smartphone"
+          },
+          {
+            "asset_id": "prop_smartphone",
+            "position": "frame_right",
+            "action_state": "recording"
+          },
+          {
+            "asset_id": "prop_battered_yellow_compact_car",
+            "position": "background_left",
+            "action_state": "stopped_at_roadside"
+          },
+          {
+            "asset_id": "prop_shattered_windshield",
+            "position": "background_left",
+            "action_state": "visible_shattered"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Albuquerque, New Mexico, USA — sun-baked urban arterial street (NOT coastal, NOT European/Mediterranean)",
+          "ERA LOCK: Contemporary (2020s) — summer, midday (NOT historical period)",
+          "FORBIDDEN: Mediterranean/European architecture (stone villages, Venetian canals, gondolas), Old European cobblestone streets, Olive trees, Ocean, beach, boardwalk, coastal scenery, Rain, snow, puddles, wet asphalt, umbrellas, Golden-hour or nighttime lighting, Vintage cars (pre-1990 classics), UK/EU license plates, right-hand drive vehicles, double-decker buses, Non-English-only signage (e.g., Mandarin-only billboards), Police on-scene, squad cars, sirens, arrests, Ambulance/gurney/EMT medical intervention, Graphic injury or blood, Payphones, CRT monitors, VHS camcorders, cassette recorders, Flip phones, Quiet suburban cul-de-sac, picket-fence neighborhoods, Skyscraper downtown canyon (e.g., Manhattan), Historical costumes or mid-century wardrobes, Snow-capped mountains visible nearby, Palm-lined boulevards and tropical vegetation, Rural dirt road or farm setting",
+          "COLOR_PALETTE: sun-bleached warm tones, hard mid-day contrast, asphalt grays",
+          "LIGHTING: high noon, harsh direct sunlight, short shadows, heat shimmer",
+          "ARCHITECTURE: Southwestern US low-rise commercial strip: stucco, brick, chain storefronts, parking lot edges",
+          "ENVIRONMENT: dry inland urban street, clear sky, heat haze",
+          "VEHICLES: contemporary US sedans/SUVs (2015–2026), US license plates",
+          "WARDROBE: summer streetwear: t-shirts, shorts, skate shoes, caps",
+          "PROPS: modern skateboards, smartphones",
+          "SIGNAGE_LANGUAGE: English primary; bilingual English/Spanish acceptable",
+          "CAMERA_STYLE: handheld, kinetic, aggressive framings, chaotic coverage",
+          "TONE: confrontational, darkly comedic, chaotic",
+          "SOUND_DESIGN: street noise, heated shouting, skateboard wheels on asphalt; no sirens",
+          "GEOGRAPHY: Albuquerque, New Mexico, USA",
+          "STREET_TYPE: wide sun-baked arterial with strip-mall frontage, minimal shade",
+          "DAY_PART: midday (12–2pm), peak summer heat",
+          "Shattered windshield visible on car in background",
+          "Smartphone filming clearly visible",
+          "Teen clutches leg on hot asphalt",
+          "At least one skateboard near teen or friend if visible"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Eye-level handheld MS under brutal midday sun. <char_teen_scammer> sprawls center foreground on the hot asphalt, one elbow propping him up as both hands hover over a bent knee, chest expanded a beat before shouting. Eyeline: he angles toward offscreen left where the driver would be. At frame right, <char_scammer_friend> leans in with <prop_smartphone> lifted, lens aimed at <char_teen_scammer> and the car beyond, shoulder tight and ready to bolt. Power dynamic: the phone’s gaze asserts pressure while the teen performs vulnerability. In background left, <prop_battered_yellow_compact_car> sits roadside with <prop_shattered_windshield> glittering; a skateboard lies nearby on the ground; heat shimmer washes the low-rise strip.",
+          "characters_in_shot": [
+            "char_teen_scammer",
+            "char_scammer_friend"
+          ],
+          "character_appearances": {
+            "char_teen_scammer": "Teen boy, scuffed graphic t-shirt and shorts, scraped and dusty, on hot asphalt gripping knee, overacting panic",
+            "char_scammer_friend": "Teen boy, t-shirt, cap, skate shoes, crouched at the edge with smartphone raised, tense and intent"
+          },
+          "resolved_t2i": "Eye-level handheld MS under brutal midday sun. Dusty, scraped teen boy in a scuffed graphic tee and shorts, sprawled on searing asphalt, gripping his knee and overplaying panic with theatrical urgency. sprawls center foreground on the hot asphalt, one elbow propping him up as both hands hover over a bent knee, chest expanded a beat before shouting. Eyeline: he angles toward offscreen left where the driver would be. At frame right, Teen boy in t-shirt, cap, and skate shoes, crouched at the edge with smartphone raised, taut and intent, ready to capture and bolt. leans in with <prop_smartphone> lifted, lens aimed at Dusty, scraped teen boy in a scuffed graphic tee and shorts, sprawled on searing asphalt, gripping his knee and overplaying panic with theatrical urgency. and the car beyond, shoulder tight and ready to bolt. Power dynamic: the phone’s gaze asserts pressure while the teen performs vulnerability. In background left, <prop_battered_yellow_compact_car> sits roadside with <prop_shattered_windshield> glittering; a skateboard lies nearby on the ground; heat shimmer washes the low-rise strip.",
+          "resolved_ti2i": "Picture 1 is Dusty, scraped teen boy in a scuffed graphic tee and shorts, sprawled on searing asphalt, gripping his knee and overplaying panic with theatrical urgency.; Picture 2 is Teen boy in t-shirt, cap, and skate shoes, crouched at the edge with smartphone raised, taut and intent, ready to capture and bolt..\nEye-level handheld MS under brutal midday sun. Picture 1 sprawls center foreground on the hot asphalt, one elbow propping him up as both hands hover over a bent knee, chest expanded a beat before shouting. Eyeline: he angles toward offscreen left where the driver would be. At frame right, Picture 2 leans in with <prop_smartphone> lifted, lens aimed at Picture 1 and the car beyond, shoulder tight and ready to bolt. Power dynamic: the phone’s gaze asserts pressure while the teen performs vulnerability. In background left, <prop_battered_yellow_compact_car> sits roadside with <prop_shattered_windshield> glittering; a skateboard lies nearby on the ground; heat shimmer washes the low-rise strip.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": {
+            "character_consistency": [
+              {
+                "asset_id": "char_teen_scammer",
+                "method": "ip_adapter_faceid",
+                "reference_image_paths": [
+                  "our_dataset/BetterCallSaul3/character_list/TeenScammer1/best.png"
+                ],
+                "weight": 0.85
+              }
+            ]
+          },
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Handheld slight push-in on the teen. <char_teen_scammer> clutches his leg and thrashes for effect, head whipping toward offscreen left as he yells, “My leg! You broke my leg!” Mouth moves to match speech. <char_scammer_friend> creeps closer, tilting <prop_smartphone> to keep both the teen and the car in frame, darting anxious glances toward offscreen left anticipating confrontation. Ambient motion: hot air ripples, a contemporary SUV murmurs past in the distance with a US plate, grit and paper flecks skitter on the asphalt. End with the teen’s gaze snapping upward toward the left, creating space for an approaching figure to enter in the next shot.",
+          "resolved_i2v": "Handheld slight push-in on the teen. Dusty, scraped teen boy in a scuffed graphic tee and shorts, sprawled on searing asphalt, gripping his knee and overplaying panic with theatrical urgency. clutches his leg and thrashes for effect, head whipping toward offscreen left as he yells, “My leg! You broke my leg!” Mouth moves to match speech. Teen boy in t-shirt, cap, and skate shoes, crouched at the edge with smartphone raised, taut and intent, ready to capture and bolt. creeps closer, tilting <prop_smartphone> to keep both the teen and the car in frame, darting anxious glances toward offscreen left anticipating confrontation. Ambient motion: hot air ripples, a contemporary SUV murmurs past in the distance with a US plate, grit and paper flecks skitter on the asphalt. End with the teen’s gaze snapping upward toward the left, creating space for an approaching figure to enter in the next shot.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.5,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": true,
+            "sync_method": "musetalk",
+            "audio_source_ref": "assembly_layer.audio_tracks[0]"
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_03_teen_screams_extortion_dialogue",
+            "type": "dialogue",
+            "source": "tts_default",
+            "description": "My leg! You broke my leg!"
+          },
+          {
+            "track_id": "shot_03_teen_screams_extortion_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_04_saul_storms_out",
+      "narrative_layer": {
+        "narrative_action": "Saul bursts out of the car in a rage and strides toward the teen.",
+        "emotional_beat": "anger_surge",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 2.5,
+        "camera": {
+          "shot_scale": "MLS",
+          "angle": "low",
+          "movement": "handheld_follow"
+        },
+        "lighting": "high-noon harsh sunlight",
+        "environment_id": "loc_ext_sun_baked_street",
+        "entities": [
+          {
+            "asset_id": "char_saul",
+            "position": "frame_left",
+            "action_state": "striding_forward_raging"
+          },
+          {
+            "asset_id": "prop_battered_yellow_compact_car",
+            "position": "background_left",
+            "action_state": "driver_door_open"
+          },
+          {
+            "asset_id": "char_teen_scammer",
+            "position": "frame_right_midground",
+            "action_state": "on_ground_looking_up"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Albuquerque, New Mexico, USA — sun-baked urban arterial street (NOT coastal, NOT European/Mediterranean)",
+          "ERA LOCK: Contemporary (2020s) — summer, midday (NOT historical period)",
+          "FORBIDDEN: Mediterranean/European architecture (stone villages, Venetian canals, gondolas), Old European cobblestone streets, Olive trees, Ocean, beach, boardwalk, coastal scenery, Rain, snow, puddles, wet asphalt, umbrellas, Golden-hour or nighttime lighting, Vintage cars (pre-1990 classics), UK/EU license plates, right-hand drive vehicles, double-decker buses, Non-English-only signage (e.g., Mandarin-only billboards), Police on-scene, squad cars, sirens, arrests, Ambulance/gurney/EMT medical intervention, Graphic injury or blood, Payphones, CRT monitors, VHS camcorders, cassette recorders, Flip phones, Quiet suburban cul-de-sac, picket-fence neighborhoods, Skyscraper downtown canyon (e.g., Manhattan), Historical costumes or mid-century wardrobes, Snow-capped mountains visible nearby, Palm-lined boulevards and tropical vegetation, Rural dirt road or farm setting",
+          "COLOR_PALETTE: sun-bleached warm tones, hard mid-day contrast, asphalt grays",
+          "LIGHTING: high noon, harsh direct sunlight, short shadows, heat shimmer",
+          "ARCHITECTURE: Southwestern US low-rise commercial strip: stucco, brick, chain storefronts, parking lot edges",
+          "ENVIRONMENT: dry inland urban street, clear sky, heat haze",
+          "VEHICLES: contemporary US sedans/SUVs (2015–2026), US license plates",
+          "WARDROBE: summer streetwear: t-shirts, shorts, skate shoes, caps",
+          "PROPS: modern skateboards, smartphones",
+          "SIGNAGE_LANGUAGE: English primary; bilingual English/Spanish acceptable",
+          "CAMERA_STYLE: handheld, kinetic, aggressive framings, chaotic coverage",
+          "TONE: confrontational, darkly comedic, chaotic",
+          "SOUND_DESIGN: street noise, heated shouting, skateboard wheels on asphalt; no sirens",
+          "GEOGRAPHY: Albuquerque, New Mexico, USA",
+          "STREET_TYPE: wide sun-baked arterial with strip-mall frontage, minimal shade",
+          "DAY_PART: midday (12–2pm), peak summer heat",
+          "Saul exits from driver side of yellow car with red door visible",
+          "Car stays stopped at road edge",
+          "Distance between car and teen consistent with prior shot"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Low-angle handheld MLS in hard noon light. <char_saul> is mid-stride outside the open driver door of <prop_battered_yellow_compact_car> (the mismatched red door ajar), torso lunging toward <char_teen_scammer>. Eyeline: <char_saul> glares down at the teen; <char_teen_scammer> looks up from the ground, shoulders caved. Power dynamic: <char_saul> fills the near space, dominating; the teen occupies a smaller, vulnerable footprint frame right. The sun-baked arterial and stucco storefronts shimmer in the background.",
+          "characters_in_shot": [
+            "char_saul",
+            "char_teen_scammer"
+          ],
+          "character_appearances": {
+            "char_saul": "Older man, short-sleeve button-down and worn slacks, out of the car, wiry and furious, shoulders pitched forward, fists clenched",
+            "char_teen_scammer": "Teen boy, on the ground propped on one elbow, wary and shrinking, hands near knee"
+          },
+          "resolved_t2i": "Low-angle handheld MLS in hard noon light. Older man in a short-sleeve button-down and worn slacks, out of the car; wiry and furious, shoulders pitched forward, fists clenched is mid-stride outside the open driver door of <prop_battered_yellow_compact_car> (the mismatched red door ajar), torso lunging toward Teen boy on the ground, propped on one elbow; wary and shrinking, hands near his knee. Eyeline: Older man in a short-sleeve button-down and worn slacks, out of the car; wiry and furious, shoulders pitched forward, fists clenched glares down at the teen; Teen boy on the ground, propped on one elbow; wary and shrinking, hands near his knee looks up from the ground, shoulders caved in. Power dynamic: Older man in a short-sleeve button-down and worn slacks, out of the car; wiry and furious, shoulders pitched forward, fists clenched fills the near space, dominating; the teen occupies a smaller, vulnerable footprint at frame right. The sun-baked arterial and stucco storefronts shimmer in the background.",
+          "resolved_ti2i": "Picture 1 is Older man in a short-sleeve button-down and worn slacks, out of the car; wiry and furious, shoulders pitched forward, fists clenched; Picture 2 is Teen boy on the ground, propped on one elbow; wary and shrinking, hands near his knee.\nLow-angle handheld MLS in hard noon light. Picture 1 is mid-stride outside the open driver door of <prop_battered_yellow_compact_car> (the mismatched red door ajar), torso lunging toward Picture 2. Eyeline: Picture 1 glares down at the teen; Picture 2 looks up from the ground, shoulders caved in. Power dynamic: Picture 1 fills the near space, dominating; the teen occupies a smaller, vulnerable footprint at frame right. The sun-baked arterial and stucco storefronts shimmer in the background.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": {
+            "character_consistency": [
+              {
+                "asset_id": "char_saul",
+                "method": "ip_adapter_faceid",
+                "reference_image_paths": [
+                  "our_dataset/BetterCallSaul3/character_list/Saul/best.png"
+                ],
+                "weight": 0.85
+              },
+              {
+                "asset_id": "char_teen_scammer",
+                "method": "ip_adapter_faceid",
+                "reference_image_paths": [
+                  "our_dataset/BetterCallSaul3/character_list/TeenScammer1/best.png"
+                ],
+                "weight": 0.85
+              }
+            ]
+          },
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Handheld follow surges after <char_saul> as he stomps forward, the loose door rocking on its hinges. <char_teen_scammer> scoots back on his palms, free hand lifting in a warding gesture, eyes wide. Mouth remains tightly closed. No speaking. Ambient motion: metal creaks, cicadas rasp, distant traffic hums, heat haze ripples over the asphalt. End with the camera dipping to frame <char_saul>'s leg drawing back near the teen’s knee, aligning for the low-angle impact in the next shot.",
+          "resolved_i2v": "Handheld follow surges after Older man in a short-sleeve button-down and worn slacks, out of the car; wiry and furious, shoulders pitched forward, fists clenched as he stomps forward, the loose door rocking on its hinges. Teen boy on the ground, propped on one elbow; wary and shrinking, hands near his knee scoots back on his palms, free hand lifting in a warding gesture, eyes wide in alarm. Mouth remains tightly closed. No speaking. Ambient motion: metal creaks, cicadas rasp, distant traffic hums, heat haze ripples over the asphalt. End with the camera dipping to frame Older man in a short-sleeve button-down and worn slacks, out of the car; wiry and furious, shoulders pitched forward, fists clenched's leg drawing back near the teen’s knee, aligning for the low-angle impact in the next shot.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.8,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_04_saul_storms_out_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_05_saul_kicks_knee",
+      "narrative_layer": {
+        "narrative_action": "Saul kicks the teen’s supposedly broken knee.",
+        "emotional_beat": "brutal_reversal",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 2.2,
+        "camera": {
+          "shot_scale": "MCU",
+          "angle": "low",
+          "movement": "handheld_whip_pan"
+        },
+        "lighting": "high-noon harsh sunlight",
+        "environment_id": "loc_ext_sun_baked_street",
+        "entities": [
+          {
+            "asset_id": "char_saul",
+            "position": "frame_left_fg",
+            "action_state": "kicking_forward"
+          },
+          {
+            "asset_id": "char_teen_scammer",
+            "position": "frame_right_fg",
+            "action_state": "jerking_back_clutching_knee"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Albuquerque, New Mexico, USA — sun-baked urban arterial street (NOT coastal, NOT European/Mediterranean)",
+          "ERA LOCK: Contemporary (2020s) — summer, midday (NOT historical period)",
+          "FORBIDDEN: Mediterranean/European architecture (stone villages, Venetian canals, gondolas), Old European cobblestone streets, Olive trees, Ocean, beach, boardwalk, coastal scenery, Rain, snow, puddles, wet asphalt, umbrellas, Golden-hour or nighttime lighting, Vintage cars (pre-1990 classics), UK/EU license plates, right-hand drive vehicles, double-decker buses, Non-English-only signage (e.g., Mandarin-only billboards), Police on-scene, squad cars, sirens, arrests, Ambulance/gurney/EMT medical intervention, Graphic injury or blood, Payphones, CRT monitors, VHS camcorders, cassette recorders, Flip phones, Quiet suburban cul-de-sac, picket-fence neighborhoods, Skyscraper downtown canyon (e.g., Manhattan), Historical costumes or mid-century wardrobes, Snow-capped mountains visible nearby, Palm-lined boulevards and tropical vegetation, Rural dirt road or farm setting",
+          "COLOR_PALETTE: sun-bleached warm tones, hard mid-day contrast, asphalt grays",
+          "LIGHTING: high noon, harsh direct sunlight, short shadows, heat shimmer",
+          "ARCHITECTURE: Southwestern US low-rise commercial strip: stucco, brick, chain storefronts, parking lot edges",
+          "ENVIRONMENT: dry inland urban street, clear sky, heat haze",
+          "VEHICLES: contemporary US sedans/SUVs (2015–2026), US license plates",
+          "WARDROBE: summer streetwear: t-shirts, shorts, skate shoes, caps",
+          "PROPS: modern skateboards, smartphones",
+          "SIGNAGE_LANGUAGE: English primary; bilingual English/Spanish acceptable",
+          "CAMERA_STYLE: handheld, kinetic, aggressive framings, chaotic coverage",
+          "TONE: confrontational, darkly comedic, chaotic",
+          "SOUND_DESIGN: street noise, heated shouting, skateboard wheels on asphalt; no sirens",
+          "GEOGRAPHY: Albuquerque, New Mexico, USA",
+          "STREET_TYPE: wide sun-baked arterial with strip-mall frontage, minimal shade",
+          "DAY_PART: midday (12–2pm), peak summer heat",
+          "Kick lands on teen's knee — no graphic injury or blood",
+          "Low angle focused on knee and Saul's kick",
+          "Harsh sunlight highlights impact"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Low-angle MCU, harsh sunlight carving sharp-edged shadows. <char_saul>'s shin is cocked back, foot hovering inches from <char_teen_scammer>'s knee, weight forward and fingers splayed for balance. <char_teen_scammer> hunches defensively, hands clasping the supposedly broken knee, shoulders tight. Eyelines: <char_saul> glares down at the target; the teen's eyes dart to the incoming foot. The hot asphalt and heat haze vibrate around them.",
+          "characters_in_shot": [
+            "char_saul",
+            "char_teen_scammer"
+          ],
+          "character_appearances": {
+            "char_saul": "Older man, short-sleeve shirt, sweat-damp, leg tensed mid-kick, face hard and unflinching",
+            "char_teen_scammer": "Teen boy, hands wrapped around knee, bracing on elbows, startled and recoiling"
+          },
+          "resolved_t2i": "Low-angle MCU, harsh sunlight carving sharp-edged shadows. Older man in a short-sleeve shirt, sweat-damp; leg coiled mid-kick; face set and unflinching.'s shin drawn back, foot poised inches from Teen boy with hands cinched around his knee, braced on elbows; startled, recoiling.'s knee; weight pitched forward, fingers splayed to lock balance. Teen boy with hands cinched around his knee, braced on elbows; startled, recoiling. hunches defensively, clutching the supposedly broken knee, shoulders cinched tight. Eyelines: Older man in a short-sleeve shirt, sweat-damp; leg coiled mid-kick; face set and unflinching. glares down at the target; the teen's eyes dart to the incoming foot. Blistered asphalt shimmers with heat haze, the air vibrating around them.",
+          "resolved_ti2i": "Picture 1 is Older man in a short-sleeve shirt, sweat-damp; leg coiled mid-kick; face set and unflinching.; Picture 2 is Teen boy with hands cinched around his knee, braced on elbows; startled, recoiling..\nLow-angle MCU, harsh sunlight carving sharp-edged shadows. Picture 1's shin drawn back, foot poised inches from Picture 2's knee; weight pitched forward, fingers splayed to lock balance. Picture 2 hunches defensively, clutching the supposedly broken knee, shoulders cinched tight. Eyelines: Picture 1 glares down at the target; the teen's eyes dart to the incoming foot. Blistered asphalt shimmers with heat haze, the air vibrating around them.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": {
+            "character_consistency": [
+              {
+                "asset_id": "char_saul",
+                "method": "ip_adapter_faceid",
+                "reference_image_paths": [
+                  "our_dataset/BetterCallSaul3/character_list/Saul/best.png"
+                ],
+                "weight": 0.85
+              },
+              {
+                "asset_id": "char_teen_scammer",
+                "method": "ip_adapter_faceid",
+                "reference_image_paths": [
+                  "our_dataset/BetterCallSaul3/character_list/TeenScammer1/best.png"
+                ],
+                "weight": 0.85
+              }
+            ]
+          },
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Handheld whip-pan snaps into the moment of contact as <char_saul>'s foot drives into the teen's knee area; <char_teen_scammer> jerks backward in shock, palms slapping the pavement, the ruse faltering. Mouth remains tightly closed. No speaking. Ambient motion: a dull thud carries, dust puffs from the ground, a skateboard nearby rattles and rolls a few inches before settling. Finish with <char_saul> planting his foot and squaring up, torso turning toward both kids to set the eyeline for an imminent over-the-shoulders confrontation.",
+          "resolved_i2v": "Handheld whip-pan snaps to the moment of impact as Older man in a short-sleeve shirt, sweat-damp; leg coiled mid-kick; face set and unflinching.'s foot drives into the teen's knee area; Teen boy with hands cinched around his knee, braced on elbows; startled, recoiling. recoils in shock, palms smacking the pavement, the ruse faltering. Mouth remains tightly closed. No speaking. Ambient motion: a dull thud carries, dust puffs from the ground, a skateboard nearby rattles and rolls a few inches before settling. Finish with Older man in a short-sleeve shirt, sweat-damp; leg coiled mid-kick; face set and unflinching. planting his foot and squaring up, torso turning toward both kids to set the eyeline for an imminent over-the-shoulders confrontation.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.5,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_05_saul_kicks_knee_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_06_saul_taunts_lawyer",
+      "narrative_layer": {
+        "narrative_action": "Saul faces the scammer kids and yells, mocking their hustle and declaring he is a lawyer.",
+        "emotional_beat": "taunting_authority",
+        "dialogue": {
+          "has_dialogue": true,
+          "speaker_asset_id": "char_saul",
+          "listener_asset_id": "group",
+          "text": "Zero point zero for choice of victim! I'm a lawyer!",
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 3.2,
+        "camera": {
+          "shot_scale": "OTS",
+          "angle": "eye_level",
+          "movement": "handheld_slight_push_in"
+        },
+        "lighting": "high-noon harsh sunlight",
+        "environment_id": "loc_ext_sun_baked_street",
+        "entities": [
+          {
+            "asset_id": "char_teen_scammer",
+            "position": "frame_left_fg",
+            "action_state": "shoulder_foreground"
+          },
+          {
+            "asset_id": "char_scammer_friend",
+            "position": "frame_right_fg",
+            "action_state": "shoulder_foreground_holding_phone"
+          },
+          {
+            "asset_id": "prop_smartphone",
+            "position": "frame_right_fg",
+            "action_state": "held_up_recording"
+          },
+          {
+            "asset_id": "char_saul",
+            "position": "center_mg",
+            "action_state": "yelling_pointing"
+          },
+          {
+            "asset_id": "prop_skateboards",
+            "position": "frame_left_mg",
+            "action_state": "on_ground_near_kids"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Albuquerque, New Mexico, USA — sun-baked urban arterial street (NOT coastal, NOT European/Mediterranean)",
+          "ERA LOCK: Contemporary (2020s) — summer, midday (NOT historical period)",
+          "FORBIDDEN: Mediterranean/European architecture (stone villages, Venetian canals, gondolas), Old European cobblestone streets, Olive trees, Ocean, beach, boardwalk, coastal scenery, Rain, snow, puddles, wet asphalt, umbrellas, Golden-hour or nighttime lighting, Vintage cars (pre-1990 classics), UK/EU license plates, right-hand drive vehicles, double-decker buses, Non-English-only signage (e.g., Mandarin-only billboards), Police on-scene, squad cars, sirens, arrests, Ambulance/gurney/EMT medical intervention, Graphic injury or blood, Payphones, CRT monitors, VHS camcorders, cassette recorders, Flip phones, Quiet suburban cul-de-sac, picket-fence neighborhoods, Skyscraper downtown canyon (e.g., Manhattan), Historical costumes or mid-century wardrobes, Snow-capped mountains visible nearby, Palm-lined boulevards and tropical vegetation, Rural dirt road or farm setting",
+          "COLOR_PALETTE: sun-bleached warm tones, hard mid-day contrast, asphalt grays",
+          "LIGHTING: high noon, harsh direct sunlight, short shadows, heat shimmer",
+          "ARCHITECTURE: Southwestern US low-rise commercial strip: stucco, brick, chain storefronts, parking lot edges",
+          "ENVIRONMENT: dry inland urban street, clear sky, heat haze",
+          "VEHICLES: contemporary US sedans/SUVs (2015–2026), US license plates",
+          "WARDROBE: summer streetwear: t-shirts, shorts, skate shoes, caps",
+          "PROPS: modern skateboards, smartphones",
+          "SIGNAGE_LANGUAGE: English primary; bilingual English/Spanish acceptable",
+          "CAMERA_STYLE: handheld, kinetic, aggressive framings, chaotic coverage",
+          "TONE: confrontational, darkly comedic, chaotic",
+          "SOUND_DESIGN: street noise, heated shouting, skateboard wheels on asphalt; no sirens",
+          "GEOGRAPHY: Albuquerque, New Mexico, USA",
+          "STREET_TYPE: wide sun-baked arterial with strip-mall frontage, minimal shade",
+          "DAY_PART: midday (12–2pm), peak summer heat",
+          "Saul faces both kids; OTS framing from kids' shoulder",
+          "Smartphone still in friend’s hand",
+          "Skateboards present"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Over-the-shoulder framing from the kids: the shoulders of <char_teen_scammer> at left FG and <char_scammer_friend> at right FG rim the view, <prop_smartphone> lifted and pointed toward <char_saul> who stands center midground. Under harsh noon light, <char_saul> leans forward with a raised finger, chest filled, mouth just about to launch the taunt. Eyelines: <char_saul> drills straight at the pair; the kids hover backward, friend’s shoulder tightened as he aims the phone. <prop_skateboards> rest on the ground near their feet. The stucco strip and parking-lot edge bleach out behind in heat shimmer.",
+          "characters_in_shot": [
+            "char_teen_scammer",
+            "char_scammer_friend",
+            "char_saul"
+          ],
+          "character_appearances": {
+            "char_teen_scammer": "Teen boy, t-shirt and shorts, shoulder foreground left, tense and defensive",
+            "char_scammer_friend": "Teen boy, t-shirt, cap, skate shoes, shoulder foreground right, holding smartphone, skittish",
+            "char_saul": "Older man, short-sleeve button-down, center midground, pointing, loud and commanding"
+          },
+          "resolved_t2i": "Over-the-shoulder framing from the kids: the shoulders of Teen boy in a T-shirt and shorts; left-foreground shoulder in frame; tense, guarded, defensive. at left FG and Teen boy in a T-shirt, cap, and skate shoes; right-foreground shoulder in frame; holding a smartphone, skittish and jittery. at right FG rim the view, <prop_smartphone> lifted and pointed toward Older man in a short-sleeve button-down; center midground; pointing with authority, loud and commanding. who stands center midground. Under harsh noon light, Older man in a short-sleeve button-down; center midground; pointing with authority, loud and commanding. leans forward with a raised finger, chest braced, mouth poised to fire the taunt. Eyelines: Older man in a short-sleeve button-down; center midground; pointing with authority, loud and commanding. drills straight at the pair; the kids tilt back on their heels, the friend’s shoulder tightened as he aims the phone. <prop_skateboards> rest on the ground near their feet. The stucco strip and parking-lot edge are sun-bleached, wavering in a heat shimmer.",
+          "resolved_ti2i": "Picture 1 is Teen boy in a T-shirt and shorts; left-foreground shoulder in frame; tense, guarded, defensive.; Picture 2 is Teen boy in a T-shirt, cap, and skate shoes; right-foreground shoulder in frame; holding a smartphone, skittish and jittery.; Picture 3 is Older man in a short-sleeve button-down; center midground; pointing with authority, loud and commanding..\nOver-the-shoulder framing from the kids: the shoulders of Picture 1 at left FG and Picture 2 at right FG rim the view, <prop_smartphone> lifted and pointed toward Picture 3 who stands center midground. Under harsh noon light, Picture 3 leans forward with a raised finger, chest braced, mouth poised to fire the taunt. Eyelines: Picture 3 drills straight at the pair; the kids tilt back on their heels, the friend’s shoulder tightened as he aims the phone. <prop_skateboards> rest on the ground near their feet. The stucco strip and parking-lot edge are sun-bleached, wavering in a heat shimmer.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": {
+            "character_consistency": [
+              {
+                "asset_id": "char_teen_scammer",
+                "method": "ip_adapter_faceid",
+                "reference_image_paths": [
+                  "our_dataset/BetterCallSaul3/character_list/TeenScammer1/best.png"
+                ],
+                "weight": 0.85
+              },
+              {
+                "asset_id": "char_saul",
+                "method": "ip_adapter_faceid",
+                "reference_image_paths": [
+                  "our_dataset/BetterCallSaul3/character_list/Saul/best.png"
+                ],
+                "weight": 0.85
+              }
+            ]
+          },
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Handheld slight push-in toward <char_saul> through the kids’ shoulders. <char_saul> steps half a pace forward and delivers, jabbing a finger as he declares his line with relish. Mouth moves to match speech. <char_teen_scammer> and <char_scammer_friend> exchange a quick alarmed glance; <char_scammer_friend>’s grip on <prop_smartphone> wobbles, the framed image tilting as his nerve falters. Ambient motion: hot wind lifts shirt hems, distant engines drone, a skateboard wheel spins lazily then stops. End with the kids starting to pivot out of the OTS, telegraphing their imminent flight.",
+          "resolved_i2v": "Handheld slight push-in toward Older man in a short-sleeve button-down; center midground; pointing with authority, loud and commanding. through the kids’ shoulders. Older man in a short-sleeve button-down; center midground; pointing with authority, loud and commanding. steps half a pace forward and delivers, jabbing a finger as he spits the line with relish. Mouth moves to match speech. Teen boy in a T-shirt and shorts; left-foreground shoulder in frame; tense, guarded, defensive. and Teen boy in a T-shirt, cap, and skate shoes; right-foreground shoulder in frame; holding a smartphone, skittish and jittery. exchange a quick, alarmed glance; Teen boy in a T-shirt, cap, and skate shoes; right-foreground shoulder in frame; holding a smartphone, skittish and jittery.’s grip on <prop_smartphone> wobbles, the framed image tilting as his nerve falters. Ambient motion: hot wind flicks shirt hems, distant engines drone, a skateboard wheel spins lazily then stops. End with the kids starting to pivot out of the OTS, telegraphing their imminent flight.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.5,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": true,
+            "sync_method": "musetalk",
+            "audio_source_ref": "assembly_layer.audio_tracks[0]"
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_06_saul_taunts_lawyer_dialogue",
+            "type": "dialogue",
+            "source": "tts_default",
+            "description": "Zero point zero for choice of victim! I'm a lawyer!"
+          },
+          {
+            "track_id": "shot_06_saul_taunts_lawyer_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_07_scammers_scramble_flee",
+      "narrative_layer": {
+        "narrative_action": "The two scammer kids drop the act, grab their skateboards, and sprint away.",
+        "emotional_beat": "panic_flight",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 2.8,
+        "camera": {
+          "shot_scale": "LS",
+          "angle": "eye_level",
+          "movement": "handheld_pan_right"
+        },
+        "lighting": "high-noon harsh sunlight",
+        "environment_id": "loc_ext_sun_baked_street",
+        "entities": [
+          {
+            "asset_id": "char_teen_scammer",
+            "position": "frame_right_bg",
+            "action_state": "sprinting_with_skateboard"
+          },
+          {
+            "asset_id": "char_scammer_friend",
+            "position": "frame_left_bg",
+            "action_state": "sprinting_with_skateboard"
+          },
+          {
+            "asset_id": "prop_skateboards",
+            "position": "center_bg",
+            "action_state": "carried_while_running"
+          },
+          {
+            "asset_id": "char_saul",
+            "position": "frame_left_fg",
+            "action_state": "advancing_shouting"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Albuquerque, New Mexico, USA — sun-baked urban arterial street (NOT coastal, NOT European/Mediterranean)",
+          "ERA LOCK: Contemporary (2020s) — summer, midday (NOT historical period)",
+          "FORBIDDEN: Mediterranean/European architecture (stone villages, Venetian canals, gondolas), Old European cobblestone streets, Olive trees, Ocean, beach, boardwalk, coastal scenery, Rain, snow, puddles, wet asphalt, umbrellas, Golden-hour or nighttime lighting, Vintage cars (pre-1990 classics), UK/EU license plates, right-hand drive vehicles, double-decker buses, Non-English-only signage (e.g., Mandarin-only billboards), Police on-scene, squad cars, sirens, arrests, Ambulance/gurney/EMT medical intervention, Graphic injury or blood, Payphones, CRT monitors, VHS camcorders, cassette recorders, Flip phones, Quiet suburban cul-de-sac, picket-fence neighborhoods, Skyscraper downtown canyon (e.g., Manhattan), Historical costumes or mid-century wardrobes, Snow-capped mountains visible nearby, Palm-lined boulevards and tropical vegetation, Rural dirt road or farm setting",
+          "COLOR_PALETTE: sun-bleached warm tones, hard mid-day contrast, asphalt grays",
+          "LIGHTING: high noon, harsh direct sunlight, short shadows, heat shimmer",
+          "ARCHITECTURE: Southwestern US low-rise commercial strip: stucco, brick, chain storefronts, parking lot edges",
+          "ENVIRONMENT: dry inland urban street, clear sky, heat haze",
+          "VEHICLES: contemporary US sedans/SUVs (2015–2026), US license plates",
+          "WARDROBE: summer streetwear: t-shirts, shorts, skate shoes, caps",
+          "PROPS: modern skateboards, smartphones",
+          "SIGNAGE_LANGUAGE: English primary; bilingual English/Spanish acceptable",
+          "CAMERA_STYLE: handheld, kinetic, aggressive framings, chaotic coverage",
+          "TONE: confrontational, darkly comedic, chaotic",
+          "SOUND_DESIGN: street noise, heated shouting, skateboard wheels on asphalt; no sirens",
+          "GEOGRAPHY: Albuquerque, New Mexico, USA",
+          "STREET_TYPE: wide sun-baked arterial with strip-mall frontage, minimal shade",
+          "DAY_PART: midday (12–2pm), peak summer heat",
+          "Both kids flee carrying skateboards",
+          "Movement direction consistent with previous positions (away from Saul and car)"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Eye-level handheld LS in blistering sun. <char_teen_scammer> and <char_scammer_friend> crouch a beat before launch, each gripping a skateboard, weight pitched forward toward frame right. In the foreground left, <char_saul> leans into the near space mid-advance, one arm extended, posture threatening. Eyelines: the kids glance back nervously at <char_saul> as they coil to flee; <char_saul> fixes on their escape route. Power dynamic: kids small and retreating, <char_saul> commands the foreground. The wide arterial and low-rise strip ripple with heat haze.",
+          "characters_in_shot": [
+            "char_teen_scammer",
+            "char_scammer_friend",
+            "char_saul"
+          ],
+          "character_appearances": {
+            "char_teen_scammer": "Teen boy, t-shirt and shorts, sprinting with skateboard clamped under arm, panicked",
+            "char_scammer_friend": "Teen boy, t-shirt and cap, sprinting with skateboard under arm, looking over shoulder, rattled",
+            "char_saul": "Older man, advancing with sharp strides in foreground, aggressive posture, predatory focus"
+          },
+          "resolved_t2i": "Eye-level handheld LS in blistering sun. Teen boy, T-shirt and shorts; sprinting with a skateboard clamped under his arm, panic-stricken. and Teen boy, T-shirt and cap; sprinting with a skateboard under his arm, glancing over his shoulder, rattled. crouch for a beat before launching, each clamping a skateboard, torsos pitched forward toward frame right. In the foreground left, Older man in the foreground, driving forward in sharp strides, posture aggressive, focus predatory. drives into the near space mid-advance, one arm extended, posture openly threatening. Eyelines: the kids dart panicked glances back at Older man in the foreground, driving forward in sharp strides, posture aggressive, focus predatory. as they coil to bolt; Older man in the foreground, driving forward in sharp strides, posture aggressive, focus predatory. locks onto their escape route. Power dynamic: kids small and retreating, Older man in the foreground, driving forward in sharp strides, posture aggressive, focus predatory. commands the foreground. The wide arterial and low-rise strip ripple with heat haze.",
+          "resolved_ti2i": "Picture 1 is Teen boy, T-shirt and shorts; sprinting with a skateboard clamped under his arm, panic-stricken.; Picture 2 is Teen boy, T-shirt and cap; sprinting with a skateboard under his arm, glancing over his shoulder, rattled.; Picture 3 is Older man in the foreground, driving forward in sharp strides, posture aggressive, focus predatory..\nEye-level handheld LS in blistering sun. Picture 1 and Picture 2 crouch for a beat before launching, each clamping a skateboard, torsos pitched forward toward frame right. In the foreground left, Picture 3 drives into the near space mid-advance, one arm extended, posture openly threatening. Eyelines: the kids dart panicked glances back at Picture 3 as they coil to bolt; Picture 3 locks onto their escape route. Power dynamic: kids small and retreating, Picture 3 commands the foreground. The wide arterial and low-rise strip ripple with heat haze.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": {
+            "character_consistency": [
+              {
+                "asset_id": "char_teen_scammer",
+                "method": "ip_adapter_faceid",
+                "reference_image_paths": [
+                  "our_dataset/BetterCallSaul3/character_list/TeenScammer1/best.png"
+                ],
+                "weight": 0.85
+              },
+              {
+                "asset_id": "char_saul",
+                "method": "ip_adapter_faceid",
+                "reference_image_paths": [
+                  "our_dataset/BetterCallSaul3/character_list/Saul/best.png"
+                ],
+                "weight": 0.85
+              }
+            ]
+          },
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Handheld pan right whips to follow the kids as they explode into a sprint, boards tucked tight to their sides. <char_saul> lunges a couple of steps then checks himself, posture still aggressive as he slows near the curb. Mouth remains tightly closed. No speaking. Ambient motion: sneaker soles slap the hot pavement, skateboard wheels clatter against decks, distant traffic slides through the heat shimmer. End with the pan easing to a stop as the kids recede frame right, landing near the parked position of <prop_battered_yellow_compact_car> to motivate the return to the car-side angle.",
+          "resolved_i2v": "Handheld pan right whips to follow the kids as they explode into a sprint, boards tucked tight to their sides. Older man in the foreground, driving forward in sharp strides, posture aggressive, focus predatory. lunges a couple of steps then checks himself, posture still aggressive as he slows near the curb. Mouth remains tightly closed. No speaking. Ambient motion: sneaker soles slap the hot pavement, skateboard wheels clatter against decks, distant traffic slides through the heat shimmer. End with the pan easing to a stop as the kids recede frame right, landing near the parked position of <prop_battered_yellow_compact_car> to motivate the return to the car-side angle.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.5,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_07_scammers_scramble_flee_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_08_saul_shouts_check",
+      "narrative_layer": {
+        "narrative_action": "Saul stands beside his shattered car, points at the retreating kids, and shouts after them.",
+        "emotional_beat": "triumphant_mockery",
+        "dialogue": {
+          "has_dialogue": true,
+          "speaker_asset_id": "char_saul",
+          "listener_asset_id": "group",
+          "text": "I'll take a check!",
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 2.6,
+        "camera": {
+          "shot_scale": "MS",
+          "angle": "eye_level",
+          "movement": "static"
+        },
+        "lighting": "high-noon harsh sunlight",
+        "environment_id": "loc_ext_sun_baked_street",
+        "entities": [
+          {
+            "asset_id": "char_saul",
+            "position": "frame_left_fg",
+            "action_state": "pointing_offscreen_right_shouting"
+          },
+          {
+            "asset_id": "prop_battered_yellow_compact_car",
+            "position": "frame_left_fg",
+            "action_state": "parked_beside_saul"
+          },
+          {
+            "asset_id": "prop_shattered_windshield",
+            "position": "frame_left_fg",
+            "action_state": "visible_shattered"
+          },
+          {
+            "asset_id": "char_teen_scammer",
+            "position": "background_right",
+            "action_state": "running_away"
+          },
+          {
+            "asset_id": "char_scammer_friend",
+            "position": "background_right",
+            "action_state": "running_away"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Albuquerque, New Mexico, USA — sun-baked urban arterial street (NOT coastal, NOT European/Mediterranean)",
+          "ERA LOCK: Contemporary (2020s) — summer, midday (NOT historical period)",
+          "FORBIDDEN: Mediterranean/European architecture (stone villages, Venetian canals, gondolas), Old European cobblestone streets, Olive trees, Ocean, beach, boardwalk, coastal scenery, Rain, snow, puddles, wet asphalt, umbrellas, Golden-hour or nighttime lighting, Vintage cars (pre-1990 classics), UK/EU license plates, right-hand drive vehicles, double-decker buses, Non-English-only signage (e.g., Mandarin-only billboards), Police on-scene, squad cars, sirens, arrests, Ambulance/gurney/EMT medical intervention, Graphic injury or blood, Payphones, CRT monitors, VHS camcorders, cassette recorders, Flip phones, Quiet suburban cul-de-sac, picket-fence neighborhoods, Skyscraper downtown canyon (e.g., Manhattan), Historical costumes or mid-century wardrobes, Snow-capped mountains visible nearby, Palm-lined boulevards and tropical vegetation, Rural dirt road or farm setting",
+          "COLOR_PALETTE: sun-bleached warm tones, hard mid-day contrast, asphalt grays",
+          "LIGHTING: high noon, harsh direct sunlight, short shadows, heat shimmer",
+          "ARCHITECTURE: Southwestern US low-rise commercial strip: stucco, brick, chain storefronts, parking lot edges",
+          "ENVIRONMENT: dry inland urban street, clear sky, heat haze",
+          "VEHICLES: contemporary US sedans/SUVs (2015–2026), US license plates",
+          "WARDROBE: summer streetwear: t-shirts, shorts, skate shoes, caps",
+          "PROPS: modern skateboards, smartphones",
+          "SIGNAGE_LANGUAGE: English primary; bilingual English/Spanish acceptable",
+          "CAMERA_STYLE: handheld, kinetic, aggressive framings, chaotic coverage",
+          "TONE: confrontational, darkly comedic, chaotic",
+          "SOUND_DESIGN: street noise, heated shouting, skateboard wheels on asphalt; no sirens",
+          "GEOGRAPHY: Albuquerque, New Mexico, USA",
+          "STREET_TYPE: wide sun-baked arterial with strip-mall frontage, minimal shade",
+          "DAY_PART: midday (12–2pm), peak summer heat",
+          "Saul beside shattered yellow car; mismatched red door visible",
+          "Retreating kids visible in background",
+          "Saul pointing toward them"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Static eye-level MS in harsh sunlight. <char_saul> stands next to <prop_battered_yellow_compact_car>, the mismatched red door visible, <prop_shattered_windshield> glittering spiderwebs in frame. His arm is extended, finger tracking offscreen right, chest filling just before he shouts after the retreating kids. Eyeline: <char_saul> locked on the distant figures. In background right, <char_teen_scammer> and <char_scammer_friend> are mid-stride, shrinking down the sun-baked arterial. The low-rise strip and parking lot edges waver in heat haze.",
+          "characters_in_shot": [
+            "char_saul",
+            "char_teen_scammer",
+            "char_scammer_friend"
+          ],
+          "character_appearances": {
+            "char_saul": "Older man, beside battered yellow compact with red door, sweat-sheened, pointing and delivering the punch line, triumphant",
+            "char_teen_scammer": "Teen boy, background, running away, small and receding",
+            "char_scammer_friend": "Teen boy, background, running away with skateboard, small and receding"
+          },
+          "resolved_t2i": "Static eye-level MS in harsh sunlight. Older man, sweating beside a battered yellow compact with a mismatched red door; triumphant, he points as he delivers the punch line. stands anchored beside <prop_battered_yellow_compact_car>, the mismatched red door visible, <prop_shattered_windshield> casting glittering spiderwebs across the frame. Arm extended, index finger knifes offscreen right, chest swelling a beat before he calls after the retreating kids. Eyeline: Older man, sweating beside a battered yellow compact with a mismatched red door; triumphant, he points as he delivers the punch line. locked on the distant figures. In background right, Teen boy in the background, sprinting away, small and receding. and Teen boy in the background, bolting off with a skateboard, small and receding. are caught mid-stride, shrinking down the sun-baked arterial. Low-rise storefronts and parking-lot edges wobble in heat haze.",
+          "resolved_ti2i": "Picture 1 is Older man, sweating beside a battered yellow compact with a mismatched red door; triumphant, he points as he delivers the punch line.; Picture 2 is Teen boy in the background, sprinting away, small and receding.; Picture 3 is Teen boy in the background, bolting off with a skateboard, small and receding..\nStatic eye-level MS in harsh sunlight. Picture 1 stands anchored beside <prop_battered_yellow_compact_car>, the mismatched red door visible, <prop_shattered_windshield> casting glittering spiderwebs across the frame. Arm extended, index finger knifes offscreen right, chest swelling a beat before he calls after the retreating kids. Eyeline: Picture 1 locked on the distant figures. In background right, Picture 2 and Picture 3 are caught mid-stride, shrinking down the sun-baked arterial. Low-rise storefronts and parking-lot edges wobble in heat haze.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": {
+            "character_consistency": [
+              {
+                "asset_id": "char_saul",
+                "method": "ip_adapter_faceid",
+                "reference_image_paths": [
+                  "our_dataset/BetterCallSaul3/character_list/Saul/best.png"
+                ],
+                "weight": 0.85
+              },
+              {
+                "asset_id": "char_teen_scammer",
+                "method": "ip_adapter_faceid",
+                "reference_image_paths": [
+                  "our_dataset/BetterCallSaul3/character_list/TeenScammer1/best.png"
+                ],
+                "weight": 0.85
+              }
+            ]
+          },
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Static camera holds as <char_saul> plants his feet and calls after the fleeing kids, stabbing a finger toward them while delivering the line. Mouth moves to match speech. In the deep background, <char_teen_scammer> and <char_scammer_friend> continue running without looking back, boards clutched tight. Ambient motion: heat shimmer ripples over the hood, a loose flyer skitters by the curb, steady midday traffic murmur underscores. End by holding on <char_saul> framed with the shattered windshield, buttoning the scene.",
+          "resolved_i2v": "Static camera holds as Older man, sweating beside a battered yellow compact with a mismatched red door; triumphant, he points as he delivers the punch line. plants his feet and calls after the fleeing kids, stabbing a finger toward them as he delivers the line. Mouth moves to match speech. In the deep background, Teen boy in the background, sprinting away, small and receding. and Teen boy in the background, bolting off with a skateboard, small and receding. continue running without looking back, boards clutched tight. Ambient motion: heat shimmer ripples over the hood, a loose flyer skitters along the curb, steady midday traffic murmur underscores. End by holding on Older man, sweating beside a battered yellow compact with a mismatched red door; triumphant, he points as he delivers the punch line. framed with the shattered windshield, buttoning the scene.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.1,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": true,
+            "sync_method": "musetalk",
+            "audio_source_ref": "assembly_layer.audio_tracks[0]"
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_08_saul_shouts_check_dialogue",
+            "type": "dialogue",
+            "source": "tts_default",
+            "description": "I'll take a check!"
+          },
+          {
+            "track_id": "shot_08_saul_shouts_check_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    }
+  ]
+}

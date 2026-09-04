@@ -1,0 +1,149 @@
+{
+  "project_title": "Moroccan Market Chase",
+  "global_style": "High-energy adventure with sun-baked North African palette, saturated colors, kinetic camera, practical stunts, comedic panic amid real danger, stylized realism.",
+  "project_settings": {
+    "location_lock": "Moroccan market district, North Africa (NOT European city)",
+    "negative_constraints": [
+      "European cobblestone squares",
+      "rainy weather",
+      "snow",
+      "modern glass skyscrapers",
+      "nighttime neon signage"
+    ],
+    "style_overrides": {
+      "color_palette": "warm ochres, terracotta, bright produce colors, sun-bleached neutrals",
+      "architecture": "Moroccan medina stalls, narrow alleys, textiles and wooden kiosks",
+      "lighting": "harsh midday sun, hard shadows, dusty air bloom"
+    },
+    "era_lock": "Daytime chase, contemporary with vintage tech"
+  },
+  "narrative_context": {
+    "time_period": "Midday; contemporary adventure with retro elements",
+    "global_mood": "Frenetic, high-stakes, catastrophic, kinetic",
+    "key_events": [
+      "High-speed tracking shot through a Moroccan market",
+      "Bearded companion aims a bazooka from the sidecar during the chase",
+      "Motorcycle smashes through fruit stands; oranges fly into the lens",
+      "Bike launches off a ramp of debris",
+      "Accidental bazooka discharge",
+      "Explosion strikes a distant dam",
+      "Floodwater surges into narrow streets, sweeping away the market"
+    ],
+    "cultural_context": "North African medina-style marketplace: bustling vendors, colorful produce, sun-baked environment and tight alleyways."
+  },
+  "characters": [
+    {
+      "id": "char_young_reporter",
+      "name": "Young Reporter",
+      "description": "Young male reporter with a signature quiff, lithe build, agile rider; dust-streaked, focused eyes.",
+      "clothing_style": "Light shirt, rolled sleeves, trousers, leather boots, goggles; minimal gear.",
+      "voice_preset_id": null,
+      "voice_description": "Bright, youthful, quick cadence; determined.",
+      "voice_design": null,
+      "personality": "Brave, quick-thinking, resourceful, relentless under pressure.",
+      "backstory": "A roving journalist chasing scoops across continents; adept motorcyclist; often entangled in dangerous capers.",
+      "current_motivation": "Outrun the flood, protect his companion, and survive to report the story.",
+      "scene_count": 1,
+      "dialogue_lines": 0,
+      "key_relationships": [
+        "char_bearded_companion"
+      ],
+      "visual_references": null,
+      "audio_references": null
+    },
+    {
+      "id": "char_bearded_companion",
+      "name": "Bearded Companion",
+      "description": "Rugged, bearded man of sturdy build in the sidecar; frantic, aiming a bazooka; dust-covered.",
+      "clothing_style": "Utility jacket, trousers, boots; protective goggles; rugged accessories.",
+      "voice_preset_id": null,
+      "voice_description": "Gruff, loud, excitable; rough edges.",
+      "voice_design": null,
+      "personality": "Impulsive, loyal, brave; comedic panic under stress.",
+      "backstory": "Seasoned adventurer and fixer; accompanies the reporter on risky pursuits; more brawn than finesse.",
+      "current_motivation": "Escape the market alive, control the weapon, stick with the reporter.",
+      "scene_count": 1,
+      "dialogue_lines": 0,
+      "key_relationships": [
+        "char_young_reporter"
+      ],
+      "visual_references": null,
+      "audio_references": null
+    }
+  ],
+  "locations": [
+    {
+      "id": "loc_ext_moroccan_market",
+      "name": "Moroccan Market",
+      "type": "EXT",
+      "visual_style": "Sun-baked, crowded alleys, colorful produce stalls, dust in air, harsh midday light, saturated hues, kinetic camera motion.",
+      "narrative_function": "Chase gauntlet and disaster zone.",
+      "time_of_day_stats": {
+        "DAY": 1
+      },
+      "visual_references": null,
+      "audio_references": null,
+      "usage_count": 1
+    },
+    {
+      "id": "loc_ext_distant_dam",
+      "name": "Distant Dam",
+      "type": "EXT",
+      "visual_style": "Monolithic concrete dam in arid hills, blinding sun, plume of explosion, torrent spilling through spillway.",
+      "narrative_function": "Catalyst; explosion triggers flood.",
+      "time_of_day_stats": {
+        "DAY": 1
+      },
+      "visual_references": null,
+      "audio_references": null,
+      "usage_count": 1
+    }
+  ],
+  "props": [
+    {
+      "id": "prop_vintage_motorcycle_sidecar",
+      "name": "Vintage Motorcycle with Sidecar",
+      "related_character_id": "char_young_reporter",
+      "visual_description": "Retro motorcycle with attached sidecar; scuffed paint, chrome accents; nimble and loud; squeezes through tight alleys at speed.",
+      "importance": "critical",
+      "usage_count": 1,
+      "visual_references": null
+    },
+    {
+      "id": "prop_bazooka",
+      "name": "Bazooka",
+      "related_character_id": "char_bearded_companion",
+      "visual_description": "Shoulder-fired rocket launcher; heavy, olive-drab tube with sights; accidental discharge strikes the distant dam.",
+      "importance": "critical",
+      "usage_count": 1,
+      "visual_references": null
+    },
+    {
+      "id": "prop_oranges",
+      "name": "Oranges",
+      "related_character_id": null,
+      "visual_description": "Crates of bright oranges explode into frame as stands collapse; vivid splashes and motion toward the lens.",
+      "importance": "supporting",
+      "usage_count": 1,
+      "visual_references": null
+    },
+    {
+      "id": "prop_fruit_stands",
+      "name": "Fruit Stands",
+      "related_character_id": null,
+      "visual_description": "Wooden market stalls stacked with colorful produce; collapsible under impact; flying fruit and debris.",
+      "importance": "supporting",
+      "usage_count": 1,
+      "visual_references": null
+    },
+    {
+      "id": "prop_debris_ramp",
+      "name": "Debris Ramp",
+      "related_character_id": null,
+      "visual_description": "Toppled crates, boards, fabric and market detritus forming an impromptu ramp that launches the motorcycle.",
+      "importance": "supporting",
+      "usage_count": 1,
+      "visual_references": null
+    }
+  ]
+}

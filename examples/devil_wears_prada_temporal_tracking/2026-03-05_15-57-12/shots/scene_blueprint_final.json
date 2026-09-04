@@ -1,0 +1,555 @@
+{
+  "blueprint_id": "bp_devil_wears_prada_temporal_tracking_6f93a0",
+  "metadata": {
+    "project_name": "Manhattan Strut Sequence",
+    "target_resolution": "1280x720",
+    "target_aspect_ratio": "16:9",
+    "global_fps": 16
+  },
+  "global_style": "High-fashion, glossy urban aesthetic; smooth continuous tracking; seamless match-cut transformations; kinetic edit rhythm driven by heel clicks and pulsing music.",
+  "final_film_path": null,
+  "shots": [
+    {
+      "shot_id": "shot_01_confident_street_strut",
+      "narrative_layer": {
+        "narrative_action": "Andy power-walks down a bustling Manhattan street in a dark green double-breasted coat, holding a paper coffee cup steady.",
+        "emotional_beat": "confident_control",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 3.5,
+        "camera": {
+          "shot_scale": "MLS",
+          "angle": "eye_level",
+          "movement": "gimbal_parallel_track_left_to_right"
+        },
+        "lighting": "high-key daylight (overcast soft fill, glossy urban sheen)",
+        "environment_id": "loc_ext_manhattan_street",
+        "entities": [
+          {
+            "asset_id": "char_andy",
+            "position": "center_fg",
+            "action_state": "confident_power_walk, eyes_forward"
+          },
+          {
+            "asset_id": "prop_paper_coffee_cup",
+            "position": "center_fg",
+            "action_state": "held_upright_aligned"
+          },
+          {
+            "asset_id": "prop_dark_green_double_breasted_coat",
+            "position": "center_fg",
+            "action_state": "worn_in_motion, fabric_sway_with_stride"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Manhattan, New York City, USA",
+          "ERA LOCK: Contemporary (unspecified exact year)",
+          "COLOR_PALETTE: sleek monochrome with dark green, white, black accents",
+          "ARCHITECTURE: dense New York urban streetscape, contemporary signage, yellow cabs",
+          "Maintain continuous left-to-right parallel tracking direction across the sequence",
+          "Coffee cup must remain perfectly upright and occupy a consistent relative screen position near Andy’s torso"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Style: High-fashion, glossy urban aesthetic with sleek monochrome palette accented by deep green. Lighting: high-key daylight from overcast sky, soft fill with subtle edge sheen on fabrics. In the split-second before motion, <char_andy> stands mid-step at center frame within <loc_ext_manhattan_street>, front heel hovering just above the pavement, weight coiled to launch forward. <prop_dark_green_double_breasted_coat> hangs with a slight outward flare as if caught mid-sway, structured shoulders sharp. <prop_paper_coffee_cup> is held upright near her torso, perfectly vertical and aligned, fingers relaxed but purposeful. Eyeline fixed straight ahead, projecting command; she dominates the space with squared hips and confident chest, owning the frame. Background reads as dense Manhattan: layered facades, contemporary signage, and a distant <prop_yellow_taxi> shape along the curb; pedestrians and storefronts implied as soft, secondary elements. Emotional atmosphere: poised certainty, the city as her runway—tension held in the stillness before the stride.",
+          "characters_in_shot": [
+            "char_andy"
+          ],
+          "character_appearances": {
+            "char_andy": "Woman, 20s–30s, dark green double-breasted coat, decisive stride posture with shoulders back and chin level; focused and in control"
+          },
+          "resolved_t2i": "Style: High-fashion, glossy urban aesthetic with sleek monochrome palette accented by deep green. Lighting: high-key daylight from overcast sky, soft fill with subtle edge sheen on fabrics. In the split-second before motion, Woman in her late 20s to early 30s wearing a dark green double-breasted coat; shoulders squared, chin level, stride decisive and propulsive; focused gaze, composed and commanding presence. stands mid-step at center frame within <loc_ext_manhattan_street>, front heel hovering just above the pavement, weight coiled to launch forward. <prop_dark_green_double_breasted_coat> hangs with a slight outward flare as if caught mid-sway, structured shoulders sharp. <prop_paper_coffee_cup> is held upright near her torso, perfectly vertical and aligned, fingers relaxed but purposeful. Eyeline fixed straight ahead, projecting command; she dominates the space with squared hips and confident chest, owning the frame. Background reads as dense Manhattan: layered facades, contemporary signage, and a distant <prop_yellow_taxi> shape along the curb; pedestrians and storefronts implied as soft, secondary elements. Emotional atmosphere: poised certainty, the city as her runway—tension held in the stillness before the stride.",
+          "resolved_ti2i": "Picture 1 is Woman in her late 20s to early 30s wearing a dark green double-breasted coat; shoulders squared, chin level, stride decisive and propulsive; focused gaze, composed and commanding presence..\nStyle: High-fashion, glossy urban aesthetic with sleek monochrome palette accented by deep green. Lighting: high-key daylight from overcast sky, soft fill with subtle edge sheen on fabrics. In the split-second before motion, Picture 1 stands mid-step at center frame within <loc_ext_manhattan_street>, front heel hovering just above the pavement, weight coiled to launch forward. <prop_dark_green_double_breasted_coat> hangs with a slight outward flare as if caught mid-sway, structured shoulders sharp. <prop_paper_coffee_cup> is held upright near her torso, perfectly vertical and aligned, fingers relaxed but purposeful. Eyeline fixed straight ahead, projecting command; she dominates the space with squared hips and confident chest, owning the frame. Background reads as dense Manhattan: layered facades, contemporary signage, and a distant <prop_yellow_taxi> shape along the curb; pedestrians and storefronts implied as soft, secondary elements. Emotional atmosphere: poised certainty, the city as her runway—tension held in the stillness before the stride.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Camera Move: Static gimbal begins a smooth parallel track left-to-right, eye level, keeping <char_andy> centered as the city scrolls behind her. Character Actions & Reactions: <char_andy> drops her poised front heel with a crisp click and launches into a power-walk; shoulders remain square, chin steady. <prop_dark_green_double_breasted_coat> ripples and sways with each step, hemline pulsing outward then settling. <prop_paper_coffee_cup> stays perfectly upright and locked to a consistent position near her torso, not rotating or tilting despite the stride; her hand absorbs micro-shock to maintain alignment. Eyeline remains forward, unflinching, body language radiating control. Lip Constraint: Mouth remains tightly closed. No speaking. Ambient Motion: Reflections slide along shop windows; a distant <prop_yellow_taxi> glides through traffic; pedestrians blur in the far background; a faint steam wisp rises from a street vent; subtle wind lifts a strand of hair and flutters the coat edges. Forward Continuity: End the shot with a <prop_yellow_taxi> beginning to enter the foreground frame from the left, setting up a full occlusion for the next shot while <char_andy> remains centered.",
+          "resolved_i2v": "Camera Move: Static gimbal begins a smooth parallel track left-to-right, eye level, keeping Woman in her late 20s to early 30s wearing a dark green double-breasted coat; shoulders squared, chin level, stride decisive and propulsive; focused gaze, composed and commanding presence. centered as the city scrolls behind her. Character Actions & Reactions: Woman in her late 20s to early 30s wearing a dark green double-breasted coat; shoulders squared, chin level, stride decisive and propulsive; focused gaze, composed and commanding presence. drops her poised front heel with a crisp click and launches into a power-walk; shoulders remain square, chin steady. <prop_dark_green_double_breasted_coat> ripples and sways with each step, hemline pulsing outward then settling. <prop_paper_coffee_cup> stays perfectly upright and locked to a consistent position near her torso, not rotating or tilting despite the stride; her hand absorbs micro-shock to maintain alignment. Eyeline remains forward, unflinching, body language radiating control. Lip Constraint: Mouth remains tightly closed. No speaking. Ambient Motion: Reflections slide along shop windows; a distant <prop_yellow_taxi> glides through traffic; pedestrians blur in the far background; a faint steam wisp rises from a street vent; subtle wind lifts a strand of hair and flutters the coat edges. Forward Continuity: End the shot with a <prop_yellow_taxi> beginning to enter the foreground frame from the left, setting up a full occlusion for the next shot while Woman in her late 20s to early 30s wearing a dark green double-breasted coat; shoulders squared, chin level, stride decisive and propulsive; focused gaze, composed and commanding presence. remains centered.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.4,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "fade_in",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_01_confident_street_strut_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_02_taxi_occlusion_transform",
+      "narrative_layer": {
+        "narrative_action": "She moves behind a passing yellow taxi and emerges instantly transformed into a white tweed coat with thigh-high Chanel boots, the coffee cup unchanged.",
+        "emotional_beat": "triumphant_reveal",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 2.4,
+        "camera": {
+          "shot_scale": "LS",
+          "angle": "eye_level",
+          "movement": "gimbal_parallel_track_left_to_right"
+        },
+        "lighting": "high-key daylight (overcast soft fill, glossy urban sheen)",
+        "environment_id": "loc_ext_manhattan_street",
+        "entities": [
+          {
+            "asset_id": "char_andy",
+            "position": "center_midground",
+            "action_state": "stride_continues_behind_occluder_then_reemerge"
+          },
+          {
+            "asset_id": "prop_paper_coffee_cup",
+            "position": "center_midground",
+            "action_state": "held_upright_aligned"
+          },
+          {
+            "asset_id": "prop_dark_green_double_breasted_coat",
+            "position": "center_midground",
+            "action_state": "visible_pre-occlusion"
+          },
+          {
+            "asset_id": "prop_white_tweed_coat",
+            "position": "center_midground",
+            "action_state": "visible_post-occlusion"
+          },
+          {
+            "asset_id": "prop_thigh_high_chanel_boots",
+            "position": "center_midground",
+            "action_state": "visible_post-occlusion, rhythmic_stride"
+          },
+          {
+            "asset_id": "prop_yellow_taxi",
+            "position": "foreground_center",
+            "action_state": "passes_left_to_right_as_full_occluder"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Manhattan, New York City, USA",
+          "ERA LOCK: Contemporary (unspecified exact year)",
+          "COLOR_PALETTE: sleek monochrome with dark green, white, black accents",
+          "ARCHITECTURE: dense New York urban streetscape, contemporary signage, yellow cabs",
+          "Maintain continuous left-to-right parallel tracking direction across the sequence",
+          "Transformation from dark green coat to white tweed + thigh-high Chanel boots must occur fully while taxi occludes Andy",
+          "Taxi must pass between camera and Andy to achieve a single clean full-frame occlusion for the match cut",
+          "Coffee cup must remain perfectly upright and in consistent relative screen position through occlusion"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Style: Glossy urban fashion-video energy with sleek monochrome palette; white and black accents ready to pop after reveal. Lighting: soft, even daylight with reflective street sheen. At the frozen instant before the occlusion, <char_andy> advances in the midground at center frame within <loc_ext_manhattan_street>, still in <prop_dark_green_double_breasted_coat>, front heel poised to plant, shoulders aligned. <prop_paper_coffee_cup> is upright and anchored near her torso, perfectly vertical. In the foreground, a <prop_yellow_taxi> noses into frame from the left, grill angled to sweep across and cover <char_andy> in a full-frame, left-to-right pass. Eyeline forward; presence unwavering. Spatial tension builds between her controlled center and the impending bold yellow occluder, promising a reveal.",
+          "characters_in_shot": [
+            "char_andy"
+          ],
+          "character_appearances": {
+            "char_andy": "Woman, 20s–30s, seamless transition from dark green coat to white tweed with thigh-high Chanel boots during occlusion; stride continuous, self-assured and composed"
+          },
+          "resolved_t2i": "Style: Glossy urban fashion-video energy with sleek monochrome palette; white and black accents ready to pop after reveal. Lighting: soft, even daylight with reflective street sheen. At the frozen instant before the occlusion, Woman, 20s–30s, seamless transition from dark green coat to white tweed with thigh-high Chanel boots during occlusion; stride continuous, self-assured and composed advances in the midground at center frame within <loc_ext_manhattan_street>, still in <prop_dark_green_double_breasted_coat>, front heel poised to plant, shoulders aligned. <prop_paper_coffee_cup> is upright and anchored near her torso, perfectly vertical. In the foreground, a <prop_yellow_taxi> noses into frame from the left, grill angled to sweep across and cover Woman, 20s–30s, seamless transition from dark green coat to white tweed with thigh-high Chanel boots during occlusion; stride continuous, self-assured and composed in a full-frame, left-to-right pass. Eyeline forward; presence unwavering. Spatial tension builds between her controlled center and the impending bold yellow occluder, promising a reveal.",
+          "resolved_ti2i": "Picture 1 is Woman, 20s–30s, seamless transition from dark green coat to white tweed with thigh-high Chanel boots during occlusion; stride continuous, self-assured and composed.\nStyle: Glossy urban fashion-video energy with sleek monochrome palette; white and black accents ready to pop after reveal. Lighting: soft, even daylight with reflective street sheen. At the frozen instant before the occlusion, Picture 1 advances in the midground at center frame within <loc_ext_manhattan_street>, still in <prop_dark_green_double_breasted_coat>, front heel poised to plant, shoulders aligned. <prop_paper_coffee_cup> is upright and anchored near her torso, perfectly vertical. In the foreground, a <prop_yellow_taxi> noses into frame from the left, grill angled to sweep across and cover Picture 1 in a full-frame, left-to-right pass. Eyeline forward; presence unwavering. Spatial tension builds between her controlled center and the impending bold yellow occluder, promising a reveal.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Camera Move: Maintain smooth gimbal parallel track left-to-right, eye level, matching <char_andy>'s pace while allowing the <prop_yellow_taxi> to overtake foreground. Character Actions & Reactions: As <prop_yellow_taxi> crosses, it fully occludes <char_andy> from view. During the occlusion, her wardrobe transitions seamlessly: <prop_dark_green_double_breasted_coat> swaps to <prop_white_tweed_coat>, and <prop_thigh_high_chanel_boots> become visible as she continues the same rhythmic stride. She re-emerges centered, stride never breaking, chin slightly lifted in triumph; <prop_paper_coffee_cup> remains perfectly upright and in the same relative screen position. Lip Constraint: Mouth remains tightly closed. No speaking. Ambient Motion: Taxi wheels roll with subtle suspension bounce; window reflections smear across its side; background pedestrians and signage slide laterally; faint breeze skims the coat surface and stirs a few strands of hair. Forward Continuity: End as the taxi clears frame to the right with <char_andy> fully revealed in the white tweed look, centered and mid-stride, matching pace and screen position to flow into the next shot.",
+          "resolved_i2v": "Camera Move: Maintain smooth gimbal parallel track left-to-right, eye level, matching Woman, 20s–30s, seamless transition from dark green coat to white tweed with thigh-high Chanel boots during occlusion; stride continuous, self-assured and composed's pace while allowing the <prop_yellow_taxi> to overtake foreground. Character Actions & Reactions: As <prop_yellow_taxi> crosses, it fully occludes Woman, 20s–30s, seamless transition from dark green coat to white tweed with thigh-high Chanel boots during occlusion; stride continuous, self-assured and composed from view. During the occlusion, her wardrobe transitions seamlessly: <prop_dark_green_double_breasted_coat> swaps to <prop_white_tweed_coat>, and <prop_thigh_high_chanel_boots> become visible as she continues the same rhythmic stride. She re-emerges centered, stride never breaking, chin slightly lifted in triumph; <prop_paper_coffee_cup> remains perfectly upright and in the same relative screen position. Lip Constraint: Mouth remains tightly closed. No speaking. Ambient Motion: Taxi wheels roll with subtle suspension bounce; window reflections smear across its side; background pedestrians and signage slide laterally; faint breeze skims the coat surface and stirs a few strands of hair. Forward Continuity: End as the taxi clears frame to the right with Woman, 20s–30s, seamless transition from dark green coat to white tweed with thigh-high Chanel boots during occlusion; stride continuous, self-assured and composed fully revealed in the white tweed look, centered and mid-stride, matching pace and screen position to flow into the next shot.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.4,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_02_taxi_occlusion_transform_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_03_white_look_stride",
+      "narrative_layer": {
+        "narrative_action": "Maintaining her pace in the white tweed look, Andy continues her assertive strut with the coffee cup locked in position.",
+        "emotional_beat": "momentum_sustained",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 3.0,
+        "camera": {
+          "shot_scale": "MS",
+          "angle": "eye_level",
+          "movement": "gimbal_parallel_track_left_to_right"
+        },
+        "lighting": "high-key daylight (overcast soft fill, glossy urban sheen)",
+        "environment_id": "loc_ext_manhattan_street",
+        "entities": [
+          {
+            "asset_id": "char_andy",
+            "position": "center_fg",
+            "action_state": "assertive_strut, eyes_forward"
+          },
+          {
+            "asset_id": "prop_paper_coffee_cup",
+            "position": "center_fg",
+            "action_state": "held_upright_aligned"
+          },
+          {
+            "asset_id": "prop_white_tweed_coat",
+            "position": "center_fg",
+            "action_state": "worn_in_motion, crisp_texture_catches_light"
+          },
+          {
+            "asset_id": "prop_thigh_high_chanel_boots",
+            "position": "lower_frame_center",
+            "action_state": "heel_clicks_in_step"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Manhattan, New York City, USA",
+          "ERA LOCK: Contemporary (unspecified exact year)",
+          "COLOR_PALETTE: sleek monochrome with dark green, white, black accents",
+          "ARCHITECTURE: dense New York urban streetscape, contemporary signage, yellow cabs",
+          "Maintain continuous left-to-right parallel tracking direction across the sequence",
+          "Match Andy’s position and stride continuity from Shot 02; no jump in speed or screen position",
+          "Coffee cup must remain perfectly upright and in consistent relative screen position"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Style: High-fashion crispness; sleek monochrome palette accenting luminous white. Lighting: overcast soft fill with glossy reflections. At the exact pre-motion beat, <char_andy> stands centered in the foreground within <loc_ext_manhattan_street>, now in <prop_white_tweed_coat> and <prop_thigh_high_chanel_boots>. Her leading heel hovers just above ground, boot angled for the next confident plant; <prop_paper_coffee_cup> remains upright and aligned at her torso, perfectly vertical. Eyeline forward, shoulders squared, stance commanding. The street layers behind her—contemporary signage, rhythmic building lines, hints of yellow cabs further back—compress into a runway-like corridor that she visually dominates.",
+          "characters_in_shot": [
+            "char_andy"
+          ],
+          "character_appearances": {
+            "char_andy": "Woman, 20s–30s, white tweed coat with thigh-high Chanel boots, posture tall and assertive; energized momentum, controlled focus"
+          },
+          "resolved_t2i": "Style: High-fashion crispness; sleek monochrome palette accenting luminous white. Lighting: overcast soft fill with glossy reflections. At the exact pre-motion beat, Woman in her 20s–30s; white tweed coat with thigh-high Chanel boots; tall, commanding posture; energized momentum with controlled focus. stands centered in the foreground within <loc_ext_manhattan_street>, now in <prop_white_tweed_coat> and <prop_thigh_high_chanel_boots>. Her leading heel hovers just above ground, boot angled for the next confident plant; <prop_paper_coffee_cup> remains upright and aligned at her torso, perfectly vertical. Eyeline forward, shoulders squared, stance commanding. The street layers behind her—contemporary signage, rhythmic building lines, hints of yellow cabs further back—compress into a runway-like corridor that she visually dominates.",
+          "resolved_ti2i": "Picture 1 is Woman in her 20s–30s; white tweed coat with thigh-high Chanel boots; tall, commanding posture; energized momentum with controlled focus..\nStyle: High-fashion crispness; sleek monochrome palette accenting luminous white. Lighting: overcast soft fill with glossy reflections. At the exact pre-motion beat, Picture 1 stands centered in the foreground within <loc_ext_manhattan_street>, now in <prop_white_tweed_coat> and <prop_thigh_high_chanel_boots>. Her leading heel hovers just above ground, boot angled for the next confident plant; <prop_paper_coffee_cup> remains upright and aligned at her torso, perfectly vertical. Eyeline forward, shoulders squared, stance commanding. The street layers behind her—contemporary signage, rhythmic building lines, hints of yellow cabs further back—compress into a runway-like corridor that she visually dominates.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Camera Move: Continue smooth parallel gimbal track left-to-right at eye level, matching <char_andy>'s pace and keeping her centered in a medium shot. Character Actions & Reactions: <char_andy> steps down into a renewed, assertive strut; <prop_thigh_high_chanel_boots> land with clean, rhythmic clicks. <prop_white_tweed_coat> responds with crisp fabric flutter and a subtle texture shimmer as it catches the light. <prop_paper_coffee_cup> remains perfectly upright and locked to its screen position, hand absorbing micro-shock to maintain alignment. Her chin stays level, gaze unwavering, shoulders relaxed but strong. Lip Constraint: Mouth remains tightly closed. No speaking. Ambient Motion: Building reflections glide across glass; a blurred yellow cab crosses the far background; street banners shift gently; hair and coat edges stir in a light cross-breeze; faint dust motes and steam waft through shafts of soft daylight. Forward Continuity: End with a slender <prop_narrow_streetlamp> beginning to enter frame from the left foreground, aligning to sweep across <char_andy>'s upper body in the next shot while she stays centered.",
+          "resolved_i2v": "Camera Move: Continue smooth parallel gimbal track left-to-right at eye level, matching Woman in her 20s–30s; white tweed coat with thigh-high Chanel boots; tall, commanding posture; energized momentum with controlled focus.'s pace and keeping her centered in a medium shot. Character Actions & Reactions: Woman in her 20s–30s; white tweed coat with thigh-high Chanel boots; tall, commanding posture; energized momentum with controlled focus. steps down into a renewed, assertive strut; <prop_thigh_high_chanel_boots> land with clean, rhythmic clicks. <prop_white_tweed_coat> responds with crisp fabric flutter and a subtle texture shimmer as it catches the light. <prop_paper_coffee_cup> remains perfectly upright and locked to its screen position, hand absorbing micro-shock to maintain alignment. Her chin stays level, gaze unwavering, shoulders relaxed but strong. Lip Constraint: Mouth remains tightly closed. No speaking. Ambient Motion: Building reflections glide across glass; a blurred yellow cab crosses the far background; street banners shift gently; hair and coat edges stir in a light cross-breeze; faint dust motes and steam waft through shafts of soft daylight. Forward Continuity: End with a slender <prop_narrow_streetlamp> beginning to enter frame from the left foreground, aligning to sweep across Woman in her 20s–30s; white tweed coat with thigh-high Chanel boots; tall, commanding posture; energized momentum with controlled focus.'s upper body in the next shot while she stays centered.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.4,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_03_white_look_stride_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_04_streetlamp_second_transform",
+      "narrative_layer": {
+        "narrative_action": "She briefly passes behind a narrow streetlamp and reappears in a sleek black evening jacket while keeping the cup aligned.",
+        "emotional_beat": "escalating_reveal",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 2.2,
+        "camera": {
+          "shot_scale": "MCU",
+          "angle": "eye_level",
+          "movement": "gimbal_parallel_track_left_to_right"
+        },
+        "lighting": "high-key daylight (overcast soft fill, glossy urban sheen)",
+        "environment_id": "loc_ext_manhattan_street",
+        "entities": [
+          {
+            "asset_id": "char_andy",
+            "position": "center_fg",
+            "action_state": "passes_behind_streetlamp_then_reappears"
+          },
+          {
+            "asset_id": "prop_paper_coffee_cup",
+            "position": "center_fg",
+            "action_state": "held_upright_aligned"
+          },
+          {
+            "asset_id": "prop_white_tweed_coat",
+            "position": "center_fg",
+            "action_state": "visible_pre-occlusion_upper_body"
+          },
+          {
+            "asset_id": "prop_black_evening_jacket",
+            "position": "center_fg",
+            "action_state": "visible_post-occlusion_upper_body"
+          },
+          {
+            "asset_id": "prop_narrow_streetlamp",
+            "position": "foreground_center",
+            "action_state": "brief_vertical_occlusion_sweeps_across_frame"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Manhattan, New York City, USA",
+          "ERA LOCK: Contemporary (unspecified exact year)",
+          "COLOR_PALETTE: sleek monochrome with dark green, white, black accents",
+          "ARCHITECTURE: dense New York urban streetscape, contemporary signage, yellow cabs",
+          "Maintain continuous left-to-right parallel tracking direction across the sequence",
+          "Transformation from white tweed to black evening jacket must be timed to the streetlamp’s occlusion on Andy’s upper body",
+          "Streetlamp should bisect the frame vertically as the occluder; no other objects should block the view",
+          "Coffee cup must remain perfectly upright and in consistent relative screen position"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Style: Polished couture with a kinetic edge; monochrome palette poised to pivot from white to black. Lighting: soft overcast glamour with a slight edge highlight. In the split-second before the occlusion, <char_andy> is centered in the foreground within <loc_ext_manhattan_street>, still in <prop_white_tweed_coat>, shoulders squared and chin poised, front foot about to plant. <prop_paper_coffee_cup> is upright and fixed near her torso. A <prop_narrow_streetlamp> stands just at the left edge of frame, about to sweep across and bisect her upper body as a slim vertical occluder. Eyeline forward; she holds a micro-smile of certainty, dominating the frame while the city recedes.",
+          "characters_in_shot": [
+            "char_andy"
+          ],
+          "character_appearances": {
+            "char_andy": "Woman, 20s–30s, transitions from white tweed to sleek black evening jacket as a vertical occluder passes; upper body composed, eyes locked forward"
+          },
+          "resolved_t2i": "Style: Polished couture with a kinetic edge; monochrome palette poised to pivot from white to black. Lighting: soft overcast glamour with a slight edge highlight. In the split-second before the occlusion, A woman in her 20s–30s, shifting from a white tweed ensemble to a sleek black evening jacket as a vertical occluder passes; upper body poised and composed, eyes locked forward. is centered in the foreground within <loc_ext_manhattan_street>, still in <prop_white_tweed_coat>, shoulders squared and chin poised, front foot about to plant. <prop_paper_coffee_cup> is upright and fixed near her torso. A <prop_narrow_streetlamp> stands just at the left edge of frame, about to sweep across and bisect her upper body as a slim vertical occluder. Eyeline forward; she holds a micro-smile of certainty, dominating the frame while the city recedes.",
+          "resolved_ti2i": "Picture 1 is A woman in her 20s–30s, shifting from a white tweed ensemble to a sleek black evening jacket as a vertical occluder passes; upper body poised and composed, eyes locked forward..\nStyle: Polished couture with a kinetic edge; monochrome palette poised to pivot from white to black. Lighting: soft overcast glamour with a slight edge highlight. In the split-second before the occlusion, Picture 1 is centered in the foreground within <loc_ext_manhattan_street>, still in <prop_white_tweed_coat>, shoulders squared and chin poised, front foot about to plant. <prop_paper_coffee_cup> is upright and fixed near her torso. A <prop_narrow_streetlamp> stands just at the left edge of frame, about to sweep across and bisect her upper body as a slim vertical occluder. Eyeline forward; she holds a micro-smile of certainty, dominating the frame while the city recedes.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Camera Move: Maintain the smooth parallel left-to-right gimbal track, MCU framing, letting the <prop_narrow_streetlamp> drift across the frame. Character Actions & Reactions: As <char_andy> advances, the <prop_narrow_streetlamp> sweeps over her upper body, briefly occluding her torso and shoulders. During this occlusion, her wardrobe transitions seamlessly from <prop_white_tweed_coat> to <prop_black_evening_jacket>. She emerges with the same stride and cadence, chin slightly higher; <prop_paper_coffee_cup> remains perfectly upright and locked in the same screen position. Eyeline stays forward; a subtle boost of confidence registers in her posture. Lip Constraint: Mouth remains tightly closed. No speaking. Ambient Motion: City reflections slide; distant traffic rolls; a hanging banner ripples; hair flickers in a light breeze; the lamp’s shadow briefly grazes her shoulder as it passes. Forward Continuity: As the lamp clears frame, subtly lower the camera by a few inches to prefigure the low-angle push-in of the next shot while keeping <char_andy> centered and moving.",
+          "resolved_i2v": "Camera Move: Maintain the smooth parallel left-to-right gimbal track, MCU framing, letting the <prop_narrow_streetlamp> drift across the frame. Character Actions & Reactions: As A woman in her 20s–30s, shifting from a white tweed ensemble to a sleek black evening jacket as a vertical occluder passes; upper body poised and composed, eyes locked forward. advances, the <prop_narrow_streetlamp> sweeps over her upper body, briefly occluding her torso and shoulders. During this occlusion, her wardrobe transitions seamlessly from <prop_white_tweed_coat> to <prop_black_evening_jacket>. She emerges with the same stride and cadence, chin slightly higher; <prop_paper_coffee_cup> remains perfectly upright and locked in the same screen position. Eyeline stays forward; a subtle boost of confidence registers in her posture. Lip Constraint: Mouth remains tightly closed. No speaking. Ambient Motion: City reflections slide; distant traffic rolls; a hanging banner ripples; hair flickers in a light breeze; the lamp’s shadow briefly grazes her shoulder as it passes. Forward Continuity: As the lamp clears frame, subtly lower the camera by a few inches to prefigure the low-angle push-in of the next shot while keeping A woman in her 20s–30s, shifting from a white tweed ensemble to a sleek black evening jacket as a vertical occluder passes; upper body poised and composed, eyes locked forward. centered and moving.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.4,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_04_streetlamp_second_transform_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    },
+    {
+      "shot_id": "shot_05_black_jacket_finish",
+      "narrative_layer": {
+        "narrative_action": "Andy drives forward in the black evening jacket, sustaining her dominant runway-like stride with the coffee cup perfectly steady.",
+        "emotional_beat": "apex_confidence",
+        "dialogue": {
+          "has_dialogue": false,
+          "speaker_asset_id": null,
+          "listener_asset_id": null,
+          "text": null,
+          "voice_preset": null
+        },
+        "performance_emotion": null,
+        "performance_intensity": null
+      },
+      "staging_layer": {
+        "duration_seconds": 3.6,
+        "camera": {
+          "shot_scale": "MLS",
+          "angle": "low",
+          "movement": "gimbal_parallel_track_left_to_right_slight_push_in"
+        },
+        "lighting": "high-key daylight (overcast soft fill, glossy urban sheen)",
+        "environment_id": "loc_ext_manhattan_street",
+        "entities": [
+          {
+            "asset_id": "char_andy",
+            "position": "center_fg",
+            "action_state": "dominant_runway_stride, chin_up"
+          },
+          {
+            "asset_id": "prop_paper_coffee_cup",
+            "position": "center_fg",
+            "action_state": "held_upright_aligned"
+          },
+          {
+            "asset_id": "prop_black_evening_jacket",
+            "position": "center_fg",
+            "action_state": "worn_in_motion, sharp_lapels_catch_light"
+          }
+        ],
+        "consistency_constraints": [
+          "LOCATION LOCK: Manhattan, New York City, USA",
+          "ERA LOCK: Contemporary (unspecified exact year)",
+          "COLOR_PALETTE: sleek monochrome with dark green, white, black accents",
+          "ARCHITECTURE: dense New York urban streetscape, contemporary signage, yellow cabs",
+          "Maintain continuous left-to-right parallel tracking direction across the sequence",
+          "Subtle push-in must not disrupt lateral continuity or Andy’s central screen position",
+          "Low angle should reinforce power without revealing non-contemporary elements",
+          "Coffee cup must remain perfectly upright and in consistent relative screen position"
+        ]
+      },
+      "render_layer": {
+        "image": {
+          "engine": "qwen_img_edit_2511",
+          "t2i_template": "Style: Apex high-fashion authority against a sleek monochrome Manhattan canvas. Lighting: soft daylight with specular edge accents to define structure. In the breath before motion, low-angle MLS frames <char_andy> centered within <loc_ext_manhattan_street>, now in <prop_black_evening_jacket>, weight balanced and ready to drive forward. <prop_paper_coffee_cup> is upright and precisely aligned near her torso, immaculately vertical. Her chin is slightly elevated, shoulders relaxed yet commanding, eyes locked ahead; she fills the frame with dominance while the city towers upward behind her, signage and facades emphasizing vertical power lines.",
+          "characters_in_shot": [
+            "char_andy"
+          ],
+          "character_appearances": {
+            "char_andy": "Woman, 20s–30s, sleek black evening jacket with sharp lapels, runway-dominant stride; chin up, unstoppable confidence"
+          },
+          "resolved_t2i": "Style: Apex high-fashion authority against a sleek monochrome Manhattan canvas. Lighting: soft daylight with specular edge accents to define structure. In the breath before motion, low-angle MLS frames Woman, 20s–30s, sleek black evening jacket with sharp lapels, runway-dominant stride; chin up, unstoppable confidence centered within <loc_ext_manhattan_street>, now in <prop_black_evening_jacket>, weight balanced and ready to drive forward. <prop_paper_coffee_cup> is upright and precisely aligned near her torso, immaculately vertical. Her chin is slightly elevated, shoulders relaxed yet commanding, eyes locked ahead; she fills the frame with dominance while the city towers upward behind her, signage and facades emphasizing vertical power lines.",
+          "resolved_ti2i": "Picture 1 is Woman, 20s–30s, sleek black evening jacket with sharp lapels, runway-dominant stride; chin up, unstoppable confidence.\nStyle: Apex high-fashion authority against a sleek monochrome Manhattan canvas. Lighting: soft daylight with specular edge accents to define structure. In the breath before motion, low-angle MLS frames Picture 1 centered within <loc_ext_manhattan_street>, now in <prop_black_evening_jacket>, weight balanced and ready to drive forward. <prop_paper_coffee_cup> is upright and precisely aligned near her torso, immaculately vertical. Her chin is slightly elevated, shoulders relaxed yet commanding, eyes locked ahead; she fills the frame with dominance while the city towers upward behind her, signage and facades emphasizing vertical power lines.",
+          "keyframe_image_path": null,
+          "negative_prompt": "blurry, low quality, static image, watermark",
+          "seed": null,
+          "conditioning": null,
+          "extra_params": {}
+        },
+        "video": {
+          "engine": "wan_2.2",
+          "i2v_template": "Camera Move: Continue the parallel left-to-right gimbal with a subtle push-in from a low angle, maintaining <char_andy> centered. Character Actions & Reactions: <char_andy> powers forward with a runway-precise cadence; the sharp lapels of <prop_black_evening_jacket> catch light on each step. Her posture remains unbroken—chin up, shoulders confident. <prop_paper_coffee_cup> stays perfectly upright and fixed in its relative screen position, steady through micro-impacts. She breathes calmly, gaze unwavering, owning the lane. Lip Constraint: Mouth remains tightly closed. No speaking. Ambient Motion: Building reflections scroll and stretch upward due to low angle; flags flutter against facades; a yellow cab glints in the distance; soft steam slides along the curb; subtle wind lifts hair ends and flicks the jacket hem. Forward Continuity: End on a strong centered stride as the push-in eases to a composed hero frame, preserving lateral motion for a potential out or logo resolve.",
+          "resolved_i2v": "Camera Move: Continue the parallel left-to-right gimbal with a subtle push-in from a low angle, maintaining Woman, 20s–30s, sleek black evening jacket with sharp lapels, runway-dominant stride; chin up, unstoppable confidence centered. Character Actions & Reactions: Woman, 20s–30s, sleek black evening jacket with sharp lapels, runway-dominant stride; chin up, unstoppable confidence powers forward with a runway-precise cadence; the sharp lapels of <prop_black_evening_jacket> catch light on each step. Her posture remains unbroken—chin up, shoulders confident. <prop_paper_coffee_cup> stays perfectly upright and fixed in its relative screen position, steady through micro-impacts. She breathes calmly, gaze unwavering, owning the lane. Lip Constraint: Mouth remains tightly closed. No speaking. Ambient Motion: Building reflections scroll and stretch upward due to low angle; flags flutter against facades; a yellow cab glints in the distance; soft steam slides along the curb; subtle wind lifts hair ends and flicks the jacket hem. Forward Continuity: End on a strong centered stride as the push-in eases to a composed hero frame, preserving lateral motion for a potential out or logo resolve.",
+          "video_clip_path": null,
+          "video_clip_paths": [],
+          "engine_params": {
+            "resolution": "1280x720",
+            "fps": 16,
+            "camera_motion_intensity": 0.5,
+            "extra": {}
+          },
+          "lip_sync_constraint": {
+            "enabled": false,
+            "sync_method": null,
+            "audio_source_ref": null
+          }
+        },
+        "visual_review": null
+      },
+      "assembly_layer": {
+        "transition_in": "cut",
+        "transition_out": "cut",
+        "audio_tracks": [
+          {
+            "track_id": "shot_05_black_jacket_finish_bgm",
+            "type": "bgm",
+            "source": "bgm_auto",
+            "description": "Auto-assigned background music"
+          }
+        ]
+      }
+    }
+  ]
+}

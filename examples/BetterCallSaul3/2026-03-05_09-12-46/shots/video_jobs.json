@@ -1,0 +1,191 @@
+{
+  "scene_id": "bp_bettercallsaul3_9ae391",
+  "jobs": [
+    {
+      "job_id": "bp_bettercallsaul3_9ae391_shot_01_saul_drives_street_a",
+      "scene_id": "bp_bettercallsaul3_9ae391",
+      "shot_id": "shot_01_saul_drives_street",
+      "segment_id": "shot_01_saul_drives_street_a",
+      "prompt": "Handheld tracking parallel along the curb with slight bob and vibration as the car moves left-to-right. Older man, sun-faded short-sleeve button-down and dusty slacks, seated behind the wheel, sweaty brow, focused and wary makes micro-adjustments on the wheel, a quick glance to the side mirror then back to the road, shoulders subtly flexing with the bumps. Mouth remains tightly closed. No speaking. Ambient motion: heat shimmer ripples, glare skates across the intact windshield, a few contemporary US sedans with US license plates drift in the opposite lane, roadside dust kicks up and trails briefly. End with the lens drifting toward the windshield centerline, setting up a cut into an interior POV for the impending impact.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": "our_dataset/BetterCallSaul3/character_list/Saul/best.png",
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 3.062,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 49,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    },
+    {
+      "job_id": "bp_bettercallsaul3_9ae391_shot_02_teen_smashes_windshield_a",
+      "scene_id": "bp_bettercallsaul3_9ae391",
+      "shot_id": "shot_02_teen_smashes_windshield",
+      "segment_id": "shot_02_teen_smashes_windshield_a",
+      "prompt": "Handheld jolt forward as the collision happens; Teenage boy in a graphic T-shirt, shorts, and skate shoes; suspended in a mid-air lunge toward the windshield; face tense with shock. slams onto the windshield, the board clips the hood and tumbles out of view. Cracks spiderweb explosively from the point of contact, safety glass granules tremble and sparkle in the sun. Mouth remains tightly closed. No speaking. Ambient motion: the whole cabin shakes, a wiper twitches, outside heat haze wobbles the strip beyond; the teen slides down out of frame, leaving a crazed lattice of cracks that become our fractured view. End with the POV settling through the shattered pattern toward the asphalt where the teen will land, motivating a cut to the exterior.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": "our_dataset/BetterCallSaul3/character_list/TeenScammer1/best.png",
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 2.062,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 33,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    },
+    {
+      "job_id": "bp_bettercallsaul3_9ae391_shot_03_teen_screams_extortion_a",
+      "scene_id": "bp_bettercallsaul3_9ae391",
+      "shot_id": "shot_03_teen_screams_extortion",
+      "segment_id": "shot_03_teen_screams_extortion_a",
+      "prompt": "Handheld slight push-in on the teen. Dusty, scraped teen boy in a scuffed graphic tee and shorts, sprawled on searing asphalt, gripping his knee and overplaying panic with theatrical urgency. clutches his leg and thrashes for effect, head whipping toward offscreen left as he yells, “My leg! You broke my leg!” Mouth moves to match speech. Teen boy in t-shirt, cap, and skate shoes, crouched at the edge with smartphone raised, taut and intent, ready to capture and bolt. creeps closer, tilting <prop_smartphone> to keep both the teen and the car in frame, darting anxious glances toward offscreen left anticipating confrontation. Ambient motion: hot air ripples, a contemporary SUV murmurs past in the distance with a US plate, grit and paper flecks skitter on the asphalt. End with the teen’s gaze snapping upward toward the left, creating space for an approaching figure to enter in the next shot.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": "our_dataset/BetterCallSaul3/character_list/TeenScammer1/best.png",
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 3.562,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 57,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    },
+    {
+      "job_id": "bp_bettercallsaul3_9ae391_shot_04_saul_storms_out_a",
+      "scene_id": "bp_bettercallsaul3_9ae391",
+      "shot_id": "shot_04_saul_storms_out",
+      "segment_id": "shot_04_saul_storms_out_a",
+      "prompt": "Handheld follow surges after Older man in a short-sleeve button-down and worn slacks, out of the car; wiry and furious, shoulders pitched forward, fists clenched as he stomps forward, the loose door rocking on its hinges. Teen boy on the ground, propped on one elbow; wary and shrinking, hands near his knee scoots back on his palms, free hand lifting in a warding gesture, eyes wide in alarm. Mouth remains tightly closed. No speaking. Ambient motion: metal creaks, cicadas rasp, distant traffic hums, heat haze ripples over the asphalt. End with the camera dipping to frame Older man in a short-sleeve button-down and worn slacks, out of the car; wiry and furious, shoulders pitched forward, fists clenched's leg drawing back near the teen’s knee, aligning for the low-angle impact in the next shot.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": "our_dataset/BetterCallSaul3/character_list/Saul/best.png",
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 2.562,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 41,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    },
+    {
+      "job_id": "bp_bettercallsaul3_9ae391_shot_05_saul_kicks_knee_a",
+      "scene_id": "bp_bettercallsaul3_9ae391",
+      "shot_id": "shot_05_saul_kicks_knee",
+      "segment_id": "shot_05_saul_kicks_knee_a",
+      "prompt": "Handheld whip-pan snaps to the moment of impact as Older man in a short-sleeve shirt, sweat-damp; leg coiled mid-kick; face set and unflinching.'s foot drives into the teen's knee area; Teen boy with hands cinched around his knee, braced on elbows; startled, recoiling. recoils in shock, palms smacking the pavement, the ruse faltering. Mouth remains tightly closed. No speaking. Ambient motion: a dull thud carries, dust puffs from the ground, a skateboard nearby rattles and rolls a few inches before settling. Finish with Older man in a short-sleeve shirt, sweat-damp; leg coiled mid-kick; face set and unflinching. planting his foot and squaring up, torso turning toward both kids to set the eyeline for an imminent over-the-shoulders confrontation.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": "our_dataset/BetterCallSaul3/character_list/Saul/best.png",
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 2.312,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 37,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    },
+    {
+      "job_id": "bp_bettercallsaul3_9ae391_shot_06_saul_taunts_lawyer_a",
+      "scene_id": "bp_bettercallsaul3_9ae391",
+      "shot_id": "shot_06_saul_taunts_lawyer",
+      "segment_id": "shot_06_saul_taunts_lawyer_a",
+      "prompt": "Handheld slight push-in toward Older man in a short-sleeve button-down; center midground; pointing with authority, loud and commanding. through the kids’ shoulders. Older man in a short-sleeve button-down; center midground; pointing with authority, loud and commanding. steps half a pace forward and delivers, jabbing a finger as he spits the line with relish. Mouth moves to match speech. Teen boy in a T-shirt and shorts; left-foreground shoulder in frame; tense, guarded, defensive. and Teen boy in a T-shirt, cap, and skate shoes; right-foreground shoulder in frame; holding a smartphone, skittish and jittery. exchange a quick, alarmed glance; Teen boy in a T-shirt, cap, and skate shoes; right-foreground shoulder in frame; holding a smartphone, skittish and jittery.’s grip on <prop_smartphone> wobbles, the framed image tilting as his nerve falters. Ambient motion: hot wind flicks shirt hems, distant engines drone, a skateboard wheel spins lazily then stops. End with the kids starting to pivot out of the OTS, telegraphing their imminent flight.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": "our_dataset/BetterCallSaul3/character_list/TeenScammer1/best.png",
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 3.312,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 53,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    },
+    {
+      "job_id": "bp_bettercallsaul3_9ae391_shot_07_scammers_scramble_flee_a",
+      "scene_id": "bp_bettercallsaul3_9ae391",
+      "shot_id": "shot_07_scammers_scramble_flee",
+      "segment_id": "shot_07_scammers_scramble_flee_a",
+      "prompt": "Handheld pan right whips to follow the kids as they explode into a sprint, boards tucked tight to their sides. Older man in the foreground, driving forward in sharp strides, posture aggressive, focus predatory. lunges a couple of steps then checks himself, posture still aggressive as he slows near the curb. Mouth remains tightly closed. No speaking. Ambient motion: sneaker soles slap the hot pavement, skateboard wheels clatter against decks, distant traffic slides through the heat shimmer. End with the pan easing to a stop as the kids recede frame right, landing near the parked position of <prop_battered_yellow_compact_car> to motivate the return to the car-side angle.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": "our_dataset/BetterCallSaul3/character_list/TeenScammer1/best.png",
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 2.812,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 45,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    },
+    {
+      "job_id": "bp_bettercallsaul3_9ae391_shot_08_saul_shouts_check_a",
+      "scene_id": "bp_bettercallsaul3_9ae391",
+      "shot_id": "shot_08_saul_shouts_check",
+      "segment_id": "shot_08_saul_shouts_check_a",
+      "prompt": "Static camera holds as Older man, sweating beside a battered yellow compact with a mismatched red door; triumphant, he points as he delivers the punch line. plants his feet and calls after the fleeing kids, stabbing a finger toward them as he delivers the line. Mouth moves to match speech. In the deep background, Teen boy in the background, sprinting away, small and receding. and Teen boy in the background, bolting off with a skateboard, small and receding. continue running without looking back, boards clutched tight. Ambient motion: heat shimmer ripples over the hood, a loose flyer skitters along the curb, steady midday traffic murmur underscores. End by holding on Older man, sweating beside a battered yellow compact with a mismatched red door; triumphant, he points as he delivers the punch line. framed with the shattered windshield, buttoning the scene.",
+      "negative_prompt": "blurry, low quality, static image, watermark",
+      "image_reference": "our_dataset/BetterCallSaul3/character_list/Saul/best.png",
+      "dialogue": null,
+      "voice": null,
+      "voice_instructions": null,
+      "duration": 2.562,
+      "width": 1280,
+      "height": 720,
+      "fps": 16,
+      "frame_num": 41,
+      "seed": null,
+      "model": null,
+      "extra": {
+        "use_prompt_extend": false,
+        "prompt_extend_lang": "en"
+      }
+    }
+  ],
+  "total_shots": 8,
+  "estimated_duration": 21.8
+}

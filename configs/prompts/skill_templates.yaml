@@ -1,0 +1,35 @@
+# Jinja2 templates used by the skill layer (src/skills/prompt_building.py).
+# Edit wording here; placeholders match the ctx built by each ContextBuilder /
+# FallbackGenerator method. Missing keys fall back to the defaults in Python.
+
+# --- Request context fed to a prompt-writing sub-agent ---
+
+character_request: |
+  **Character**: {{ name }} ({{ id }})
+  **Physical Description**: {{ description }}
+  **Clothing / Style**: {{ clothing_style }}
+  **Personality**: {{ personality }}
+  **Backstory (brief)**: {{ backstory }}
+  **Global Style**: {{ global_style }}
+
+  Generate a highly detailed, cinematic character reference (T2I) prompt for a single character portrait.
+  Requirements:
+  - Medium shot (head and shoulders), neutral expression, front-facing
+  - Studio-style lighting, plain or neutral background
+  - Photorealistic, film photography aesthetic, era-appropriate where relevant
+  - Include a negative prompt to avoid: blurry, low quality, distorted, multiple people, cartoon, anime
+
+# --- Template-only asset reference prompts (no LLM) ---
+
+character_visual: |
+  Professional character portrait photograph, {{ name }}, {{ description }},{% if has_clothing %} wearing {{ clothing_style }},{% endif %} neutral expression, facing camera directly, medium shot (head and shoulders), studio lighting, soft diffused light, plain neutral background, photorealistic, highly detailed, film photography aesthetic
+
+location_visual: |
+  Establishing shot photograph, {{ name }}, {{ visual_style }}, wide angle, architectural photography, sharp focus, good depth of field, cinematic lighting, photorealistic, no people, empty scene{% if has_style %}, Style: {{ global_style }}{% endif %}
+
+  Negative: people, characters, blurry, low quality, distorted perspective, anime, cartoon
+
+prop_visual: |
+  Product photography style, {{ visual_description }}, isolated on white background, studio lighting, soft shadows, highly detailed, photorealistic
+
+  Negative: people, blurry, low quality, multiple objects, cluttered

@@ -1,0 +1,65 @@
+{
+  "moments": [
+    {
+      "id": "great_gatsby_fireworks_smile",
+      "title": "The Great Gatsby (Lighting & Micro-Expressions)",
+      "focus": ["lighting", "micro_expressions", "voiceover_identity"],
+      "text": "In the midst of a lavish, roaring twenties party, the camera glides past blurred, dancing guests to focus on the back of a sharply dressed man in a tuxedo. As a magnificent, golden firework display erupts in the night sky behind him, illuminating the scene in warm, opulent light, the man slowly turns around. Holding a crystal coupe of champagne, his face breaks into an incredibly rare, deeply magnetic smile that radiates an eternal, almost magical reassurance. As he raises his glass in a silent toast against the exploding fireworks, a gentle, nostalgic voiceover softly echoes: \"I'm Gatsby.\""
+    },
+    {
+      "id": "devil_wears_prada_cerulean_sweater",
+      "title": "The Devil Wears Prada (Texture & Psychological Pressure)",
+      "focus": ["texture", "micro_expressions", "psychological_pressure"],
+      "text": "Inside a pristine, cold-toned, high-end fashion office, Miranda Priestly, an intimidating female editor with silver hair and gold-rimmed glasses, stares down with absolute, piercing contempt. The camera cuts back and forth between Miranda's cold, calculating micro-expressions and a tight, highly detailed close-up of the nervous young assistant Andrea \"Andy\" Sachs's lumpy, textured, cerulean blue sweater. Miranda slowly looks Andy up and down, her gaze alone stripping away any remaining confidence in the freezing atmosphere. Over this tense visual standoff, Miranda's quiet, dismissive voiceover simply states: \"That sweater is not just blue. It's actually cerulean.\""
+    },
+    {
+      "id": "pulp_fiction_royale_with_cheese",
+      "title": "Pulp Fiction (Continuous Dual-Action & Interior Lighting)",
+      "focus": ["continuous_action", "interior_lighting", "car_dialogue"],
+      "text": "On a bright, sunlit 1990s Los Angeles morning, Vincent Vega and Jules Winnfield, dressed in crisp black suits, ride in the front seats of a moving vintage car. The camera is locked tightly on their faces as they casually smoke cigarettes, the shifting shadows and bright sunlight from the passing street rolling continuously across their features. They engage in a relaxed, rhythmic physical exchange of gestures and nods, completely at ease in the cramped leather interior. Over the rhythmic hum of the engine and the shifting light, Jules asks a question, and Vincent simply replies in voiceover: \"They call it a Royale with Cheese.\""
+    },
+    {
+      "id": "tintin_moroccan_market_chase",
+      "title": "The Adventures of Tintin (High-Dynamic Tracking & Physics)",
+      "focus": ["high_speed_tracking", "environment_physics", "market_chase"],
+      "text": "In a sweeping, high-speed tracking shot through a vibrant, sun-baked Moroccan market, a young reporter with a signature quiff speeds forward on a vintage motorcycle with a sidecar. His bearded companion sits in the sidecar, wildly aiming a bazooka. They crash violently through colorful fruit stands, sending oranges flying directly into the lens. As the motorcycle launches into the air off a ramp of debris, the companion accidentally fires the weapon. A massive explosion hits a distant dam, and instantly, a towering wall of rushing floodwater surges into the narrow streets right behind them, washing away everything in its wake."
+    },
+    {
+      "id": "spiderverse_leap_of_faith",
+      "title": "Spider-Man: Into the Spider-Verse (Stylized Physics & Perspective)",
+      "focus": ["stylized_physics", "inverted_perspective", "leap_of_faith"],
+      "text": "Rendered in a highly stylized, neon-lit comic book aesthetic with shifting frame rates, a young superhero stands on the extreme edge of a towering New York skyscraper. He wears a black suit beneath a green jacket and red-and-blue sneakers. Taking a deep breath, he falls backward into the dizzying, glowing neon abyss of the city below. Suddenly, the camera violently inverts 180 degrees. The visual illusion makes it appear as though he is rising upward into the sky rather than falling. He spreads his arms wide amidst the sound of shattering glass, embracing the leap of faith."
+    },
+    {
+      "id": "ultraman_tiga_transformation_device",
+      "title": "Ultraman Tiga (Prop Mechanics & Extreme Overexposure)",
+      "focus": ["prop_mechanics", "overexposure", "transformation_beat"],
+      "text": "Shot from a low, slightly wide angle, a determined young man in a red-and-white sci-fi uniform stands against a blurred background. His eyes lock onto the camera with intense resolve. He pulls a white, intricate device from his jacket and thrusts it high into the air. With a sharp mechanical snap, the twin crystal wings at the top of the device spring open. Instantly, an overwhelmingly brilliant, pure white light erupts from the center crystal. The harsh, divine glow completely washes over his face, blowing out the exposure and rapidly swallowing the entire frame in blinding white light."
+    },
+    {
+      "id": "iron_man_cave_forging_mask",
+      "title": "Iron Man (Particle Effects & Practical Lighting)",
+      "focus": ["particle_effects", "practical_lighting", "forge_montage"],
+      "text": "Deep inside a dark, gritty cave, the only light source is the fierce, dancing orange glow of a raging forge fire. A muscular man, covered in sweat and soot, wearing a grimy grey tank top, stands over a heavy steel anvil. With intense physical exertion, he raises a massive iron hammer and strikes a glowing, red-hot metal mask. Clang! Every brutal strike sends a massive, bright shower of orange sparks spraying violently across the dark frame, briefly and dramatically illuminating his exhausted, soot-stained face as he fights against the clock."
+    },
+    {
+      "id": "great_gatsby_beautiful_shirts",
+      "title": "The Great Gatsby (Fabric Physics & Slow-Motion)",
+      "focus": ["fabric_physics", "slow_motion", "emotional_turn"],
+      "text": "Inside a sun-drenched, incredibly luxurious bedroom, soft, diffused natural light pours through massive windows. Standing on the upper balcony of a colossal open wardrobe, an ecstatic Gatsby excitedly tosses a cascade of vibrant, pastel-colored silk and linen shirts—lavender, coral, and apple green—down to the floor below. Shot in extreme, breathtaking slow-motion, the delicate fabrics billow, fold, and glide elegantly through the air like birds before gently settling onto a massive, plush bed. Sitting amidst the growing mountain of vibrant fabrics, Daisy initially laughs with delight, but suddenly, overcome with emotion, she buries her face into a pile of beautiful shirts and begins to weep. Over the majestic, slow-motion falling silk, a soft voiceover echoes: \"They're such beautiful shirts... I've never seen such beautiful shirts before.\""
+    },
+    {
+      "id": "devil_wears_prada_temporal_tracking",
+      "title": "The Devil Wears Prada (Temporal Consistency & Tracking)",
+      "focus": ["temporal_consistency", "match_cut", "outfit_transition"],
+      "text": "Driven by the sharp, rhythmic clicking of high heels and a pulsing soundtrack, a highly confident Andy struts aggressively down a bustling Manhattan street. The camera executes a perfectly smooth, continuous tracking shot alongside her. She begins her walk wearing a heavy, dark green double-breasted coat, clutching a paper coffee cup steadily in her hand. Without breaking her fierce stride, she passes directly behind a yellow taxi. In the split second she emerges on the other side, her outfit has seamlessly transformed into a chic white tweed coat paired with thigh-high Chanel boots, while the coffee cup remains perfectly locked in the exact same position in her hand. She continues her strut and briefly passes behind a narrow streetlamp, instantly reappearing in a sleek, tailored black evening jacket, effortlessly maintaining her dominant catwalk pace through the seamless environmental transitions."
+    },
+    {
+      "id": "pulp_fiction_briefcase_glow",
+      "title": "Pulp Fiction (Directional Lighting & Ray Tracing)",
+      "focus": ["directional_lighting", "ray_tracing", "mystery_reveal"],
+      "text": "Shot from an extreme, dramatic low angle in a shadowy room, Vincent, clad in a sharp black suit with an unlit cigarette resting lazily in his lips, leans over a sleek black briefcase. The camera tightly focuses on his hands as he slowly turns the dials of the combination lock to 6-6-6. With a sharp, mechanical click, the latches pop open. As Vincent lifts the lid, an intense, mysterious, and deeply warm golden light violently spills out from inside the case. The highly directional, glowing light pierces the dark room, casting high-contrast shadows while perfectly illuminating Vincent's awestruck face. His eyes widen in absolute mesmerization, his facial muscles relaxing into a state of pure hypnosis as he stares into the glowing abyss. Breaking the dead silence, an off-screen voiceover asks, \"We happy?\" Still completely entranced by the golden glow illuminating his face, Vincent softly mutters, \"Yeah... we happy.\""
+    }
+  ]
+}
+
