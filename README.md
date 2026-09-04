@@ -1,49 +1,102 @@
-# Better Call CineCrew
+<p align="center">
+  <img src="docs/website/assets/logo.png" alt="Better Call CineCrew" width="320">
+</p>
 
-**Consistent Ultra-Long Narrative-to-Film Generation** · ECCV 2026
+<div align="center">
 
-CineCrew turns a written narrative into a complete, executable film plan. A
-multi-agent "film crew" compiles the script into a structured **Asset Library**
-(the truth anchor), then into **FilmDSL** — one layered JSON spec — and finally
-into keyframe (T2I) and video (T2V / I2V) jobs that any OpenAI-compatible
-generation backend can run.
+# Better Call CineCrew: Consistent Ultra-Long Narrative-to-Film Generation
 
-The design principle is **Meta Info as a constraint layer**: the script is first
-distilled into reusable assets (characters, locations, props) and global
-production constraints, and every downstream shot, prompt, and job must reference
-those asset IDs and obey those constraints. This is what keeps characters, sets,
-and style consistent across long narratives.
+[![ECCV 2026](https://img.shields.io/badge/Conference-ECCV%202026-blue)](https://eccv.ecva.net/)
+[![Project Page](https://img.shields.io/badge/Project-Page-8A2BE2?logo=googlechrome&logoColor=white)](https://ironieser.github.io/CineCrew/)
+[![GitHub](https://img.shields.io/badge/GitHub-Code-black?logo=github)](https://github.com/Ironieser/CineCrew)
+[![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE)
+<!-- [![arXiv](https://img.shields.io/badge/arXiv-XXXX.XXXXX-red?logo=arxiv)](https://arxiv.org/abs/XXXX.XXXXX) -->
+
+**Jiaben Chen**\* · **Sixun Dong**\* · Qinhong Zhou · Raine Ma · Zhiyang Dou · Wojciech Matusik · Chuang Gan
+
+<sub>\* equal contribution</sub>
+
+</div>
 
 <p align="center">
   <img src="docs/website/assets/teaser.png" alt="Better Call CineCrew task overview" width="820"><br>
-  <em>CineCrew organizes narrative understanding, cinematic planning, acting control,
-  asset grounding, video execution, and post-production into a unified long-form film generation studio.</em>
+  <em>CineCrew organizes narrative understanding, cinematic planning, acting control, asset grounding,
+  video execution, and post-production into a unified long-form film generation studio.</em>
 </p>
 
-> Project page (full-audio demo, baseline comparisons): [`docs/website/`](docs/website/) —
-> open `docs/website/index.html` locally or serve it via GitHub Pages
-> (a workflow is included). Videos are not committed; the page expects them under `docs/website/videos/`.
-
 ---
 
-## Contents
+## 🚀 Overview
 
-- [Quick start](#quick-start)
-- [Configuration (OpenAI-compatible backends)](#configuration)
-- [Running the pipeline](#running-the-pipeline)
-- [What you get: FilmDSL and the job batch](#outputs)
-- [Executing the plan: keyframes, clips, VLM review](#execution-and-vlm-review)
-- [The crew](#the-crew)
-- [Bring your own T2V / T2I model](#bring-your-own-t2v--t2i-model)
-- [Examples](#examples)
-- [Ablations](#ablations)
-- [Repository layout](#repository-layout)
-- [Demo & gallery](#demo--gallery)
-- [Citation](#citation)
+**CineCrew turns a written narrative into a complete, executable film.** A multi-agent
+"film crew" compiles the script into a structured **Asset Library** (the truth anchor),
+then into **FilmDSL** — one layered JSON spec per scene — and finally into keyframe
+(T2I) and video (T2V / I2V) jobs that any OpenAI-compatible generation backend can run,
+with a VLM reviewer gating every rendered keyframe and clip.
 
----
+The design principle is **Meta Info as a constraint layer**: the script is first
+distilled into reusable assets (characters, locations, props) and global production
+constraints, and every downstream shot, prompt, and job must reference those asset IDs
+and obey those constraints. This is what keeps characters, sets, and style consistent
+across long narratives.
 
-## Quick start
+## ✨ Key Highlights
+
+- **FilmDSL** — one `SceneBlueprint` per scene with four layers (narrative → staging →
+  render → assembly), each written by exactly one crew member and read by the next.
+- **Asset Library as truth anchor** — characters (appearance + persona), locations and
+  props with stable IDs; a validator repairs or removes anything that is not in it.
+- **A config-driven crew** — Art Department, Story Editor, Cinematographer, VO Director
+  (+ Acting Coach), Technical Director, Dailies Reviewer, Production Operator. Each agent
+  is a YAML prompt + a Pydantic schema; behavior changes never touch Python.
+- **Two-stage quality loop** — a sliding-window prompt critic before rendering, and a VLM
+  judge on the rendered keyframe / clip that rewrites the prompt and retries.
+- **Backend-agnostic** — LLM, T2I and video all speak the OpenAI API shape; swap in Qwen-Image,
+  Wan 2.2, FLUX, Sora, or your own server by changing three environment variables.
+- **Ablations are toggles** — every stage, the critic, the rulebook memory and the asset
+  memory switch off from `pipeline_settings.yaml` or an env var.
+
+## 📅 News
+
+- **2026.09** — Code, examples and project page released.
+- **2026** — *Better Call CineCrew* accepted to **ECCV 2026**.
+
+## 🏗️ Architecture
+
+```
+script ─▶ Art Department ─▶ Story Editor ─▶ Cinematographer ─▶ DSL Validator ─▶ VO Director
+              (L0 assets)      (L1 narrative)    (L2 staging)      (ID contract)     (dialogue + acting)
+        ─▶ Technical Director ─▶ Dailies Reviewer ─▶ Production Operator ─▶ [execute] keyframes ─▶ clips ─▶ film
+              (L3 render)          (prompt critic)     (L4 assembly + jobs)          VLM judge on every render
+```
+
+| Crew member | Package (`src/agents/`) | FilmDSL layer it writes |
+|-------------|--------------------------|--------------------------|
+| **Art Department** (+ Showrunner) | `art_department/` | L0: project metadata + global style, `AssetLibrary` (characters with appearance + persona, locations, props), production constraints; reference sheets / establishing shots via `generate_references` |
+| **Story Editor** | `story_editor/` | L1 Narrative — actions, emotion beats, dialogue |
+| **Cinematographer** | `cinematographer/` | L2 Staging — shot scale / angle / movement / lighting / entities |
+| *(DSL validation)* | `dsl_validator/` | Guards the asset-ID contract: validate → remap near-misses → LLM repair → drop unknowns |
+| **VO Director** (+ Acting Coach) | `vo_director/` | L1 dialogue recovery + per-shot performance emotion from line, persona and staging; optional voice design |
+| **Technical Director** | `technical_director/` | L3 Render — keyframe (T2I / TI2I) & video (I2V) prompts, resolved against the assets |
+| **Dailies Reviewer** | `dailies_reviewer/` | Prompt critic (5-shot sliding window, loops to convergence) + `VisualJudge` VLM gate on rendered media |
+| **Production Operator** | `production_operator/` | L4 Assembly + `VideoJobBatch`; opt-in execution loop (keyframe → judge → clip → judge → cut) |
+
+**FilmDSL** is `SceneBlueprint` (`src/schemas/blueprint.py`): `{meta, assets, clips[]}`
+where each clip carries an **L1 narrative** action, an **L2 cinematic staging**, an
+**L3 render** spec (resolved T2I / I2V prompts, no `<asset_id>` placeholders left), and
+an **L4 assembly** layer. A **`VideoJob`** (`src/schemas/video_jobs.py`) is
+backend-agnostic: prompt, negative prompt, optional keyframe (`image_reference` ⇒ I2V),
+duration, size, fps / frame count, seed, the spoken line of a dialogue segment, and a
+free-form `extra` dict forwarded to the backend.
+
+The **Production Rulebook** (static priors and conventions) lives in
+`configs/knowledge/` and is injected into prompts at runtime. See
+[`DEV_NOTES.md`](DEV_NOTES.md) for the paper-crew ↔ code map and
+[`AGENTS.md`](AGENTS.md) for a guided tour of the code base.
+
+## 📦 Installation & Usage
+
+### Quick start
 
 ```bash
 git clone https://github.com/Ironieser/CineCrew.git
@@ -60,7 +113,7 @@ That runs the whole crew on a bundled two-character scene and writes the plan to
 image / video backends are optional and off by default. `ffmpeg` (with `ffprobe`)
 is needed only for execution (frame sampling for the visual judge, cutting the film).
 
-## Configuration
+### Configuration
 
 Everything is configured through environment variables (a `.env` file at the
 project root is loaded automatically; see [`.env.example`](.env.example)). No
@@ -73,28 +126,30 @@ vLLM, Ollama, LiteLLM, or a self-hosted wrapper are interchangeable — point th
 | Role | Endpoint used | Variables | Default |
 |------|---------------|-----------|---------|
 | **LLM** (the crew) | `POST {LLM_BASE_URL}/chat/completions` | `LLM_API_KEY` (required), `LLM_BASE_URL`, `LLM_MODEL`, `LLM_PROVIDER` (`openai` \| `azure`), `AZURE_API_VERSION` | `api.openai.com`, `gpt-5` |
-| **T2I** (keyframes, reference sheets) | `POST {T2I_BASE_URL}/images/generations` | `T2I_MODEL`, `T2I_BASE_URL`, `T2I_API_KEY`, `T2I_SIZE` | self-hosted **Qwen-Image**: `qwen-image` @ `http://localhost:8000/v1` |
-| **Video** (T2V / I2V) | `POST {VIDEO_BASE_URL}/videos` + poll / download | `VIDEO_MODEL`, `VIDEO_BASE_URL`, `VIDEO_API_KEY`, `VIDEO_SIZE`, `VIDEO_TIMEOUT` | self-hosted **Wan 2.2**: `wan22-t2v` @ `http://localhost:8090/v1` |
+| **T2I** (keyframes, reference sheets) | `POST {T2I_BASE_URL}/images/generations` (+ `/images/edits`) | `T2I_MODEL`, `T2I_BASE_URL`, `T2I_API_KEY`, `T2I_SIZE`, `T2I_KEYFRAME_SIZE` | self-hosted **Qwen-Image**: `qwen-image` @ `http://localhost:8000/v1` |
+| **Video** (T2V / I2V) | `POST {VIDEO_BASE_URL}/videos` + poll / download | `VIDEO_MODEL`, `VIDEO_BASE_URL`, `VIDEO_API_KEY`, `VIDEO_SIZE`, `VIDEO_FPS`, `VIDEO_TIMEOUT` | self-hosted **Wan 2.2**: `wan22-t2v` @ `http://localhost:8090/v1` |
 
 The paper's results use Qwen-Image (T2I) and Wan 2.2 (T2V / I2V), which is why
 they are the defaults; `T2I_API_KEY` / `VIDEO_API_KEY` fall back to `LLM_API_KEY`.
 Swapping in OpenAI's `gpt-image-1` / `sora-2` or any other model is just a
 different `*_MODEL` + `*_BASE_URL`.
 
-Other switches: `LLM_MAX_RETRIES` (default `2`; `0` = fail-fast), `LLM_TIMEOUT` (seconds per request, default `600`), `LLM_MAX_COMPLETION_TOKENS`
-(default `32768`), `TRACE_LOGS=0` (disable per-agent trace logs),
-`DISABLE_KNOWLEDGE=1` (ablation: no Production Rulebook injection).
+Other switches: `LLM_MAX_RETRIES` (default `2`; `0` = fail-fast), `LLM_TIMEOUT`
+(seconds per request, default `600`), `LLM_MAX_COMPLETION_TOKENS` (default `32768`),
+`TRACE_LOGS=0` (disable per-agent trace logs), `DISABLE_KNOWLEDGE=1` (ablation: no
+Production Rulebook injection).
 
-Minimal `.env` for OpenAI:
+<details>
+<summary><b>Example <code>.env</code> files</b> (OpenAI · Azure OpenAI · local vLLM / Ollama)</summary>
 
 ```ini
+# OpenAI
 LLM_API_KEY=sk-...
 LLM_MODEL=gpt-5
 ```
 
-For Azure OpenAI:
-
 ```ini
+# Azure OpenAI
 LLM_PROVIDER=azure
 LLM_API_KEY=...
 LLM_BASE_URL=https://<resource>.openai.azure.com
@@ -102,15 +157,16 @@ LLM_MODEL=<deployment-name>
 AZURE_API_VERSION=2024-10-21
 ```
 
-For a local OpenAI-compatible server (vLLM, Ollama, ...):
-
 ```ini
+# Local OpenAI-compatible server (vLLM, Ollama, ...)
 LLM_API_KEY=EMPTY
 LLM_BASE_URL=http://localhost:8000/v1
 LLM_MODEL=Qwen/Qwen3-235B-A22B
 ```
 
-## Running the pipeline
+</details>
+
+### Running the pipeline
 
 ```bash
 python run_dataset_story.py <story_dir>                       # a story directory
@@ -133,10 +189,6 @@ Which stages run, and in what order, is `configs/pipeline_settings.yaml`
 (`pipeline.stages`). Every stage is a one-line `enabled: false` away from being
 skipped, which is also how the ablations are run.
 
-To also **render** the plan (keyframes + clips, with VLM review) set
-`execute: true` on the `production_operator` stage — see
-[Execution and VLM review](#execution-and-vlm-review).
-
 Programmatic use:
 
 ```python
@@ -146,7 +198,7 @@ blueprint  = ctx["scene_blueprint"]   # FilmDSL (SceneBlueprint)
 video_jobs = ctx["video_jobs"]        # VideoJobBatch
 ```
 
-## Outputs
+### Outputs
 
 ```
 data/runs/dataset/<story>/<run_id>/
@@ -160,21 +212,12 @@ data/runs/dataset/<story>/<run_id>/
 └── logs/     one markdown trace per agent call + index.md
 ```
 
-**FilmDSL** is `SceneBlueprint` (`src/schemas/blueprint.py`): `{meta, assets,
-memory, clips[]}` where each clip carries an **L1 narrative** action, an
-**L2 cinematic staging**, an **L3 render** spec (resolved T2I / I2V prompts, no
-`<asset_id>` placeholders left), and an **L4 assembly** layer.
-
-A **`VideoJob`** (`src/schemas/video_jobs.py`) is backend-agnostic: prompt,
-negative prompt, optional keyframe (`image_reference` ⇒ I2V), duration, size,
-fps / frame count, seed, and a free-form `extra` dict forwarded to the backend.
-
-## Execution and VLM review
+### Execution and VLM review
 
 The blueprint is a complete plan; turning it into pixels is a separate, opt-in
 step so that planning stays cheap and backend-agnostic. With
-`production_operator.execute: true` the Production Operator runs a ReAct loop
-per shot:
+`production_operator.execute: true` (or `--execute`) the Production Operator runs
+a ReAct loop per shot:
 
 ```
 keyframe  = T2I / TI2I(resolved prompt [+ character reference sheets])  ─┐
@@ -211,54 +254,35 @@ The judge uses the same `LLM_*` model, which therefore needs vision input
 afterglow` segments so a line can be aligned to its clip, the VO Director gives
 every character a fixed voice identity (`voice_design`, `vo_director.design_voices`)
 and every shot a performed emotion, and `assembly_layer` carries the dialogue /
-BGM tracks with `lip_sync_constraint` on speaking clips. The `dialogue_core` job carries the
-line, the speaker's voice and those instructions, so a joint audio-video model
-behind `VIDEO_BASE_URL` voices it directly; a TTS stage consumes the same fields.
+BGM tracks with `lip_sync_constraint` on speaking clips. The `dialogue_core` job
+carries the line, the speaker's voice and those instructions, so a joint
+audio-video model behind `VIDEO_BASE_URL` voices it directly; a TTS stage consumes
+the same fields.
 
-## The crew
-
-Each stage is a "crew member": a configuration-driven LLM agent. To change what
-an agent does, edit its YAML — not Python.
-
-| Crew member | Package (`src/agents/`) | FilmDSL layer it writes |
-|-------------|--------------------------|--------------------------|
-| **Art Department** (+ Showrunner) | `art_department/` | L0: project metadata + global style, `AssetLibrary` (characters with appearance + persona, locations, props), production constraints; reference sheets / establishing shots via `generate_references` |
-| **Story Editor** | `story_editor/` | L1 Narrative — actions, emotion beats, dialogue |
-| **Cinematographer** | `cinematographer/` | L2 Staging — shot scale / angle / movement / lighting / entities |
-| *(DSL validation)* | `dsl_validator/` | Guards the asset-ID contract: validate → remap near-misses → LLM repair → drop unknowns |
-| **VO Director** (+ Acting Coach) | `vo_director/` | L1 dialogue recovery + per-shot performance emotion from line, persona and staging; optional voice design |
-| **Technical Director** | `technical_director/` | L3 Render — keyframe (T2I / TI2I) & video (I2V) prompts, resolved against the assets |
-| **Dailies Reviewer** | `dailies_reviewer/` | Prompt critic (5-shot sliding window, loops to convergence) + `VisualJudge` VLM gate on rendered media |
-| **Production Operator** | `production_operator/` | L4 Assembly + `VideoJobBatch`; opt-in execution loop (keyframe → judge → clip → judge) |
-
-The **Production Rulebook** (static priors and conventions) lives in
-`configs/knowledge/` and is injected into prompts at runtime. See
-[`DEV_NOTES.md`](DEV_NOTES.md) for the paper-crew ↔ code map and
-[`AGENTS.md`](AGENTS.md) for a guided tour of the code base.
-
-## Bring your own T2V / T2I model
+### Bring your own T2V / T2I model
 
 The framework never talks to a specific model. `src/adapters/` holds two thin
 clients built on the official `openai` SDK:
 
-- `T2IClient` → `images.generate(model, prompt, size, extra_body={negative_prompt, steps, cfg, seed})`
+- `T2IClient` → `images.generate(model, prompt, size, extra_body={negative_prompt, steps, cfg, seed})`,
+  or `images.edit(image=[reference sheets], ...)` for reference-conditioned keyframes
 - `VideoClient` → `videos.create(model, prompt, size, seconds, input_reference, extra_body={...})`,
   then `videos.retrieve` until `completed`, then `videos.download_content`.
 
 Anything that is not part of the OpenAI schema (negative prompt, fps, frame
-count, seed, or your own knobs via `VideoJob.extra`) is sent in the request body,
-where a self-hosted server can read it and a strict OpenAI endpoint ignores it.
+count, seed, the dialogue payload, or your own knobs via `VideoJob.extra`) is sent
+in the request body, where a self-hosted server can read it and a strict OpenAI
+endpoint ignores it. So to run Wan 2.2 (the default), LTX-Video, CogVideoX,
+HunyuanVideo, Sora, … you only need a server that exposes those three `/videos`
+routes (and/or `/images/generations` for T2I) — then set `VIDEO_BASE_URL`,
+`VIDEO_MODEL`, and `VIDEO_API_KEY`. The FilmDSL, the crew, and the job batch stay
+exactly the same.
 
-So to run Wan 2.2 (the default), LTX-Video, CogVideoX, HunyuanVideo, Sora, … you
-only need a server that exposes those three `/videos` routes (and/or
-`/images/generations` for T2I) — then set `VIDEO_BASE_URL`, `VIDEO_MODEL`, and
-`VIDEO_API_KEY`. The FilmDSL, the crew, and the job batch stay exactly the same.
-
-## Examples
+### Examples
 
 `examples/<story>/<run_id>/` ships the artifacts of 13 narratives — each
-directory is one run of `run_dataset_story.py` — so you can
-inspect what each crew member produced without spending tokens:
+directory is one run of `run_dataset_story.py` — so you can inspect what each crew
+member produced without spending tokens:
 
 ```
 assets/asset_library.json        the Asset Library (characters, locations, props, constraints)
@@ -269,20 +293,22 @@ logs/                            one trace per agent call (rendered prompt, raw 
 
 Media is not included; paths inside the files are relative to the repo root.
 
-## Ablations
+### Ablations
 
 The cascade is config-driven, so the paper's ablations are toggles, not code:
 
 | Axis | Toggle |
 |------|--------|
-| Remove an agent / stage | `enabled: false` in `configs/pipeline_settings.yaml` |
+| Remove an agent / stage | `enabled: false` in `configs/pipeline_settings.yaml` (or `--skip <stage>`) |
 | Closed-loop critic | drop `dailies_reviewer` (→ "ours w/o critic") |
 | DSL validation | drop `dsl_validator` |
 | Workflow memory (rulebook) | `DISABLE_KNOWLEDGE=1` |
 | Asset (reference-image) memory | skip `link_character_images()` in the entry script |
 | Refinement depth | `dailies_reviewer.max_rounds` |
+| Acting Coach | `vo_director.infer_emotion: false` |
+| Visual judge at execution | `production_operator.judge: false` |
 
-## Repository layout
+### Repository layout
 
 ```
 run_dataset_story.py       entry point
@@ -292,7 +318,7 @@ src/
 ├── engine/base_agent.py   ConfigurableAgent — YAML prompts + Pydantic schema → structured LLM call
 ├── agents/<crew>/         one package per crew member: <crew>_agent.py + its YAML prompt(s)
 ├── schemas/               FilmDSL (blueprint.py), assets.py, video_jobs.py, critic.py, ...
-├── adapters/              OpenAI-style clients: t2i_client.py (images), video_client.py (videos)
+├── adapters/              OpenAI-style clients: t2i_client.py, video_client.py; ffmpeg helpers
 ├── skills/                deterministic helpers: context building, asset I/O, validation
 └── utils/                 LLM client, tracing, limits
 configs/
@@ -304,14 +330,13 @@ examples/                  artifacts of 13 example runs
 docs/website/              project page (GitHub Pages)
 ```
 
----
-
-## Demo & gallery
+## 🎬 Demo & Gallery
 
 ### Featured demo — *The Monkey King at Hogwarts*
 
 A long-form demo showing script-driven story progression, cross-shot character
-consistency, cinematic staging, and agent-based production planning.
+consistency, cinematic staging, and agent-based production planning — watch it with
+audio on the [project page](https://ironieser.github.io/CineCrew/).
 
 > **Script.** In a magical academy, the young wizard **Harry** meets the Monkey King
 > **Sun Wukong**. What begins as a suspicious first encounter turns into an unlikely
@@ -330,7 +355,8 @@ consistency, cinematic staging, and agent-based production planning.
 </p>
 <p align="center"><em>Harry&nbsp;·&nbsp;Wukong&nbsp;·&nbsp;Hallway&nbsp;·&nbsp;Training Room&nbsp;·&nbsp;Courtyard&nbsp;·&nbsp;Broom</em></p>
 
-**Story timeline** (12 shots, generated as one coherent sequence):
+<details>
+<summary><b>Story timeline</b> (12 shots, generated as one coherent sequence)</summary>
 
 | Shot | Title | Beat |
 |----|-------|------|
@@ -347,15 +373,30 @@ consistency, cinematic staging, and agent-based production planning.
 | 10 | Courtyard | In the open courtyard, their conversation becomes warmer and more relaxed. |
 | 11 | Bench Ending | They sit together as the camera pulls back, ending on the quiet start of a new friendship. |
 
+</details>
+
 ### Baseline comparison — vs. LTX-Studio
 
 Side-by-side videos against LTX-Studio on three representative cases
 (*Spider-Man*; *Better Call Saul* Ep. 1 and Ep. 2) are on the
-[project page](docs/website/index.html).
+[project page](https://ironieser.github.io/CineCrew/#comparison).
 
----
+### Project page
 
-## Citation
+The page lives in [`docs/website/`](docs/website/) and is published by
+[`.github/workflows/pages.yml`](.github/workflows/pages.yml) to GitHub Pages on
+every push that touches it (repository *Settings → Pages → Source: GitHub Actions*).
+The demo videos are served from the
+[`website-media`](https://github.com/Ironieser/CineCrew/releases/tag/website-media)
+release so the source tree stays small; to preview locally, run
+`python -m http.server -d docs/website` and open `http://localhost:8000`.
+
+## 👥 Authors
+
+Jiaben Chen\*, Sixun Dong\*, Qinhong Zhou, Raine Ma, Zhiyang Dou, Wojciech Matusik, Chuang Gan
+(\* equal contribution). Code by Sixun Dong ([@Ironieser](https://github.com/Ironieser)).
+
+## 📚 Citation
 
 ```bibtex
 @inproceedings{chen2026cinecrew,
@@ -368,8 +409,21 @@ Side-by-side videos against LTX-Studio on three representative cases
 }
 ```
 
-## License
+## 🙏 Acknowledgments
 
-Apache License 2.0 — see [LICENSE](LICENSE). Code by Sixun Dong
-([@Ironieser](https://github.com/Ironieser)); the paper is joint work with the
-authors listed above.
+The default backends are [Qwen-Image](https://github.com/QwenLM/Qwen-Image) for keyframes
+and [Wan 2.2](https://github.com/Wan-Video/Wan2.2) for video; structured LLM output is
+handled by [instructor](https://github.com/567-labs/instructor) and
+[pydantic](https://github.com/pydantic/pydantic) on top of the
+[OpenAI Python SDK](https://github.com/openai/openai-python). We thank
+[LTX-Studio](https://ltx.studio/) for serving as the commercial baseline in our comparisons.
+
+## 📄 License
+
+Apache License 2.0 — see [LICENSE](LICENSE).
+
+<div align="center">
+
+[Overview](#-overview) · [Highlights](#-key-highlights) · [Architecture](#%EF%B8%8F-architecture) · [Install & Usage](#-installation--usage) · [Demo](#-demo--gallery) · [Citation](#-citation)
+
+</div>
