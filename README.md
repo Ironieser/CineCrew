@@ -12,49 +12,78 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE)
 <!-- [![arXiv](https://img.shields.io/badge/arXiv-XXXX.XXXXX-red?logo=arxiv)](https://arxiv.org/abs/XXXX.XXXXX) -->
 
-**Jiaben Chen**\* · **Sixun Dong**\* · Qinhong Zhou · Raine Ma · Zhiyang Dou · Wojciech Matusik · Chuang Gan
+**Jiaben Chen**<sup>1\*</sup> · **Sixun Dong**<sup>1\*</sup> · Qinhong Zhou<sup>1</sup> · Raine Ma<sup>1</sup> · Zhiyang Dou<sup>2</sup> · Wojciech Matusik<sup>2</sup> · Chuang Gan<sup>1†</sup>
 
-<sub>\* equal contribution</sub>
+<sup>1</sup> University of Massachusetts Amherst &nbsp;&nbsp; <sup>2</sup> Massachusetts Institute of Technology<br>
+<sub>\* equal contribution &nbsp; † corresponding author</sub>
 
 </div>
 
 <p align="center">
   <img src="docs/website/assets/teaser.png" alt="Better Call CineCrew task overview" width="820"><br>
-  <em>CineCrew organizes narrative understanding, cinematic planning, acting control, asset grounding,
-  video execution, and post-production into a unified long-form film generation studio.</em>
+  <em>CineCrew is a structured orchestration layer for narrative-to-film generation. At its center is
+  FilmDSL, a film-oriented domain-specific language that explicitly encodes cinematic constraints —
+  shots, camera directives, assets, and character personas — so that a crew of agents coordinates
+  through one shared specification for planning, generation, critique, and repair.</em>
 </p>
 
 ---
 
 ## 🚀 Overview
 
-**CineCrew turns a written narrative into a complete, executable film.** A multi-agent
-"film crew" compiles the script into a structured **Asset Library** (the truth anchor),
-then into **FilmDSL** — one layered JSON spec per scene — and finally into keyframe
-(T2I) and video (T2V / I2V) jobs that any OpenAI-compatible generation backend can run,
-with a VLM reviewer gating every rendered keyframe and clip.
+Long-form narrative-to-film generation requires **shot-level controllability** and
+**cross-clip consistency** in both visual identity and character behavior —
+requirements that remain difficult to satisfy with prompt-based workflows. A core
+reason existing workflows stay brittle is the lack of a structured intermediate
+layer between scripts and video models, especially when screenplays are
+underspecified at key cinematic decision points.
 
-The design principle is **Meta Info as a constraint layer**: the script is first
-distilled into reusable assets (characters, locations, props) and global production
-constraints, and every downstream shot, prompt, and job must reference those asset IDs
-and obey those constraints. This is what keeps characters, sets, and style consistent
-across long narratives.
+**CineCrew** is a structured orchestration layer for film-oriented script-to-video
+generation, implemented as a multi-agent framework that operates between scripts
+and off-the-shelf video generators. The layer is centered on **FilmDSL**, a
+film-oriented domain-specific language that makes cinematic constraints explicit —
+shot and camera directives, asset and continuity requirements, and persona cues —
+so that agents coordinate through a shared structured specification for planning,
+generation, critique, and repair. A generation agent constructs asset packs and
+storyboard keyframes that anchor composition before clip-by-clip synthesis, while a
+critic agent produces structured QA signals and triggers targeted refinement
+without retraining the base model.
+
+Under this layer, consistency is treated as a **first-class objective rather than an
+emergent property of prompting**: appearance and persona requirements are specified
+by DSL-defined constraints *before* generation begins, and failures are diagnosed
+and repaired with feedback aligned with film-production needs.
 
 ## ✨ Key Highlights
 
-- **FilmDSL** — one `SceneBlueprint` per scene with four layers (narrative → staging →
-  render → assembly), each written by exactly one crew member and read by the next.
-- **Asset Library as truth anchor** — characters (appearance + persona), locations and
-  props with stable IDs; a validator repairs or removes anything that is not in it.
-- **A config-driven crew** — Art Department, Story Editor, Cinematographer, VO Director
-  (+ Acting Coach), Technical Director, Dailies Reviewer, Production Operator. Each agent
-  is a YAML prompt + a Pydantic schema; behavior changes never touch Python.
-- **Two-stage quality loop** — a sliding-window prompt critic before rendering, and a VLM
-  judge on the rendered keyframe / clip that rewrites the prompt and retries.
-- **Backend-agnostic** — LLM, T2I and video all speak the OpenAI API shape; swap in Qwen-Image,
-  Wan 2.2, FLUX, Sora, or your own server by changing three environment variables.
-- **Ablations are toggles** — every stage, the critic, the rulebook memory and the asset
-  memory switch off from `pipeline_settings.yaml` or an env var.
+- **A structured orchestration layer** for film-oriented script-to-video generation
+  that bridges long-form screenplays and off-the-shelf video models, explicitly
+  modeling cinematic structure and continuity constraints to enable controllable and
+  consistent long-form video synthesis.
+- **FilmDSL**, a domain-specific language designed specifically for film generation.
+  FilmDSL converts screenplays into a machine-actionable representation of cinematic
+  intent — shot structure, camera directives, assets, continuity links, and
+  character-direction signals — and embeds two structured memories: a **multi-modal
+  asset memory** that preserves visual entities across clips and a **workflow memory**
+  (the Production Rulebook) that tracks narrative state and long-range dependencies.
+- **A multi-agent film generation framework unified by FilmDSL**, where the DSL serves
+  as the shared operational protocol for all agents — Showrunner, Art Department,
+  Story Editor, Acting Coach, Cinematographer, Technical Director, Production
+  Operator, Dailies Reviewer, VO Director, Post Supervisor — governing planning,
+  generation, critique, and refinement within a single structured workflow.
+- **Appearance and persona consistency by construction.** Character assets and prop
+  persistence are bound across clips; a DSL-embedded **Persona Schema** maps
+  persistent traits to observable behavior and specifies beat-level performance
+  (emotion arcs, blocking, micro-actions), so multi-character scenes align actions
+  with narrative roles, not merely with visual identity.
+- **Keyframe-first, coarse-to-fine production loop.** Storyboard keyframes anchor
+  identity, layout and look before video synthesis; the Dailies Reviewer diagnoses
+  identity drift, prop disappearance / teleportation, keyframe mismatch and temporal
+  instability, and proposes targeted edits to FilmDSL fields — directable and
+  repairable without retraining the underlying video model.
+- **Model-agnostic by design.** Every generator is called through the OpenAI API
+  shape, so the same FilmDSL drives Qwen-Image / Wan 2.2 (used in the paper), FLUX,
+  Sora, or any self-hosted backend.
 
 ## 📅 News
 
@@ -63,36 +92,62 @@ across long narratives.
 
 ## 🏗️ Architecture
 
+CineCrew is organized as a film-production-style pipeline with role-specialized
+modules ("crew") that collaboratively compile a narrative into executable
+generative controls and iteratively refine outputs, spanning **pre-production**,
+**production** and **post-production**:
+
 ```
-script ─▶ Art Department ─▶ Story Editor ─▶ Cinematographer ─▶ DSL Validator ─▶ VO Director
-              (L0 assets)      (L1 narrative)    (L2 staging)      (ID contract)     (dialogue + acting)
-        ─▶ Technical Director ─▶ Dailies Reviewer ─▶ Production Operator ─▶ [execute] keyframes ─▶ clips ─▶ film
-              (L3 render)          (prompt critic)     (L4 assembly + jobs)          VLM judge on every render
+pre-production   Showrunner ─▶ meta m        Art Department ─▶ asset library A       Production Rulebook M
+                 Story Editor ─▶ beats  ─▶  Acting Coach ─▶ Cinematographer ─▶ Technical Director  ─▶  FilmDSL D
+production       Production Operator: keyframe k_i ─▶ clip v_i        Dailies Reviewer: QA report ─▶ revise & retry
+post-production  VO Director (dialogue → voice track)        Post Supervisor (merge, subtitles, sound layers)
 ```
 
-| Crew member | Package (`src/agents/`) | FilmDSL layer it writes |
-|-------------|--------------------------|--------------------------|
-| **Art Department** (+ Showrunner) | `art_department/` | L0: project metadata + global style, `AssetLibrary` (characters with appearance + persona, locations, props), production constraints; reference sheets / establishing shots via `generate_references` |
-| **Story Editor** | `story_editor/` | L1 Narrative — actions, emotion beats, dialogue |
-| **Cinematographer** | `cinematographer/` | L2 Staging — shot scale / angle / movement / lighting / entities |
-| *(DSL validation)* | `dsl_validator/` | Guards the asset-ID contract: validate → remap near-misses → LLM repair → drop unknowns |
-| **VO Director** (+ Acting Coach) | `vo_director/` | L1 dialogue recovery + per-shot performance emotion from line, persona and staging; optional voice design |
-| **Technical Director** | `technical_director/` | L3 Render — keyframe (T2I / TI2I) & video (I2V) prompts, resolved against the assets |
-| **Dailies Reviewer** | `dailies_reviewer/` | Prompt critic (5-shot sliding window, loops to convergence) + `VisualJudge` VLM gate on rendered media |
-| **Production Operator** | `production_operator/` | L4 Assembly + `VideoJobBatch`; opt-in execution loop (keyframe → judge → clip → judge → cut) |
+**FilmDSL** is stored as a single merged JSON object `D = {meta, assets, memory, clips[]}`.
+Pre-production artifacts are not merely external context: they are referenced and
+enforced through FilmDSL as global headers and per-clip constraints.
 
-**FilmDSL** is `SceneBlueprint` (`src/schemas/blueprint.py`): `{meta, assets, clips[]}`
-where each clip carries an **L1 narrative** action, an **L2 cinematic staging**, an
-**L3 render** spec (resolved T2I / I2V prompts, no `<asset_id>` placeholders left), and
-an **L4 assembly** layer. A **`VideoJob`** (`src/schemas/video_jobs.py`) is
-backend-agnostic: prompt, negative prompt, optional keyframe (`image_reference` ⇒ I2V),
-duration, size, fps / frame count, seed, the spoken line of a dialogue segment, and a
-free-form `extra` dict forwarded to the backend.
+| FilmDSL component | Produced by | Contents |
+|---|---|---|
+| **Meta `m`** (global headers) | Showrunner | Production-wide constraints and style priors — FPS, aspect ratio, tone, era, location, cast — inherited by every clip |
+| **Asset library `A`** | Art Department | Character sheets (identity anchors, wardrobe, a compact **Persona Schema**) and set assets, recorded as stable references (`char_*`, `loc_*`, `prop_*`) |
+| **Production Rulebook `M`** | all crew | Static domain priors (staging heuristics, anti-hallucination / anti-spawning constraints, naming conventions) plus runtime feedback from the evaluation–retry loop, injected selectively into each role |
+| **Clip spec `d_i = (a_i, s_i, r_i)`** | see below | One entry per clip, three layers |
+| &nbsp;&nbsp;Layer 1 — Narrative Action `a_i` | Story Editor (+ Acting Coach, VO Director) | What happens: action, emotion, dialogue; beat-level performance cues |
+| &nbsp;&nbsp;Layer 2 — Cinematic Staging `s_i` | Cinematographer (+ DSL Validator) | How it is filmed: shot type, camera move, framing, lighting, structured entities/props, and continuity hooks binding the clip to assets and memory |
+| &nbsp;&nbsp;Layer 3 — Render Specification `r_i` | Technical Director | Tool-ready instructions: keyframe prompt, video prompt, negative prompt, generator arguments (duration, FPS, aspect ratio, seed) |
 
-The **Production Rulebook** (static priors and conventions) lives in
-`configs/knowledge/` and is injected into prompts at runtime. See
-[`DEV_NOTES.md`](DEV_NOTES.md) for the paper-crew ↔ code map and
+**Production loop.** For each clip the Production Operator first synthesizes a
+storyboard-like keyframe `k_i` conditioned on the asset references and memory
+constraints, then runs the video generator on `(k_i, video_prompt)` — the
+audio-video branch for dialogue clips, the video branch otherwise. The **Dailies
+Reviewer** reviews the result and, on rejection, proposes targeted edits (continuity
+fields first, then keyframe prompt, then video prompt) and the clip is re-rendered;
+each refinement is recorded into the Rulebook state so corrections persist across
+clips. Finally the **Post Supervisor** assembles the long-form sequence.
+
+<details>
+<summary><b>Crew ↔ code map</b> (<code>src/agents/</code>)</summary>
+
+| Crew member | Package | What it writes |
+|-------------|---------|----------------|
+| **Showrunner** + **Art Department** | `art_department/` | Meta `m` (`project_settings.yaml`) and the asset library `A` (characters with appearance + persona, locations, props); reference sheets / establishing shots via `generate_references` |
+| **Story Editor** | `story_editor/` | Layer 1 — narrative action, emotional beat, dialogue |
+| **Cinematographer** | `cinematographer/` | Layer 2 — shot scale / angle / movement / lighting / entities / continuity constraints |
+| **DSL Validator** | `dsl_validator/` | Enforces the asset-ID contract on Layer 2: validate → remap near-misses → LLM repair → drop unknowns |
+| **VO Director** + **Acting Coach** | `vo_director/` | Layer 1 refinement — dialogue recovery, voice identity (`voice_design`), per-shot performed emotion from line, persona and staging |
+| **Technical Director** | `technical_director/` | Layer 3 — keyframe (T2I / TI2I) and video (I2V) prompts resolved against the assets |
+| **Dailies Reviewer** | `dailies_reviewer/` | Prompt critic over a 5-shot window before rendering; `VisualJudge` (VLM) on every rendered keyframe / clip |
+| **Production Operator** + **Post Supervisor** | `production_operator/` | Assembly layer + `VideoJobBatch`; opt-in execution loop (keyframe → judge → clip → judge) and the final cut |
+
+The code's `SceneBlueprint` (`src/schemas/blueprint.py`) is FilmDSL as a Pydantic
+model; it adds an explicit Layer 4 (assembly: transitions, audio tracks) as the
+Post Supervisor's hand-off. The Production Rulebook lives in `configs/knowledge/`.
+See [`DEV_NOTES.md`](DEV_NOTES.md) for the full mapping and
 [`AGENTS.md`](AGENTS.md) for a guided tour of the code base.
+
+</details>
 
 ## 📦 Installation & Usage
 
@@ -393,8 +448,11 @@ release so the source tree stays small; to preview locally, run
 
 ## 👥 Authors
 
-Jiaben Chen\*, Sixun Dong\*, Qinhong Zhou, Raine Ma, Zhiyang Dou, Wojciech Matusik, Chuang Gan
-(\* equal contribution). Code by Sixun Dong ([@Ironieser](https://github.com/Ironieser)).
+[Jiaben Chen](mailto:jiabenchen@umass.edu)<sup>1\*</sup>, [Sixun Dong](https://github.com/Ironieser)<sup>1\*</sup>, Qinhong Zhou<sup>1</sup>, Raine Ma<sup>1</sup>, Zhiyang Dou<sup>2</sup>, Wojciech Matusik<sup>2</sup>, Chuang Gan<sup>1†</sup>
+
+<sup>1</sup> University of Massachusetts Amherst · <sup>2</sup> Massachusetts Institute of Technology · \* equal contribution · † corresponding author
+
+Code maintained by Sixun Dong ([@Ironieser](https://github.com/Ironieser)).
 
 ## 📚 Citation
 
