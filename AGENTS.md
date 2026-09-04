@@ -119,8 +119,8 @@ art_department → story_editor → cinematographer → dsl_validator → vo_dir
 - Header comment block on every `.py` (project / paper / license) — keep it on new files.
 - Keep `src/pipeline.py` stage handlers small; put logic in the agent package.
 - New stage = new package under `src/agents/`, a handler branch in `pipeline.py`,
-  and an entry in `configs/pipeline_settings.yaml`. Update the table in `README.md`
-  and the crew map in `DEV_NOTES.md`.
+  and an entry in `configs/pipeline_settings.yaml`. Update `docs/USAGE.md` and the crew
+  map in `DEV_NOTES.md` (the README stays at the paper's level of description).
 - Don't commit anything under `data/`, `.env`, or media (`.mp4`, `.png` outside
   `docs/` and `our_dataset/`) — see `.gitignore`.
 - No secrets, absolute local paths, or hostnames in code, configs, or examples.
