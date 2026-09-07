@@ -5,8 +5,8 @@
 [![ECCV 2026](https://img.shields.io/badge/Conference-ECCV%202026-blue)](https://eccv.ecva.net/)
 [![Project Page](https://img.shields.io/badge/Project-Page-8A2BE2?logo=googlechrome&logoColor=white)](https://jiabenchen.github.io/cinecrew/)
 [![GitHub](https://img.shields.io/badge/GitHub-Code-black?logo=github)](https://github.com/Ironieser/CineCrew)
-[![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE)
 [![arXiv](https://img.shields.io/badge/arXiv-XXXX.XXXXX-red?logo=arxiv)](https://arxiv.org/abs/8048313)
+[![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE)
 
 **Jiaben Chen**<sup>1\*</sup> · **Sixun Dong**<sup>1\*</sup> · Qinhong Zhou<sup>1</sup> · Raine Ma<sup>1</sup> · Zhiyang Dou<sup>2</sup> · Wojciech Matusik<sup>2</sup> · Chuang Gan<sup>1†</sup>
 
