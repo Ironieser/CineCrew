@@ -189,6 +189,26 @@ PIPELINE_SETTINGS=configs/pipeline_settings_h3.yaml python run_dataset_story.py 
 `extra` carries `reference_subjects` (image, name, appearance of each on-screen character) and the `speaker`.
 `PIPELINE_SETTINGS=<path>` selects any alternative settings file.
 
+Voice consistency: put a 4-8 s clean `voice.wav` (+ its transcript in `voice.txt`) next to a character's reference
+image (`character_list/<Name>/voice.wav`). For a dialogue shot the proxy sends the speaker's voice as `<Audio 1>`
+to Ref2VA, so the same character keeps the same timbre across shots. Dialogue shots are lengthened to fit the line
+(about 4 Chinese characters per second + 1.8 s).
+
+### QA and post-production
+
+```bash
+python tools/qa_report.py <run_dir> --hint "domain words for ASR"     # -> <run>/qa_report.{json,md}
+python tools/post_production.py <run_dir>                            # -> <run>/media/film_post.mp4
+python tools/qa_report.py <run_dir> --post                           # grade the post-produced film
+```
+
+`qa_report` gates each shot on audio (ASR matches the line, no dead air, per-speaker voice similarity, EBU R128
+loudness), visuals (VisualJudge score; a VLM checks garbled text, captions, glowing human eyes, missing / extra
+people, duplicated one-of-a-kind objects) and pacing (film length vs plan). Failed shots are the `--only` list for
+`resume_production`. `post_production` uses the report's speech spans to trim dead air, levels dialogue (-20 LUFS)
+and ambience (-30 LUFS) per clip, adds short fades at cuts, burns the dialogue as subtitles while it is spoken, and
+normalises the film to -16 LUFS.
+
 ### Resuming production
 
 `tools/resume_production.py <run_dir>` re-runs only the execution stage from a run's saved plan (no LLM planning):

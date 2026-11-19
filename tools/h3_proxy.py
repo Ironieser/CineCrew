@@ -82,7 +82,11 @@ Rules:
 - Always include the sentence "No subtitles, captions, or overlaid text appear on screen."
 - Human characters' eyes look natural and never glow; only light sources and screens emit light (prevents a
   robot's glowing eyes or ambient light from leaking onto people when several references are used).
+- One-of-a-kind objects appear once: a single Earth, a single sun, a single moon, each character once. If a window
+  shows the Earth, say "a single Earth".
 - Keep the 5-10 second action achievable in one continuous shot.
+- Timing: the speaker starts the line within the first second of the shot and finishes it at least one second
+  before the shot ends; after the line there is only a short silent reaction.
 {ref_rules}"""
 
 FMT_T2VA = "integrated_multimodal_description: [Shot 1] ...\n\noverall_soundscape: ...\n\nnon_diegetic_music: N/A"
@@ -93,7 +97,11 @@ FMT_REF = ("subject_definitions:\n<Subject 1> is the ... in <Picture 1>, ...\n\n
            "overall_soundscape:\n...\n\nnon_diegetic_music:\nN/A")
 REF_RULES = ("- Reference pictures: <Picture N> is the reference image of the N-th listed character. Define "
              "<Subject N> from <Picture N> with its appearance, mark it fully_preserved, and refer to it as <Subject N> "
-             "everywhere (speaker IDs attach to subjects, e.g. <Subject 1> (S1)). Do not reuse the picture backgrounds.")
+             "everywhere (speaker IDs attach to subjects, e.g. <Subject 1> (S1)). Do not reuse the picture backgrounds.\n"
+             "- Voice references: if a character has \"voice\": \"<Audio N>\", add the line \"<Audio N> is the voice-timbre "
+             "reference for <Subject K> (S1).\" to subject_definitions, \"<Audio N>: reference - its vocal timbre guides "
+             "<Subject K>'s dialogue without copying the original signal.\" to retention_analysis, and when that subject "
+             "speaks write \"<Subject K> (S1), using the voice timbre referenced from <Audio N>, says: <markup>\".")
 
 
 def _llm():
@@ -115,7 +123,8 @@ def rewrite(prompt: str, dialogue, speaker, voice, subjects) -> str:
                              "'A calm female voice from the console speaker (S1) says in an off-screen voiceover: "
                              "[required_markup], while every on-screen character's lips remain completely closed.' "
                              "Describe the actual voice instead of the example voice."} if off_screen else {})} if dialogue else None,
-            "reference_characters": [{"picture": f"<Picture {i + 1}>", "name": s.get("name"), "appearance": s.get("appearance")}
+            "reference_characters": [{"picture": f"<Picture {i + 1}>", "name": s.get("name"), "appearance": s.get("appearance"),
+                                      **({"voice": s["voice_tag"]} if s.get("voice_tag") else {})}
                                      for i, s in enumerate(subjects)] or None}
     sys_p = REWRITE_SYSTEM.format(fmt=FMT_REF if ref else FMT_T2VA, lang=LANG, ref_rules=REF_RULES if ref else "")
     r = _llm().chat.completions.create(model=Config.MODEL_NAME, temperature=0.3, max_tokens=1500,
@@ -157,7 +166,22 @@ def validate(text: str, dialogue, ref: bool, speaker=None, voice=None, subjects=
     if "No subtitles, captions" not in text:
         key = "detailed_description:\n" if ref else "integrated_multimodal_description: "
         text = text.replace(key, key + "No subtitles, captions, or overlaid text appear on screen. ", 1)
+    # rules the model kept breaking even when the system prompt asked: enforce them in the prompt text itself
+    key = "detailed_description:\n" if ref else "integrated_multimodal_description: "
+    if "eyes look natural" not in text and re.search(r"\b(she|he|woman|man|engineer|person|girl|boy)\b", text, re.I):
+        text = text.replace(key, key + "Every human's eyes look natural, dark and non-glowing. ", 1)
+    if re.search(r"\bEarth\b", text) and "single Earth" not in text:
+        text = text.replace(key, key + "Only a single Earth is visible, never two. ", 1)
     return text
+
+
+def voice_ref(image):
+    """voice.wav beside a character reference image, if any (character_list/<Name>/voice.wav)."""
+    if not image:
+        return None
+    p = Path(image) if Path(image).is_absolute() else ROOT / image
+    v = p.parent / "voice.wav"
+    return str(v) if v.exists() else None
 
 
 def upload_ref(local: str) -> str:
@@ -186,7 +210,16 @@ def create(fields: dict, upload: bytes = None) -> dict:
         tmp = LOG_DIR / f"upload_{uuid.uuid4().hex[:8]}.png"; tmp.write_bytes(upload)
         subjects = [{"image": str(tmp), "name": "the main character", "appearance": ""}]
     dur = float(extra.get("duration") or fields.get("seconds") or 5)
+    if dialogue:  # leave room for the whole line + a beat: ~4 chars/s plus lead-in and reaction
+        dur = max(dur, len(re.sub(r"[\s，。？！、,.?!…—]", "", dialogue)) / 4.0 + 1.8)
     dur = max(4.0, min(15.0, round(dur)))
+    # voice timbre references: <character_list>/<Name>/voice.wav next to the reference image; only the speaker's
+    # voice is attached (one <Audio 1>), so the line is voiced consistently across shots
+    audio_conds = []
+    for sbj in subjects:
+        v = voice_ref(sbj.get("image"))
+        if v and speaker and sbj.get("name") == speaker:
+            sbj["voice_tag"] = "<Audio 1>"; audio_conds.append(v); break
     h3_prompt = rewrite(prompt, dialogue, speaker, voice, subjects)
     body = {"model": "MiniMaxAI/MiniMax-H3", "prompt": h3_prompt, "seconds": int(dur), "num_outputs_per_prompt": 1,
             "num_inference_steps": STEPS, "flow_shift": 12.0, "audio_flow_shift": 3.0,
@@ -194,7 +227,8 @@ def create(fields: dict, upload: bytes = None) -> dict:
     if extra.get("seed") is not None:
         body["seed"] = int(extra["seed"])
     if subjects:
-        body.update(task="ref2va", conditions=[{"type": "image", "uri": upload_ref(s["image"]), "role": "reference"} for s in subjects])
+        body.update(task="ref2va", conditions=[{"type": "image", "uri": upload_ref(s["image"]), "role": "reference"} for s in subjects]
+                    + [{"type": "audio", "uri": upload_ref(v), "role": "reference"} for v in audio_conds])
         base = REF2VA
     else:
         body.update(task="t2va", conditions=[]); base = FL2VA

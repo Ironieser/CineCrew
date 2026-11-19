@@ -1,0 +1,185 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# Better Call CineCrew: Consistent Ultra-Long Narrative-to-Film Generation
+# Paper: ECCV 2026
+# Copyright (c) 2026 Sixun Dong
+# Author: Sixun Dong
+# Licensed under the Apache License, Version 2.0
+"""
+qa_report: automatic quality gates for a rendered run (audio, visuals, pacing). Writes <run>/qa_report.json and .md.
+
+  python tools/qa_report.py <run_dir> [--hint "domain words"] [--no-vlm] [--film <mp4>]
+
+Gates (per shot unless noted)
+  audio.asr          dialogue line recognised (faster-whisper, char similarity >= 0.85, few extra chars)
+  audio.dead_air     dialogue shots: speech starts <= 1.5 s and ends >= duration - 2.0 s
+  audio.voice        same speaker across shots: speaker-embedding cosine >= 0.75 (resemblyzer)   [film-level]
+  audio.loudness     dialogue clips within 4 LU of each other (EBU R128), ambience-only clips not louder [film-level]
+  visual.review      the pipeline's VisualJudge score of the kept clip >= 0.85
+  visual.vlm         VLM on 3 frames: no garbled text / captions, no glowing human eyes, expected characters present
+  pacing.length      film length within ±25 % of the planned total                                  [film-level]
+Needs: ffmpeg, faster-whisper, resemblyzer (local python), LLM_* (VLM) from .env.
+"""
+
+import argparse
+import base64
+import difflib
+import json
+import re
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+CN = {"零": "0", "一": "1", "二": "2", "两": "2", "三": "3", "四": "4", "五": "5", "六": "6", "七": "7", "八": "8", "九": "9"}
+
+
+def norm(s):
+    s = re.sub(r"[\s，。？！、,.?!;；:：“”\"'（）()—\-…]", "", s or "")
+    return "".join(CN.get(c, c) for c in s)
+
+
+def duration(p):
+    return float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(p)],
+                                capture_output=True, text=True).stdout.strip() or 0)
+
+
+def mean_volume(p):
+    # EBU R128 integrated loudness (LUFS): gated, so pauses do not drag the value down like a plain mean would
+    r = subprocess.run(["ffmpeg", "-v", "info", "-i", str(p), "-af", "ebur128", "-vn", "-f", "null", "-"], capture_output=True, text=True)
+    m = re.findall(r"I:\s+(-?[\d.]+) LUFS", r.stderr)
+    return float(m[-1]) if m else None
+
+
+def frames(p, n=3):
+    d = duration(p); out = []
+    tmp = Path(tempfile.mkdtemp())
+    for k in range(n):
+        f = tmp / f"f{k}.jpg"
+        subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{d * (k + 1) / (n + 1):.2f}", "-i", str(p), "-frames:v", "1",
+                        "-vf", "scale=768:-2", str(f)], check=True)
+        out.append(f)
+    return out
+
+
+VLM_PROMPT = """You check frames from one shot of a film. Expected characters on screen: {chars}.
+Answer ONLY JSON: {{"garbled_text": bool, "captions_or_subtitles": bool, "human_glowing_eyes": bool,
+"expected_characters_present": bool, "wrong_extra_person": bool, "duplicated_unique_object": bool, "notes": "short"}}
+- garbled_text: any malformed/fake lettering visible (signs, labels, screens). Ignore abstract waveforms and icons.
+- human_glowing_eyes: a human's eyes emit light (not just reflections).
+- wrong_extra_person: a person who does not match any expected character appears prominently.
+- duplicated_unique_object: a one-of-a-kind object appears twice in one frame (two Earths, two suns, two moons, the same person twice)."""
+
+
+def vlm_check(paths, chars):
+    from openai import OpenAI
+    from src.config import Config
+    content = [{"type": "text", "text": VLM_PROMPT.format(chars=chars or "none (environment shot)")}]
+    for p in paths:
+        content.append({"type": "image_url", "image_url": {"url": "data:image/jpeg;base64," + base64.b64encode(Path(p).read_bytes()).decode()}})
+    r = OpenAI(api_key=Config.LLM_API_KEY or "EMPTY", base_url=Config.LLM_BASE_URL).chat.completions.create(
+        model=Config.MODEL_NAME, temperature=0, max_tokens=300, response_format={"type": "json_object"},
+        messages=[{"role": "user", "content": content}])
+    return json.loads(r.choices[0].message.content)
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("run_dir"); ap.add_argument("--hint", default=""); ap.add_argument("--no-vlm", action="store_true")
+    ap.add_argument("--film", default=None)
+    ap.add_argument("--post", action="store_true", help="grade the post_production output (scene_blueprint_post.json, film_post.mp4)")
+    a = ap.parse_args()
+    run = Path(a.run_dir)
+    bp = json.loads((run / "shots" / ("scene_blueprint_post.json" if a.post else "scene_blueprint_final.json")).read_text())
+    if a.post and not a.film:
+        a.film = str(run / "media" / "film_post.mp4")
+    lib = json.loads((run / "assets" / "asset_library.json").read_text())
+    names = {c["id"]: c["name"] for c in lib.get("characters", [])}
+    from faster_whisper import WhisperModel
+    from resemblyzer import VoiceEncoder, preprocess_wav
+    import numpy as np
+    asr = WhisperModel("small", device="cpu", compute_type="int8"); enc = VoiceEncoder("cpu")
+    init = "以下是普通话的句子" + (f"，内容涉及{a.hint}。" if a.hint else "。")
+    shots, voices, vols, planned = [], {}, [], 0.0
+    for s in bp["shots"]:
+        rl = s.get("render_layer") or {}; v = rl.get("video") or {}
+        clip = (v.get("video_clip_paths") or [None])[0]
+        planned += (s.get("staging_layer") or {}).get("duration_seconds") or 0
+        if not clip or not (ROOT / clip).exists() and not Path(clip).exists():
+            shots.append({"shot": s["shot_id"], "error": "no clip"}); continue
+        clip = Path(clip) if Path(clip).exists() else ROOT / clip
+        d = duration(clip); dia = (s["narrative_layer"].get("dialogue") or {})
+        line = dia.get("text") if dia.get("has_dialogue") else None
+        spk = names.get(dia.get("speaker_asset_id"), dia.get("speaker_asset_id"))
+        chars = [names.get(c, c) for c in ((rl.get("image") or {}).get("characters_in_shot") or [])]
+        r = {"shot": s["shot_id"], "clip": str(clip.relative_to(ROOT)) if str(clip).startswith(str(ROOT)) else str(clip),
+             "duration": round(d, 2), "dialogue": line, "speaker": spk, "characters": chars, "gates": {}}
+        segs, _ = asr.transcribe(str(clip), language="zh", vad_filter=True, initial_prompt=init, word_timestamps=False)
+        segs = list(segs); got = "".join(x.text for x in segs).strip()
+        if line:
+            sim = difflib.SequenceMatcher(None, norm(got), norm(line)).ratio()
+            extra = len(norm(got)) - len(norm(line))
+            r["asr"] = got; r["gates"]["audio.asr"] = bool(sim >= 0.85 and extra <= 4)
+            if segs:
+                lead, tail = segs[0].start, d - segs[-1].end
+                r["speech_span"] = [round(lead, 2), round(tail, 2)]
+                r["gates"]["audio.dead_air"] = bool(lead <= 1.5 and tail <= 2.0)
+                wav = Path(tempfile.mkdtemp()) / "a.wav"
+                subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(clip), "-ss", f"{segs[0].start:.2f}", "-to", f"{segs[-1].end:.2f}",
+                                "-ac", "1", "-ar", "16000", str(wav)], check=True)
+                voices.setdefault(spk or "unknown", []).append((s["shot_id"], enc.embed_utterance(preprocess_wav(str(wav)))))
+            else:
+                r["gates"]["audio.asr"] = False
+        elif got and len(norm(got)) > 6:
+            r["asr_unexpected_speech"] = got
+        mv = mean_volume(clip); vols.append((mv, bool(line))); r["loudness_lufs"] = mv
+        att = (rl.get("visual_review") or {}).get("clips") or []
+        last = [x for c in att for x in c.get("attempts", []) if "score" in x]
+        if last:
+            r["review_score"] = last[-1]["score"]; r["gates"]["visual.review"] = bool(last[-1]["score"] >= 0.85)
+        if not a.no_vlm:
+            try:
+                vj = vlm_check(frames(clip), ", ".join(chars)); r["vlm"] = vj
+                r["gates"]["visual.vlm"] = bool(not vj.get("garbled_text") and not vj.get("captions_or_subtitles")
+                                                and not vj.get("human_glowing_eyes") and vj.get("expected_characters_present", True)
+                                                and not vj.get("wrong_extra_person") and not vj.get("duplicated_unique_object"))
+            except Exception as e:
+                r["vlm_error"] = str(e)
+        shots.append(r); print(f"[qa] {s['shot_id']}: {r['gates']}", flush=True)
+
+    film_gates = {}
+    vsim = {}
+    for spk, embs in voices.items():
+        if len(embs) > 1:
+            E = np.stack([e for _, e in embs]); C = E @ E.T
+            m = float(np.min(C[np.triu_indices(len(embs), 1)])); vsim[spk] = round(m, 3)
+            film_gates[f"audio.voice[{spk}]"] = bool(m >= 0.75)
+    dv = [x for x, d in vols if x is not None and d]; av = [x for x, d in vols if x is not None and not d]
+    vv = dv + av
+    if dv:   # dialogue level consistent across shots; ambience-only shots never louder than speech
+        film_gates["audio.loudness"] = bool(max(dv) - min(dv) <= 4 and (not av or max(av) <= min(dv)))
+    film = Path(a.film) if a.film else run / "media" / "film.mp4"
+    flen = duration(film) if film.exists() else sum(x.get("duration", 0) for x in shots)
+    film_gates["pacing.length"] = bool(abs(flen - planned) <= 0.25 * planned) if planned else True
+    total = [g for x in shots for g in x.get("gates", {}).values()] + list(film_gates.values())
+    report = {"run": str(run), "film": str(film), "film_length": round(flen, 2), "planned_length": round(planned, 2),
+              "voice_min_similarity": vsim, "loudness_range_db": [min(vv), max(vv)] if vv else None,
+              "film_gates": film_gates, "shots": shots, "passed": sum(total), "total": len(total), "all_pass": all(total)}
+    out = run / ("qa_report_post" if a.post else "qa_report")
+    out.with_suffix(".json").write_text(json.dumps(report, ensure_ascii=False, indent=1))
+    md = [f"# QA report — {run.name}", f"film {flen:.1f}s (planned {planned:.1f}s) · gates {sum(total)}/{len(total)} · "
+          f"{'ALL PASS' if all(total) else 'FAIL'}", "", "| shot | dur | review | gates failed | notes |", "|---|---|---|---|---|"]
+    for x in shots:
+        bad = [k for k, v in x.get("gates", {}).items() if not v]
+        note = (x.get("vlm") or {}).get("notes", "") if bad else ""
+        md.append(f"| {x['shot']} | {x.get('duration', '')} | {x.get('review_score', '')} | {', '.join(bad) or '—'} | {note} |")
+    md += ["", f"film gates: {film_gates}", f"voice min cosine per speaker: {vsim}"]
+    out.with_suffix(".md").write_text("\n".join(md))
+    print("\n".join(md))
+
+
+if __name__ == "__main__":
+    main()
