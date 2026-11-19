@@ -55,10 +55,18 @@ class ProductionOperatorAgent:
         self,
         blueprint: SceneBlueprint,
         asset_library: AssetLibrary,
+        segment_dialogue: bool = True,
     ) -> VideoJobBatch:
         """
         Read each shot's render_layer.video.resolved_i2v, build the VideoJobBatch, and write
         assembly_layer (transition + audio-track metadata) back into the blueprint.
+
+        segment_dialogue: split dialogue shots into prelude / dialogue_core / afterglow jobs (default).
+        False keeps one job per shot that carries the line — for joint audio-video backends that
+        voice the dialogue themselves and must not have a sentence cut across clips.
+        Every job's `extra` carries `reference_images` / `reference_subjects` (all on-screen characters with
+        a reference image: path, asset_id, name, appearance) and the dialogue `speaker` name, so a
+        multi-reference backend can condition on every character and attribute the spoken line.
 
         Precondition: TechnicalDirectorAgent has filled render_layer (DailiesReviewer may have refined it).
         """
@@ -92,11 +100,23 @@ class ProductionOperatorAgent:
                     if ccs and ccs[0].reference_image_paths:
                         image_ref = ccs[0].reference_image_paths[0]
 
+            ref_subjects = []  # every on-screen character with a reference image, for multi-reference backends
+            for c in (render.image.conditioning.character_consistency if render and render.image.conditioning else []):
+                ch = asset_library.get_character_by_id(c.asset_id)
+                for p in c.reference_image_paths:
+                    ref_subjects.append({
+                        "image": p, "asset_id": c.asset_id, "name": ch.name if ch else c.asset_id,
+                        "appearance": " ".join(x for x in [ch.description, ch.clothing_style] if x) if ch else "",
+                    })
+            all_refs = [r["image"] for r in ref_subjects]
+
             total_duration = shot.staging_layer.duration_seconds
             dialogue = shot.narrative_layer.dialogue
             speaker = asset_library.get_character_by_id(dialogue.speaker_asset_id) if dialogue.speaker_asset_id else None
             voice_instructions = _voice_instructions(speaker, shot)
-            if dialogue.has_dialogue and dialogue.text:
+            if dialogue.has_dialogue and dialogue.text and not segment_dialogue:
+                segment_durations, segment_roles = [total_duration], ["dialogue_core"]
+            elif dialogue.has_dialogue and dialogue.text:
                 core_hint = self._estimate_dialogue_duration(dialogue.text)
                 segment_durations = self._split_dialogue_shot_duration(total_duration, core_hint=core_hint)
                 segment_roles = ["prelude", "dialogue_core", "afterglow"][: len(segment_durations)]
@@ -112,7 +132,7 @@ class ProductionOperatorAgent:
                         scene_id=scene_id,
                         shot_id=shot.shot_id,
                         segment_id=f"{shot.shot_id}_{role}",
-                        prompt=base_prompt + _SEGMENT_HINT.get(role, ""),
+                        prompt=base_prompt + (_SEGMENT_HINT.get(role, "") if segment_dialogue else ""),
                         negative_prompt=(
                             render.image.negative_prompt
                             if render and render.image.negative_prompt is not None
@@ -128,7 +148,12 @@ class ProductionOperatorAgent:
                         fps=fps,
                         frame_num=self.calculate_frame_num(seg_dur, fps),
                         seed=render.image.seed if render else None,
-                        extra={"role": role},
+                        extra={
+                            "role": role,
+                            "reference_images": all_refs,
+                            "reference_subjects": ref_subjects,
+                            "speaker": (speaker.name if speaker else None) if role == "dialogue_core" else None,
+                        },
                     )
                 )
 

@@ -17,6 +17,7 @@ stage reads the current blueprint (+ script_segment / asset_library), fills only
 the layer it owns, and writes the updated blueprint back to the context.
 """
 
+import os
 import json
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -27,7 +28,10 @@ from .utils.limits_config import get_limits
 
 # Locate the config relative to the project root by default.
 _PROJECT_ROOT = Path(__file__).resolve().parent.parent
-_CONFIG_PATH = _PROJECT_ROOT / "configs" / "pipeline_settings.yaml"
+# PIPELINE_SETTINGS=<path> selects an alternative settings file (e.g. configs/pipeline_settings_h3.yaml).
+_CONFIG_PATH = Path(os.environ.get("PIPELINE_SETTINGS") or (_PROJECT_ROOT / "configs" / "pipeline_settings.yaml"))
+if not _CONFIG_PATH.is_absolute():
+    _CONFIG_PATH = _PROJECT_ROOT / _CONFIG_PATH
 
 
 def _save_json(obj: Any, path: Path) -> None:
@@ -301,7 +305,10 @@ def run_pipeline(
                 raise RuntimeError("production_operator requires scene_blueprint.")
             print("\n--- [Pipeline] STAGE 5: ProductionOperator → assembly_layer + VideoJobBatch ---", flush=True)
             wa = ProductionOperatorAgent()
-            ctx["video_jobs"] = wa.build_from_blueprint(ctx["scene_blueprint"], ctx["asset_library"])
+            ctx["video_jobs"] = wa.build_from_blueprint(
+                ctx["scene_blueprint"], ctx["asset_library"],
+                segment_dialogue=_opt(stage_spec, "segment_dialogue", True),
+            )
             _save_json(ctx["video_jobs"], _shots_dir / "video_jobs.json")
 
             # Opt-in execution (`execute: true` on this stage): keyframes via T2I_*, clips via

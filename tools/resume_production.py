@@ -1,0 +1,105 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# Better Call CineCrew: Consistent Ultra-Long Narrative-to-Film Generation
+# Paper: ECCV 2026
+# Copyright (c) 2026 Sixun Dong
+# Author: Sixun Dong
+# Licensed under the Apache License, Version 2.0
+"""
+resume_production: re-run only the ProductionOperator execution stage of an existing run, from its saved
+planning artifacts (shots/scene_blueprint_render_filled.json + assets/asset_library.json). Use it after a crash,
+an interrupted run, or a backend fix — planning (LLM stages) is not repeated.
+
+  python tools/resume_production.py <run_dir> [--keep shot_01,shot_02 | --only shot_05] [--resync-characters]
+                                   [--no-judge] [--max-retries 1]
+
+--keep <prefixes>: shots whose clips already exist in <run_dir>/media/clips are reused (matched by shot_id
+prefix), everything else is regenerated. --only <prefixes>: regenerate just these shots and reuse every other
+existing clip. --resync-characters: re-derive characters_in_shot + reference conditioning from the staging layer
+(technical_director.visible_characters) before rendering — fixes plans made before that guard existed. Stage options (segment_dialogue, judge, max_retries, keyframes)
+default to the production_operator entry of PIPELINE_SETTINGS / configs/pipeline_settings.yaml.
+"""
+
+import argparse
+import json
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from src.agents.production_operator import ProductionOperatorAgent  # noqa: E402
+from src.pipeline import load_pipeline_config  # noqa: E402
+from src.schemas.assets import AssetLibrary  # noqa: E402
+from src.schemas.blueprint import SceneBlueprint  # noqa: E402
+from src.schemas.video_jobs import VideoJobBatch  # noqa: E402
+
+
+def stage_opts() -> dict:
+    for spec in load_pipeline_config().get("pipeline", {}).get("stages", []) or []:
+        if isinstance(spec, dict) and spec.get("id") == "production_operator":
+            return spec
+    return {}
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("run_dir")
+    ap.add_argument("--keep", default="", help="comma-separated shot_id prefixes whose existing clips are reused")
+    ap.add_argument("--only", default="", help="comma-separated shot_id prefixes to regenerate; all other clips reused")
+    ap.add_argument("--resync-characters", action="store_true")
+    ap.add_argument("--no-judge", action="store_true")
+    ap.add_argument("--max-retries", type=int, default=None)
+    a = ap.parse_args()
+    run = Path(a.run_dir)
+    opts = stage_opts()
+    bp = SceneBlueprint.model_validate_json((run / "shots" / "scene_blueprint_render_filled.json").read_text())
+    lib = AssetLibrary.model_validate_json((run / "assets" / "asset_library.json").read_text())
+    if a.resync_characters:
+        from src.agents.technical_director.technical_director_agent import TechnicalDirectorAgent, visible_characters
+        for shot in bp.shots:
+            img = shot.render_layer.image if shot.render_layer else None
+            if img is None:
+                continue
+            chars = visible_characters(img.characters_in_shot, shot, lib)
+            if chars != list(img.characters_in_shot or []):
+                print(f"[resume] {shot.shot_id}: characters {img.characters_in_shot} -> {chars}", flush=True)
+            img.characters_in_shot = chars
+            img.conditioning = TechnicalDirectorAgent._build_conditioning(None, chars, lib)
+    po = ProductionOperatorAgent()
+    batch = po.build_from_blueprint(bp, lib, segment_dialogue=opts.get("segment_dialogue", True))
+
+    keep = [k for k in a.keep.split(",") if k]
+    only = [k for k in a.only.split(",") if k]
+    if only:
+        keep = sorted({j.shot_id for j in batch.jobs if not any(j.shot_id.startswith(o) for o in only)})
+    clips_dir = run / "media" / "clips"
+    kept = {}
+    for job in batch.jobs:
+        if any(job.shot_id.startswith(k) for k in keep):
+            p = clips_dir / f"{job.job_id}.mp4"
+            if p.exists():
+                kept[job.job_id] = str(p)
+    todo = VideoJobBatch(scene_id=batch.scene_id, jobs=[j for j in batch.jobs if j.job_id not in kept])
+    print(f"[resume] {len(kept)} clips kept, {len(todo.jobs)} to render", flush=True)
+
+    results = po.execute_jobs(todo, run / "media", blueprint=bp,
+                              judge=False if a.no_judge else opts.get("judge", True),
+                              max_retries=a.max_retries if a.max_retries is not None else int(opts.get("max_retries", 1)),
+                              keyframes=opts.get("keyframes", True), stitch=False)
+
+    # merge kept clips back into the blueprint in shot/segment order, then stitch
+    by_shot = {s.shot_id: s for s in bp.shots}
+    for job in batch.jobs:
+        shot = by_shot.get(job.shot_id)
+        if job.job_id in kept and shot and shot.render_layer is not None:
+            shot.render_layer.video.video_clip_paths = [kept[job.job_id]] + list(shot.render_layer.video.video_clip_paths)
+            shot.render_layer.video.video_clip_path = shot.render_layer.video.video_clip_paths[0]
+    film = po.stitch(bp, run / "media" / "film.mp4")
+    (run / "shots" / "scene_blueprint_final.json").write_text(bp.model_dump_json(indent=2))
+    (run / "shots" / "video_results.json").write_text(json.dumps([r.model_dump() for r in results], ensure_ascii=False, indent=1))
+    print(f"[resume] film: {film}", flush=True)
+
+
+if __name__ == "__main__":
+    main()

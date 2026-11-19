@@ -51,6 +51,8 @@ pipeline:
       max_retries: 1         # extra attempts per keyframe/clip after a rejection (uses the judge's revised prompt)
       keyframes: true        # render a keyframe per shot and use it as the I2V reference (false = reference sheets only)
       stitch: true           # cut all clips together into <run>/media/film.mp4 (ffmpeg; fade-in on the first shot)
+      segment_dialogue: true # split dialogue shots into prelude/dialogue_core/afterglow jobs; false = one job per shot
+                             # (joint audio-video backends that voice the line themselves, e.g. MiniMax H3)
 
   # ── Modular ablations ──────────────────────────────────────────────────────
   # The cascade is config-driven, so ablations are just config/env changes —

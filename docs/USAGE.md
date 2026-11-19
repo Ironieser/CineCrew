@@ -171,6 +171,31 @@ routes (and/or `/images/generations` for T2I) — then set `VIDEO_BASE_URL`,
 `VIDEO_MODEL`, and `VIDEO_API_KEY`. The FilmDSL, the crew, and the job batch stay
 exactly the same.
 
+### Joint audio-video models (MiniMax H3)
+
+`tools/h3_proxy.py` is such a server for a self-hosted MiniMax H3 (SGLang `/v1/videos`). Per job it rewrites the
+shot prompt into H3's structured format with the configured LLM (dialogue as `<d>[Chinese] …</d>`, off-screen lines
+as voiceover with closed lips), checks the rewrite deterministically (exact dialogue, no captions clause), copies
+reference images to the H3 host, and routes to Ref2VA (character references) or FL2VA (text only).
+
+```bash
+python tools/h3_proxy.py            # env: H3_FL2VA_URL, H3_REF2VA_URL, REF_SSH_HOST, REF_REMOTE_DIR, LLM_*
+VIDEO_BASE_URL=http://127.0.0.1:30100/v1 VIDEO_MODEL=minimax-h3 \
+PIPELINE_SETTINGS=configs/pipeline_settings_h3.yaml python run_dataset_story.py our_dataset/EchoStation
+```
+
+`configs/pipeline_settings_h3.yaml` turns on execution with character references instead of T2I keyframes and sets
+`production_operator.segment_dialogue: false`, so a dialogue shot is one clip the model voices itself. Every job's
+`extra` carries `reference_subjects` (image, name, appearance of each on-screen character) and the `speaker`.
+`PIPELINE_SETTINGS=<path>` selects any alternative settings file.
+
+### Resuming production
+
+`tools/resume_production.py <run_dir>` re-runs only the execution stage from a run's saved plan (no LLM planning):
+`--keep shot_01,shot_02` reuses those clips, `--only shot_05` regenerates just those shots, and
+`--resync-characters` re-derives each shot's on-screen characters and reference conditioning
+(`technical_director.visible_characters`: template list + staging entities + characters named in the shot's action).
+
 
 ## Examples
 

@@ -224,6 +224,9 @@ class TechnicalDirectorAgent:
         narrative = shot.narrative_layer
         staging = shot.staging_layer
 
+        # Characters the staging layer puts on screen must be conditioned even if the LLM template omitted them.
+        tmpl.characters_in_shot = visible_characters(tmpl.characters_in_shot, shot, asset_library)
+
         # The shot's primary text (dialogue first, otherwise the narrative action description)
         current_dialogue = narrative.dialogue.text or narrative.narrative_action
 
@@ -368,6 +371,33 @@ class TechnicalDirectorAgent:
 
 # ─────────────────────────────────────────────────────────────────────────
 # Module-level helpers
+def visible_characters(template_chars: List[str], shot, asset_library: AssetLibrary) -> List[str]:
+    """
+    Deterministic guard: template order first, then every character entity in the shot's staging layer that the
+    template missed, then characters named in the shot's narrative_action / entity action_state text (the
+    cinematographer sometimes drops a character it describes). Non-character entities and unknown IDs are ignored.
+    """
+    out = list(template_chars or [])
+    staging = getattr(shot, "staging_layer", None)
+    for e in (staging.entities if staging else []):
+        if e.asset_id not in out and asset_library.get_character_by_id(e.asset_id):
+            out.append(e.asset_id)
+    # Characters named in the shot's own action text are physically present ("glides up behind Lin Zhou",
+    # action_state "gliding_toward_Lin_Zhou") even when the cinematographer left them out of entities.
+    narrative = getattr(shot, "narrative_layer", None)
+    text = " ".join([getattr(narrative, "narrative_action", "") or ""]
+                    + [getattr(e, "action_state", "") or "" for e in (staging.entities if staging else [])])
+    norm = lambda x: "".join(ch for ch in x.lower() if ch.isalnum())
+    t = norm(text)
+    for c in asset_library.characters:
+        if c.id in out:
+            continue
+        names = {norm(c.name), norm(c.id.split("char_", 1)[-1])} - {""}
+        if any(n and n in t for n in names):
+            out.append(c.id)
+    return out
+
+
 # ─────────────────────────────────────────────────────────────────────────
 
 def _shot_context_text(shot: ShotBlueprint) -> str:
