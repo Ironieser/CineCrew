@@ -1,0 +1,58 @@
+# Repair policy: what to change when a rendered shot fails QA (tools/qa_report.py), by failure type and attempt.
+# Used by src/skills/repair_policy.py -> tools/produce.py -> tools/resume_production.py --repair.
+# Text here is written into the shot's generation prompt (the H3 proxy rewrites it into H3's format).
+# Keep every line generic: no story-specific objects. Story-specific evidence enters only through {evidence}.
+#
+# Types
+#   A identity      a character does not look like their reference (glowing eyes, wrong outfit / face)
+#   B presence      wrong people on screen (missing, extra, duplicated)
+#   C continuity    time of day / weather / prop holder differs from the continuity ledger
+#   D artifact      generated text, signs, captions, extra objects
+#   E action        the shot's main action or staging is not shown
+#   F speech        line not recognised, dead air before/after the line
+#
+# Per attempt (1-based): `prefix` goes before the prompt (highest weight), `suffix` after it.
+# `seed_step`: new seed = base + seed_step * attempt.  `duration_delta`: seconds added to the clip.
+
+seed_step: 7919
+
+types:
+  A:
+    - suffix: "Every character looks exactly like their reference picture: same face, hair, outfit and age; human eyes are natural and dark. Fix this: {evidence}."
+    - prefix: "Identity is the priority of this shot."
+      suffix: "Every character looks exactly like their reference picture: same face, hair, outfit and age; human eyes are natural and dark. Fix this: {evidence}. Keep faces large and clearly lit."
+  B:
+    - prefix: "Exactly {n_expected} on-screen character(s): {expected}. Nobody else appears, and nobody appears twice."
+      suffix: "Fix this: {evidence}."
+    - prefix: "Exactly {n_expected} on-screen character(s): {expected}, all clearly visible in frame from the first second. Nobody else appears."
+      suffix: "Fix this: {evidence}."
+  C:
+    - prefix: "{continuity}"
+      suffix: "Fix this: {evidence}."
+    - prefix: "IMPORTANT, keep continuity with the rest of the film: {continuity} This is not negotiable."
+      suffix: "Fix this: {evidence}."
+  D:
+    - suffix: "No legible text, letters, numbers or logos anywhere; signs and screens are blurred or unlit. Do not add anything the description does not mention. Fix this: {evidence}."
+    - prefix: "Clean frame: no text of any kind, no extra objects."
+      suffix: "Frame the shot so that no sign, screen or label is in view. Fix this: {evidence}."
+  E:
+    - use_judge_prompt: true
+      suffix: "Make the main action clearly visible: {action}"
+    - prefix: "One simple, clearly visible action: {action}"
+      suffix: "Fix this: {evidence}."
+  F:
+    - prefix: "The speaker starts the line within the first half second, says it clearly and completely, then holds still in silence."
+      duration_delta: 1.0
+    - prefix: "The speaker says the whole line right at the start, slowly and clearly; there is no other speech."
+      duration_delta: 1.5
+
+# Story-level memory: a failure type seen in this many different shots becomes a lesson that is appended to every
+# later regeneration of this story (never to other stories; promotion to a global rule is a manual, reviewed step).
+lesson_min_shots: 2
+lesson_text:
+  A: "Characters must match their reference pictures exactly; human eyes natural."
+  B: "Only the characters named for the shot appear."
+  C: "{continuity_global}"
+  D: "No legible text or signage anywhere."
+  E: ""
+  F: "Lines start immediately and are spoken clearly."

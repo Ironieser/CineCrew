@@ -51,8 +51,38 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from src.config import Config  # noqa: E402  (loads .env)
 
-FL2VA = os.getenv("H3_FL2VA_URL", "http://127.0.0.1:30010/v1").rstrip("/")
-REF2VA = os.getenv("H3_REF2VA_URL", "http://127.0.0.1:30020/v1").rstrip("/")
+# comma-separated URLs = replicas of the same variant; each request goes to the one with the fewest jobs in flight
+FL2VA_URLS = [u.strip().rstrip("/") for u in os.getenv("H3_FL2VA_URL", "http://127.0.0.1:30010/v1").split(",") if u.strip()]
+REF2VA_URLS = [u.strip().rstrip("/") for u in os.getenv("H3_REF2VA_URL", "http://127.0.0.1:30020/v1").split(",") if u.strip()]
+FL2VA, REF2VA = FL2VA_URLS[0], REF2VA_URLS[0]
+INFLIGHT = {u: 0 for u in FL2VA_URLS + REF2VA_URLS}
+
+
+_HEALTH = {}   # url -> (ok, checked_at)
+
+
+def healthy(u: str) -> bool:
+    ok, t = _HEALTH.get(u, (None, 0))
+    if ok is None or time.time() - t > 60:
+        try:
+            ok = urllib.request.urlopen(u.rsplit("/v1", 1)[0] + "/health", timeout=5).status == 200
+        except Exception:
+            ok = False
+        _HEALTH[u] = (ok, time.time())
+    return ok
+
+
+def pick(urls):
+    """Replica with the fewest jobs in flight among the healthy ones (a replica whose allocation ended drops out)."""
+    live = [u for u in urls if healthy(u)] or urls
+    with _LOCK:
+        u = min(live, key=lambda x: INFLIGHT.get(x, 0)); INFLIGHT[u] = INFLIGHT.get(u, 0) + 1
+        return u
+
+
+def release(u):
+    with _LOCK:
+        INFLIGHT[u] = max(0, INFLIGHT.get(u, 0) - 1)
 STEPS = int(os.getenv("H3_STEPS", "8"))
 PORT = int(os.getenv("H3_PROXY_PORT", "30100"))
 REF_SSH_HOST = os.getenv("REF_SSH_HOST", "")
@@ -80,6 +110,8 @@ Rules:
 - If no dialogue is given, nobody speaks: do not use <d> at all; describe only actions, ambience and sound.
 - Describe composition, subjects, environment, action in playback order, camera movement, lighting.
 - Always include the sentence "No subtitles, captions, or overlaid text appear on screen."
+- Video models cannot render text: signs, shop fronts, route boards, displays and labels are out of focus, unlit or
+  turned away, so no legible lettering appears anywhere in the frame.
 - Human characters' eyes look natural and never glow; only light sources and screens emit light (prevents a
   robot's glowing eyes or ambient light from leaking onto people when several references are used).
 - If the prompt has a "Continuity:" line, every fact in it must appear in the output: time of day (a night shot
@@ -165,6 +197,9 @@ def validate(text: str, dialogue, ref: bool, speaker=None, voice=None, subjects=
         text = re.sub(r"<d>.*?</d>", "", text, flags=re.S)
     text = re.sub(r"<style sentence>\s*", "The target video uses a realistic cinematic style. ", text)
     text = re.sub(r"<(the voice|voice|speaker)>", "An unseen voice", text).replace("[required_markup]", "")
+    if "no legible lettering" not in text:
+        k0 = "detailed_description:\n" if ref else "integrated_multimodal_description: "
+        text = text.replace(k0, k0 + "Any signs, displays and labels are out of focus, so no legible lettering appears. ", 1)
     if "No subtitles, captions" not in text:
         key = "detailed_description:\n" if ref else "integrated_multimodal_description: "
         text = text.replace(key, key + "No subtitles, captions, or overlaid text appear on screen. ", 1)
@@ -248,10 +283,13 @@ def create(fields: dict, upload: bytes = None) -> dict:
     if subjects:
         body.update(task="ref2va", conditions=[{"type": "image", "uri": upload_ref(s["image"]), "role": "reference"} for s in subjects]
                     + [{"type": "audio", "uri": upload_ref(v), "role": "reference"} for v in audio_conds])
-        base = REF2VA
+        base = pick(REF2VA_URLS)
     else:
-        body.update(task="t2va", conditions=[]); base = FL2VA
-    job = _post(f"{base}/videos", body)
+        body.update(task="t2va", conditions=[]); base = pick(FL2VA_URLS)
+    try:
+        job = _post(f"{base}/videos", body)
+    except Exception:
+        release(base); raise
     pid = "h3_" + uuid.uuid4().hex[:12]
     spk_img = next((x["image"] for x in subjects if speaker and x.get("name") == speaker), None)
     with _LOCK:
@@ -304,21 +342,26 @@ def image(fields: dict) -> dict:
     for attempt in range(3):   # the sheet anchors identity for every shot: validate it, re-roll if no frame passes
         if attempt:
             body["seed"] = int(body.get("seed") or 0) + 1000 * attempt
-        job = _post(f"{FL2VA}/videos", body)
+        b = pick(FL2VA_URLS)
+        try:
+            job = _post(f"{b}/videos", body)
+            _wait(b, job["id"])
+            data = urllib.request.urlopen(f"{b}/videos/{job['id']}/content", timeout=300).read()
+        finally:
+            release(b)
         pid = "img_" + uuid.uuid4().hex[:12]
         (LOG_DIR / f"{pid}.json").write_text(json.dumps({"in": fields, "h3_request": body}, ensure_ascii=False, indent=1))
         print(f"[h3_proxy] {pid} -> image ({'location' if location else 'character'}) attempt {attempt}", flush=True)
-        _wait(FL2VA, job["id"])
         mp4 = LOG_DIR / f"{pid}.mp4"
-        mp4.write_bytes(urllib.request.urlopen(f"{FL2VA}/videos/{job['id']}/content", timeout=300).read())
+        mp4.write_bytes(data)
         frames = []
         for k, t in enumerate((0.6, 1.5, 2.4, 3.3)):
             f = LOG_DIR / f"{pid}_{k}.png"
             subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", str(t), "-i", str(mp4), "-frames:v", "1", str(f)], check=True)
             frames.append(f)
-        pick = frames[1] if location else pick_sheet_frame(frames, prompt)
-        if pick is not None:
-            return {"created": int(time.time()), "data": [{"b64_json": base64.b64encode(pick.read_bytes()).decode()}]}
+        chosen = frames[1] if location else pick_sheet_frame(frames, prompt)
+        if chosen is not None:
+            return {"created": int(time.time()), "data": [{"b64_json": base64.b64encode(chosen.read_bytes()).decode()}]}
         print(f"[h3_proxy] {pid}: no frame is a usable character sheet, re-rolling", flush=True)
     raise RuntimeError("no usable character sheet after 3 attempts")
 
@@ -360,18 +403,24 @@ def cast_voice(sbj: dict, line: str, voice) -> str:
             return voice_ref(sbj["image"])
         try:
             one = dict(sbj); one.pop("voice_tag", None)
+            # a short line gives a short, unstable timbre reference: pad the casting take with a neutral sentence
+            cast_line = line if len(re.sub(r"[\s，。？！、,.?!…—]", "", line or "")) >= 12 else f"{line}嗯，我想一想，对，就是这样。"
             prompt = (f"Close-up of {sbj.get('name')} alone in a quiet room, facing the camera, saying one line in their "
                       f"natural voice, then holding still.")
-            body = {"model": "MiniMaxAI/MiniMax-H3", "prompt": rewrite(prompt, line, sbj.get("name"), voice, [one]),
+            body = {"model": "MiniMaxAI/MiniMax-H3", "prompt": rewrite(prompt, cast_line, sbj.get("name"), voice, [one]),
                     "seconds": 6, "num_outputs_per_prompt": 1, "num_inference_steps": STEPS, "flow_shift": 12.0,
                     "audio_flow_shift": 3.0, "task": "ref2va",
                     "conditions": [{"type": "image", "uri": upload_ref(sbj["image"]), "role": "reference"}],
                     "target": {"short_edge": 768, "aspect_ratio": "16:9", "duration_seconds": 6.0}}
-            job = _post(f"{REF2VA}/videos", body)
-            print(f"[h3_proxy] casting voice for {sbj.get('name')}", flush=True)
-            _wait(REF2VA, job["id"])
-            clip = LOG_DIR / f"cast_{uuid.uuid4().hex[:8]}.mp4"
-            clip.write_bytes(urllib.request.urlopen(f"{REF2VA}/videos/{job['id']}/content", timeout=300).read())
+            b = pick(REF2VA_URLS)
+            try:
+                job = _post(f"{b}/videos", body)
+                print(f"[h3_proxy] casting voice for {sbj.get('name')} on {b}", flush=True)
+                _wait(b, job["id"])
+                data = urllib.request.urlopen(f"{b}/videos/{job['id']}/content", timeout=300).read()
+            finally:
+                release(b)
+            clip = LOG_DIR / f"cast_{uuid.uuid4().hex[:8]}.mp4"; clip.write_bytes(data)
             harvest_voice(clip, sbj["image"], line)
         except Exception as e:
             print(f"[h3_proxy] voice casting failed for {sbj.get('name')}: {type(e).__name__}: {e}", flush=True)
@@ -391,9 +440,12 @@ def harvest_voice(clip: Path, image: str, line: str) -> None:
     ends = [float(x) for x in re.findall(r"silence_end: ([\d.]+)", r.stderr)]
     dur = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(clip)],
                                capture_output=True, text=True).stdout.strip() or 0)
-    t0 = ends[0] if ends and (not starts or starts[0] < 0.05) else 0.0          # skip leading silence
-    t1 = next((x for x in starts if x > t0 + 0.5), dur)                          # until the next pause
-    if t1 - t0 < 1.5:
+    # whole delivered line: from the end of leading silence to the start of trailing silence, inner pauses kept
+    t0 = ends[0] if ends and starts and starts[0] < 0.05 else 0.0
+    trailing = [st for i, st in enumerate(starts) if st > t0 and (i >= len(ends) or ends[i] >= dur - 0.05)]
+    t1 = trailing[0] if trailing else dur
+    if t1 - t0 < 2.0:
+        print(f"[h3_proxy] voice memory skipped: {t1 - t0:.1f}s of speech in {clip.name}", flush=True)
         return
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{max(0, t0 - 0.05):.2f}", "-to", f"{min(dur, t1 + 0.1):.2f}",
                     "-i", str(clip), "-ac", "1", "-ar", "24000", "-af", "loudnorm=I=-20", str(out)], check=True)
@@ -408,6 +460,8 @@ def status(pid: str) -> dict:
     st = json.load(urllib.request.urlopen(f"{j['base']}/videos/{j['h3_id']}", timeout=60))
     s = st.get("status", "")
     s = {"pending": "queued", "running": "in_progress", "processing": "in_progress"}.get(s, s)
+    if s in ("completed", "failed") and not j.get("released"):
+        j["released"] = True; release(j["base"])
     err = st.get("error")
     return {"id": pid, "object": "video", "status": s, "error": ({"message": str(err)} if err else None)}
 
@@ -498,5 +552,5 @@ class H(BaseHTTPRequestHandler):
 if __name__ == "__main__":
     if not REF_REMOTE_DIR:
         print("[h3_proxy] warning: REF_REMOTE_DIR unset; reference images will not reach the H3 server", flush=True)
-    print(f"[h3_proxy] listening on 127.0.0.1:{PORT}  FL2VA={FL2VA}  Ref2VA={REF2VA}  LLM={Config.LLM_BASE_URL}", flush=True)
+    print(f"[h3_proxy] listening on 127.0.0.1:{PORT}  FL2VA={FL2VA_URLS}  Ref2VA={REF2VA_URLS}  LLM={Config.LLM_BASE_URL}", flush=True)
     ThreadingHTTPServer(("127.0.0.1", PORT), H).serve_forever()

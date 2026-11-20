@@ -225,6 +225,16 @@ cycles, post-production and the final QA, and writes `<run>/produce_log.json`. W
 picks an upright, eyes-open, front-facing frame, re-rolling if none qualifies). A speaker's voice is cast before
 their first line (`<sheet>.voice.wav`) and used as `<Audio 1>` in all of their shots.
 
+### Repair policy (failed shots)
+
+`tools/produce.py` does not re-roll failed shots blindly. `src/skills/repair_policy.py` maps each shot's QA record and
+judge checklist to failure types — A identity, B presence, C continuity, D artifact (text / extra objects), E action,
+F speech — with the evidence (what the VLM / judge / ASR saw). `configs/repair_policy.yaml` turns type × attempt into
+prompt additions (prefix = highest weight), a new seed and a duration change; attempt 2 escalates. A type seen in ≥ 2
+shots of a film becomes a story-level lesson appended to later regenerations of that film only (`<run>/memory/`).
+Dead air alone is never regenerated (post-production trims it); a failure against a stale character expectation is
+not regenerated either. `resume_production.py --repair <plan.json>` applies a plan by hand.
+
 ### Judge calibration
 
 VisualJudge answers a fixed checklist (`checks`: right_characters, identity_matches, main_action_shown,

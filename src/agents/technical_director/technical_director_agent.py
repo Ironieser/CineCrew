@@ -410,6 +410,14 @@ def visible_characters(template_chars: List[str], shot, asset_library: AssetLibr
                     continue
                 if re.match(r"['’]s\b", after):
                     continue
+                # when the cinematographer staged characters, a further character counts only when the text puts
+                # them physically in the shot ("glides up behind Lin Zhou", "hands Lao Zhou an umbrella"), not when
+                # they are merely talked about ("explains that Doudou saved money")
+                if staged and not re.search(
+                        r"\b(behind|beside|next\s+to|near|toward|towards|to|with|at|by|onto|over|around|into|holds?|"
+                        r"hands?|gives?|pats?|hugs?|grabs?|follows?|approaches|joins|nudges|licks|carries|feeds|"
+                        r"passes|takes)\s+(?:the\s+|her\s+|his\s+)?$", before[-40:], re.I):
+                    continue
                 hit = True; break
             if hit:
                 break

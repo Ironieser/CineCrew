@@ -26,7 +26,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PY = sys.executable
-SHOT_GATES = ("audio.asr", "audio.dead_air", "visual.review", "visual.vlm", "visual.continuity")
+# dead air is not a reason to regenerate: post_production trims it (it is still graded on the post film)
+SHOT_GATES = ("audio.asr", "visual.review", "visual.vlm", "visual.continuity")
 
 
 def sh(*args, env=None):
@@ -59,15 +60,23 @@ def main():
                if not ((c.get("visual_references") or {}).get("canonical_image_path"))]
     if missing:   # identity has no anchor: every later shot would drift, so stop instead of producing a weak film
         sys.exit(f"[produce] characters without a reference image: {missing} (check T2I_* / generate_references)")
+    sys.path.insert(0, str(ROOT))
+    from src.skills.repair_policy import plan as repair_plan
     for rnd in range(a.rounds + 1):
         rep = qa(run, a.hint)
-        failed = sorted({s["shot"] for s in rep["shots"] if any(not s["gates"].get(g, True) for g in SHOT_GATES)})
-        log["rounds"].append({"round": rnd, "passed": rep["passed"], "total": rep["total"], "failed_shots": failed,
+        flagged = sorted({s["shot"] for s in rep["shots"] if any(not s["gates"].get(g, True) for g in SHOT_GATES)})
+        # typed diagnoses decide what is regenerated and how (a stale expectation or dead air is not a reason)
+        rp = {k: v for k, v in repair_plan(run, rep, rnd).items() if k in flagged} if rnd < a.rounds else {}
+        log["rounds"].append({"round": rnd, "passed": rep["passed"], "total": rep["total"], "flagged_shots": flagged,
+                              "repairs": {k: {"types": v["types"], "attempt": v["attempt"]} for k, v in rp.items()},
                               "film_gates": rep["film_gates"]})
-        print(f"[produce] round {rnd}: {rep['passed']}/{rep['total']} gates, failing shots: {failed}", flush=True)
-        if not failed or rnd == a.rounds:
+        print(f"[produce] round {rnd}: {rep['passed']}/{rep['total']} gates, flagged: {flagged}, "
+              f"repairing: { {k: v['types'] for k, v in rp.items()} }", flush=True)
+        if not rp:
             break
-        sh(PY, "tools/resume_production.py", run, "--only", ",".join(failed), "--resync-characters", "--max-retries", "1")
+        (run / "memory" / f"repair_round_{rnd}.json").write_text(json.dumps(rp, ensure_ascii=False, indent=1))
+        sh(PY, "tools/resume_production.py", run, "--only", ",".join(rp), "--resync-characters", "--max-retries", "1",
+           "--repair", run / "memory" / f"repair_round_{rnd}.json")
     sh("python3", "tools/post_production.py", run)
     final = qa(run, a.hint, post=True)
     log.update(final={"passed": final["passed"], "total": final["total"], "all_pass": final["all_pass"],

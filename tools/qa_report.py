@@ -66,6 +66,7 @@ def frames(p, n=3):
 
 
 VLM_PROMPT = """You check frames from one shot of a film. Expected characters on screen: {chars}.
+The film's whole cast (any of them may also appear at the edge or in the background): {cast}.
 Answer ONLY JSON: {{"garbled_text": bool, "captions_or_subtitles": bool, "human_glowing_eyes": bool,
 "figures_visible": int, "expected_characters_present": bool, "wrong_extra_person": bool, "duplicated_unique_object": bool, "time_of_day": "day|dusk|night|unclear", "raining": "yes|no|unclear",
 "notes": "short"}}
@@ -76,16 +77,17 @@ Answer ONLY JSON: {{"garbled_text": bool, "captions_or_subtitles": bool, "human_
 - expected_characters_present: for each expected character a figure consistent with them is visible, robots
   included. A back view, an over-the-shoulder foreground or a silhouette counts as present: you are not asked to
   confirm identity, only that nobody expected is missing.
-- wrong_extra_person: a person who does not match any expected character appears prominently.
+- wrong_extra_person: a prominent person who matches NONE of the film's cast (a stranger), or a cast member shown
+  twice. A cast member at the edge or in the background is fine.
 - time_of_day: judge from the sky, windows and light (an interior with black windows and lamps on is night).
 - raining: rain drops, wet streaks on windows, wet reflective streets, umbrellas in use.
 - duplicated_unique_object: a one-of-a-kind object appears twice in one frame (two Earths, two suns, two moons, the same person twice)."""
 
 
-def vlm_check(paths, chars):
+def vlm_check(paths, chars, cast=""):
     from openai import OpenAI
     from src.config import Config
-    content = [{"type": "text", "text": VLM_PROMPT.format(chars=chars or "none (environment shot)")}]
+    content = [{"type": "text", "text": VLM_PROMPT.format(chars=chars or "none (environment shot)", cast=cast or "unknown")}]
     for p in paths:
         content.append({"type": "image_url", "image_url": {"url": "data:image/jpeg;base64," + base64.b64encode(Path(p).read_bytes()).decode()}})
     r = OpenAI(api_key=Config.LLM_API_KEY or "EMPTY", base_url=Config.LLM_BASE_URL).chat.completions.create(
@@ -114,6 +116,18 @@ def main():
                 raw_clip[s0["shot_id"]] = Path(p0) if Path(p0).is_absolute() else ROOT / p0
     lib = json.loads((run / "assets" / "asset_library.json").read_text())
     names = {c["id"]: c["name"] for c in lib.get("characters", [])}
+    # expected on-screen characters from the current visible-character guard over the plan (same as the repair policy)
+    expected = {}
+    try:
+        from src.schemas.blueprint import SceneBlueprint
+        from src.schemas.assets import AssetLibrary
+        from src.agents.technical_director.technical_director_agent import visible_characters
+        alib = AssetLibrary.model_validate(lib)
+        for ps in SceneBlueprint.model_validate_json((run / "shots" / "scene_blueprint_render_filled.json").read_text()).shots:
+            if ps.render_layer:
+                expected[ps.shot_id] = visible_characters(ps.render_layer.image.characters_in_shot, ps, alib)
+    except Exception as e:
+        print(f"[qa] expected characters from the final blueprint ({e})", flush=True)
     looks = {c["name"]: (c.get("description") or "")[:140] for c in lib.get("characters", [])}
     from faster_whisper import WhisperModel
     from resemblyzer import VoiceEncoder, preprocess_wav
@@ -131,7 +145,8 @@ def main():
         d = duration(clip); dia = (s["narrative_layer"].get("dialogue") or {})
         line = dia.get("text") if dia.get("has_dialogue") else None
         spk = names.get(dia.get("speaker_asset_id"), dia.get("speaker_asset_id"))
-        chars = [names.get(c, c) for c in ((rl.get("image") or {}).get("characters_in_shot") or [])]
+        chars = [names.get(c, c) for c in (expected.get(s["shot_id"]) if s["shot_id"] in expected
+                                           else ((rl.get("image") or {}).get("characters_in_shot") or []))]
         r = {"shot": s["shot_id"], "clip": str(clip.relative_to(ROOT)) if str(clip).startswith(str(ROOT)) else str(clip),
              "duration": round(d, 2), "dialogue": line, "speaker": spk, "characters": chars, "gates": {}}
         segs, _ = asr.transcribe(str(clip), language="zh", vad_filter=True, initial_prompt=init, word_timestamps=False)
@@ -169,7 +184,8 @@ def main():
         if not a.no_vlm:
             try:
                 vj = vlm_check(frames(raw_clip.get(s["shot_id"], clip)),
-                               "; ".join(f"{c} ({looks.get(c, '')})" for c in chars)); r["vlm"] = vj
+                               "; ".join(f"{c} ({looks.get(c, '')})" for c in chars),
+                               "; ".join(f"{n} ({looks.get(n, '')[:80]})" for n in names.values())); r["vlm"] = vj
                 r["gates"]["visual.vlm"] = bool(not vj.get("garbled_text") and not vj.get("captions_or_subtitles")
                                                 and not vj.get("human_glowing_eyes")
                                                 and (not chars or vj.get("expected_characters_present", True)

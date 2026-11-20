@@ -55,6 +55,8 @@ def main():
     ap.add_argument("--keep", default="", help="comma-separated shot_id prefixes whose existing clips are reused")
     ap.add_argument("--only", default="", help="comma-separated shot_id prefixes to regenerate; all other clips reused")
     ap.add_argument("--resync-characters", action="store_true")
+    ap.add_argument("--repair", default=None, help="repair plan JSON (src/skills/repair_policy.plan): per-shot prompt "
+                                                   "prefix/suffix, seed offset, duration delta, judge prompt")
     ap.add_argument("--no-judge", action="store_true")
     ap.add_argument("--max-retries", type=int, default=None)
     a = ap.parse_args()
@@ -91,12 +93,26 @@ def main():
             if p.exists():
                 kept[job.job_id] = str(p)
     todo = VideoJobBatch(scene_id=batch.scene_id, jobs=[j for j in batch.jobs if j.job_id not in kept])
+    if a.repair:   # regenerate with what QA found, not a blind re-roll of the same prompt and seed
+        rp = json.loads(Path(a.repair).read_text())
+        for j in todo.jobs:
+            r = rp.get(j.shot_id)
+            if not r:
+                continue
+            body = r.get("judge_prompt") or j.prompt
+            j.prompt = "\n".join(x for x in (r.get("prefix"), body, r.get("suffix")) if x)
+            j.seed = (j.seed or 0) + int(r.get("seed_offset", 0))
+            if r.get("duration_delta"):
+                j.duration = max(4.0, j.duration + float(r["duration_delta"]))
+                j.frame_num = po.calculate_frame_num(j.duration, j.fps)
+            print(f"[resume] repair {j.shot_id}: types={r.get('types')} attempt={r.get('attempt')} seed={j.seed}", flush=True)
     print(f"[resume] {len(kept)} clips kept, {len(todo.jobs)} to render", flush=True)
 
     results = po.execute_jobs(todo, run / "media", blueprint=bp,
                               judge=False if a.no_judge else opts.get("judge", True),
                               max_retries=a.max_retries if a.max_retries is not None else int(opts.get("max_retries", 1)),
-                              keyframes=opts.get("keyframes", True), stitch=False)
+                              keyframes=opts.get("keyframes", True), stitch=False,
+                              parallel=int(opts.get("parallel", 1)))
 
     # merge kept clips back into the blueprint in shot/segment order, then stitch
     by_shot = {s.shot_id: s for s in bp.shots}

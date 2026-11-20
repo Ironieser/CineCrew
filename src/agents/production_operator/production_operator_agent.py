@@ -197,6 +197,7 @@ class ProductionOperatorAgent:
         max_retries: int = 1,
         keyframes: bool = True,
         stitch: bool = True,
+        parallel: int = 1,
     ) -> List[VideoResult]:
         """
         Run the batch on the T2I_* / VIDEO_* backends.
@@ -205,6 +206,8 @@ class ProductionOperatorAgent:
                        ones (at most `max_retries` extra attempts each) using its revised prompt.
         keyframes    : render a keyframe per shot first (TI2I with the character sheets when
                        available) and use it as the I2V reference; False -> reference sheets only.
+        parallel     : clips rendered concurrently (one per backend replica behind VIDEO_BASE_URL); each clip's
+                       render -> judge -> retry loop stays sequential, results keep job order.
         stitch       : cut all clips together in shot order (ffmpeg) into <output_dir>/film.mp4,
                        honouring the first shot's fade_in; path stored in blueprint.final_film_path.
         Returns one VideoResult per job; blueprint (if given) is updated in place.
@@ -224,10 +227,16 @@ class ProductionOperatorAgent:
                     job.image_reference = shot.render_layer.image.keyframe_image_path
 
         print(f"--- [ProductionOperator] Clips for {len(batch.jobs)} jobs (judge={judge}) ---", flush=True)
-        results = [
-            self._render_clip(job, by_shot.get(job.shot_id), out, judge, max_retries, global_style)
-            for job in batch.jobs
-        ]
+        render = lambda job: self._render_clip(job, by_shot.get(job.shot_id), out, judge, max_retries, global_style)
+        if parallel > 1 and len(batch.jobs) > 1:
+            from concurrent.futures import ThreadPoolExecutor
+            self._video_client()
+            if judge:
+                self._visual_judge()   # create the shared clients before the worker threads use them
+            with ThreadPoolExecutor(max_workers=parallel) as pool:
+                results = list(pool.map(render, batch.jobs))
+        else:
+            results = [render(job) for job in batch.jobs]
 
         for shot in by_shot.values():
             if shot.render_layer is None:
