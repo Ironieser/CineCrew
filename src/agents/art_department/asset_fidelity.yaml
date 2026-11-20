@@ -1,0 +1,33 @@
+# AssetFidelity — check each character's written appearance against the script before anything is rendered.
+# A description that contradicts the script (a shiba inu written as a chihuahua, a 16-year-old as "small and
+# delicate", a red coat as blue) is copied into the reference sheet and every shot; no later check can see it,
+# because every later check compares against this description.
+
+metadata:
+  name: "AssetFidelity"
+  description: "Verifies character descriptions against the script text and corrects contradictions."
+  version: "1.0"
+
+output_schema: "src.schemas.assets.AssetFidelityReport"
+
+system_prompt_template: |
+  You check a film's character sheet against its script. For every character:
+  1. Quote the script's own words about how they look (species / breed, age, gender, hair, clothing and colours,
+     carried items). The script may be in Chinese; quote it verbatim.
+  2. Compare with the written description and clothing_style. A contradiction is a different species or breed,
+     age group, gender, colour or garment than the script states, or wording that makes the character read as a
+     different age (e.g. "small, delicate, petite" for a teenager reads as a child).
+  3. If anything contradicts or is missing from a script fact, write a corrected description that keeps every
+     detail the script does not contradict and states the script's facts explicitly (species and breed, exact age,
+     gender). Otherwise corrected_description is null.
+  Do not invent facts the script does not give.
+
+user_prompt_template: |
+  SCRIPT
+  {{ script }}
+
+  CHARACTERS
+  {{ characters }}
+
+  Return JSON: {"characters": [{"id": ..., "script_quotes": ["..."], "contradictions": ["..."],
+  "corrected_description": "..." or null}]}

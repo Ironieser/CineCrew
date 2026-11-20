@@ -198,3 +198,15 @@ class AssetLibrary(BaseModel):
             if prop.id == prop_id:
                 return prop
         return None
+
+
+class CharacterFidelity(BaseModel):
+    id: str
+    script_quotes: List[str] = Field(default_factory=list, description="Script text about how this character looks")
+    contradictions: List[str] = Field(default_factory=list, description="Where the description contradicts the script")
+    corrected_description: Optional[str] = Field(None, description="Corrected description, or null when consistent")
+
+
+class AssetFidelityReport(BaseModel):
+    """AssetFidelity output: character descriptions checked against the script (art_department/asset_fidelity.yaml)."""
+    characters: List[CharacterFidelity] = Field(default_factory=list)

@@ -30,6 +30,7 @@ pipeline:
   stages:
     - id: art_department
       enabled: true
+      verify_against_script: true  # check character descriptions against the script before sheets are rendered
       generate_references: true    # H3 proxy renders sheets via /v1/images/generations; render character sheets / location establishing shots (T2I_*) for assets without an image
     - id: story_editor
       enabled: true

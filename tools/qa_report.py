@@ -60,7 +60,7 @@ def frames(p, n=3):
     for k in range(n):
         f = tmp / f"f{k}.jpg"
         subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{d * (k + 1) / (n + 1):.2f}", "-i", str(p), "-frames:v", "1",
-                        "-vf", "scale=768:-2", str(f)], check=True)
+                        "-vf", "scale=1344:-2", str(f)], check=True)
         out.append(f)
     return out
 
@@ -68,10 +68,16 @@ def frames(p, n=3):
 VLM_PROMPT = """You check frames from one shot of a film. Expected characters on screen: {chars}.
 The film's whole cast (any of them may also appear at the edge or in the background): {cast}.
 Answer ONLY JSON: {{"garbled_text": bool, "captions_or_subtitles": bool, "human_glowing_eyes": bool,
-"figures_visible": int, "expected_characters_present": bool, "wrong_extra_person": bool, "duplicated_unique_object": bool, "time_of_day": "day|dusk|night|unclear", "raining": "yes|no|unclear",
+"figures_visible": int, "visible_text": ["every piece of legible or letter-like text you can see"],
+"identity_mismatch": ["names of expected characters who do NOT look like their reference image"],
+"expected_characters_present": bool, "wrong_extra_person": bool, "duplicated_unique_object": bool, "time_of_day": "day|dusk|night|unclear", "raining": "yes|no|unclear",
 "notes": "short"}}
 - garbled_text: any malformed/fake lettering visible (signs, labels, screens). Ignore abstract waveforms and icons.
 - human_glowing_eyes: a human's eyes emit light (not just reflections).
+- visible_text: transcribe ALL text-like marks in the frames: signs, shop fronts, route boards, LED displays, labels,
+  posters, badges, screens. Copy what you see even if it is garbled or only letter-like. [] only if there is none.
+- identity_mismatch: compare each expected character with the reference board (last image, if given): a different
+  species or breed, age group, gender, face or outfit is a mismatch. Do not count pose, lighting or framing.
 - figures_visible: how many distinct people or robots are visible in any frame; silhouettes, back views and
   out-of-focus foreground figures count.
 - expected_characters_present: for each expected character a figure consistent with them is visible, robots
@@ -84,11 +90,26 @@ Answer ONLY JSON: {{"garbled_text": bool, "captions_or_subtitles": bool, "human_
 - duplicated_unique_object: a one-of-a-kind object appears twice in one frame (two Earths, two suns, two moons, the same person twice)."""
 
 
-def vlm_check(paths, chars, cast=""):
+def reference_board(refs):
+    """One labelled board of the expected characters' reference sheets (sent after the clip frames)."""
+    from PIL import Image, ImageDraw
+    tiles = [(n, Image.open(p).convert("RGB")) for n, p in refs if Path(p).exists()]
+    if not tiles:
+        return None
+    h = 300; tiles = [(n, t.resize((int(t.width * h / t.height), h))) for n, t in tiles]
+    W = sum(t.width for _, t in tiles) + 20 * (len(tiles) + 1); board = Image.new("RGB", (W, h + 90), (30, 30, 30))
+    d = ImageDraw.Draw(board); d.text((20, 12), "REFERENCE IMAGES - NOT PART OF THE CLIP", fill=(255, 220, 0)); x = 20
+    for n, t in tiles:
+        board.paste(t, (x, 50)); d.text((x, h + 60), n, fill=(255, 255, 255)); x += t.width + 20
+    out = Path(tempfile.mkdtemp()) / "refs.jpg"; board.save(out, quality=88)
+    return out
+
+
+def vlm_check(paths, chars, cast="", board=None):
     from openai import OpenAI
     from src.config import Config
     content = [{"type": "text", "text": VLM_PROMPT.format(chars=chars or "none (environment shot)", cast=cast or "unknown")}]
-    for p in paths:
+    for p in list(paths) + ([board] if board else []):
         content.append({"type": "image_url", "image_url": {"url": "data:image/jpeg;base64," + base64.b64encode(Path(p).read_bytes()).decode()}})
     r = OpenAI(api_key=Config.LLM_API_KEY or "EMPTY", base_url=Config.LLM_BASE_URL).chat.completions.create(
         model=Config.MODEL_NAME, temperature=0, max_tokens=300, response_format={"type": "json_object"},
@@ -129,6 +150,7 @@ def main():
     except Exception as e:
         print(f"[qa] expected characters from the final blueprint ({e})", flush=True)
     looks = {c["name"]: (c.get("description") or "")[:140] for c in lib.get("characters", [])}
+    sheet_of = {c["name"]: ((c.get("visual_references") or {}).get("canonical_image_path")) for c in lib.get("characters", [])}
     from faster_whisper import WhisperModel
     from resemblyzer import VoiceEncoder, preprocess_wav
     import numpy as np
@@ -183,9 +205,21 @@ def main():
             r["review_score"] = kept[-1]["score"]; r["gates"]["visual.review"] = bool(kept[-1]["score"] >= 0.85)
         if not a.no_vlm:
             try:
+                refs = [(c, sheet_of[c] if Path(sheet_of[c]).is_absolute() else str(ROOT / sheet_of[c]))
+                        for c in chars if sheet_of.get(c)]
                 vj = vlm_check(frames(raw_clip.get(s["shot_id"], clip)),
                                "; ".join(f"{c} ({looks.get(c, '')})" for c in chars),
-                               "; ".join(f"{n} ({looks.get(n, '')[:80]})" for n in names.values())); r["vlm"] = vj
+                               "; ".join(f"{n} ({looks.get(n, '')[:80]})" for n in names.values()),
+                               reference_board(refs) if refs else None); r["vlm"] = vj
+                txt = [t for t in (vj.get("visible_text") or []) if len(re.sub(r"\W", "", str(t))) >= 2]
+                if txt:   # generated text is never wanted (subtitles are added in post, not present in raw clips)
+                    r["visible_text"] = txt
+                r["gates"]["visual.text"] = not txt
+                mism = [m for m in (vj.get("identity_mismatch") or []) if m]
+                if chars:
+                    r["gates"]["visual.identity"] = not mism
+                    if mism:
+                        r["identity_mismatch"] = mism
                 r["gates"]["visual.vlm"] = bool(not vj.get("garbled_text") and not vj.get("captions_or_subtitles")
                                                 and not vj.get("human_glowing_eyes")
                                                 and (not chars or vj.get("expected_characters_present", True)

@@ -223,6 +223,9 @@ def run_story(
     # Link the pre-supplied character images; render whatever is still missing
     # (characters without an image, location establishing shots) when the
     # art_department stage has `generate_references: true`.
+    if _stage_option("art_department", "verify_against_script", False):
+        wb.verify_against_script(asset_library, script_content)
+
     print("\n🔗 Linking character reference images...", flush=True)
     link_character_images(asset_library, char_images)
     if _stage_option("art_department", "generate_references", False):

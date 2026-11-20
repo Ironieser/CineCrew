@@ -19,7 +19,7 @@ ArtDepartment Agent [Controller] — builds the Asset Library (the truth anchor)
 import logging
 import re
 from pathlib import Path
-from typing import Optional
+from typing import List, Optional
 from datetime import datetime
 
 logger = logging.getLogger(__name__)
@@ -175,6 +175,32 @@ class ArtDepartmentAgent:
             generation_timestamp=datetime.now().isoformat(),
         )
         return True
+
+    def verify_against_script(self, asset_lib: AssetLibrary, script: str) -> List[str]:
+        """
+        Check every character description against the script (asset_fidelity.yaml) and apply the corrected
+        descriptions in place. Runs before reference sheets are rendered: a description that contradicts the script
+        is otherwise copied into the sheet and every shot, and later checks compare against the wrong text.
+        Returns human-readable notes on what was corrected.
+        """
+        from ...engine import ConfigurableAgent
+        chars = "\n".join(f"- {c.id} ({c.name}): description: {c.description} | clothing: {c.clothing_style}"
+                          for c in asset_lib.characters)
+        try:
+            rep = ConfigurableAgent(config_path=str(Path(__file__).resolve().parent / "asset_fidelity.yaml")).run(
+                script=script[:12000], characters=chars)
+        except Exception as e:
+            logger.warning("AssetFidelity failed (%s); descriptions left as written", e)
+            return []
+        notes = []
+        for r in rep.characters:
+            ch = asset_lib.get_character_by_id(r.id)
+            if ch and r.corrected_description and r.contradictions:
+                notes.append(f"{ch.id}: {'; '.join(r.contradictions)[:200]}")
+                ch.description = r.corrected_description
+        for n in notes:
+            print(f"   🔎 [AssetFidelity] corrected {n}", flush=True)
+        return notes
 
     def _t2i_client(self):
         if self._t2i is None:

@@ -27,7 +27,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PY = sys.executable
 # dead air is not a reason to regenerate: post_production trims it (it is still graded on the post film)
-SHOT_GATES = ("audio.asr", "visual.review", "visual.vlm", "visual.continuity")
+SHOT_GATES = ("audio.asr", "visual.review", "visual.vlm", "visual.continuity", "visual.text", "visual.identity")
 
 
 def sh(*args, env=None):

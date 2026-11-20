@@ -37,7 +37,9 @@ def diagnose(q: dict, review: dict, ledger: dict) -> List[Tuple[str, str]]:
     g, v, out = q.get("gates", {}), q.get("vlm") or {}, []
     chk = review.get("checks") or {}
     issues = "; ".join(review.get("issues") or [])[:300]
-    if v.get("human_glowing_eyes") or chk.get("identity_matches") is False:
+    if g.get("visual.identity") is False:
+        out.append(("A", "does not look like the reference: " + ", ".join(q.get("identity_mismatch") or [])))
+    elif v.get("human_glowing_eyes") or chk.get("identity_matches") is False:
         out.append(("A", "glowing human eyes" if v.get("human_glowing_eyes") else issues or "identity drift"))
     exp = len(q.get("characters") or [])
     if (g.get("visual.vlm") is False and (v.get("wrong_extra_person") or v.get("duplicated_unique_object")
@@ -48,7 +50,9 @@ def diagnose(q: dict, review: dict, ledger: dict) -> List[Tuple[str, str]]:
         ce = q.get("continuity_expected") or {}
         out.append(("C", f"the frames read as {v.get('time_of_day')} (raining: {v.get('raining')}) but the shot is "
                          f"{ce.get('time_of_day')}, {ce.get('weather')}"))
-    if v.get("garbled_text") or v.get("captions_or_subtitles") or chk.get("integrity_ok") is False:
+    if g.get("visual.text") is False:
+        out.append(("D", "generated text visible: " + "; ".join(str(t) for t in (q.get("visible_text") or [])[:4])))
+    elif v.get("garbled_text") or v.get("captions_or_subtitles") or chk.get("integrity_ok") is False:
         out.append(("D", "generated text / signage visible" if (v.get("garbled_text") or v.get("captions_or_subtitles"))
                     else issues or "visual artifact"))
     if g.get("visual.review") is False and (chk.get("main_action_shown") is False or not chk) and \
