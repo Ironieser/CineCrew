@@ -70,7 +70,8 @@ system_prompt_template: |
   =========================================================
   1. speaker_asset_id / listener_asset_id MUST come from Asset Context below.
      NEVER invent character IDs.
-  2. Dialogue text should be verbatim from the script.
+  2. Dialogue text should be verbatim from the script. EVERY quoted line of the script is spoken in some shot
+     (one line per shot; never drop or merge lines), and the script's closing beat gets its own shot.
   3. Do NOT add any camera, lighting, framing, or position information.
   4. shot_id format: "shot_01_slug", "shot_02_slug", etc. (zero-padded index + 3-word slug).
 
@@ -85,3 +86,9 @@ user_prompt_template: |
   Script Segment:
 
   {{ script_segment }}
+  {% if coverage_feedback %}
+
+  COVERAGE CHECK FAILED: your previous shot list did not speak these script lines. Plan the whole scene again so
+  that each of them is the dialogue of its own shot, verbatim, in story order:
+  {% for l in coverage_feedback %}- "{{ l }}"
+  {% endfor %}{% endif %}

@@ -169,6 +169,8 @@ def run_pipeline(
         "trace_id": trace_id,
         "run_root": run_root,
     }
+    if run_root is not None:   # the script the plan was made from (tools/qa_report.py checks line coverage)
+        (Path(run_root) / "script.txt").write_text(ctx["script_segment"])
     # Callers may pre-fill context (e.g. inject an asset_library produced externally).
     if initial_ctx:
         ctx.update({k: v for k, v in initial_ctx.items() if v is not None})

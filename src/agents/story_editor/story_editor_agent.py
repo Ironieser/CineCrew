@@ -75,6 +75,24 @@ class StoryEditorAgent:
             asset_context=asset_context,
             hallucination_guard=hallucination_guard,
         )
+        # coverage guard: every quoted line of the script must be spoken in some shot; one repair round with the
+        # missing lines as feedback, keeping whichever shot list covers more
+        from ...skills.script_coverage import missing_lines
+        spoken = lambda r: [i.narrative_layer.dialogue.text or "" for i in r.shots]
+        missing = missing_lines(script_segment, spoken(result))
+        if missing:
+            print(f"   ⚠️  [StoryEditor] {len(missing)} script line(s) not in any shot: {missing}; re-planning", flush=True)
+            retry: ShotNarrativeList = self._agent.run(
+                script_segment=script_segment,
+                asset_context=asset_context,
+                hallucination_guard=hallucination_guard,
+                coverage_feedback=missing,
+            )
+            if len(missing_lines(script_segment, spoken(retry))) < len(missing):
+                result = retry
+            still = missing_lines(script_segment, spoken(result))
+            if still:
+                print(f"   ⚠️  [StoryEditor] still missing after re-plan: {still}", flush=True)
 
         for item in result.shots:
             blueprint.shots.append(

@@ -202,12 +202,20 @@ def main():
     vv = dv + av
     if dv:   # dialogue level consistent across shots; ambience-only shots never louder than speech
         film_gates["audio.loudness"] = bool(max(dv) - min(dv) <= 4 and (not av or max(av) <= min(dv)))
+    if (run / "script.txt").exists():   # content: every quoted script line is spoken in the film's plan
+        from src.skills.script_coverage import missing_lines, script_lines
+        script = (run / "script.txt").read_text()
+        miss = missing_lines(script, [x.get("dialogue") or "" for x in shots])
+        film_gates["content.dialogue_coverage"] = not miss
+        content = {"script_lines": len(script_lines(script)), "missing_lines": miss}
+    else:
+        content = None
     film = Path(a.film) if a.film else run / "media" / "film.mp4"
     flen = duration(film) if film.exists() else sum(x.get("duration", 0) for x in shots)
     film_gates["pacing.length"] = bool(abs(flen - planned) <= 0.25 * planned) if planned else True
     total = [g for x in shots for g in x.get("gates", {}).values()] + list(film_gates.values())
     report = {"run": str(run), "film": str(film), "film_length": round(flen, 2), "planned_length": round(planned, 2),
-              "voice_min_similarity": vsim, "loudness_range_db": [min(vv), max(vv)] if vv else None,
+              "voice_min_similarity": vsim, "content": content, "loudness_range_db": [min(vv), max(vv)] if vv else None,
               "film_gates": film_gates, "shots": shots, "passed": sum(total), "total": len(total), "all_pass": all(total)}
     out = run / ("qa_report_post" if a.post else "qa_report")
     out.with_suffix(".json").write_text(json.dumps(report, ensure_ascii=False, indent=1))

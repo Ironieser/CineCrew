@@ -41,6 +41,22 @@ def duration(p):
                                 capture_output=True, text=True).stdout.strip() or 0)
 
 
+def loudnorm_filter(src, t0, t1, target):
+    """Two-pass loudnorm: measure the segment, then normalise linearly (single-pass loudnorm falls back to dynamic
+    mode and lands several LU off on clips of a few seconds)."""
+    r = subprocess.run(["ffmpeg", "-hide_banner", "-ss", f"{t0:.3f}", "-to", f"{t1:.3f}", "-i", str(src), "-vn", "-af",
+                        f"loudnorm=I={target}:TP=-2:LRA=11:print_format=json", "-f", "null", "-"],
+                       capture_output=True, text=True)
+    try:
+        m = json.loads(r.stderr[r.stderr.rindex("{"):r.stderr.rindex("}") + 1])
+        if float(m["input_i"]) < -70:   # silent clip
+            raise ValueError
+        return (f"loudnorm=I={target}:TP=-2:LRA=11:measured_I={m['input_i']}:measured_TP={m['input_tp']}:"
+                f"measured_LRA={m['input_lra']}:measured_thresh={m['input_thresh']}:offset={m['target_offset']}:linear=true")
+    except (ValueError, KeyError):
+        return f"loudnorm=I={target}:TP=-2:LRA=11"
+
+
 def subtitle_png(text: str, out: Path, font_path: str):
     im = Image.new("RGBA", (W, H), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
     f = ImageFont.truetype(font_path, 34, index=2 if font_path.endswith(".ttc") else 0)
@@ -78,7 +94,7 @@ def main():
                 t1 = min(d, speech_end + TAIL)
         seg_d = t1 - t0
         target = -20 if line else -30
-        afilt = [f"loudnorm=I={target}:TP=-2:LRA=11", "aresample=48000", "afade=t=in:d=0.06", f"afade=t=out:st={max(0, seg_d - 0.06):.3f}:d=0.06"]
+        afilt = [loudnorm_filter(src, t0, t1, target), "aresample=48000", "afade=t=in:d=0.06", f"afade=t=out:st={max(0, seg_d - 0.06):.3f}:d=0.06"]
         vfilt = [f"scale={W}:{H}:force_original_aspect_ratio=decrease", f"pad={W}:{H}:(ow-iw)/2:(oh-ih)/2", f"fps={FPS}"]
         if i == 0:
             vfilt.append("fade=t=in:d=0.6")
