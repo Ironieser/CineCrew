@@ -84,8 +84,8 @@ Rules:
   robot's glowing eyes or ambient light from leaking onto people when several references are used).
 - If the prompt has a "Continuity:" line, every fact in it must appear in the output: time of day (a night shot
   is visibly night: dark sky, artificial lights), weather, lighting, and who holds which prop.
-- One-of-a-kind objects appear once: a single Earth, a single sun, a single moon, each character once. If a window
-  shows the Earth, say "a single Earth".
+- One-of-a-kind things the prompt mentions appear once (each character once; a planet or the sun once). Never add
+  objects, planets or scenery that the prompt does not mention.
 - Keep the 5-10 second action achievable in one continuous shot.
 - Timing: the speaker starts the line within the first second of the shot and finishes it at least one second
   before the shot ends; after the line there is only a short silent reaction.
@@ -180,7 +180,7 @@ def validate(text: str, dialogue, ref: bool, speaker=None, voice=None, subjects=
         text = text.replace(key, key + lead + (f", {tod.group(3)}" if tod.group(3) else "") + ". ", 1)
     if "eyes look natural" not in text and re.search(r"\b(she|he|woman|man|engineer|person|girl|boy)\b", text, re.I):
         text = text.replace(key, key + "Every human's eyes look natural, dark and non-glowing. ", 1)
-    if re.search(r"\bEarth\b", text) and "single Earth" not in text:
+    if re.search(r"\bEarth\b", source or "") and re.search(r"\bEarth\b", text) and "single Earth" not in text:
         text = text.replace(key, key + "Only a single Earth is visible, never two. ", 1)
     return text
 
