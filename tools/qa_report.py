@@ -67,7 +67,8 @@ def frames(p, n=3):
 
 VLM_PROMPT = """You check frames from one shot of a film. Expected characters on screen: {chars}.
 Answer ONLY JSON: {{"garbled_text": bool, "captions_or_subtitles": bool, "human_glowing_eyes": bool,
-"figures_visible": int, "expected_characters_present": bool, "wrong_extra_person": bool, "duplicated_unique_object": bool, "notes": "short"}}
+"figures_visible": int, "expected_characters_present": bool, "wrong_extra_person": bool, "duplicated_unique_object": bool, "time_of_day": "day|dusk|night|unclear", "raining": "yes|no|unclear",
+"notes": "short"}}
 - garbled_text: any malformed/fake lettering visible (signs, labels, screens). Ignore abstract waveforms and icons.
 - human_glowing_eyes: a human's eyes emit light (not just reflections).
 - figures_visible: how many distinct people or robots are visible in any frame; silhouettes, back views and
@@ -76,6 +77,8 @@ Answer ONLY JSON: {{"garbled_text": bool, "captions_or_subtitles": bool, "human_
   included. A back view, an over-the-shoulder foreground or a silhouette counts as present: you are not asked to
   confirm identity, only that nobody expected is missing.
 - wrong_extra_person: a person who does not match any expected character appears prominently.
+- time_of_day: judge from the sky, windows and light (an interior with black windows and lamps on is night).
+- raining: rain drops, wet streaks on windows, wet reflective streets, umbrellas in use.
 - duplicated_unique_object: a one-of-a-kind object appears twice in one frame (two Earths, two suns, two moons, the same person twice)."""
 
 
@@ -102,6 +105,8 @@ def main():
     if a.post and not a.film:
         a.film = str(run / "media" / "film_post.mp4")
     raw_clip = {}
+    ledger = {x["shot_id"]: x["narrative_layer"].get("continuity") for x in
+              json.loads((run / "shots" / "scene_blueprint_final.json").read_text())["shots"]}
     if a.post:   # visual checks run on the pre-post clip: the burned-in subtitles are ours, not a model defect
         for s0 in json.loads((run / "shots" / "scene_blueprint_final.json").read_text())["shots"]:
             p0 = (((s0.get("render_layer") or {}).get("video") or {}).get("video_clip_paths") or [None])[0]
@@ -134,7 +139,8 @@ def main():
         if line:
             sim = difflib.SequenceMatcher(None, norm(got), norm(line)).ratio()
             extra = len(norm(got)) - len(norm(line))
-            r["asr"] = got; r["gates"]["audio.asr"] = bool(sim >= 0.85 and extra <= 4)
+            dist = len(norm(line)) * (1 - sim) if len(norm(line)) <= 6 else 99   # short lines: one char ~ 0.2 similarity
+            r["asr"] = got; r["gates"]["audio.asr"] = bool((sim >= 0.85 or dist <= 1.01) and extra <= 4)
             if segs:
                 lead, tail = segs[0].start, d - segs[-1].end
                 r["speech_span"] = [round(lead, 2), round(tail, 2)]
@@ -142,7 +148,11 @@ def main():
                 wav = Path(tempfile.mkdtemp()) / "a.wav"
                 subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(clip), "-ss", f"{segs[0].start:.2f}", "-to", f"{segs[-1].end:.2f}",
                                 "-ac", "1", "-ar", "16000", str(wav)], check=True)
-                voices.setdefault(spk or "unknown", []).append((s["shot_id"], enc.embed_utterance(preprocess_wav(str(wav)))))
+                pw = preprocess_wav(str(wav))
+                if len(pw) / 16000 >= 1.5:   # speaker embeddings of sub-1.5 s speech are too noisy to grade
+                    voices.setdefault(spk or "unknown", []).append((s["shot_id"], enc.embed_utterance(pw)))
+                else:
+                    r["voice_skipped"] = f"speech {len(pw) / 16000:.2f}s < 1.5s"
             else:
                 r["gates"]["audio.asr"] = False
         elif got and len(norm(got)) > 6:
@@ -167,6 +177,18 @@ def main():
                                                 and not vj.get("wrong_extra_person") and not vj.get("duplicated_unique_object"))
             except Exception as e:
                 r["vlm_error"] = str(e)
+        cont = ledger.get(s["shot_id"]) or {}
+        if cont and r.get("vlm"):   # continuity ledger vs what the frames show (coarse cues only: VLMs read them reliably)
+            vj = r["vlm"]; seen = str(vj.get("time_of_day", "unclear")).lower()
+            want = cont.get("time_of_day")
+            # night is strict: overcast daylight is what generators drift to, and the VLM calls it "dusk"
+            dark = {"night": {"night"}, "dusk": {"dusk", "night", "day"}, "dawn": {"dawn", "day", "dusk"},
+                    "day": {"day", "dusk", "dawn"}}
+            ok_t = seen == "unclear" or seen in dark.get(want, {seen})
+            rain_wanted = "rain" in (cont.get("weather") or "").lower()
+            ok_w = not rain_wanted or str(vj.get("raining", "unclear")).lower() != "no"
+            r["continuity_expected"] = {"time_of_day": want, "weather": cont.get("weather")}
+            r["gates"]["visual.continuity"] = bool(ok_t and ok_w)
         shots.append(r); print(f"[qa] {s['shot_id']}: {r['gates']}", flush=True)
 
     film_gates = {}

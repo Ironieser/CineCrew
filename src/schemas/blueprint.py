@@ -51,6 +51,33 @@ class DialogueDef(BaseModel):
     )
 
 
+class PropState(BaseModel):
+    prop_id: str = Field(..., description="Prop ID from the AssetLibrary")
+    holder: Optional[str] = Field(None, description="Character ID holding / wearing it, or null")
+    location: Optional[str] = Field(None, description="Where it is when nobody holds it, e.g. 'on the driver seat'")
+    state: Optional[str] = Field(None, description="Physical state when it matters, e.g. 'folded', 'open', 'wet'")
+
+
+class ContinuityState(BaseModel):
+    """Script-supervisor state of the world in one shot (the continuity ledger). Written by ScriptSupervisorAgent."""
+    time_of_day: Literal["dawn", "day", "dusk", "night"] = Field("day", description="Time of day seen in this shot")
+    weather: str = Field("clear", description="Weather seen or heard, e.g. 'heavy rain', 'clear', 'indoors'")
+    lighting: str = Field("", description="Light sources that must be consistent, e.g. 'orange street lights through wet windows'")
+    props: List[PropState] = Field(default_factory=list, description="Where each story-relevant prop is in this shot")
+    wardrobe: Dict[str, str] = Field(default_factory=dict, description="char_id -> what they wear / carry if it matters")
+    changes: List[str] = Field(default_factory=list, description="State changes that happen IN this shot, e.g. 'umbrella: Xiao Yu -> Lao Zhou'")
+
+
+class ShotContinuity(BaseModel):
+    shot_id: str
+    continuity: ContinuityState
+
+
+class ContinuityPlan(BaseModel):
+    """ScriptSupervisor output: one ledger entry per shot, in shot order."""
+    shots: List[ShotContinuity] = Field(default_factory=list)
+
+
 class NarrativeLayer(BaseModel):
     narrative_action: str = Field(
         ..., description="The main action in this shot, summarized in one sentence"
@@ -70,6 +97,9 @@ class NarrativeLayer(BaseModel):
     )
     performance_intensity: Optional[int] = Field(
         None, ge=1, le=10, description="Intensity of performance_emotion, 1-10"
+    )
+    continuity: Optional[ContinuityState] = Field(
+        None, description="Continuity ledger entry for this shot (ScriptSupervisor): time, weather, props, wardrobe"
     )
 
 

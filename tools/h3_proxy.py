@@ -82,6 +82,8 @@ Rules:
 - Always include the sentence "No subtitles, captions, or overlaid text appear on screen."
 - Human characters' eyes look natural and never glow; only light sources and screens emit light (prevents a
   robot's glowing eyes or ambient light from leaking onto people when several references are used).
+- If the prompt has a "Continuity:" line, every fact in it must appear in the output: time of day (a night shot
+  is visibly night: dark sky, artificial lights), weather, lighting, and who holds which prop.
 - One-of-a-kind objects appear once: a single Earth, a single sun, a single moon, each character once. If a window
   shows the Earth, say "a single Earth".
 - Keep the 5-10 second action achievable in one continuous shot.
@@ -132,10 +134,10 @@ def rewrite(prompt: str, dialogue, speaker, voice, subjects) -> str:
                                                  {"role": "user", "content": json.dumps(user, ensure_ascii=False)}])
     out = r.choices[0].message.content.strip()
     out = re.sub(r"^```\w*\n|\n```$", "", out).strip()
-    return validate(out, dialogue, ref, speaker, voice, subjects)
+    return validate(out, dialogue, ref, speaker, voice, subjects, source=prompt)
 
 
-def validate(text: str, dialogue, ref: bool, speaker=None, voice=None, subjects=()) -> str:
+def validate(text: str, dialogue, ref: bool, speaker=None, voice=None, subjects=(), source: str = "") -> str:
     """Deterministic guards: exact line inside <d>, no <d> when silent, no-captions clause present."""
     tags = list(re.finditer(r"<d>\s*\[[^\]]+\]\s*(.*?)</d>", text, flags=re.S))
     if dialogue:
@@ -170,6 +172,12 @@ def validate(text: str, dialogue, ref: bool, speaker=None, voice=None, subjects=
     text = EYE_LIGHT.sub("", text)
     # rules the model kept breaking even when the system prompt asked: enforce them in the prompt text itself
     key = "detailed_description:\n" if ref else "integrated_multimodal_description: "
+    tod = re.search(r"Continuity: It is (dawn|day|dusk|night)(, ([^.]*))?\.", source or "")
+    if tod and tod.group(1) not in text.lower():
+        lead = {"night": "It is night: the sky outside is dark and the scene is lit only by artificial lights",
+                "dusk": "It is dusk, with low warm light", "dawn": "It is dawn, with pale early light",
+                "day": "It is daytime"}[tod.group(1)]
+        text = text.replace(key, key + lead + (f", {tod.group(3)}" if tod.group(3) else "") + ". ", 1)
     if "eyes look natural" not in text and re.search(r"\b(she|he|woman|man|engineer|person|girl|boy)\b", text, re.I):
         text = text.replace(key, key + "Every human's eyes look natural, dark and non-glowing. ", 1)
     if re.search(r"\bEarth\b", text) and "single Earth" not in text:
@@ -186,8 +194,10 @@ def voice_ref(image):
     if not image:
         return None
     p = Path(image) if Path(image).is_absolute() else ROOT / image
-    v = p.parent / "voice.wav"
-    return str(v) if v.exists() else None
+    for v in (p.with_name(p.stem + ".voice.wav"), p.parent / "voice.wav"):
+        if v.exists() and (v.name != "voice.wav" or p.parent.name not in ("references",)):
+            return str(v)
+    return None
 
 
 def upload_ref(local: str) -> str:
@@ -223,9 +233,12 @@ def create(fields: dict, upload: bytes = None) -> dict:
     # voice is attached (one <Audio 1>), so the line is voiced consistently across shots
     audio_conds = []
     for sbj in subjects:
-        v = voice_ref(sbj.get("image"))
-        if v and speaker and sbj.get("name") == speaker:
-            sbj["voice_tag"] = "<Audio 1>"; audio_conds.append(v); break
+        if not (speaker and sbj.get("name") == speaker):
+            continue
+        v = voice_ref(sbj.get("image")) or cast_voice(sbj, dialogue, voice)
+        if v:
+            sbj["voice_tag"] = "<Audio 1>"; audio_conds.append(v)
+        break
     h3_prompt = rewrite(prompt, dialogue, speaker, voice, subjects)
     body = {"model": "MiniMaxAI/MiniMax-H3", "prompt": h3_prompt, "seconds": int(dur), "num_outputs_per_prompt": 1,
             "num_inference_steps": STEPS, "flow_shift": 12.0, "audio_flow_shift": 3.0,
@@ -240,12 +253,152 @@ def create(fields: dict, upload: bytes = None) -> dict:
         body.update(task="t2va", conditions=[]); base = FL2VA
     job = _post(f"{base}/videos", body)
     pid = "h3_" + uuid.uuid4().hex[:12]
+    spk_img = next((x["image"] for x in subjects if speaker and x.get("name") == speaker), None)
     with _LOCK:
-        JOBS[pid] = {"base": base, "h3_id": job["id"]}
+        JOBS[pid] = {"base": base, "h3_id": job["id"],
+                     "harvest": (spk_img, dialogue) if (dialogue and spk_img and not audio_conds) else None}
     (LOG_DIR / f"{pid}.json").write_text(json.dumps({"in": {k: v for k, v in fields.items()}, "h3_request": body},
                                                     ensure_ascii=False, indent=1))
     print(f"[h3_proxy] {pid} -> {base.split(':')[-1].split('/')[0]} {body['task']} {dur:.0f}s dialogue={bool(dialogue)}", flush=True)
     return {"id": pid, "object": "video", "status": "queued", "model": fields.get("model", "minimax-h3")}
+
+
+SHEET = ("integrated_multimodal_description: [Shot 1] Live-action, cinematic, photorealistic. {kind} {desc} The camera is "
+         "locked off and nothing moves except a slow breath. {eyes}Nobody speaks. No subtitles, captions, or overlaid "
+         "text appear on screen.\n\noverall_soundscape: Quiet room tone.\n\nnon_diegetic_music: N/A")
+
+
+def _wait(base: str, h3_id: str, timeout: float = 900) -> None:
+    t0 = time.time()
+    while time.time() - t0 < timeout:
+        st = json.load(urllib.request.urlopen(f"{base}/videos/{h3_id}", timeout=60))
+        if st.get("status") == "completed":
+            return
+        if st.get("status") == "failed":
+            raise RuntimeError(f"H3 job failed: {st.get('error')}")
+        time.sleep(3)
+    raise TimeoutError("H3 job timed out")
+
+
+def image(fields: dict) -> dict:
+    """/v1/images/generations on top of H3 text-to-video: render a 4 s locked-off shot and return one frame.
+    Character sheets: a still subject, waist-up, plain studio background. Locations ("establishing" prompts): the
+    empty set. Used by ArtDepartment.generate_references when no image model is deployed."""
+    from src.adapters.t2i_client import split_negative
+    prompt, _ = split_negative(fields.get("prompt", ""))
+    prompt = EYE_LIGHT.sub("", prompt).strip()
+    location = "establishing" in prompt.lower() or "no people" in prompt.lower()
+    kind = ("An empty establishing shot of the location, no people:" if location else
+            "A character reference shot: one person (or creature/robot) standing upright, centered, waist-up, awake with "
+            "eyes open, facing the camera with a neutral expression and arms relaxed, evenly lit against a plain "
+            "light-grey studio background. They do not act out any story moment (not sleeping, lying, bending, running "
+            "or holding story props). Appearance:")
+    eyes = "" if location else "Every human's eyes look natural, dark and non-glowing. "
+    body = {"model": "MiniMaxAI/MiniMax-H3", "prompt": SHEET.format(kind=kind, desc=prompt[:1500], eyes=eyes),
+            "seconds": 4, "num_outputs_per_prompt": 1, "num_inference_steps": STEPS, "flow_shift": 12.0,
+            "audio_flow_shift": 3.0, "task": "t2va", "conditions": [],
+            "target": {"short_edge": 768, "aspect_ratio": "16:9", "duration_seconds": 4.0}}   # H3 accepts 4-15 s
+    if (fields.get("seed") or (fields.get("extra_body") or {}).get("seed")) is not None:
+        body["seed"] = int(fields.get("seed") or fields["extra_body"]["seed"])
+    import base64
+    for attempt in range(3):   # the sheet anchors identity for every shot: validate it, re-roll if no frame passes
+        if attempt:
+            body["seed"] = int(body.get("seed") or 0) + 1000 * attempt
+        job = _post(f"{FL2VA}/videos", body)
+        pid = "img_" + uuid.uuid4().hex[:12]
+        (LOG_DIR / f"{pid}.json").write_text(json.dumps({"in": fields, "h3_request": body}, ensure_ascii=False, indent=1))
+        print(f"[h3_proxy] {pid} -> image ({'location' if location else 'character'}) attempt {attempt}", flush=True)
+        _wait(FL2VA, job["id"])
+        mp4 = LOG_DIR / f"{pid}.mp4"
+        mp4.write_bytes(urllib.request.urlopen(f"{FL2VA}/videos/{job['id']}/content", timeout=300).read())
+        frames = []
+        for k, t in enumerate((0.6, 1.5, 2.4, 3.3)):
+            f = LOG_DIR / f"{pid}_{k}.png"
+            subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", str(t), "-i", str(mp4), "-frames:v", "1", str(f)], check=True)
+            frames.append(f)
+        pick = frames[1] if location else pick_sheet_frame(frames, prompt)
+        if pick is not None:
+            return {"created": int(time.time()), "data": [{"b64_json": base64.b64encode(pick.read_bytes()).decode()}]}
+        print(f"[h3_proxy] {pid}: no frame is a usable character sheet, re-rolling", flush=True)
+    raise RuntimeError("no usable character sheet after 3 attempts")
+
+
+SHEET_CHECK = ("These {n} images are frames of a character reference sheet (image 1..{n}). A usable sheet shows exactly one "
+               "subject, upright (standing or sitting straight), awake with eyes open, facing the camera, head and upper "
+               "body fully in frame, neutral pose, plain background. Answer ONLY JSON: {{\"usable\": [frame numbers that "
+               "qualify], \"best\": frame number or 0 if none, \"why\": \"short\"}}")
+
+
+def pick_sheet_frame(frames, desc):
+    import base64
+    from openai import OpenAI
+    content = [{"type": "text", "text": SHEET_CHECK.format(n=len(frames)) + f" Subject: {desc[:300]}"}]
+    for f in frames:
+        content.append({"type": "image_url", "image_url": {"url": "data:image/png;base64," + base64.b64encode(f.read_bytes()).decode()}})
+    try:
+        r = OpenAI(api_key=Config.LLM_API_KEY or "EMPTY", base_url=Config.LLM_BASE_URL).chat.completions.create(
+            model=Config.MODEL_NAME, temperature=0, max_tokens=120, response_format={"type": "json_object"},
+            messages=[{"role": "user", "content": content}])
+        v = json.loads(r.choices[0].message.content)
+    except Exception as e:
+        print(f"[h3_proxy] sheet check unavailable ({e}); using the middle frame", flush=True)
+        return frames[1]
+    best = int(v.get("best") or 0)
+    print(f"[h3_proxy] sheet check: best={best} usable={v.get('usable')} ({v.get('why', '')[:80]})", flush=True)
+    return frames[best - 1] if 1 <= best <= len(frames) else None
+
+
+_CAST_LOCK = threading.Lock()
+
+
+def cast_voice(sbj: dict, line: str, voice) -> str:
+    """Voice casting before a speaker's first shot: a short single-person close-up of them saying the line, from
+    which the canon voice reference is cut. Every dialogue shot of that speaker, the first included, is then
+    conditioned on the same <Audio 1>, instead of the first shot inventing a timbre the later ones copy."""
+    with _CAST_LOCK:
+        if voice_ref(sbj["image"]):
+            return voice_ref(sbj["image"])
+        try:
+            one = dict(sbj); one.pop("voice_tag", None)
+            prompt = (f"Close-up of {sbj.get('name')} alone in a quiet room, facing the camera, saying one line in their "
+                      f"natural voice, then holding still.")
+            body = {"model": "MiniMaxAI/MiniMax-H3", "prompt": rewrite(prompt, line, sbj.get("name"), voice, [one]),
+                    "seconds": 6, "num_outputs_per_prompt": 1, "num_inference_steps": STEPS, "flow_shift": 12.0,
+                    "audio_flow_shift": 3.0, "task": "ref2va",
+                    "conditions": [{"type": "image", "uri": upload_ref(sbj["image"]), "role": "reference"}],
+                    "target": {"short_edge": 768, "aspect_ratio": "16:9", "duration_seconds": 6.0}}
+            job = _post(f"{REF2VA}/videos", body)
+            print(f"[h3_proxy] casting voice for {sbj.get('name')}", flush=True)
+            _wait(REF2VA, job["id"])
+            clip = LOG_DIR / f"cast_{uuid.uuid4().hex[:8]}.mp4"
+            clip.write_bytes(urllib.request.urlopen(f"{REF2VA}/videos/{job['id']}/content", timeout=300).read())
+            harvest_voice(clip, sbj["image"], line)
+        except Exception as e:
+            print(f"[h3_proxy] voice casting failed for {sbj.get('name')}: {type(e).__name__}: {e}", flush=True)
+        return voice_ref(sbj["image"])
+
+
+def harvest_voice(clip: Path, image: str, line: str) -> None:
+    """Canon voice memory: the first delivered line of a speaker without a voice reference becomes their
+    <image stem>.voice.wav (speech span only, loudness-normalised), so later shots reuse the same timbre."""
+    p = Path(image) if Path(image).is_absolute() else ROOT / image
+    out = p.with_name(p.stem + ".voice.wav")
+    if out.exists() or voice_ref(image):
+        return
+    r = subprocess.run(["ffmpeg", "-v", "info", "-i", str(clip), "-af", "silencedetect=n=-35dB:d=0.35", "-f", "null", "-"],
+                       capture_output=True, text=True)
+    starts = [float(x) for x in re.findall(r"silence_start: ([\d.]+)", r.stderr)]
+    ends = [float(x) for x in re.findall(r"silence_end: ([\d.]+)", r.stderr)]
+    dur = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(clip)],
+                               capture_output=True, text=True).stdout.strip() or 0)
+    t0 = ends[0] if ends and (not starts or starts[0] < 0.05) else 0.0          # skip leading silence
+    t1 = next((x for x in starts if x > t0 + 0.5), dur)                          # until the next pause
+    if t1 - t0 < 1.5:
+        return
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{max(0, t0 - 0.05):.2f}", "-to", f"{min(dur, t1 + 0.1):.2f}",
+                    "-i", str(clip), "-ac", "1", "-ar", "24000", "-af", "loudnorm=I=-20", str(out)], check=True)
+    out.with_suffix(".txt").write_text(line)
+    print(f"[h3_proxy] voice memory: {out.name} ({t1 - t0:.1f}s) from {clip.name}", flush=True)
 
 
 def status(pid: str) -> dict:
@@ -299,10 +452,16 @@ class H(BaseHTTPRequestHandler):
         self.end_headers(); self.wfile.write(data)
 
     def do_POST(self):
-        if not self.path.rstrip("/").endswith("/videos"):
-            return self._send(404, {"error": "not found"})
         raw = self.rfile.read(int(self.headers.get("Content-Length", 0)))
         ctype = self.headers.get("Content-Type", "")
+        if self.path.rstrip("/").endswith("/images/generations"):
+            try:
+                return self._send(200, image(json.loads(raw)))
+            except Exception as e:
+                print(f"[h3_proxy] image failed: {type(e).__name__}: {e}", flush=True)
+                return self._send(500, {"error": {"message": f"{type(e).__name__}: {e}"}})
+        if not self.path.rstrip("/").endswith("/videos"):
+            return self._send(404, {"error": "not found"})
         try:
             fields, upload = parse_multipart(ctype, raw) if ctype.startswith("multipart/") else (json.loads(raw), None)
             self._send(200, create(fields, upload))
@@ -321,6 +480,12 @@ class H(BaseHTTPRequestHandler):
                     return self._send(404, {"error": "no variant"})
                 j = JOBS[pid]
                 data = urllib.request.urlopen(f"{j['base']}/videos/{j['h3_id']}/content", timeout=300).read()
+                if j.get("harvest"):
+                    try:
+                        tmp = LOG_DIR / f"{pid}.mp4"; tmp.write_bytes(data)
+                        harvest_voice(tmp, *j["harvest"]); j["harvest"] = None
+                    except Exception as e:
+                        print(f"[h3_proxy] voice harvest skipped: {e}", flush=True)
                 return self._send(200, raw=data, ctype="video/mp4")
             self._send(200, status(pid))
         except Exception as e:

@@ -7,3 +7,4 @@ pydantic>=2.0.0
 # Agent configs and prompt templating
 PyYAML>=6.0
 Jinja2>=3.0.0
+pillow>=10.0

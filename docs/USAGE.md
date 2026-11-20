@@ -209,6 +209,22 @@ people, duplicated one-of-a-kind objects) and pacing (film length vs plan). Fail
 and ambience (-30 LUFS) per clip, adds short fades at cuts, burns the dialogue as subtitles while it is spoken, and
 normalises the film to -16 LUFS.
 
+### Continuity ledger (ScriptSupervisor)
+
+`script_supervisor` (on in `pipeline_settings_h3.yaml`) writes `narrative_layer.continuity` for every shot: time of
+day, weather, lighting, prop holders and wardrobe, plus the changes that happen in the shot. A deterministic pass
+keeps time moving forward and props with their holder unless a hand-over is recorded. The entry is appended to each
+job prompt (only props held by on-screen characters or changing hands), shown to the VisualJudge, and checked by
+`qa_report` (`visual.continuity`: day/night and rain read from frames; a night shot must read as night).
+
+### Hands-off production
+
+`tools/produce.py <story_dir> --hint "..."` runs planning + rendering, then up to `--rounds` QA → regenerate-failed
+cycles, post-production and the final QA, and writes `<run>/produce_log.json`. With `generate_references: true` and
+`T2I_BASE_URL` pointing at the H3 proxy, character sheets come from `/v1/images/generations` (a 4 s H3 shot; a VLM
+picks an upright, eyes-open, front-facing frame, re-rolling if none qualifies). A speaker's voice is cast before
+their first line (`<sheet>.voice.wav`) and used as `<Audio 1>` in all of their shots.
+
 ### Judge calibration
 
 VisualJudge answers a fixed checklist (`checks`: right_characters, identity_matches, main_action_shown,

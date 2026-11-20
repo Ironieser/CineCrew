@@ -16,6 +16,7 @@ the honest mapping (no agents were invented to match the paper).
 | **Cinematographer**    | `cinematographer/` (`cinematographer_agent.py`)          | FilmDSL Layer 2 (staging). Name already matched the paper. |
 | **Technical Director** | `technical_director/` (`technical_director_agent.py` `TechnicalDirectorAgent`) + `dsl_validator/` | FilmDSL Layer 3 (render spec). `technical_director/visual_prompt_translator.py` resolves `<asset_id>` templates into final prompts. |
 | **VO Director**        | `vo_director/` (`vo_director_agent.py` `VODirectorAgent` + `voice_design.py` `VoiceDesignAgent`) | Recovers lines the Story Editor missed (`dialogue_extraction.yaml`), attaches voice presets, runs the Acting Coach above. `design_voices: true` writes a fixed TTS voice identity per character (`CharacterAsset.voice_design`) so every line of that character is voiced consistently. |
+| **Script Supervisor**  | `script_supervisor/` (`script_supervisor.yaml`, `ScriptSupervisorAgent`) → `narrative_layer.continuity` | Continuity ledger: per-shot time of day, weather, lighting, prop holders, wardrobe and in-shot changes; deterministic repair (time only forward, props keep their holder unless a hand-over is recorded). Appended to job prompts, shown to the VisualJudge, checked by `tools/qa_report.py` (`visual.continuity`). Off in the paper settings, on in `pipeline_settings_h3.yaml`. |
 | **Production Operator**| `production_operator/` (`production_operator_agent.py` `ProductionOperatorAgent`) + `T2IClient` / `VideoClient` | FilmDSL Layer 4 (assembly) + `VideoJobBatch`; with `execute: true` runs the keyframe → judge → clip → judge loop on the OpenAI-style backends and writes media paths + verdicts back. |
 | **Dailies Reviewer**   | `dailies_reviewer/` (`dailies_reviewer_agent.py` `DailiesReviewerAgent` + `visual_judge.py` `VisualJudgeAgent`) | Two gates. (1) Prompt critic: sliding 5-shot window over the resolved T2I/I2V prompts, coarse-to-fine until a pass changes nothing (stage between TechnicalDirector and ProductionOperator). (2) `VisualJudge`: VLM verdict on each rendered keyframe / clip, with a revised prompt on rejection (used inside execution). |
 | **Post Supervisor**    | `ProductionOperatorAgent.stitch()` + `src/adapters/media_tools.py` | Cuts the rendered segment clips together in order on the `assembly_layer` transitions (ffmpeg; fade-in on the first shot) → `final_film_path`. The `dialogue_core` job carries the line + `voice_design` + `performance_emotion` for a joint audio-video backend or a TTS stage. |
@@ -111,6 +112,7 @@ pipeline is a clean cascade — so ablations are config/env changes, no code edi
 | Asset (reference-image) memory | skip `link_character_images()` in the entry script |
 | Refinement depth             | `dailies_reviewer.max_rounds` |
 | Acting Coach                 | `vo_director.infer_emotion: false` |
+| Script Supervisor (continuity ledger) | `script_supervisor.enabled: false` |
 | Visual judge at execution    | `production_operator.judge: false` (render once, no retries) |
 
 The no-DSL baseline (a flat DirectPrompt instead of the layered Blueprint) is a

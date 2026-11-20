@@ -18,6 +18,9 @@ system_prompt_template: |
   4. Emphasize visual consistency anchors (face, costume, key traits)
   5. Be optimized for photorealistic image generation models (Flux, SDXL, Qwen-Image)
   6. Produce a single reference image suitable as a character sheet for subsequent video generation
+  7. Show the character as they normally look: upright, awake, eyes open, neutral pose and expression. Never put a
+     story moment into the sheet (sleeping, lying down, crying, running, holding a prop the story hands over later);
+     the sheet is reused as the identity reference of every shot, so any pose in it gets copied everywhere.
 
   Output ONLY a JSON object with one field: "prompt", containing the complete optimized prompt text (include negative prompt section if needed). No other commentary.
 

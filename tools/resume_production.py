@@ -100,6 +100,14 @@ def main():
 
     # merge kept clips back into the blueprint in shot/segment order, then stitch
     by_shot = {s.shot_id: s for s in bp.shots}
+    prev_path = run / "shots" / "scene_blueprint_final.json"
+    if prev_path.exists():   # kept shots keep the judge verdicts they were accepted with
+        prev = {s.shot_id: s for s in SceneBlueprint.model_validate_json(prev_path.read_text()).shots}
+        for sid, shot in by_shot.items():
+            p0 = prev.get(sid)
+            if (sid in {j.shot_id for j in batch.jobs if j.job_id in kept} and p0 and p0.render_layer
+                    and shot.render_layer and not shot.render_layer.visual_review):
+                shot.render_layer.visual_review = p0.render_layer.visual_review
     for job in batch.jobs:
         shot = by_shot.get(job.shot_id)
         if job.job_id in kept and shot and shot.render_layer is not None:

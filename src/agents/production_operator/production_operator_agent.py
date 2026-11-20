@@ -89,6 +89,13 @@ class ProductionOperatorAgent:
             else:
                 print(f"   ⚠️  [{shot.shot_id}] render_layer.video.resolved_i2v missing, using fallback.", flush=True)
                 base_prompt = self._blueprint_fallback_prompt(shot, blueprint.global_style)
+            cont = shot.narrative_layer.continuity
+            if cont is not None:   # continuity ledger (ScriptSupervisor) rides on every job's prompt
+                from ..script_supervisor import continuity_sentence
+                on = {e.asset_id for e in (shot.staging_layer.entities if shot.staging_layer else [])}
+                if render and render.image and render.image.characters_in_shot:
+                    on |= set(render.image.characters_in_shot)
+                base_prompt = f"{base_prompt}\n{continuity_sentence(cont, asset_library, on)}"
 
             # I2V reference: the rendered keyframe if execution already produced one,
             # otherwise the first character's reference sheet.

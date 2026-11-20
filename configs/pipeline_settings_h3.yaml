@@ -30,7 +30,7 @@ pipeline:
   stages:
     - id: art_department
       enabled: true
-      generate_references: false   # render character sheets / location establishing shots (T2I_*) for assets without an image
+      generate_references: true    # H3 proxy renders sheets via /v1/images/generations; render character sheets / location establishing shots (T2I_*) for assets without an image
     - id: story_editor
       enabled: true
     - id: cinematographer
@@ -42,6 +42,8 @@ pipeline:
       enabled: true
       infer_emotion: true    # per-shot performance emotion (Acting Coach); one LLM call per shot
       design_voices: false   # write a fixed TTS voice identity into each CharacterAsset.voice_design
+    - id: script_supervisor
+      enabled: true          # continuity ledger: per-shot time of day, weather, lighting, prop holders, wardrobe
     - id: technical_director
       enabled: true
     - id: dailies_reviewer

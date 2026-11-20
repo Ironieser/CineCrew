@@ -1,0 +1,82 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# Better Call CineCrew: Consistent Ultra-Long Narrative-to-Film Generation
+# Paper: ECCV 2026
+# Copyright (c) 2026 Sixun Dong
+# Author: Sixun Dong
+# Licensed under the Apache License, Version 2.0
+"""
+produce: hands-off story -> finished film loop.
+
+  python tools/produce.py <story_dir> [--hint "ASR domain words"] [--rounds 2] [--run <existing run_dir>]
+
+  1. plan + render with run_dataset_story.py (PIPELINE_SETTINGS, default configs/pipeline_settings_h3.yaml)
+  2. qa_report  -> shots failing a shot-level gate (ASR, dead air, judge, VLM) are regenerated with
+     resume_production --only <failed> --resync-characters; repeat up to --rounds times
+  3. post_production -> media/film_post.mp4, then qa_report --post
+Writes <run>/produce_log.json (gates per round, regenerated shots, wall time) for stability statistics.
+"""
+import argparse
+import json
+import os
+import subprocess
+import sys
+import time
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+PY = sys.executable
+SHOT_GATES = ("audio.asr", "audio.dead_air", "visual.review", "visual.vlm", "visual.continuity")
+
+
+def sh(*args, env=None):
+    print("[produce] $", " ".join(str(a) for a in args), flush=True)
+    subprocess.run([str(a) for a in args], check=True, cwd=ROOT, env=env)
+
+
+def qa(run: Path, hint: str, post=False) -> dict:
+    sh("python3", "tools/qa_report.py", run, "--hint", hint, *(["--post"] if post else []))
+    return json.loads((run / ("qa_report_post.json" if post else "qa_report.json")).read_text())
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("story"); ap.add_argument("--hint", default=""); ap.add_argument("--rounds", type=int, default=2)
+    ap.add_argument("--run", default=None, help="continue from an already rendered run directory")
+    a = ap.parse_args()
+    env = dict(os.environ); env.setdefault("PIPELINE_SETTINGS", str(ROOT / "configs" / "pipeline_settings_h3.yaml"))
+    t0 = time.time(); log = {"story": a.story, "rounds": []}
+    story = Path(a.story)
+    if a.run:
+        run = Path(a.run)
+    else:
+        sh(PY, "run_dataset_story.py", story, "--execute", env=env)
+        runs = sorted((ROOT / "data" / "runs" / "dataset" / story.name).glob("*/"), key=lambda p: p.stat().st_mtime)
+        run = runs[-1]
+    log["run"] = str(run); log["render_s"] = round(time.time() - t0)
+    lib = json.loads((run / "assets" / "asset_library.json").read_text())
+    missing = [c["id"] for c in lib.get("characters", [])
+               if not ((c.get("visual_references") or {}).get("canonical_image_path"))]
+    if missing:   # identity has no anchor: every later shot would drift, so stop instead of producing a weak film
+        sys.exit(f"[produce] characters without a reference image: {missing} (check T2I_* / generate_references)")
+    for rnd in range(a.rounds + 1):
+        rep = qa(run, a.hint)
+        failed = sorted({s["shot"] for s in rep["shots"] if any(not s["gates"].get(g, True) for g in SHOT_GATES)})
+        log["rounds"].append({"round": rnd, "passed": rep["passed"], "total": rep["total"], "failed_shots": failed,
+                              "film_gates": rep["film_gates"]})
+        print(f"[produce] round {rnd}: {rep['passed']}/{rep['total']} gates, failing shots: {failed}", flush=True)
+        if not failed or rnd == a.rounds:
+            break
+        sh(PY, "tools/resume_production.py", run, "--only", ",".join(failed), "--resync-characters", "--max-retries", "1")
+    sh("python3", "tools/post_production.py", run)
+    final = qa(run, a.hint, post=True)
+    log.update(final={"passed": final["passed"], "total": final["total"], "all_pass": final["all_pass"],
+                      "film_gates": final["film_gates"], "film_length": final["film_length"]},
+               wall_s=round(time.time() - t0))
+    (run / "produce_log.json").write_text(json.dumps(log, ensure_ascii=False, indent=1))
+    print(f"[produce] final: {final['passed']}/{final['total']} gates, all_pass={final['all_pass']}, "
+          f"{log['wall_s']} s -> {run / 'media' / 'film_post.mp4'}", flush=True)
+
+
+if __name__ == "__main__":
+    main()

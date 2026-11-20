@@ -227,6 +227,10 @@ def run_story(
     link_character_images(asset_library, char_images)
     if _stage_option("art_department", "generate_references", False):
         wb.generate_references(asset_library, assets_base)
+        missing = [c.id for c in asset_library.characters
+                   if not (c.visual_references and c.visual_references.canonical_image_path)]
+        if missing:   # no identity anchor -> every shot of these characters drifts; stop before rendering
+            raise RuntimeError(f"characters without a reference image after generate_references: {missing}")
 
     # Save AssetLibrary (including image paths)
     save_json(asset_library, run_root / "assets" / "asset_library.json")

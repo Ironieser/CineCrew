@@ -124,6 +124,7 @@ def run_pipeline(
     from .agents.dsl_validator import DSLValidatorAgent
     from .agents.vo_director import VODirectorAgent
     from .agents.technical_director import TechnicalDirectorAgent
+    from .agents.script_supervisor import ScriptSupervisorAgent
     from .agents.dailies_reviewer import DailiesReviewerAgent
     from .agents.production_operator import ProductionOperatorAgent
     from .schemas.blueprint import SceneBlueprint
@@ -262,6 +263,15 @@ def run_pipeline(
             if design_voices:
                 from .skills.asset_management import save_assets
                 save_assets(ctx["asset_library"], _assets_base)  # persist CharacterAsset.voice_design
+
+        # ── Stage 3b: ScriptSupervisor → shots[].narrative_layer.continuity ─────
+        elif stage_id == "script_supervisor":
+            if ctx["scene_blueprint"] is None or ctx["asset_library"] is None:
+                raise RuntimeError("script_supervisor requires scene_blueprint and asset_library.")
+            print("\n--- [Pipeline] STAGE 3b: ScriptSupervisor → narrative_layer.continuity ---", flush=True)
+            ctx["scene_blueprint"] = ScriptSupervisorAgent().run(
+                ctx["scene_blueprint"], ctx["script_segment"], ctx["asset_library"]
+            )
 
         # ── Stage 4: TechnicalDirector → shots[].render_layer (Layer 3) ──────────
         elif stage_id == "technical_director":

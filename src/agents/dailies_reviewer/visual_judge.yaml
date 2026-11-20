@@ -33,6 +33,8 @@ system_prompt_template: |
   4. WORLD CONSISTENCY
      - Location, era, lighting and global style match the spec.
      - Every hard constraint listed below is respected.
+     - The continuity line of the spec holds: time of day (a night shot must look like night), weather, and who
+       holds each listed prop. A violation makes constraints_ok false.
 
   =========================================================
   CHECKLIST (fill `checks`, every key true/false)

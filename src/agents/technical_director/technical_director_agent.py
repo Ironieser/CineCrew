@@ -378,11 +378,14 @@ def visible_characters(template_chars: List[str], shot, asset_library: AssetLibr
     template missed, then characters named in the shot's narrative_action / entity action_state text (the
     cinematographer sometimes drops a character it describes). Non-character entities and unknown IDs are ignored.
     """
-    out = list(template_chars or [])
     staging = getattr(shot, "staging_layer", None)
-    for e in (staging.entities if staging else []):
-        if e.asset_id not in out and asset_library.get_character_by_id(e.asset_id):
-            out.append(e.asset_id)
+    staged = [e.asset_id for e in (staging.entities if staging else []) if asset_library.get_character_by_id(e.asset_id)]
+    # the cinematographer's staging decides who is on screen; a template character it did not stage stays only if
+    # the action text physically involves them (checked below, like any other named character)
+    out = [c for c in (template_chars or []) if c in staged] if staged else list(template_chars or [])
+    for c in staged:
+        if c not in out:
+            out.append(c)
     # Characters named in the shot's own action text are physically present ("glides up behind Lin Zhou",
     # action_state "gliding_toward_Lin_Zhou") even when the cinematographer left them out of entities.
     narrative = getattr(shot, "narrative_layer", None)
@@ -402,7 +405,8 @@ def visible_characters(template_chars: List[str], shot, asset_library: AssetLibr
             for m in re.finditer(pat, text, flags=re.I):
                 before, after = text[:m.start()], text[m.end():]
                 if re.search(r"\b(repl(?:y|ies|ied)|says?|said|speaks?|talks?|answers?|asks?|tells?|whispers?|calls?|"
-                             r"responds?|addresses|questions?)\s+(?:back\s+)?(?:to\s+)?$", before, re.I):
+                             r"responds?|addresses|questions?|thank(?:s|ing|ed)?|greets?|greeting|smiles?\s+at|"
+                             r"nods?\s+(?:to|at)|looks?\s+at|glances?\s+at)\s+(?:back\s+)?(?:to\s+)?$", before, re.I):
                     continue
                 if re.match(r"['’]s\b", after):
                     continue

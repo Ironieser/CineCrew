@@ -58,10 +58,11 @@ class VisualJudgeAgent:
             else "a contact sheet of frames sampled from a generated video clip (read left-to-right, top-to-bottom)"
         )
         refs = _reference_images(shot)
-        note = (f"The last {len(refs)} image(s) are the reference images of the characters in this shot "
-                f"({', '.join(r[0] for r in refs)}), in that order. They are canon for appearance; the frames before "
-                "them are the generated clip.") if refs else ""
-        return self._review(frame_paths + [r[1] for r in refs], kind, shot, prompt, global_style, note)
+        sheet = _reference_sheet(refs, Path(frame_paths[0]).parent) if refs else None
+        note = (f"The LAST image is NOT part of the clip: it is a labelled board of the characters' reference images "
+                f"({', '.join(r[0] for r in refs)}), canon for appearance only. Their plain studio background and pose "
+                "are not expected in the clip. Every image before it is a frame of the generated clip.") if sheet else ""
+        return self._review(frame_paths + ([str(sheet)] if sheet else []), kind, shot, prompt, global_style, note)
 
     # ------------------------------------------------------------------
 
@@ -119,6 +120,22 @@ def _reference_images(shot: ShotBlueprint, limit: int = 3):
     return out[:limit]
 
 
+def _reference_sheet(refs, out_dir: Path) -> Path:
+    """One board with every reference image side by side under a 'REFERENCE (not part of the clip)' banner, so the
+    VLM cannot mistake a reference for a clip frame."""
+    from PIL import Image, ImageDraw
+    tiles = [Image.open(p).convert("RGB") for _, p in refs]
+    h = 360; tiles = [t.resize((int(t.width * h / t.height), h)) for t in tiles]
+    W = sum(t.width for t in tiles) + 20 * (len(tiles) + 1); board = Image.new("RGB", (W, h + 110), (30, 30, 30))
+    d = ImageDraw.Draw(board)
+    d.text((20, 15), "REFERENCE IMAGES - NOT PART OF THE CLIP", fill=(255, 220, 0))
+    x = 20
+    for (aid, _), t in zip(refs, tiles):
+        board.paste(t, (x, 60)); d.text((x, h + 75), aid, fill=(255, 255, 255)); x += t.width + 20
+    out = Path(out_dir) / "_reference_board.jpg"; board.save(out, quality=90)
+    return out
+
+
 def _shot_context(shot: ShotBlueprint) -> str:
     n, s = shot.narrative_layer, shot.staging_layer
     lines = [f"shot_id: {shot.shot_id}"]
@@ -129,6 +146,10 @@ def _shot_context(shot: ShotBlueprint) -> str:
             lines.append(f"performance: {n.performance_emotion} ({n.performance_intensity or '-'}/10)")
         if n.dialogue.has_dialogue and n.dialogue.text:
             lines.append(f"dialogue ({n.dialogue.speaker_asset_id}): \"{n.dialogue.text}\"")
+        if n.continuity is not None:
+            c = n.continuity
+            lines.append(f"continuity: {c.time_of_day}, {c.weather}; lighting: {c.lighting or '-'}; props: "
+                         + (", ".join(f"{p.prop_id}->{p.holder or p.location}" for p in c.props) or "-"))
     if s:
         cam = s.camera
         lines.append(f"camera: scale={cam.shot_scale} angle={cam.angle} movement={cam.movement}")
