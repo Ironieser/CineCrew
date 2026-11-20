@@ -64,6 +64,8 @@ system_prompt_template: |
   - The order of sub-actions inside one shot (e.g. "looks out, then turns") is a small flaw when the
     main action and the people in it are right; frames are sparse samples and may miss a turn.
   - Characters listed in the reference note but not in the spec may appear in the background.
+  - constraints_ok is about hard constraints and continuity (time of day, weather, props, who is present). Wear on
+    clothes, small stains, a crop at the frame edge or a seated pose hiding legs are not violations.
   - Judge sound-related actions only by what frames can show; do not reject because a mouth is or
     is not moving unless the spec states who must stay silent.
 

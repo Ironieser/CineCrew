@@ -72,6 +72,27 @@ def main():
                               "film_gates": rep["film_gates"]})
         print(f"[produce] round {rnd}: {rep['passed']}/{rep['total']} gates, flagged: {flagged}, "
               f"repairing: { {k: v['types'] for k, v in rp.items()} }", flush=True)
+        assets_p = run / "memory" / f"assets_round_{rnd}.json"
+        if rnd < a.rounds and assets_p.exists():   # asset-level repair first: re-make the sheet, re-shoot its shots
+            remade = {}
+            st_p = run / "memory" / "repair_state.json"
+            for cid, note in json.loads(assets_p.read_text()).items():
+                try:
+                    sh(PY, "tools/remake_asset.py", run, "--char", cid, "--note",
+                       f"QA found: {note}. Follow the written age, gender and outfit exactly.")
+                    remade[cid] = note
+                    st = json.loads(st_p.read_text()); st.setdefault("__remade__", []).append(cid)
+                    st_p.write_text(json.dumps(st, ensure_ascii=False, indent=1))
+                except subprocess.CalledProcessError:
+                    print(f"[produce] could not remake {cid}; continuing with shot-level repairs", flush=True)
+            names = {c["id"]: c["name"] for c in json.loads((run / "assets" / "asset_library.json").read_text())["characters"]}
+            for sq in rep["shots"]:
+                if any(names.get(c) in (sq.get("characters") or []) for c in remade) and sq["shot"] not in rp:
+                    rp[sq["shot"]] = {"prefix": "", "suffix": "", "seed_offset": 0, "duration_delta": 0.0,
+                                      "judge_prompt": None, "types": ["asset"], "attempt": 0}
+            log["rounds"][-1]["remade_assets"] = remade
+            log["rounds"][-1]["repairs"] = {k: {"types": v["types"], "attempt": v["attempt"]} for k, v in rp.items()}
+            print(f"[produce] remade assets {list(remade)}; re-shooting {sorted(rp)}", flush=True)
         if not rp:
             break
         (run / "memory" / f"repair_round_{rnd}.json").write_text(json.dumps(rp, ensure_ascii=False, indent=1))

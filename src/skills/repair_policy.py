@@ -103,7 +103,9 @@ def plan(run: Path, qa: dict, round_no: int) -> Dict[str, dict]:
     from src.schemas.blueprint import ContinuityState
     alib = AssetLibrary.model_validate(lib)
 
-    out, seen_types = {}, {}
+    out, seen_types, asset_evidence = {}, {}, {}
+    SPEC = ("age", "toddler", "child", "older", "younger", "gender", "too young", "too old", "description",
+            "character sheet", "appearance sheet", "spec", "species")
     for q in qa["shots"]:
         sid = q["shot"]
         if not any(v is False for k, v in q.get("gates", {}).items() if k != "audio.dead_air"):
@@ -129,6 +131,17 @@ def plan(run: Path, qa: dict, round_no: int) -> Dict[str, dict]:
         pre, suf, dd, judge_prompt = [], [], 0.0, None
         for t, ev in diags:
             seen_types.setdefault(t, set()).add(sid)
+            if t == "A":   # identity contradicts the written character: attribute per sentence, not per paragraph
+                import re as _re
+                for sent in _re.split(r"[;；]|(?<=[.。])\s", ev):
+                    low = sent.lower()
+                    if not any(w in low for w in SPEC):
+                        continue
+                    first = lambda c: names.get(c, "").lower().split(" (")[0]
+                    hit = sorted([c for c in on_screen if first(c) and first(c) in low], key=lambda c: low.index(first(c)))
+                    hit = hit[:1] or (on_screen if len(on_screen) == 1 else [])
+                    for c in hit:
+                        asset_evidence.setdefault(c, {})[sid] = sent.strip()
             tmpl = POLICY["types"][t][k]
             if tmpl.get("prefix"):
                 pre.append(_fmt(tmpl["prefix"], evidence=_clean(ev), **kw))
@@ -158,6 +171,12 @@ def plan(run: Path, qa: dict, round_no: int) -> Dict[str, dict]:
     for sid in out:
         if lesson_txt:
             out[sid]["suffix"] = (out[sid]["suffix"] + " Lessons from this film so far: " + lesson_txt).strip()
+    # asset-level repair: the same character contradicts its description in >= lesson_min_shots shots -> the
+    # reference sheet itself is wrong; re-making it beats asking every shot to copy it harder
+    remake = {c: " | ".join(list(ev.values())[:2]) for c, ev in asset_evidence.items()
+              if len(ev) >= POLICY["lesson_min_shots"] and c not in state.get("__remade__", [])}
+    if remake:   # produce.py records "__remade__" only after the new sheet was actually rendered
+        (mem / f"assets_round_{round_no}.json").write_text(json.dumps(remake, ensure_ascii=False, indent=1))
     state_p.write_text(json.dumps(state, ensure_ascii=False, indent=1))
     lessons_p.write_text(json.dumps(lessons, ensure_ascii=False, indent=1))
     (mem / f"repair_round_{round_no}.json").write_text(json.dumps(out, ensure_ascii=False, indent=1))

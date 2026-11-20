@@ -232,6 +232,11 @@ judge checklist to failure types — A identity, B presence, C continuity, D art
 F speech — with the evidence (what the VLM / judge / ASR saw). `configs/repair_policy.yaml` turns type × attempt into
 prompt additions (prefix = highest weight), a new seed and a duration change; attempt 2 escalates. A type seen in ≥ 2
 shots of a film becomes a story-level lesson appended to later regenerations of that film only (`<run>/memory/`).
+Asset-level repair: when one character contradicts its written description (age, gender, species…) in ≥ 2 shots,
+the reference sheet itself is wrong — `tools/remake_asset.py` re-renders it with the QA evidence as a correction
+(the old sheet is kept as `.bad<N>.png`, the cast voice is dropped and re-cast) and every shot of that character
+is re-shot. Sheets are validated against the description (apparent age, gender, outfit); a rejected sheet gets a
+random new seed and an LLM rewrite of the appearance text from the rejection reason before it is rendered again.
 Dead air alone is never regenerated (post-production trims it); a failure against a stale character expectation is
 not regenerated either. `resume_production.py --repair <plan.json>` applies a plan by hand.
 

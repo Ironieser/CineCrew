@@ -318,6 +318,33 @@ def _wait(base: str, h3_id: str, timeout: float = 900) -> None:
     raise TimeoutError("H3 job timed out")
 
 
+_NUM = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10,
+        "eleven": 11, "twelve": 12, "thirteen": 13, "fourteen": 14, "fifteen": 15, "sixteen": 16, "seventeen": 17,
+        "eighteen": 18, "nineteen": 19, "twenty": 20, "thirty": 30, "forty": 40, "fifty": 50, "sixty": 60, "seventy": 70}
+
+
+def age_anchor(desc: str) -> str:
+    """Video models under-age characters described as 'small' or 'delicate'; restate the written age as body
+    proportions they follow. Generic by age group, never story-specific."""
+    m = re.search(r"\b(\d{1,2}|[a-z]+)[- ]year[- ]old\b", desc, re.I) or re.search(r"\b(?:early|mid|late)[- ](\d0)s\b", desc, re.I)
+    if not m:
+        return ""
+    w = m.group(1).lower()
+    n = int(w) if w.isdigit() else _NUM.get(w)
+    if not n:
+        return ""
+    if n <= 6:
+        return f"A small child of about {n}."
+    if n <= 12:
+        return f"A child of about {n}, school-age proportions."
+    if n <= 19:
+        return (f"A {n}-year-old teenager of high-school age: adolescent body proportions and height close to an adult, "
+                f"a teenage face, clearly not a small child.")
+    if n <= 59:
+        return f"An adult of about {n}, adult proportions."
+    return f"An older adult of about {n}, with the signs of age that brings."
+
+
 def image(fields: dict) -> dict:
     """/v1/images/generations on top of H3 text-to-video: render a 4 s locked-off shot and return one frame.
     Character sheets: a still subject, waist-up, plain studio background. Locations ("establishing" prompts): the
@@ -332,16 +359,24 @@ def image(fields: dict) -> dict:
             "light-grey studio background. They do not act out any story moment (not sleeping, lying, bending, running "
             "or holding story props). Appearance:")
     eyes = "" if location else "Every human's eyes look natural, dark and non-glowing. "
-    body = {"model": "MiniMaxAI/MiniMax-H3", "prompt": SHEET.format(kind=kind, desc=prompt[:1500], eyes=eyes),
+    anchor = "" if location else age_anchor(prompt)
+    desc = prompt[:1500]
+    body = {"model": "MiniMaxAI/MiniMax-H3", "prompt": SHEET.format(kind=kind, desc=(anchor + " " + desc).strip(), eyes=eyes),
             "seconds": 4, "num_outputs_per_prompt": 1, "num_inference_steps": STEPS, "flow_shift": 12.0,
             "audio_flow_shift": 3.0, "task": "t2va", "conditions": [],
             "target": {"short_edge": 768, "aspect_ratio": "16:9", "duration_seconds": 4.0}}   # H3 accepts 4-15 s
-    if (fields.get("seed") or (fields.get("extra_body") or {}).get("seed")) is not None:
-        body["seed"] = int(fields.get("seed") or fields["extra_body"]["seed"])
+    import random
+    seed0 = fields.get("seed") or (fields.get("extra_body") or {}).get("seed")
+    body["seed"] = int(seed0) if seed0 is not None else random.randint(1, 10 ** 6)   # repeated calls must differ
     import base64
-    for attempt in range(3):   # the sheet anchors identity for every shot: validate it, re-roll if no frame passes
+    last_why = ""
+    for attempt in range(4):   # the sheet anchors identity for every shot: validate it, re-roll if no frame passes
         if attempt:
-            body["seed"] = int(body.get("seed") or 0) + 1000 * attempt
+            body["seed"] = int(body["seed"]) + 1000 * attempt
+            if last_why:   # prompt repair: rewrite the appearance from what the check rejected, then re-render
+                desc = fix_sheet_prompt(desc, last_why)
+                print(f"[h3_proxy] sheet prompt rewritten: {desc[:160]}", flush=True)
+                body["prompt"] = SHEET.format(kind=kind, desc=(anchor + " " + desc).strip(), eyes=eyes)
         b = pick(FL2VA_URLS)
         try:
             job = _post(f"{b}/videos", body)
@@ -360,16 +395,45 @@ def image(fields: dict) -> dict:
             subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", str(t), "-i", str(mp4), "-frames:v", "1", str(f)], check=True)
             frames.append(f)
         chosen = frames[1] if location else pick_sheet_frame(frames, prompt)
+        last_why = _LAST_SHEET_WHY.get("why", "")
         if chosen is not None:
             return {"created": int(time.time()), "data": [{"b64_json": base64.b64encode(chosen.read_bytes()).decode()}]}
         print(f"[h3_proxy] {pid}: no frame is a usable character sheet, re-rolling", flush=True)
-    raise RuntimeError("no usable character sheet after 3 attempts")
+    raise RuntimeError("no usable character sheet after 4 attempts")
 
 
 SHEET_CHECK = ("These {n} images are frames of a character reference sheet (image 1..{n}). A usable sheet shows exactly one "
                "subject, upright (standing or sitting straight), awake with eyes open, facing the camera, head and upper "
-               "body fully in frame, neutral pose, plain background. Answer ONLY JSON: {{\"usable\": [frame numbers that "
-               "qualify], \"best\": frame number or 0 if none, \"why\": \"short\"}}")
+               "body fully in frame, neutral pose, plain background, AND matches the description: same apparent age group "
+               "(child / teenager / adult / elderly), gender and species, and the described outfit. Estimate the age you "
+               "see. Answer ONLY JSON: {{\"apparent_age\": \"...\", \"matches_description\": true/false, "
+               "\"usable\": [frame numbers that qualify], \"best\": frame number or 0 if none, \"why\": \"short\"}}")
+
+
+_LAST_SHEET_WHY = {}
+
+SHEET_FIX = """A video model rendered this character description wrong. The check said: {why}
+Rewrite the appearance description so the model renders what the character is meant to be (their written age, gender,
+species and outfit). Remove wording that pulls the render the wrong way (for an under-aged render: small, delicate,
+cute, petite, little, holding a school bag in both hands; for an over-aged one: weathered, tired), and add concrete
+visual cues the model follows: height relative to adults, face shape and maturity, body proportions, hairstyle, how the
+outfit fits. Keep the outfit, colours and hairstyle. Output ONLY the rewritten description, one paragraph, English.
+
+Description:
+{desc}"""
+
+
+def fix_sheet_prompt(desc: str, why: str) -> str:
+    from openai import OpenAI
+    try:
+        r = OpenAI(api_key=Config.LLM_API_KEY or "EMPTY", base_url=Config.LLM_BASE_URL).chat.completions.create(
+            model=Config.MODEL_NAME, temperature=0.4, max_tokens=400,
+            messages=[{"role": "user", "content": SHEET_FIX.format(why=why, desc=desc[:1500])}])
+        out = (r.choices[0].message.content or "").strip()
+        return out or desc
+    except Exception as e:
+        print(f"[h3_proxy] sheet prompt fix unavailable ({e})", flush=True)
+        return desc
 
 
 def pick_sheet_frame(frames, desc):
@@ -387,7 +451,12 @@ def pick_sheet_frame(frames, desc):
         print(f"[h3_proxy] sheet check unavailable ({e}); using the middle frame", flush=True)
         return frames[1]
     best = int(v.get("best") or 0)
-    print(f"[h3_proxy] sheet check: best={best} usable={v.get('usable')} ({v.get('why', '')[:80]})", flush=True)
+    if v.get("matches_description") is False:   # e.g. a toddler for a 16-year-old: every shot would inherit it
+        best = 0
+    _LAST_SHEET_WHY["why"] = (f"it looked {v.get('apparent_age')}, not as described; {v.get('why', '')}"
+                              if best == 0 else "")
+    print(f"[h3_proxy] sheet check: best={best} age={v.get('apparent_age')} match={v.get('matches_description')} "
+          f"usable={v.get('usable')} ({v.get('why', '')[:80]})", flush=True)
     return frames[best - 1] if 1 <= best <= len(frames) else None
 
 
