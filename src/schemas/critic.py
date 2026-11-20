@@ -14,7 +14,7 @@ Dailies Reviewer schemas.
                      VisualJudgeAgent inside the execution loop (accept or retry).
 """
 
-from typing import List, Optional
+from typing import Dict, List, Optional
 from pydantic import BaseModel, Field
 
 
@@ -78,3 +78,13 @@ class VisualReview(BaseModel):
         ),
     )
     notes: str = Field("", description="One-sentence rationale")
+    checks: Optional[Dict[str, bool]] = Field(
+        None,
+        description=(
+            "Checklist answers, each true/false: right_characters (exactly the expected characters, no one missing or "
+            "extra), identity_matches (each character looks like their reference image), main_action_shown (the shot's "
+            "main action happens), integrity_ok (no deformation, morphing, garbled text, glowing human eyes, duplicated "
+            "one-of-a-kind objects), constraints_ok (hard constraints respected), staging_matches (positions, paths, "
+            "framing, sub-action order as specified)."
+        ),
+    )

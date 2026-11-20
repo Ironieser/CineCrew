@@ -28,6 +28,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+# Re-execute a run with the settings it was planned with (<run>/pipeline_settings.yaml, written by run_pipeline),
+# unless PIPELINE_SETTINGS is given explicitly. Must happen before src.pipeline is imported.
+import os  # noqa: E402
+_run_arg = next((x for x in sys.argv[1:] if not x.startswith("-") and (Path(x) / "shots").is_dir()), None)
+if _run_arg and not os.environ.get("PIPELINE_SETTINGS") and (Path(_run_arg) / "pipeline_settings.yaml").exists():
+    os.environ["PIPELINE_SETTINGS"] = str((Path(_run_arg) / "pipeline_settings.yaml").resolve())
+
 from src.agents.production_operator import ProductionOperatorAgent  # noqa: E402
 from src.pipeline import load_pipeline_config  # noqa: E402
 from src.schemas.assets import AssetLibrary  # noqa: E402
@@ -53,14 +60,17 @@ def main():
     a = ap.parse_args()
     run = Path(a.run_dir)
     opts = stage_opts()
+    print(f"[resume] settings: {os.environ.get('PIPELINE_SETTINGS', 'configs/pipeline_settings.yaml')} "
+          f"(segment_dialogue={opts.get('segment_dialogue', True)})", flush=True)
     bp = SceneBlueprint.model_validate_json((run / "shots" / "scene_blueprint_render_filled.json").read_text())
     lib = AssetLibrary.model_validate_json((run / "assets" / "asset_library.json").read_text())
     if a.resync_characters:
         from src.agents.technical_director.technical_director_agent import TechnicalDirectorAgent, visible_characters
+        regen = [k for k in a.only.split(",") if k]
         for shot in bp.shots:
             img = shot.render_layer.image if shot.render_layer else None
-            if img is None:
-                continue
+            if img is None or (regen and not any(shot.shot_id.startswith(o) for o in regen)):
+                continue   # kept clips keep the characters they were generated (and are graded) with
             chars = visible_characters(img.characters_in_shot, shot, lib)
             if chars != list(img.characters_in_shot or []):
                 print(f"[resume] {shot.shot_id}: characters {img.characters_in_shot} -> {chars}", flush=True)

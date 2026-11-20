@@ -115,6 +115,8 @@ def run_pipeline(
         run_root = Path(run_root)
         (run_root / "logs").mkdir(parents=True, exist_ok=True)
         set_trace_output_dir(run_root / "logs")
+        # snapshot the settings this run used, so tools/resume_production.py re-executes it the same way
+        (run_root / "pipeline_settings.yaml").write_text(_CONFIG_PATH.read_text())
 
     from .agents.art_department import ArtDepartmentAgent
     from .agents.story_editor import StoryEditorAgent

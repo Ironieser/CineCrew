@@ -33,6 +33,7 @@ Dependencies:
   - VisualPromptTranslatorAgent (Step 2 translation + assembly)
 """
 
+import re
 from pathlib import Path
 
 import json
@@ -387,13 +388,28 @@ def visible_characters(template_chars: List[str], shot, asset_library: AssetLibr
     narrative = getattr(shot, "narrative_layer", None)
     text = " ".join([getattr(narrative, "narrative_action", "") or ""]
                     + [getattr(e, "action_state", "") or "" for e in (staging.entities if staging else [])])
-    norm = lambda x: "".join(ch for ch in x.lower() if ch.isalnum())
-    t = norm(text)
+    # whole-word name match ("A-Mo" / "A Mo" / "a_mo"); someone only spoken to ("replies to A-Mo") or only
+    # possessed ("Lin Zhou's previous transmission") is not thereby on screen
     for c in asset_library.characters:
         if c.id in out:
             continue
-        names = {norm(c.name), norm(c.id.split("char_", 1)[-1])} - {""}
-        if any(n and n in t for n in names):
+        hit = False
+        for n in {c.name, c.id.split("char_", 1)[-1]}:
+            parts = [x for x in re.split(r"[\s_\-]+", n) if x]
+            if not parts:
+                continue
+            pat = r"(?<![A-Za-z0-9])" + r"[\s_\-]*".join(re.escape(x) for x in parts) + r"(?![A-Za-z0-9])"
+            for m in re.finditer(pat, text, flags=re.I):
+                before, after = text[:m.start()], text[m.end():]
+                if re.search(r"\b(repl(?:y|ies|ied)|says?|said|speaks?|talks?|answers?|asks?|tells?|whispers?|calls?|"
+                             r"responds?|addresses|questions?)\s+(?:back\s+)?(?:to\s+)?$", before, re.I):
+                    continue
+                if re.match(r"['’]s\b", after):
+                    continue
+                hit = True; break
+            if hit:
+                break
+        if hit:
             out.append(c.id)
     return out
 

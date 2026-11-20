@@ -61,16 +61,37 @@ def render(cx, cy, R, lon0_deg, lat0_deg, sun_phase_deg, out, porthole_scale, si
     d.rounded_rectangle([box[0] - 18, box[1] - 18, box[2] + 18, box[3] + 18], radius=int(175 * porthole_scale), outline=(58, 60, 66, 255), width=14)
     im = Image.alpha_composite(im.convert("RGBA"), wall)
     # foreground silhouette: back of Lin Zhou's head and shoulder, backlit (very dark, soft)
-    sil = Image.new("RGBA", (W, H), (0, 0, 0, 0)); s = ImageDraw.Draw(sil)
+    # mask: short bob haircut (rounded crown, straight hem at the jaw), neck, sloping shoulders in a work suit
     ox = silhouette_shift
-    s.ellipse([ox + 20, 330, ox + 330, 700], fill=(6, 6, 8, 255))                         # head
-    s.rectangle([ox - 140, 640, ox + 520, 800], fill=(6, 6, 8, 255))                    # shoulders
-    s.ellipse([ox - 220, 560, ox + 560, 1000], fill=(6, 6, 8, 255))
-    sil = sil.filter(ImageFilter.GaussianBlur(6))
+    def mask(draw_fn, blur=2):
+        mm = Image.new("L", (W, H), 0); draw_fn(ImageDraw.Draw(mm))
+        return np.asarray(mm.filter(ImageFilter.GaussianBlur(blur))).astype(np.float32) / 255
+    # head: bob haircut seen from behind-right (rounded crown, straight hem), an ear and a sliver of jaw/cheek
+    head = mask(lambda d: (d.ellipse([ox + 40, 290, ox + 330, 590], fill=255), d.rectangle([ox + 40, 440, ox + 330, 625], fill=255)))
+    ear = mask(lambda d: d.ellipse([ox + 318, 470, ox + 352, 540], fill=255))
+    cheek = mask(lambda d: d.polygon([(ox + 325, 535), (ox + 350, 560), (ox + 335, 640), (ox + 300, 660), (ox + 300, 600)], fill=255), 4)
+    neck = mask(lambda d: d.rectangle([ox + 140, 600, ox + 280, 700], fill=255))
+    # work suit: sloping shoulders, a stand-up collar
+    suit = mask(lambda d: d.ellipse([ox - 280, 650, ox + 640, 1120], fill=255), 3)
+    a = np.clip(head + ear + cheek + neck + suit, 0, 1)
+    def rim_of(mk, dx=-9, dy=5, k=2.4):   # Earthlight from the porthole (upper right) catching the outline
+        inner = np.asarray(Image.fromarray((mk * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(10))).astype(np.float32) / 255
+        return np.clip(mk - np.roll(np.roll(mk, dx, axis=1), dy, axis=0), 0, 1) * np.clip(mk - inner * 0.6, 0, 1) * k
+    col = np.zeros((H, W, 3), np.float32)
+    col += (head + ear)[..., None] * np.array([0.03, 0.03, 0.035])                      # black hair
+    col += np.clip(cheek + neck, 0, 1)[..., None] * np.array([0.10, 0.08, 0.08])        # skin in shadow
+    col += suit[..., None] * np.array([0.20, 0.07, 0.03])                               # orange work suit, unlit
+    col += rim_of(head + ear)[..., None] * np.array([0.30, 0.48, 0.85])                 # cool rim on hair
+    col += rim_of(cheek, k=1.6)[..., None] * np.array([0.45, 0.50, 0.65])               # cheek catches light
+    col += rim_of(suit, k=1.8)[..., None] * np.array([0.75, 0.45, 0.30])                # rim on orange fabric
+    body = np.zeros((H, W, 4), np.float32); body[..., :3] = col; body[..., 3] = a
+    body[..., :3] += rng.normal(0, 0.012, (H, W, 1)) * a[..., None]                       # film grain on the figure
+    sil = Image.fromarray((np.clip(body, 0, 1) * 255).astype(np.uint8), "RGBA")
+    sil = sil.filter(ImageFilter.GaussianBlur(11))                                        # out-of-focus foreground (OTS)
     im = Image.alpha_composite(im, sil).convert("RGB")
     im.save(HERE / out); print("wrote", out)
 
 # t=0: Africa/Europe near centre, terminator on the right; t=end: camera pushed in, Earth rotated so Africa
 # has moved into the dark hemisphere (time-lapse), night side larger — still not a single light.
-render(cx=760, cy=384, R=250, lon0_deg=20, lat0_deg=12, sun_phase_deg=70, out="first.png", porthole_scale=1.0, silhouette_shift=-120)
-render(cx=720, cy=384, R=330, lon0_deg=-5, lat0_deg=12, sun_phase_deg=95, out="last.png", porthole_scale=1.32, silhouette_shift=-420)
+render(cx=760, cy=384, R=250, lon0_deg=20, lat0_deg=12, sun_phase_deg=70, out="first.png", porthole_scale=1.0, silhouette_shift=-60)
+render(cx=720, cy=384, R=330, lon0_deg=-5, lat0_deg=12, sun_phase_deg=95, out="last.png", porthole_scale=1.32, silhouette_shift=-180)

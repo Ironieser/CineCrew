@@ -209,9 +209,17 @@ people, duplicated one-of-a-kind objects) and pacing (film length vs plan). Fail
 and ambience (-30 LUFS) per clip, adds short fades at cuts, burns the dialogue as subtitles while it is spoken, and
 normalises the film to -16 LUFS.
 
+### Judge calibration
+
+VisualJudge answers a fixed checklist (`checks`: right_characters, identity_matches, main_action_shown,
+integrity_ok, constraints_ok, staging_matches) and sees the characters' reference images after the clip frames.
+Acceptance is computed from the hard items; staging (positions, paths, sub-action order) only lowers the score.
+When no attempt is accepted the best-scoring one is kept. `tools/rejudge.py <run_dir> --only shot_05` re-judges
+every existing attempt of those shots (no generation) and keeps the best: use it after editing `visual_judge.yaml`.
+
 ### Resuming production
 
-`tools/resume_production.py <run_dir>` re-runs only the execution stage from a run's saved plan (no LLM planning):
+`tools/resume_production.py <run_dir>` re-runs only the execution stage from a run's saved plan (no LLM planning), with the settings snapshot the run was made with (`<run>/pipeline_settings.yaml`):
 `--keep shot_01,shot_02` reuses those clips, `--only shot_05` regenerates just those shots, and
 `--resync-characters` re-derives each shot's on-screen characters and reference conditioning
 (`technical_director.visible_characters`: template list + staging entities + characters named in the shot's action).

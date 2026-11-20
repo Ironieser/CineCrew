@@ -123,7 +123,7 @@ def rewrite(prompt: str, dialogue, speaker, voice, subjects) -> str:
                              "'A calm female voice from the console speaker (S1) says in an off-screen voiceover: "
                              "[required_markup], while every on-screen character's lips remain completely closed.' "
                              "Describe the actual voice instead of the example voice."} if off_screen else {})} if dialogue else None,
-            "reference_characters": [{"picture": f"<Picture {i + 1}>", "name": s.get("name"), "appearance": s.get("appearance"),
+            "reference_characters": [{"picture": f"<Picture {i + 1}>", "name": s.get("name"), "appearance": EYE_LIGHT.sub("", s.get("appearance") or ""),
                                       **({"voice": s["voice_tag"]} if s.get("voice_tag") else {})}
                                      for i, s in enumerate(subjects)] or None}
     sys_p = REWRITE_SYSTEM.format(fmt=FMT_REF if ref else FMT_T2VA, lang=LANG, ref_rules=REF_RULES if ref else "")
@@ -166,6 +166,8 @@ def validate(text: str, dialogue, ref: bool, speaker=None, voice=None, subjects=
     if "No subtitles, captions" not in text:
         key = "detailed_description:\n" if ref else "integrated_multimodal_description: "
         text = text.replace(key, key + "No subtitles, captions, or overlaid text appear on screen. ", 1)
+    # light-in-the-eyes wording ("eyes reflecting the amber lights") makes H3 render glowing human eyes: drop it
+    text = EYE_LIGHT.sub("", text)
     # rules the model kept breaking even when the system prompt asked: enforce them in the prompt text itself
     key = "detailed_description:\n" if ref else "integrated_multimodal_description: "
     if "eyes look natural" not in text and re.search(r"\b(she|he|woman|man|engineer|person|girl|boy)\b", text, re.I):
@@ -173,6 +175,10 @@ def validate(text: str, dialogue, ref: bool, speaker=None, voice=None, subjects=
     if re.search(r"\bEarth\b", text) and "single Earth" not in text:
         text = text.replace(key, key + "Only a single Earth is visible, never two. ", 1)
     return text
+
+
+EYE_LIGHT = re.compile(r"(,\s*|\s+)(with\s+)?(her|his|their)?\s*eyes\s+(reflecting|glowing|lit|catching|shining|gleaming|"
+                       r"illuminated)[^,.;]*", re.I)
 
 
 def voice_ref(image):
@@ -255,7 +261,7 @@ def status(pid: str) -> dict:
 
 def parse_multipart(ctype: str, raw: bytes):
     msg = email.parser.BytesParser(policy=email.policy.HTTP).parsebytes(f"Content-Type: {ctype}\r\n\r\n".encode() + raw)
-    fields, upload = {}, None
+    fields, upload, cols = {}, None, {}
     for part in msg.iter_parts():
         name = part.get_param("name", header="content-disposition")
         data = part.get_payload(decode=True)
@@ -270,11 +276,8 @@ def parse_multipart(ctype: str, raw: bytes):
         key = re.sub(r"\[\]$", "", name)
         m = re.match(r"^(\w+)\[(\d+)\]\[(\w+)\]$", name)  # reference_subjects[0][image]
         mb = re.match(r"^(\w+)\[\]\[(\w+)\]$", name)        # reference_subjects[][image] (openai SDK form encoding)
-        if mb:
-            lst = fields.setdefault(mb.group(1), [])
-            if not lst or mb.group(2) in lst[-1]:
-                lst.append({})
-            lst[-1][mb.group(2)] = val
+        if mb:   # collect per field, assemble by index below (the SDK may emit field-major or item-major order)
+            cols.setdefault(mb.group(1), {}).setdefault(mb.group(2), []).append(val)
         elif m:
             lst = fields.setdefault(m.group(1), []); i = int(m.group(2))
             while len(lst) <= i: lst.append({})
@@ -283,6 +286,9 @@ def parse_multipart(ctype: str, raw: bytes):
             fields.setdefault(re.sub(r"\[\d*\]$", "", name), []).append(val)
         else:
             fields[key] = val
+    for arr, by_field in cols.items():
+        n = max(len(v) for v in by_field.values())
+        fields[arr] = [{f: v[i] for f, v in by_field.items() if i < len(v)} for i in range(n)]
     return fields, upload
 
 

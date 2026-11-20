@@ -57,7 +57,11 @@ class VisualJudgeAgent:
             if len(frame_paths) > 1
             else "a contact sheet of frames sampled from a generated video clip (read left-to-right, top-to-bottom)"
         )
-        return self._review(frame_paths, kind, shot, prompt, global_style, "")
+        refs = _reference_images(shot)
+        note = (f"The last {len(refs)} image(s) are the reference images of the characters in this shot "
+                f"({', '.join(r[0] for r in refs)}), in that order. They are canon for appearance; the frames before "
+                "them are the generated clip.") if refs else ""
+        return self._review(frame_paths + [r[1] for r in refs], kind, shot, prompt, global_style, note)
 
     # ------------------------------------------------------------------
 
@@ -70,7 +74,7 @@ class VisualJudgeAgent:
         global_style: str,
         reference_note: str,
     ) -> VisualReview:
-        return self._agent.run(
+        review = self._agent.run(
             images=images,
             media_kind=media_kind,
             global_style=global_style or "(unspecified)",
@@ -80,6 +84,39 @@ class VisualJudgeAgent:
             prompt=prompt,
             reference_note=reference_note,
         )
+        return _gate(review)
+
+
+# Accept/reject is decided from the checklist, not left to the VLM's own verdict: hard items must all hold; staging
+# (positions, paths, sub-action order) only lowers the score. Free-form verdicts from a VLM over-weight blocking.
+HARD_CHECKS = ("right_characters", "identity_matches", "main_action_shown", "integrity_ok", "constraints_ok")
+
+
+def _gate(review: VisualReview) -> VisualReview:
+    c = review.checks or {}
+    if not all(k in c for k in HARD_CHECKS):
+        return review
+    ok = all(bool(c[k]) for k in HARD_CHECKS)
+    if ok:
+        review.accepted = True
+        review.score = max(review.score, 0.9 if c.get("staging_matches", True) else 0.85)
+        review.revised_prompt = None
+    else:
+        review.accepted = False
+        review.score = min(review.score, 0.8)
+    return review
+
+
+def _reference_images(shot: ShotBlueprint, limit: int = 3):
+    r = shot.render_layer
+    cond = (r.image.conditioning if r and r.image else None)
+    out = []
+    for c in (cond.character_consistency if cond else []):
+        for p in c.reference_image_paths[:1]:
+            q = Path(p) if Path(p).is_absolute() else _HERE.parents[2] / p
+            if q.exists():
+                out.append((c.asset_id, str(q)))
+    return out[:limit]
 
 
 def _shot_context(shot: ShotBlueprint) -> str:

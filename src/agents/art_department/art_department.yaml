@@ -36,6 +36,9 @@ system_prompt_template: |
      - ID: snake_case (e.g., `char_michael_corleone`).
      - `voice_description`: Provide a natural language description (e.g., "Raspy, deep, Italian accent").
      - `voice_preset_id`: Set to null (will be assigned later).
+     - `description` / `clothing_style` describe stable, visible traits only (age, build, hair, face, wardrobe,
+       for robots: shape, colour, where lights and screens are). No lighting on the character, no reflections
+       or light in human eyes, no mood-of-the-moment. These texts become every shot's reference description.
   
   4. **Locations**:
      - ID: `loc_int_name` or `loc_ext_name`.

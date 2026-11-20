@@ -325,6 +325,7 @@ class ProductionOperatorAgent:
         video = self._video_client()
         review_log: List[dict] = []
         result: Optional[VideoResult] = None
+        best: Optional[tuple] = None          # (score, result): if no attempt is accepted, keep the best one, not the last
         for attempt in range(max_retries + 1):
             if attempt and job.seed is not None:
                 job.seed += 1
@@ -344,13 +345,20 @@ class ProductionOperatorAgent:
             except Exception as e:
                 review_log.append({"attempt": attempt, "judge_error": str(e)})
                 break
-            review_log.append({"attempt": attempt, "segment_id": job.segment_id, **review.model_dump()})
+            review_log.append({"attempt": attempt, "segment_id": job.segment_id, "video_path": result.video_path,
+                               **review.model_dump()})
+            if best is None or review.score > best[0]:
+                best = (review.score, result)
             if review.accepted:
                 print(f"      ✅ clip accepted (score {review.score:.2f})", flush=True)
                 break
             print(f"      ✏️  clip rejected (score {review.score:.2f}): {'; '.join(review.issues)[:160]}", flush=True)
             if review.revised_prompt:
                 job.prompt = review.revised_prompt
+        else:
+            if best is not None and best[1] is not result:
+                print(f"      ↩️  no attempt accepted; keeping the best (score {best[0]:.2f})", flush=True)
+                result = best[1]
 
         if shot is not None and shot.render_layer is not None:
             vr = shot.render_layer.visual_review or {}

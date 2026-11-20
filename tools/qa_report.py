@@ -67,9 +67,14 @@ def frames(p, n=3):
 
 VLM_PROMPT = """You check frames from one shot of a film. Expected characters on screen: {chars}.
 Answer ONLY JSON: {{"garbled_text": bool, "captions_or_subtitles": bool, "human_glowing_eyes": bool,
-"expected_characters_present": bool, "wrong_extra_person": bool, "duplicated_unique_object": bool, "notes": "short"}}
+"figures_visible": int, "expected_characters_present": bool, "wrong_extra_person": bool, "duplicated_unique_object": bool, "notes": "short"}}
 - garbled_text: any malformed/fake lettering visible (signs, labels, screens). Ignore abstract waveforms and icons.
 - human_glowing_eyes: a human's eyes emit light (not just reflections).
+- figures_visible: how many distinct people or robots are visible in any frame; silhouettes, back views and
+  out-of-focus foreground figures count.
+- expected_characters_present: for each expected character a figure consistent with them is visible, robots
+  included. A back view, an over-the-shoulder foreground or a silhouette counts as present: you are not asked to
+  confirm identity, only that nobody expected is missing.
 - wrong_extra_person: a person who does not match any expected character appears prominently.
 - duplicated_unique_object: a one-of-a-kind object appears twice in one frame (two Earths, two suns, two moons, the same person twice)."""
 
@@ -96,8 +101,15 @@ def main():
     bp = json.loads((run / "shots" / ("scene_blueprint_post.json" if a.post else "scene_blueprint_final.json")).read_text())
     if a.post and not a.film:
         a.film = str(run / "media" / "film_post.mp4")
+    raw_clip = {}
+    if a.post:   # visual checks run on the pre-post clip: the burned-in subtitles are ours, not a model defect
+        for s0 in json.loads((run / "shots" / "scene_blueprint_final.json").read_text())["shots"]:
+            p0 = (((s0.get("render_layer") or {}).get("video") or {}).get("video_clip_paths") or [None])[0]
+            if p0:
+                raw_clip[s0["shot_id"]] = Path(p0) if Path(p0).is_absolute() else ROOT / p0
     lib = json.loads((run / "assets" / "asset_library.json").read_text())
     names = {c["id"]: c["name"] for c in lib.get("characters", [])}
+    looks = {c["name"]: (c.get("description") or "")[:140] for c in lib.get("characters", [])}
     from faster_whisper import WhisperModel
     from resemblyzer import VoiceEncoder, preprocess_wav
     import numpy as np
@@ -137,14 +149,21 @@ def main():
             r["asr_unexpected_speech"] = got
         mv = mean_volume(clip); vols.append((mv, bool(line))); r["loudness_lufs"] = mv
         att = (rl.get("visual_review") or {}).get("clips") or []
-        last = [x for c in att for x in c.get("attempts", []) if "score" in x]
-        if last:
-            r["review_score"] = last[-1]["score"]; r["gates"]["visual.review"] = bool(last[-1]["score"] >= 0.85)
+        scored = [x for c in att for x in c.get("attempts", []) if "score" in x]
+        # the verdict on the clip actually kept (falls back to the latest one)
+        src = raw_clip.get(s["shot_id"], clip)
+        kept = [x for x in scored if x.get("video_path") and Path(x["video_path"]).name == Path(src).name
+                and Path(x["video_path"]).parent.name == Path(src).parent.name] or scored[-1:]
+        if kept:
+            r["review_score"] = kept[-1]["score"]; r["gates"]["visual.review"] = bool(kept[-1]["score"] >= 0.85)
         if not a.no_vlm:
             try:
-                vj = vlm_check(frames(clip), ", ".join(chars)); r["vlm"] = vj
+                vj = vlm_check(frames(raw_clip.get(s["shot_id"], clip)),
+                               "; ".join(f"{c} ({looks.get(c, '')})" for c in chars)); r["vlm"] = vj
                 r["gates"]["visual.vlm"] = bool(not vj.get("garbled_text") and not vj.get("captions_or_subtitles")
-                                                and not vj.get("human_glowing_eyes") and vj.get("expected_characters_present", True)
+                                                and not vj.get("human_glowing_eyes")
+                                                and (not chars or vj.get("expected_characters_present", True)
+                                                     or int(vj.get("figures_visible") or 0) >= len(chars))
                                                 and not vj.get("wrong_extra_person") and not vj.get("duplicated_unique_object"))
             except Exception as e:
                 r["vlm_error"] = str(e)
