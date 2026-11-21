@@ -12,7 +12,8 @@ and silently drop lines and the closing beat; a film can then pass every per-sho
 import re
 from typing import Iterable, List
 
-_QUOTES = re.compile(r"[“\"「『]([^”\"」』]{2,200})[”\"」』]")
+# each quote family is matched with its own closing mark, so a nested quote (‘…“锁住”…’) stays inside its line
+_QUOTES = re.compile(r"“([^”]{2,200})”|‘([^’]{2,200})’|「([^」]{2,200})」|『([^』]{2,200})』|\"([^\"]{2,200})\"")
 _PUNCT = re.compile(r"[\s，。？！、,.?!;；:：…—\-~～'’‘]")
 
 
@@ -22,7 +23,12 @@ def norm(s: str) -> str:
 
 def script_lines(script: str) -> List[str]:
     """Quoted spoken lines, in order (straight or CJK quotes)."""
-    return [m.group(1).strip() for m in _QUOTES.finditer(script or "") if norm(m.group(1))]
+    out = []
+    for m in _QUOTES.finditer(script or ""):
+        g = next(x for x in m.groups() if x is not None).strip()
+        if norm(g):
+            out.append(g)
+    return out
 
 
 def missing_lines(script: str, spoken: Iterable[str]) -> List[str]:
