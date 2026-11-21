@@ -60,12 +60,16 @@ class PropState(BaseModel):
 
 class ContinuityState(BaseModel):
     """Script-supervisor state of the world in one shot (the continuity ledger). Written by ScriptSupervisorAgent."""
-    time_of_day: Literal["dawn", "day", "dusk", "night"] = Field("day", description="Time of day seen in this shot")
+    time_of_day: Literal["dawn", "day", "dusk", "night", "none"] = Field(
+        "day", description="Daylight as SEEN in the frame (4 a.m. is night); 'none' where there is no natural sky light "
+                           "to see (space, an airless world, a windowless interior)")
     weather: str = Field("clear", description="Weather seen or heard, e.g. 'heavy rain', 'clear', 'indoors'")
     lighting: str = Field("", description="Light sources that must be consistent, e.g. 'orange street lights through wet windows'")
     props: List[PropState] = Field(default_factory=list, description="Where each story-relevant prop is in this shot")
     wardrobe: Dict[str, str] = Field(default_factory=dict, description="char_id -> what they wear / carry if it matters")
     changes: List[str] = Field(default_factory=list, description="State changes that happen IN this shot, e.g. 'umbrella: Xiao Yu -> Lao Zhou'")
+    world_facts: List[str] = Field(default_factory=list, description="Story-wide visual facts that must hold in every shot "
+                                                                      "(e.g. 'the window shows Earth, never the Moon')")
 
 
 class ShotContinuity(BaseModel):
@@ -74,7 +78,9 @@ class ShotContinuity(BaseModel):
 
 
 class ContinuityPlan(BaseModel):
-    """ScriptSupervisor output: one ledger entry per shot, in shot order."""
+    """ScriptSupervisor output: story-wide visual facts + one ledger entry per shot, in shot order."""
+    world_facts: List[str] = Field(default_factory=list, description="Visual facts of this story's world that every "
+                                                                      "shot must respect")
     shots: List[ShotContinuity] = Field(default_factory=list)
 
 

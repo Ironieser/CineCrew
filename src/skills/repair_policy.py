@@ -46,6 +46,10 @@ def diagnose(q: dict, review: dict, ledger: dict) -> List[Tuple[str, str]]:
                                           or (exp and int(v.get("figures_visible") or 0) < exp)))\
             or chk.get("right_characters") is False:
         out.append(("B", v.get("notes") or issues or "wrong characters on screen"))
+    if g.get("visual.presence") is False:
+        out.append(("B", "a person who is not in the cast appears: " + (v.get("notes") or "stranger in frame")))
+    if g.get("visual.world") is False:
+        out.append(("C", "the frames contradict the film's world: " + "; ".join(q.get("world_violations") or [])))
     if g.get("visual.continuity") is False:
         ce = q.get("continuity_expected") or {}
         out.append(("C", f"the frames read as {v.get('time_of_day')} (raining: {v.get('raining')}) but the shot is "
@@ -108,8 +112,12 @@ def plan(run: Path, qa: dict, round_no: int) -> Dict[str, dict]:
     alib = AssetLibrary.model_validate(lib)
 
     out, seen_types, asset_evidence = {}, {}, {}
-    SPEC = ("age", "toddler", "child", "older", "younger", "gender", "too young", "too old", "description",
-            "character sheet", "appearance sheet", "spec", "species")
+    # only identity attributes justify re-making a sheet; states (a screen's content, expression, pose, held props,
+    # lights) change from shot to shot and are fixed per shot
+    SPEC = ("age", "toddler", "child", "older", "younger", "gender", "too young", "too old", "species", "breed",
+            "a boy", "a girl", "a man", "a woman", "elderly", "teenager", "years old")
+    STATE = ("screen", "display", "waveform", "expression", "pose", "holding", "light", "smil", "eyes closed",
+             "posture", "facing", "position")
     for q in qa["shots"]:
         sid = q["shot"]
         if not any(v is False for k, v in q.get("gates", {}).items() if k != "audio.dead_air"):
@@ -139,7 +147,7 @@ def plan(run: Path, qa: dict, round_no: int) -> Dict[str, dict]:
                 import re as _re
                 for sent in _re.split(r"[;；]|(?<=[.。])\s", ev):
                     low = sent.lower()
-                    if not any(w in low for w in SPEC):
+                    if not any(w in low for w in SPEC) or any(w in low for w in STATE):
                         continue
                     first = lambda c: names.get(c, "").lower().split(" (")[0]
                     hit = sorted([c for c in on_screen if first(c) and first(c) in low], key=lambda c: low.index(first(c)))

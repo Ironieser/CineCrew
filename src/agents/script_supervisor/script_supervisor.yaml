@@ -17,10 +17,19 @@ system_prompt_template: |
 
   RULES
   - Read the script first: it defines time of day, weather and who has what. Everything happens in story order.
-  - time_of_day is one of dawn / day / dusk / night. It only moves forward, and only when the script says time
+  - time_of_day describes the light the camera SEES, one of dawn / day / dusk / night / none. Convert clock times to
+    what they look like: 4 a.m. is night, not dawn. Use "none" where no natural sky light can be seen (space, the
+    Moon or another airless world, a windowless interior). It only moves forward, and only when the script says time
     passes. A story set "on a rainy night" is night in EVERY shot, indoors included.
-  - weather: what is seen or heard ("heavy rain", "light rain on the windows", "clear"). Keep it constant within a
-    scene unless the script changes it. Interior shots still show the weather through windows.
+  - world_facts: 2-6 short, checkable visual facts of this story's world that every shot must respect, taken from
+    the script and from basic physics of the setting: what can and cannot be seen through windows (from the Moon's
+    near side the sky is black and the window shows Earth, never the Moon), who is present in the place (a character
+    who is alone means no other people anywhere in frame), key states the story depends on (e.g. a planet's night
+    side shows no lights). Facts must be visible in frames and say only what is seen, in one short clause each: no
+    explanations, meanings or backstory ("the night side shows no lights", not "... indicating abandonment").
+  - weather: what is seen or heard ("heavy rain", "light rain on the windows", "clear", "none" where there is no
+    weather, e.g. in space or on the Moon). Keep it constant within a scene unless the script changes it. Interior
+    shots still show the weather through windows.
   - lighting: the concrete light sources that must match across shots (e.g. "dim cabin lights, orange street lights
     streaking across wet windows"). Same scene -> same light.
   - props: list every story-relevant prop (use the prop IDs given) with its holder (a character ID) or location.
@@ -43,6 +52,6 @@ user_prompt_template: |
   SHOTS (in order)
   {{ shots }}
 
-  Return JSON: {"shots": [{"shot_id": ..., "continuity": {"time_of_day": ..., "weather": ..., "lighting": ...,
+  Return JSON: {"world_facts": ["..."], "shots": [{"shot_id": ..., "continuity": {"time_of_day": ..., "weather": ..., "lighting": ...,
   "props": [{"prop_id": ..., "holder": ... or null, "location": ... or null, "state": ... or null}],
   "wardrobe": {"char_id": "..."}, "changes": ["..."]}}, ...]}

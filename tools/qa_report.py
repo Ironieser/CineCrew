@@ -76,6 +76,7 @@ Answer ONLY JSON: {{"garbled_text": bool, "captions_or_subtitles": bool, "human_
 "figures_visible": int, "visible_text": [{{"text": "...", "garbled": bool, "prominent": bool}}],
 "identity_mismatch": ["names of expected characters who do NOT look like their reference image"],
 "expected_characters_present": bool, "wrong_extra_person": bool, "duplicated_unique_object": bool, "time_of_day": "day|dusk|night|unclear", "raining": "yes|no|unclear",
+"world_checks": [{{"fact": 1, "verdict": "violated|holds|not_visible", "evidence": "what in the frames shows it"}}],
 "notes": "short"}}
 - garbled_text: any malformed/fake lettering visible (signs, labels, screens). Ignore abstract waveforms and icons.
 - human_glowing_eyes: a human's eyes emit light (not just reflections).
@@ -93,6 +94,9 @@ Answer ONLY JSON: {{"garbled_text": bool, "captions_or_subtitles": bool, "human_
   confirm identity, only that nobody expected is missing.
 - wrong_extra_person: a prominent person who matches NONE of the film's cast (a stranger), or a cast member shown
   twice. A cast member at the edge or in the background is fine.
+- world_checks: the film's world facts, numbered: {facts}. Judge EACH fact separately: "violated" only when the
+  frames clearly show the opposite (e.g. the window shows the Moon where the fact says Earth), with the visible
+  evidence; "not_visible" when the frames do not show what the fact is about (e.g. no planet in view); else "holds".
 - time_of_day: judge from the sky, windows and light (an interior with black windows and lamps on is night).
 - raining: rain drops, wet streaks on windows, wet reflective streets, umbrellas in use.
 - duplicated_unique_object: a one-of-a-kind object appears twice in one frame (two Earths, two suns, two moons, the same person twice)."""
@@ -113,10 +117,10 @@ def reference_board(refs):
     return out
 
 
-def vlm_check(paths, chars, cast="", board=None):
+def vlm_check(paths, chars, cast="", board=None, facts=""):
     from openai import OpenAI
     from src.config import Config
-    content = [{"type": "text", "text": VLM_PROMPT.format(chars=chars or "none (environment shot)", cast=cast or "unknown")}]
+    content = [{"type": "text", "text": VLM_PROMPT.format(chars=chars or "none (environment shot)", cast=cast or "unknown", facts=facts or "none given")}]
     for p in list(paths) + ([board] if board else []):
         content.append({"type": "image_url", "image_url": {"url": "data:image/jpeg;base64," + base64.b64encode(Path(p).read_bytes()).decode()}})
     client = OpenAI(api_key=Config.LLM_API_KEY or "EMPTY", base_url=Config.LLM_BASE_URL)
@@ -227,7 +231,8 @@ def main():
                 vj = vlm_check(frames(raw_clip.get(s["shot_id"], clip)),
                                "; ".join(f"{c} ({looks.get(c, '')})" for c in chars),
                                "; ".join(f"{n} ({looks.get(n, '')[:80]})" for n in names.values()),
-                               reference_board(refs) if refs else None); r["vlm"] = vj
+                               reference_board(refs) if refs else None,
+                               " ".join(f"({i}) {f}" for i, f in enumerate((ledger.get(s["shot_id"]) or {}).get("world_facts") or [], 1))); r["vlm"] = vj
                 items = [t if isinstance(t, dict) else {"text": str(t), "garbled": True, "prominent": True}
                          for t in (vj.get("visible_text") or [])]
                 r["visible_text"] = items
@@ -247,6 +252,18 @@ def main():
                     r["gates"]["visual.identity"] = not mism
                     if mism:
                         r["identity_mismatch"] = mism
+                facts = (ledger.get(s["shot_id"]) or {}).get("world_facts") or []
+                wv = []
+                for c in (vj.get("world_checks") or []):
+                    if isinstance(c, dict) and str(c.get("verdict", "")).lower() == "violated" and c.get("evidence"):
+                        i = int(c.get("fact") or 0)
+                        wv.append(f"{facts[i - 1] if 1 <= i <= len(facts) else '?'} — seen: {c.get('evidence')}")
+                if (ledger.get(s["shot_id"]) or {}).get("world_facts"):
+                    r["gates"]["visual.world"] = not wv
+                    if wv:
+                        r["world_violations"] = wv
+                # strangers (people outside the cast) are a hard failure; presence counts stay advisory
+                r["gates"]["visual.presence"] = not vj.get("wrong_extra_person")
                 r["advisory"]["visual.vlm"] = bool(not vj.get("garbled_text") and not vj.get("captions_or_subtitles")
                                                 and not vj.get("human_glowing_eyes")
                                                 and (not chars or vj.get("expected_characters_present", True)
@@ -261,7 +278,7 @@ def main():
             # night is strict: overcast daylight is what generators drift to, and the VLM calls it "dusk"
             dark = {"night": {"night"}, "dusk": {"dusk", "night", "day"}, "dawn": {"dawn", "day", "dusk"},
                     "day": {"day", "dusk", "dawn"}}
-            ok_t = seen == "unclear" or seen in dark.get(want, {seen})
+            ok_t = want == "none" or seen == "unclear" or seen in dark.get(want, {seen})
             rain_wanted = "rain" in (cont.get("weather") or "").lower()
             ok_w = not rain_wanted or str(vj.get("raining", "unclear")).lower() != "no"
             r["continuity_expected"] = {"time_of_day": want, "weather": cont.get("weather")}

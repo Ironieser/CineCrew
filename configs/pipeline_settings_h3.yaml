@@ -55,7 +55,8 @@ pipeline:
       execute: true          # true -> render keyframes (T2I_*) and clips (VIDEO_*) into <run>/media/
       judge: true            # VLM VisualJudge scores every keyframe/clip; rejected ones are retried
       max_retries: 1         # extra attempts per keyframe/clip after a rejection (uses the judge's revised prompt)
-      keyframes: false       # render a keyframe per shot and use it as the I2V reference (false = reference sheets only)
+      keyframes: true        # keyframe-first: TI2I opening frame per shot (Qwen-Image-Edit via the proxy), FrameCheck-gated
+      keyframe_retries: 4    # frames are cheap: iterate until the frame passes identity / cast / world / text / time
       stitch: true           # cut all clips together into <run>/media/film.mp4 (ffmpeg; fade-in on the first shot)
       parallel: 2            # clips in flight at once (H3 proxy spreads them over its backend replicas)
       segment_dialogue: false # split dialogue shots into prelude/dialogue_core/afterglow jobs; false = one job per shot

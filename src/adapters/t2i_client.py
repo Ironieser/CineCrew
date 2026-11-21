@@ -45,6 +45,11 @@ class T2IClient:
         self.model = model or Config.T2I_MODEL
         self.base_url = base_url or Config.T2I_BASE_URL
         self._client = OpenAI(api_key=api_key or Config.T2I_API_KEY or "EMPTY", base_url=self.base_url)
+        # TI2I (images.edit) goes to T2I_EDIT_BASE_URL / T2I_EDIT_MODEL when set (defaults: the same server)
+        self._edit_base = base_url or Config.T2I_EDIT_BASE_URL
+        self._edit_model = model or Config.T2I_EDIT_MODEL
+        self._edit_client = self._client if self._edit_base == self.base_url else \
+            OpenAI(api_key=api_key or Config.T2I_API_KEY or "EMPTY", base_url=self._edit_base)
         print(f"   T2IClient initialized: model={self.model}, base_url={self.base_url or '<openai default>'}")
 
     def render(
@@ -72,7 +77,8 @@ class T2IClient:
         if reference_images:
             handles = [open(p, "rb") for p in reference_images]
             try:
-                response = self._client.images.edit(image=handles, **kwargs)
+                kwargs["model"] = model or self._edit_model
+                response = self._edit_client.images.edit(image=handles, **kwargs)
             finally:
                 for h in handles:
                     h.close()

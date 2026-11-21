@@ -112,7 +112,8 @@ def main():
                               judge=False if a.no_judge else opts.get("judge", True),
                               max_retries=a.max_retries if a.max_retries is not None else int(opts.get("max_retries", 1)),
                               keyframes=opts.get("keyframes", True), stitch=False,
-                              parallel=int(opts.get("parallel", 1)))
+                              parallel=int(opts.get("parallel", 1)), library=lib,
+                              keyframe_retries=opts.get("keyframe_retries"))
 
     # merge kept clips back into the blueprint in shot/segment order, then stitch
     by_shot = {s.shot_id: s for s in bp.shots}

@@ -88,3 +88,15 @@ class VisualReview(BaseModel):
             "framing, sub-action order as specified)."
         ),
     )
+
+
+
+class FrameCheck(BaseModel):
+    """FrameCheck verdict on one keyframe (src/agents/dailies_reviewer/frame_check.yaml)."""
+    identity_mismatch: List[str] = Field(default_factory=list)
+    missing_characters: List[str] = Field(default_factory=list)
+    strangers: bool = False
+    world_violations: List[str] = Field(default_factory=list)
+    bad_text: List[str] = Field(default_factory=list)
+    time_of_day: str = "unclear"
+    fix: str = ""

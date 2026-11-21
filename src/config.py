@@ -82,6 +82,9 @@ class Config:
     T2I_API_KEY = _env("T2I_API_KEY") or LLM_API_KEY or "EMPTY"
     T2I_SIZE = _env("T2I_SIZE", default="1024x1024")               # reference sheets
     T2I_KEYFRAME_SIZE = _env("T2I_KEYFRAME_SIZE") or _env("VIDEO_SIZE", default="1280x720")  # shot keyframes = video frame
+    # reference-conditioned edits (TI2I keyframes) may live on a different server than text-to-image (e.g. sheets)
+    T2I_EDIT_BASE_URL = _env("T2I_EDIT_BASE_URL") or T2I_BASE_URL
+    T2I_EDIT_MODEL = _env("T2I_EDIT_MODEL") or T2I_MODEL
 
     # ── Video (T2V / I2V execution of the FilmDSL jobs) ──────────────────────
     VIDEO_MODEL = _env("VIDEO_MODEL", default="wan22-t2v")  # wan22-t2v | wan22-i2v

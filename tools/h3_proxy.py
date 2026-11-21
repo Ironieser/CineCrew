@@ -274,14 +274,32 @@ def create(fields: dict, upload: bytes = None) -> dict:
         if v:
             sbj["voice_tag"] = "<Audio 1>"; audio_conds.append(v)
         break
-    h3_prompt = rewrite(prompt, dialogue, speaker, voice, subjects)
+    # keyframe-first: the shot's approved opening frame. Dialogue shots keep Ref2VA (character sheets + voice) and get
+    # the frame as one more reference picture; silent shots start from it as the first frame (FL2VA).
+    kf = extra.get("keyframe")
+    kf = kf if kf and (Path(kf).exists() or (ROOT / kf).exists()) else None
+    fl2va_first = bool(kf) and not dialogue
+    h3_prompt = rewrite(prompt, dialogue, speaker, voice, [] if fl2va_first else subjects)
+    if kf and not fl2va_first and subjects:
+        k = len(subjects) + 1
+        line = (f"<Picture {k}> is the opening frame of this shot (not a character): the video starts from its "
+                f"composition, set, lighting and the characters' positions.")
+        h3_prompt = h3_prompt.replace("\n\nsummary:", f"\n{line}\n\nsummary:", 1) if "\n\nsummary:" in h3_prompt \
+            else f"{line}\n{h3_prompt}"
+    if fl2va_first:
+        h3_prompt = ("How the reference pictures align with the target video — Picture 1 (from Shot 1) aligns with the "
+                     "0.00-second mark of the target video.\n\n" + h3_prompt)
     body = {"model": "MiniMaxAI/MiniMax-H3", "prompt": h3_prompt, "seconds": int(dur), "num_outputs_per_prompt": 1,
             "num_inference_steps": STEPS, "flow_shift": 12.0, "audio_flow_shift": 3.0,
             "target": {"short_edge": 768, "aspect_ratio": "16:9", "duration_seconds": dur}}
     if extra.get("seed") is not None:
         body["seed"] = int(extra["seed"])
-    if subjects:
+    if fl2va_first:
+        body.update(task="fl2va", conditions=[{"type": "image", "uri": upload_ref(kf), "role": "keyframe", "frame_index": 0}])
+        base = pick(FL2VA_URLS)
+    elif subjects:
         body.update(task="ref2va", conditions=[{"type": "image", "uri": upload_ref(s["image"]), "role": "reference"} for s in subjects]
+                    + ([{"type": "image", "uri": upload_ref(kf), "role": "reference"}] if kf else [])
                     + [{"type": "audio", "uri": upload_ref(v), "role": "reference"} for v in audio_conds])
         base = pick(REF2VA_URLS)
     else:
@@ -297,7 +315,8 @@ def create(fields: dict, upload: bytes = None) -> dict:
                      "harvest": (spk_img, dialogue) if (dialogue and spk_img and not audio_conds) else None}
     (LOG_DIR / f"{pid}.json").write_text(json.dumps({"in": {k: v for k, v in fields.items()}, "h3_request": body},
                                                     ensure_ascii=False, indent=1))
-    print(f"[h3_proxy] {pid} -> {base.split(':')[-1].split('/')[0]} {body['task']} {dur:.0f}s dialogue={bool(dialogue)}", flush=True)
+    print(f"[h3_proxy] {pid} -> {base.split(':')[-1].split('/')[0]} {body['task']} {dur:.0f}s dialogue={bool(dialogue)} "
+          f"keyframe={'first-frame' if fl2va_first else ('reference' if kf else 'none')}", flush=True)
     return {"id": pid, "object": "video", "status": "queued", "model": fields.get("model", "minimax-h3")}
 
 

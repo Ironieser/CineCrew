@@ -25,7 +25,7 @@ from ...schemas.blueprint import ContinuityState, PropState, SceneBlueprint
 
 logger = logging.getLogger(__name__)
 _HERE = Path(__file__).resolve().parent
-_ORDER = {"dawn": 0, "day": 1, "dusk": 2, "night": 3}
+_ORDER = {"dawn": 0, "day": 1, "dusk": 2, "night": 3, "none": 3}
 
 
 class ScriptSupervisorAgent:
@@ -44,6 +44,8 @@ class ScriptSupervisorAgent:
         try:
             plan = self._agent.run(script=script, characters=chars, props=props, shots=shots)
             by_id = {x.shot_id: x.continuity for x in plan.shots}
+            for c in by_id.values():      # story-wide facts travel with every shot's entry
+                c.world_facts = list(plan.world_facts)
         except Exception as e:
             logger.warning("ScriptSupervisor LLM call failed (%s); ledger left empty", e)
             return blueprint
@@ -70,7 +72,7 @@ class ScriptSupervisorAgent:
                     p.holder = None
             cur.wardrobe = {k: v for k, v in cur.wardrobe.items() if k in char_ids}
             if prev is not None:
-                if _ORDER[cur.time_of_day] < _ORDER[prev.time_of_day]:
+                if "none" not in (cur.time_of_day, prev.time_of_day) and _ORDER[cur.time_of_day] < _ORDER[prev.time_of_day]:
                     notes.append(f"{shot.shot_id}: time_of_day {cur.time_of_day} < {prev.time_of_day}; kept {prev.time_of_day}")
                     cur.time_of_day = prev.time_of_day
                 elif cur.time_of_day != prev.time_of_day:
@@ -100,7 +102,8 @@ def continuity_sentence(c: ContinuityState, library: AssetLibrary, on_screen=Non
         return ""
     names = {x.id: x.name for x in library.characters}
     pnames = {x.id: x.name for x in library.props}
-    bits = [f"It is {c.time_of_day}" + (f", {c.weather}" if c.weather else "") + "."]
+    bits = ([f"It is {c.time_of_day}" + (f", {c.weather}" if c.weather and c.weather != "none" else "") + "."]
+            if c.time_of_day != "none" else [])
     if c.lighting:
         bits.append(f"Lighting: {c.lighting}.")
     moving = " ".join(c.changes)
@@ -117,6 +120,8 @@ def continuity_sentence(c: ContinuityState, library: AssetLibrary, on_screen=Non
         if on_screen is not None and cid not in on_screen:
             continue
         bits.append(f"{names.get(cid, cid)}: {w}.")
+    if c.world_facts:
+        bits.append("Facts that always hold in this film: " + "; ".join(c.world_facts) + ".")
     for ch in c.changes:
         for i, n in {**names, **pnames}.items():
             ch = ch.replace(i, n)

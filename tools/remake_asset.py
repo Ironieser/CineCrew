@@ -34,10 +34,17 @@ def remake(run: Path, char_id: str, note: str) -> Path:
         raise SystemExit(f"[remake] {char_id}: no reference sheet to remake")
     img = Path(ch.visual_references.canonical_image_path)
     img = img if img.is_absolute() else ROOT / img
-    n = len(list(img.parent.glob(f"{img.stem}.bad*.png"))) + 1
-    shutil.copy(img, img.with_name(f"{img.stem}.bad{n}.png"))
-    for v in (img.with_name(img.stem + ".voice.wav"), img.with_name(img.stem + ".voice.txt")):
-        v.unlink(missing_ok=True)
+    run_abs = run if run.is_absolute() else ROOT / run
+    if run_abs.resolve() not in img.resolve().parents:
+        # a sheet supplied with the story (our_dataset/...) is never overwritten: the run gets its own new sheet
+        img = run_abs / "assets" / "references" / f"{char_id}.png"
+        img.parent.mkdir(parents=True, exist_ok=True)
+        n = 0
+    else:
+        n = len(list(img.parent.glob(f"{img.stem}.bad*.png"))) + 1
+        shutil.copy(img, img.with_name(f"{img.stem}.bad{n}.png"))
+        for v in (img.with_name(img.stem + ".voice.wav"), img.with_name(img.stem + ".voice.txt")):
+            v.unlink(missing_ok=True)
     art = ArtDepartmentAgent()
     try:
         prompt = art._character_prompter().run(ch.model_dump(), lib.global_style)
@@ -46,13 +53,13 @@ def remake(run: Path, char_id: str, note: str) -> Path:
     prompt = f"{prompt}\n\nCORRECTION (the previous sheet was wrong): {note}"
     tmp = img.with_name(f"{img.stem}.new.png")
     if not art._render_reference(ch, prompt, tmp, split_negative):
-        shutil.copy(img.with_name(f"{img.stem}.bad{n}.png"), img)
         raise SystemExit(f"[remake] {char_id}: rendering failed; kept the old sheet")
     shutil.move(tmp, img)
     ch.visual_references.canonical_image_path = str(img.relative_to(ROOT)) if str(img).startswith(str(ROOT)) else str(img)
     ch.visual_references.generation_prompt = prompt
     lib_p.write_text(lib.model_dump_json(indent=2))
-    print(f"[remake] {char_id}: new sheet {img.name} (old kept as {img.stem}.bad{n}.png; voice will be re-cast)", flush=True)
+    print(f"[remake] {char_id}: new sheet {img} ({'old kept as ' + img.stem + '.bad' + str(n) + '.png; ' if n else ''}"
+          f"voice will be re-cast)", flush=True)
     return img
 
 

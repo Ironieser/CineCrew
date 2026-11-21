@@ -338,6 +338,8 @@ def run_pipeline(
                     keyframes=_opt(stage_spec, "keyframes", True),
                     stitch=_opt(stage_spec, "stitch", True),
                     parallel=int(_opt(stage_spec, "parallel", 1)),
+                    library=ctx["asset_library"],
+                    keyframe_retries=_opt(stage_spec, "keyframe_retries", None),
                 )
                 _save_json(ctx["video_jobs"], _shots_dir / "video_jobs.json")  # prompts as finally rendered
                 _save_json([r.model_dump() for r in ctx["video_results"]], _shots_dir / "video_results.json")

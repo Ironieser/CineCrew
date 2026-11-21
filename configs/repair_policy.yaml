@@ -27,7 +27,7 @@ types:
     - prefix: "Exactly {n_expected} on-screen character(s): {expected}, all clearly visible in frame from the first second. Nobody else appears."
       suffix: "Fix this: {evidence}."
   C:
-    - prefix: "{continuity}"
+    - prefix: "{continuity} Nobody else is present unless named."
       suffix: "Fix this: {evidence}."
     - prefix: "IMPORTANT, keep continuity with the rest of the film: {continuity} This is not negotiable."
       suffix: "Fix this: {evidence}."

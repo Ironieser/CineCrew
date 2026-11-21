@@ -198,6 +198,8 @@ class ProductionOperatorAgent:
         keyframes: bool = True,
         stitch: bool = True,
         parallel: int = 1,
+        library: Optional[AssetLibrary] = None,
+        keyframe_retries: Optional[int] = None,
     ) -> List[VideoResult]:
         """
         Run the batch on the T2I_* / VIDEO_* backends.
@@ -208,6 +210,8 @@ class ProductionOperatorAgent:
                        available) and use it as the I2V reference; False -> reference sheets only.
         parallel     : clips rendered concurrently (one per backend replica behind VIDEO_BASE_URL); each clip's
                        render -> judge -> retry loop stays sequential, results keep job order.
+        library      : AssetLibrary for the keyframe FrameCheck (identity vs sheets, cast, world facts)
+        keyframe_retries : extra keyframe attempts (default max_retries); frames are cheap, so this can be higher
         stitch       : cut all clips together in shot order (ffmpeg) into <output_dir>/film.mp4,
                        honouring the first shot's fade_in; path stored in blueprint.final_film_path.
         Returns one VideoResult per job; blueprint (if given) is updated in place.
@@ -218,13 +222,24 @@ class ProductionOperatorAgent:
 
         if keyframes and blueprint:
             print(f"--- [ProductionOperator] Keyframes for {len(blueprint.shots)} shots (judge={judge}) ---", flush=True)
-            for shot in blueprint.shots:
-                if shot.render_layer is not None:
-                    self._render_keyframe(shot, out / "keyframes", judge, max_retries, global_style)
+            todo_shots = {j.shot_id for j in batch.jobs}
+            kf = lambda shot: self._render_keyframe(shot, out / "keyframes", judge,
+                                                    max_retries if keyframe_retries is None else keyframe_retries,
+                                                    global_style, library)
+            shots = [s for s in blueprint.shots if s.render_layer is not None and s.shot_id in todo_shots]
+            if parallel > 1 and len(shots) > 1:
+                from concurrent.futures import ThreadPoolExecutor
+                self._t2i_client()
+                with ThreadPoolExecutor(max_workers=parallel) as pool:
+                    list(pool.map(kf, shots))
+            else:
+                for shot in shots:
+                    kf(shot)
             for job in batch.jobs:
                 shot = by_shot.get(job.shot_id)
                 if shot and shot.render_layer and shot.render_layer.image.keyframe_image_path:
                     job.image_reference = shot.render_layer.image.keyframe_image_path
+                    job.extra["keyframe"] = shot.render_layer.image.keyframe_image_path   # backend: first / reference frame
 
         print(f"--- [ProductionOperator] Clips for {len(batch.jobs)} jobs (judge={judge}) ---", flush=True)
         render = lambda job: self._render_clip(job, by_shot.get(job.shot_id), out, judge, max_retries, global_style)
@@ -270,7 +285,14 @@ class ProductionOperatorAgent:
             blueprint.final_film_path = str(film)
         return film
 
-    def _render_keyframe(self, shot: ShotBlueprint, out_dir: Path, judge: bool, max_retries: int, global_style: str) -> None:
+    def _render_keyframe(self, shot: ShotBlueprint, out_dir: Path, judge: bool, max_retries: int, global_style: str,
+                         library: Optional[AssetLibrary] = None) -> None:
+        """
+        Keyframe-first: render the shot's opening frame (TI2I with the characters' reference sheets), check it with the
+        specific FrameCheck gates (identity, strangers, world facts, text, time of day), and iterate — frames are cheap
+        next to clips — feeding the found problems back into the prompt. The best frame (fewest failures) is kept and
+        becomes the clip's first frame / reference frame.
+        """
         img = shot.render_layer.image
         refs = [
             p
@@ -281,49 +303,67 @@ class ProductionOperatorAgent:
         prompt = img.resolved_ti2i if (refs and img.resolved_ti2i) else img.resolved_t2i
         if not prompt:
             return
-
+        # the location's establishing shot as one more reference: the same set in every shot of the scene
+        env = shot.staging_layer.environment_id if shot.staging_layer else None
+        loc = library.get_location_by_id(env) if (library and env and hasattr(library, "get_location_by_id")) else None
+        loc_img = loc.visual_references.canonical_image_path if (loc and loc.visual_references) else None
+        if loc_img and Path(loc_img).exists() and len(refs) < 3:
+            refs = refs + [loc_img]
+            prompt = (f"{prompt}\nPicture {len(refs)} is the location ({loc.name}): keep its set, layout, "
+                      f"windows and lighting; it contains no people.")
+        if not refs:   # nothing to condition the frame on: let the video model compose the shot from text
+            return
+        cont = shot.narrative_layer.continuity
+        if cont is not None and library is not None:   # the frame obeys the ledger and the film's world facts too
+            from ..script_supervisor import continuity_sentence
+            on = set(img.characters_in_shot or [])
+            prompt = f"{prompt}\n{continuity_sentence(cont, library, on)}"
+        expected = list(img.characters_in_shot or [])
+        names = {c.id: c.name for c in library.characters} if library else {}
         review_log: List[dict] = []
-        final_path: Optional[Path] = None
+        best: Optional[tuple] = None                     # (n_failures, path, prompt)
+        base_prompt = prompt
         for attempt in range(max_retries + 1):
             path = out_dir / f"{shot.shot_id}_kf{attempt}.png"
             print(f"   🖼  [{shot.shot_id}] keyframe attempt {attempt + 1} ({'TI2I' if refs else 'T2I'})", flush=True)
             try:
                 self._t2i_client().render_to_file(
-                    path,
-                    prompt=prompt,
-                    negative_prompt=img.negative_prompt or "",
-                    reference_images=refs or None,
-                    size=Config.T2I_KEYFRAME_SIZE,
-                    seed=None if img.seed is None else img.seed + attempt,
+                    path, prompt=prompt, negative_prompt=img.negative_prompt or "",
+                    reference_images=refs or None, size=Config.T2I_KEYFRAME_SIZE,
+                    seed=(img.seed or 0) + 7919 * attempt,
                 )
             except Exception as e:
                 print(f"      ❌ T2I failed: {type(e).__name__}: {e}", flush=True)
                 review_log.append({"attempt": attempt, "error": f"{type(e).__name__}: {e}"})
                 continue
-            final_path = path
-            if not judge:
+            if not judge or library is None:
+                best = (0, path, prompt)
                 break
             try:
-                review = self._visual_judge().review_keyframe(str(path), shot, prompt, global_style, used_references=bool(refs))
+                from ..dailies_reviewer.frame_check import FrameCheckAgent
+                fc = FrameCheckAgent().check(str(path), shot, library, expected)
+                fails = FrameCheckAgent.failures(fc, shot, [names.get(c, c) for c in expected])
             except Exception as e:
-                print(f"      ⚠️  judge failed ({e}); keeping this keyframe", flush=True)
-                review_log.append({"attempt": attempt, "judge_error": str(e)})
+                print(f"      ⚠️  frame check failed ({e}); keeping this keyframe", flush=True)
+                review_log.append({"attempt": attempt, "check_error": str(e)})
+                best = best or (99, path, prompt)
                 break
-            review_log.append({"attempt": attempt, **review.model_dump()})
-            if review.accepted:
-                print(f"      ✅ accepted (score {review.score:.2f})", flush=True)
+            review_log.append({"attempt": attempt, "path": str(path), "failures": fails, **fc.model_dump()})
+            if best is None or len(fails) < best[0]:
+                best = (len(fails), path, prompt)
+            if not fails:
+                print(f"      ✅ keyframe passes all frame checks", flush=True)
                 break
-            print(f"      ✏️  rejected (score {review.score:.2f}): {'; '.join(review.issues)[:160]}", flush=True)
-            if review.revised_prompt:
-                prompt = review.revised_prompt
+            print(f"      ✏️  keyframe fails: {'; '.join(fails)[:180]}", flush=True)
+            # prompt repair from the specific findings (not a free rewrite: the plan's prompt stays the base)
+            prompt = f"{base_prompt}\nFix: {'; '.join(fails)}. {fc.fix}".strip()
 
-        if final_path is not None:
-            img.keyframe_image_path = str(final_path)
-            # Keep the blueprint truthful: store the prompt that actually rendered the kept keyframe.
+        if best is not None:
+            img.keyframe_image_path = str(best[1])
             if refs and img.resolved_ti2i:
-                img.resolved_ti2i = prompt
+                img.resolved_ti2i = best[2]
             else:
-                img.resolved_t2i = prompt
+                img.resolved_t2i = best[2]
         vr = shot.render_layer.visual_review or {}
         vr["keyframe"] = review_log[-1] if review_log else None
         vr["keyframe_attempts"] = review_log

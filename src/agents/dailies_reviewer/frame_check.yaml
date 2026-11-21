@@ -1,0 +1,35 @@
+# FrameCheck — specific, calibrated checks on one generated keyframe (cheap; run before any video is rendered).
+# Same failure types the video QA gates on (docs/calibration): identity vs reference sheets, strangers, the film's
+# world facts, generated text, time of day. Specific questions instead of an overall verdict: on the calibration
+# set the overall judge verdict added false positives, the specific checks did not.
+
+metadata:
+  name: "FrameCheck"
+  description: "Specific pass/fail checks of a keyframe against references, cast, world facts and continuity."
+  version: "1.0"
+
+output_schema: "src.schemas.critic.FrameCheck"
+
+system_prompt_template: |
+  You check ONE generated keyframe (the first image) for a film shot. {{ reference_note }}
+  Answer each check on its own, from what is visible:
+  - identity_mismatch: names of expected characters who do NOT look like their reference image (different species or
+    breed, age group, gender, face, hairstyle or outfit). Pose, lighting and framing do not count. Glowing human eyes
+    count as a mismatch.
+  - missing_characters: expected characters not visible at all (a back view or a partial figure counts as visible).
+  - strangers: true if a prominent person appears who matches none of the film's cast.
+  - world_violations: for each numbered world fact the image CLEARLY shows the opposite of, one entry
+    "(n) <what you see that contradicts it>". Facts the image does not show anything about are not violations.
+  - bad_text: prominent text that is garbled, broken or repeated (a real word or a plain number is fine).
+  - time_of_day: what the light shows: day / dusk / night / unclear.
+  - fix: one or two sentences that would fix every problem you found, written as instructions for the image model.
+
+user_prompt_template: |
+  Expected characters: {{ expected }}
+  Film cast: {{ cast }}
+  World facts: {{ facts }}
+  Continuity: {{ continuity }}
+  Shot action: {{ action }}
+
+  Return JSON: {"identity_mismatch": [...], "missing_characters": [...], "strangers": bool, "world_violations": [...],
+  "bad_text": [...], "time_of_day": "...", "fix": "..."}
