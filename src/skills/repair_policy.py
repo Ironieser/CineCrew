@@ -51,7 +51,7 @@ def diagnose(q: dict, review: dict, ledger: dict) -> List[Tuple[str, str]]:
         out.append(("C", f"the frames read as {v.get('time_of_day')} (raining: {v.get('raining')}) but the shot is "
                          f"{ce.get('time_of_day')}, {ce.get('weather')}"))
     if g.get("visual.text") is False:
-        out.append(("D", "generated text visible: " + "; ".join(str(t) for t in (q.get("visible_text") or [])[:4])))
+        out.append(("D", "garbled text visible: " + "; ".join(str(t) for t in (q.get("bad_text") or [])[:4])))
     elif v.get("garbled_text") or v.get("captions_or_subtitles") or chk.get("integrity_ok") is False:
         out.append(("D", "generated text / signage visible" if (v.get("garbled_text") or v.get("captions_or_subtitles"))
                     else issues or "visual artifact"))

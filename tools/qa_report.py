@@ -10,14 +10,19 @@ qa_report: automatic quality gates for a rendered run (audio, visuals, pacing). 
 
   python tools/qa_report.py <run_dir> [--hint "domain words"] [--no-vlm] [--film <mp4>]
 
-Gates (per shot unless noted)
-  audio.asr          dialogue line recognised (faster-whisper, char similarity >= 0.85, few extra chars)
-  audio.dead_air     dialogue shots: speech starts <= 1.5 s and ends >= duration - 2.0 s
+Gates (per shot unless noted) — hard gates, chosen on the calibration set (data/calib, precision 0.80 / recall 0.57
+for the visual ones vs 0.43 / 0.43 for the previous judge + VLM set):
+  audio.asr          dialogue line recognised (faster-whisper, char similarity >= 0.85; short lines: one char off)
+  audio.dead_air     dialogue shots: speech starts <= 1.5 s and ends >= duration - 2.0 s (post-production trims it)
+  visual.continuity  time of day / rain read from frames match the continuity ledger (night is strict)
+  visual.text        no prominent garbled text (VLM transcription; adjacent repeated tokens count as garbled)
+  visual.identity    expected characters match their reference board; no glowing human eyes
   audio.voice        same speaker across shots: speaker-embedding cosine >= 0.75 (resemblyzer)   [film-level]
-  audio.loudness     dialogue clips within 4 LU of each other (EBU R128), ambience-only clips not louder [film-level]
-  visual.review      the pipeline's VisualJudge score of the kept clip >= 0.85
-  visual.vlm         VLM on 3 frames: no garbled text / captions, no glowing human eyes, expected characters present
+  audio.loudness     dialogue clips within 4 LU (EBU R128), ambience-only clips not louder        [film-level]
+  content.dialogue_coverage  every quoted script line is spoken                                  [film-level]
   pacing.length      film length within ±25 % of the planned total                                  [film-level]
+Advisory (recorded under "advisory", never gate): visual.review (VisualJudge score), visual.vlm (presence count,
+generic flags).
 Needs: ffmpeg, faster-whisper, resemblyzer (local python), LLM_* (VLM) from .env.
 """
 
@@ -68,14 +73,17 @@ def frames(p, n=3):
 VLM_PROMPT = """You check frames from one shot of a film. Expected characters on screen: {chars}.
 The film's whole cast (any of them may also appear at the edge or in the background): {cast}.
 Answer ONLY JSON: {{"garbled_text": bool, "captions_or_subtitles": bool, "human_glowing_eyes": bool,
-"figures_visible": int, "visible_text": ["every piece of legible or letter-like text you can see"],
+"figures_visible": int, "visible_text": [{{"text": "...", "garbled": bool, "prominent": bool}}],
 "identity_mismatch": ["names of expected characters who do NOT look like their reference image"],
 "expected_characters_present": bool, "wrong_extra_person": bool, "duplicated_unique_object": bool, "time_of_day": "day|dusk|night|unclear", "raining": "yes|no|unclear",
 "notes": "short"}}
 - garbled_text: any malformed/fake lettering visible (signs, labels, screens). Ignore abstract waveforms and icons.
 - human_glowing_eyes: a human's eyes emit light (not just reflections).
-- visible_text: transcribe ALL text-like marks in the frames: signs, shop fronts, route boards, LED displays, labels,
-  posters, badges, screens. Copy what you see even if it is garbled or only letter-like. [] only if there is none.
+- visible_text: transcribe ALL text-like marks in the CLIP frames only (never the reference board): signs, shop fronts,
+  route boards, LED displays, labels, posters, badges, screens. Copy what you see even if garbled. For each item:
+  garbled = malformed characters, nonsense or repeated / broken words (a real word or a plain number is not garbled);
+  prominent = large or central enough that a viewer would read it (a small badge number or a tiny label is not).
+  At most 12 items (the most prominent first). [] only if there is none.
 - identity_mismatch: compare each expected character with the reference board (last image, if given): a different
   species or breed, age group, gender, face or outfit is a mismatch. Do not count pose, lighting or framing.
 - figures_visible: how many distinct people or robots are visible in any frame; silhouettes, back views and
@@ -111,10 +119,17 @@ def vlm_check(paths, chars, cast="", board=None):
     content = [{"type": "text", "text": VLM_PROMPT.format(chars=chars or "none (environment shot)", cast=cast or "unknown")}]
     for p in list(paths) + ([board] if board else []):
         content.append({"type": "image_url", "image_url": {"url": "data:image/jpeg;base64," + base64.b64encode(Path(p).read_bytes()).decode()}})
-    r = OpenAI(api_key=Config.LLM_API_KEY or "EMPTY", base_url=Config.LLM_BASE_URL).chat.completions.create(
-        model=Config.MODEL_NAME, temperature=0, max_tokens=300, response_format={"type": "json_object"},
-        messages=[{"role": "user", "content": content}])
-    return json.loads(r.choices[0].message.content)
+    client = OpenAI(api_key=Config.LLM_API_KEY or "EMPTY", base_url=Config.LLM_BASE_URL)
+    err = None
+    for attempt in range(3):   # a long text list can still yield invalid JSON (unescaped quotes): retry
+        r = client.chat.completions.create(model=Config.MODEL_NAME, temperature=0 if attempt == 0 else 0.2,
+                                           max_tokens=1200, response_format={"type": "json_object"},
+                                           messages=[{"role": "user", "content": content}])
+        try:
+            return json.loads(r.choices[0].message.content)
+        except json.JSONDecodeError as e:
+            err = e
+    raise err
 
 
 def main():
@@ -170,7 +185,8 @@ def main():
         chars = [names.get(c, c) for c in (expected.get(s["shot_id"]) if s["shot_id"] in expected
                                            else ((rl.get("image") or {}).get("characters_in_shot") or []))]
         r = {"shot": s["shot_id"], "clip": str(clip.relative_to(ROOT)) if str(clip).startswith(str(ROOT)) else str(clip),
-             "duration": round(d, 2), "dialogue": line, "speaker": spk, "characters": chars, "gates": {}}
+             "duration": round(d, 2), "dialogue": line, "speaker": spk, "characters": chars, "gates": {},
+             "advisory": {}}
         segs, _ = asr.transcribe(str(clip), language="zh", vad_filter=True, initial_prompt=init, word_timestamps=False)
         segs = list(segs); got = "".join(x.text for x in segs).strip()
         if line:
@@ -202,7 +218,8 @@ def main():
         kept = [x for x in scored if x.get("video_path") and Path(x["video_path"]).name == Path(src).name
                 and Path(x["video_path"]).parent.name == Path(src).parent.name] or scored[-1:]
         if kept:
-            r["review_score"] = kept[-1]["score"]; r["gates"]["visual.review"] = bool(kept[-1]["score"] >= 0.85)
+            # advisory only: on the calibration set the judge verdict added false positives, not recall
+            r["review_score"] = kept[-1]["score"]; r["advisory"]["visual.review"] = bool(kept[-1]["score"] >= 0.85)
         if not a.no_vlm:
             try:
                 refs = [(c, sheet_of[c] if Path(sheet_of[c]).is_absolute() else str(ROOT / sheet_of[c]))
@@ -211,16 +228,26 @@ def main():
                                "; ".join(f"{c} ({looks.get(c, '')})" for c in chars),
                                "; ".join(f"{n} ({looks.get(n, '')[:80]})" for n in names.values()),
                                reference_board(refs) if refs else None); r["vlm"] = vj
-                txt = [t for t in (vj.get("visible_text") or []) if len(re.sub(r"\W", "", str(t))) >= 2]
-                if txt:   # generated text is never wanted (subtitles are added in post, not present in raw clips)
-                    r["visible_text"] = txt
-                r["gates"]["visual.text"] = not txt
+                items = [t if isinstance(t, dict) else {"text": str(t), "garbled": True, "prominent": True}
+                         for t in (vj.get("visible_text") or [])]
+                r["visible_text"] = items
+                # calibrated: plausible small text (badge numbers, safety labels) is fine; garbled AND prominent fails
+                def broken(t):   # deterministic: an adjacent repeated token ("2路 路") is generator garbage
+                    toks = re.findall(r"[\u4e00-\u9fff]|[A-Za-z]+|\d+", str(t))
+                    return any(a == b and not a.isdigit() for a, b in zip(toks, toks[1:]))
+                bad = [t["text"] for t in items if t.get("prominent") and (t.get("garbled") or broken(t.get("text")))
+                       and "REFERENCE" not in str(t.get("text", "")).upper()]
+                r["gates"]["visual.text"] = not bad
+                if bad:
+                    r["bad_text"] = bad
                 mism = [m for m in (vj.get("identity_mismatch") or []) if m]
                 if chars:
+                    if vj.get("human_glowing_eyes"):
+                        mism = mism + ["glowing human eyes"]
                     r["gates"]["visual.identity"] = not mism
                     if mism:
                         r["identity_mismatch"] = mism
-                r["gates"]["visual.vlm"] = bool(not vj.get("garbled_text") and not vj.get("captions_or_subtitles")
+                r["advisory"]["visual.vlm"] = bool(not vj.get("garbled_text") and not vj.get("captions_or_subtitles")
                                                 and not vj.get("human_glowing_eyes")
                                                 and (not chars or vj.get("expected_characters_present", True)
                                                      or int(vj.get("figures_visible") or 0) >= len(chars))
@@ -266,7 +293,8 @@ def main():
     total = [g for x in shots for g in x.get("gates", {}).values()] + list(film_gates.values())
     report = {"run": str(run), "film": str(film), "film_length": round(flen, 2), "planned_length": round(planned, 2),
               "voice_min_similarity": vsim, "content": content, "loudness_range_db": [min(vv), max(vv)] if vv else None,
-              "film_gates": film_gates, "shots": shots, "passed": sum(total), "total": len(total), "all_pass": all(total)}
+              "film_gates": film_gates, "shots": shots,
+              "vlm_errors": sum(1 for x in shots if x.get("vlm_error")), "passed": sum(total), "total": len(total), "all_pass": all(total)}
     out = run / ("qa_report_post" if a.post else "qa_report")
     out.with_suffix(".json").write_text(json.dumps(report, ensure_ascii=False, indent=1))
     md = [f"# QA report — {run.name}", f"film {flen:.1f}s (planned {planned:.1f}s) · gates {sum(total)}/{len(total)} · "

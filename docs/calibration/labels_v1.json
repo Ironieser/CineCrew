@@ -1,0 +1,104 @@
+{
+ "labels": {
+  "LB5:shot_01": {
+   "ok": 1
+  },
+  "LB5:shot_02": {
+   "ok": 1
+  },
+  "LB5:shot_03": {
+   "ok": 1
+  },
+  "LB5:shot_04": {
+   "ok": 1
+  },
+  "LB5:shot_05": {
+   "ok": 0,
+   "text": 1,
+   "action": 1,
+   "time": 1
+  },
+  "LB5:shot_06": {
+   "ok": 0,
+   "time": 1
+  },
+  "LB5:shot_07": {
+   "ok": 1
+  },
+  "LB5:shot_08": {
+   "ok": 1
+  },
+  "LB5:shot_09": {
+   "ok": 1
+  },
+  "LB5:shot_10": {
+   "ok": 1
+  },
+  "LB5:shot_11": {
+   "ok": 1
+  },
+  "LD2:shot_01": {
+   "ok": 1
+  },
+  "LD2:shot_02": {
+   "ok": 0,
+   "identity": 1
+  },
+  "LD2:shot_03": {
+   "ok": 1
+  },
+  "LD2:shot_04": {
+   "ok": 1
+  },
+  "LD2:shot_05": {
+   "ok": 0,
+   "identity": 1
+  },
+  "LD2:shot_06": {
+   "ok": 1
+  },
+  "LD2:shot_07": {
+   "ok": 1
+  },
+  "LD2:shot_08": {
+   "ok": 0,
+   "identity": 1
+  },
+  "LD2:shot_09": {
+   "ok": 1
+  },
+  "LB4:shot_01": {
+   "ok": 1
+  },
+  "LB4:shot_02": {
+   "ok": 1
+  },
+  "LB4:shot_03": {
+   "ok": 1
+  },
+  "LB4:shot_04": {
+   "ok": 0,
+   "text": 1
+  },
+  "LB4:shot_05": {
+   "ok": 1
+  },
+  "LB4:shot_06": {
+   "ok": 1
+  },
+  "LB4:shot_07": {
+   "ok": 1
+  },
+  "LB4:shot_08": {
+   "ok": 0,
+   "text": 1
+  },
+  "LB4:shot_09": {
+   "ok": 1
+  },
+  "LB4:shot_10": {
+   "ok": 1
+  }
+ },
+ "note": "first-pass labels by Claude from 3 frames per shot; to be spot-checked by the user"
+}

@@ -27,7 +27,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PY = sys.executable
 # dead air is not a reason to regenerate: post_production trims it (it is still graded on the post film)
-SHOT_GATES = ("audio.asr", "visual.review", "visual.vlm", "visual.continuity", "visual.text", "visual.identity")
+# hard gates only (calibrated on data/calib); judge / generic VLM verdicts are advisory
+SHOT_GATES = ("audio.asr", "visual.continuity", "visual.text", "visual.identity")
 
 
 def sh(*args, env=None):
@@ -37,7 +38,11 @@ def sh(*args, env=None):
 
 def qa(run: Path, hint: str, post=False) -> dict:
     sh("python3", "tools/qa_report.py", run, "--hint", hint, *(["--post"] if post else []))
-    return json.loads((run / ("qa_report_post.json" if post else "qa_report.json")).read_text())
+    rep = json.loads((run / ("qa_report_post.json" if post else "qa_report.json")).read_text())
+    if rep.get("vlm_errors"):   # a checker that crashed must not read as a pass
+        sys.exit(f"[produce] the VLM check failed on {rep['vlm_errors']} shot(s) (see vlm_error in the report); "
+                 "fix the checker or the LLM endpoint before trusting this round")
+    return rep
 
 
 def main():

@@ -1,0 +1,272 @@
+[
+ {
+  "id": "LB5:shot_01_bus_rain_night",
+  "gates_v1": {
+   "visual.review": true,
+   "visual.vlm": true,
+   "visual.continuity": true
+  }
+ },
+ {
+  "id": "LB5:shot_02_lao_zhou_driving",
+  "gates_v1": {
+   "visual.review": true,
+   "visual.vlm": true,
+   "visual.continuity": false
+  }
+ },
+ {
+  "id": "LB5:shot_03_bus_stops_terminal",
+  "gates_v1": {
+   "visual.review": true,
+   "visual.vlm": true,
+   "visual.continuity": true
+  }
+ },
+ {
+  "id": "LB5:shot_04_lao_zhou_calls_dispatch",
+  "gates_v1": {
+   "audio.asr": true,
+   "audio.dead_air": true,
+   "visual.review": true,
+   "visual.vlm": true,
+   "visual.continuity": true
+  }
+ },
+ {
+  "id": "LB5:shot_05_bus_turns_back_rain",
+  "gates_v1": {
+   "visual.review": false,
+   "visual.vlm": true,
+   "visual.continuity": true
+  }
+ },
+ {
+  "id": "LB5:shot_06_xiao_yu_wakes_up",
+  "gates_v1": {
+   "audio.asr": true,
+   "audio.dead_air": true,
+   "visual.review": true,
+   "visual.vlm": true,
+   "visual.continuity": false
+  }
+ },
+ {
+  "id": "LB5:shot_07_lao_zhou_replies_home",
+  "gates_v1": {
+   "audio.asr": true,
+   "audio.dead_air": true,
+   "visual.review": false,
+   "visual.vlm": true,
+   "visual.continuity": true
+  }
+ },
+ {
+  "id": "LB5:shot_08_xiao_yu_smiles_thanks",
+  "gates_v1": {
+   "audio.asr": true,
+   "audio.dead_air": false,
+   "visual.review": true,
+   "visual.vlm": true,
+   "visual.continuity": true
+  }
+ },
+ {
+  "id": "LB5:shot_09_xiao_yu_gives_umbrella",
+  "gates_v1": {
+   "audio.asr": false,
+   "audio.dead_air": false,
+   "visual.review": false,
+   "visual.vlm": true,
+   "visual.continuity": true
+  }
+ },
+ {
+  "id": "LB5:shot_10_lao_zhou_holds_umbrella",
+  "gates_v1": {
+   "visual.review": true,
+   "visual.vlm": true,
+   "visual.continuity": true
+  }
+ },
+ {
+  "id": "LB5:shot_11_xiao_yu_runs_to_building",
+  "gates_v1": {
+   "visual.review": true,
+   "visual.vlm": true,
+   "visual.continuity": true
+  }
+ },
+ {
+  "id": "LD2:shot_01_library_afternoon",
+  "gates_v1": {
+   "visual.review": true,
+   "visual.vlm": true,
+   "visual.continuity": true
+  }
+ },
+ {
+  "id": "LD2:shot_02_a_jie_enters",
+  "gates_v1": {
+   "visual.review": true,
+   "visual.vlm": true,
+   "visual.continuity": true
+  }
+ },
+ {
+  "id": "LD2:shot_03_a_jie_returns_book",
+  "gates_v1": {
+   "audio.asr": true,
+   "audio.dead_air": true,
+   "visual.review": true,
+   "visual.vlm": true,
+   "visual.continuity": true
+  }
+ },
+ {
+  "id": "LD2:shot_04_auntie_chen_reacts",
+  "gates_v1": {
+   "audio.asr": true,
+   "audio.dead_air": true,
+   "visual.review": false,
+   "visual.vlm": false,
+   "visual.continuity": true
+  }
+ },
+ {
+  "id": "LD2:shot_05_doudou_pays_fine",
+  "gates_v1": {
+   "visual.review": true,
+   "visual.vlm": true,
+   "visual.continuity": true
+  }
+ },
+ {
+  "id": "LD2:shot_06_auntie_chen_smiles",
+  "gates_v1": {
+   "audio.asr": true,
+   "audio.dead_air": true,
+   "visual.review": true,
+   "visual.vlm": true,
+   "visual.continuity": true
+  }
+ },
+ {
+  "id": "LD2:shot_07_a_jie_explains",
+  "gates_v1": {
+   "audio.asr": true,
+   "audio.dead_air": true,
+   "visual.review": false,
+   "visual.vlm": true,
+   "visual.continuity": true
+  }
+ },
+ {
+  "id": "LD2:shot_08_auntie_chen_pays_back",
+  "gates_v1": {
+   "audio.asr": true,
+   "audio.dead_air": false,
+   "visual.review": true,
+   "visual.vlm": true,
+   "visual.continuity": true
+  }
+ },
+ {
+  "id": "LD2:shot_09_a_jie_and_doudou_leave",
+  "gates_v1": {
+   "visual.review": true,
+   "visual.vlm": true,
+   "visual.continuity": true
+  }
+ },
+ {
+  "id": "LB4:shot_01_bus_rain_night",
+  "gates_v1": {
+   "visual.review": true,
+   "visual.vlm": true,
+   "visual.continuity": true
+  }
+ },
+ {
+  "id": "LB4:shot_02_lao_zhou_driving",
+  "gates_v1": {
+   "visual.review": true,
+   "visual.vlm": true,
+   "visual.continuity": true
+  }
+ },
+ {
+  "id": "LB4:shot_03_lao_zhou_calls_dispatch",
+  "gates_v1": {
+   "audio.asr": true,
+   "audio.dead_air": true,
+   "visual.review": true,
+   "visual.vlm": true,
+   "visual.continuity": true
+  }
+ },
+ {
+  "id": "LB4:shot_04_bus_turns_at_terminal",
+  "gates_v1": {
+   "visual.review": false,
+   "visual.vlm": true,
+   "visual.continuity": true
+  }
+ },
+ {
+  "id": "LB4:shot_05_xiao_yu_wakes_up",
+  "gates_v1": {
+   "audio.asr": true,
+   "audio.dead_air": true,
+   "visual.review": true,
+   "visual.vlm": true,
+   "visual.continuity": true
+  }
+ },
+ {
+  "id": "LB4:shot_06_lao_zhou_replies",
+  "gates_v1": {
+   "audio.asr": true,
+   "audio.dead_air": true,
+   "visual.review": true,
+   "visual.vlm": true,
+   "visual.continuity": true
+  }
+ },
+ {
+  "id": "LB4:shot_07_xiao_yu_thanks",
+  "gates_v1": {
+   "audio.asr": true,
+   "audio.dead_air": true,
+   "visual.review": true,
+   "visual.vlm": true,
+   "visual.continuity": true
+  }
+ },
+ {
+  "id": "LB4:shot_08_xiao_yu_gives_umbrella",
+  "gates_v1": {
+   "audio.asr": true,
+   "audio.dead_air": false,
+   "visual.review": true,
+   "visual.vlm": true,
+   "visual.continuity": true
+  }
+ },
+ {
+  "id": "LB4:shot_09_lao_zhou_holds_umbrella",
+  "gates_v1": {
+   "visual.review": true,
+   "visual.vlm": true,
+   "visual.continuity": true
+  }
+ },
+ {
+  "id": "LB4:shot_10_xiao_yu_enters_building",
+  "gates_v1": {
+   "visual.review": true,
+   "visual.vlm": true,
+   "visual.continuity": true
+  }
+ }
+]
