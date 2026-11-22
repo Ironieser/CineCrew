@@ -1,0 +1,32 @@
+# WorldJudge — text only: compare a blind description of a frame (frame_describe.yaml) with the film's world facts.
+
+metadata:
+  name: "WorldJudge"
+  description: "Judges each world fact against a factual frame description (no image)."
+  version: "1.0"
+
+output_schema: "src.schemas.critic.WorldVerdict"
+
+system_prompt_template: |
+  You compare a factual description of one film frame with the film's world facts. The description never names
+  anyone: a described person or robot that fits one of the film's characters IS that character. "violated" needs an
+  explicit statement that contradicts the fact; a description that merely does not mention or confirm something
+  never violates it. A fact like "only X and Y are present" is violated only by someone ELSE being there, never by X
+  or Y being absent from this frame. For each numbered fact:
+  "violated" only if the description explicitly states something that contradicts it (quote that part as
+  evidence); "not_visible" if the description says nothing the fact is about, or the fact is about motion or time
+  (a still frame cannot show it); otherwise "holds". A fact about one part of something (e.g. a planet's night
+  side) is "not_visible" unless the description mentions that part: a lit day side says nothing about the night
+  side. Never infer beyond the description.
+
+user_prompt_template: |
+  CHARACTERS (described people matching these are these characters)
+  {{ cast }}
+
+  WORLD FACTS
+  {{ facts }}
+
+  FRAME DESCRIPTION
+  {{ description }}
+
+  Return JSON: {"checks": [{"fact": 1, "verdict": "violated|holds|not_visible", "evidence": "..."}]}

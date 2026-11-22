@@ -20,12 +20,16 @@ from ...schemas.critic import FrameCheck
 from .visual_judge import _reference_images, _reference_sheet
 
 _HERE = Path(__file__).resolve().parent
+# built-in fact checked for every frame (generators duplicate planets / suns across a window and a sky)
+BUILTIN_FACTS = ["Each one-of-a-kind celestial body (a particular planet, the sun, a moon) appears at most once."]
 _DARK = {"night": {"night"}, "dusk": {"dusk", "night", "day"}, "dawn": {"dawn", "day", "dusk"}, "day": {"day", "dusk", "dawn"}}
 
 
 class FrameCheckAgent:
     def __init__(self):
         self._agent = ConfigurableAgent(config_path=str(_HERE / "frame_check.yaml"))
+        self._describe = ConfigurableAgent(config_path=str(_HERE / "frame_describe.yaml"))
+        self._world = ConfigurableAgent(config_path=str(_HERE / "world_judge.yaml"))
 
     def check(self, image: str, shot: ShotBlueprint, library: AssetLibrary, expected: List[str]) -> FrameCheck:
         refs = [r for r in _reference_images(shot, limit=4) if r[0] in expected] or _reference_images(shot, limit=4)
@@ -36,15 +40,23 @@ class FrameCheckAgent:
         note = (f"The LAST image is a labelled board of the expected characters' reference sheets "
                 f"({', '.join(names.get(a, a) for a, _ in refs)}), canon for appearance; it is not the keyframe."
                 if board else "No reference images are given.")
-        return self._agent.run(
+        fc = self._agent.run(
             images=[image] + ([str(board)] if board else []),
             reference_note=note,
             expected=", ".join(f"{names.get(c, c)}" for c in expected) or "none (no characters)",
             cast="; ".join(f"{c.name} ({(c.description or '')[:80]})" for c in library.characters),
-            facts=" ".join(f"({i}) {f}" for i, f in enumerate(cont.world_facts, 1)) if cont and cont.world_facts else "none given",
             continuity=continuity_sentence(cont, library, set(expected)) if cont else "none",
             action=shot.narrative_layer.narrative_action,
         )
+        if True:   # describe blind, then judge the facts from the text (no priming)
+            facts = BUILTIN_FACTS + (list(cont.world_facts) if cont else [])
+            desc = self._describe.run(images=[image])
+            wv = self._world.run(cast="; ".join(f"{c.name}: {(c.description or '')[:100]}" for c in library.characters),
+                                 facts=" ".join(f"({i}) {f}" for i, f in enumerate(facts, 1)),
+                                 description=desc.model_dump_json())
+            fc.world_checks = wv.checks
+            fc.fix = (fc.fix + " " if fc.fix else "") + f"[seen: {desc.outside_view[:200]}]"
+        return fc
 
     @staticmethod
     def failures(fc: FrameCheck, shot: ShotBlueprint, expected_names: List[str]) -> List[str]:
@@ -56,8 +68,15 @@ class FrameCheckAgent:
             out.append("missing: " + ", ".join(missing))
         if fc.strangers:
             out.append("a person outside the cast appears")
-        if fc.world_violations:
-            out.append("contradicts the film's world: " + "; ".join(fc.world_violations))
+        cont0 = shot.narrative_layer.continuity
+        facts = BUILTIN_FACTS + ((cont0.world_facts if cont0 else []) or [])
+        viol = []
+        for c in fc.world_checks:
+            if str(c.get("verdict", "")).lower() == "violated" and c.get("evidence"):
+                i = int(c.get("fact") or 0)
+                viol.append(f"{facts[i - 1] if 1 <= i <= len(facts) else '?'} (seen: {c.get('evidence')})")
+        if viol:
+            out.append("contradicts the film's world: " + "; ".join(viol))
         if fc.bad_text:
             out.append("garbled text: " + "; ".join(fc.bad_text[:3]))
         cont = shot.narrative_layer.continuity

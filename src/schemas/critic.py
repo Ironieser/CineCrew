@@ -14,7 +14,7 @@ Dailies Reviewer schemas.
                      VisualJudgeAgent inside the execution loop (accept or retry).
 """
 
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from pydantic import BaseModel, Field
 
 
@@ -96,7 +96,21 @@ class FrameCheck(BaseModel):
     identity_mismatch: List[str] = Field(default_factory=list)
     missing_characters: List[str] = Field(default_factory=list)
     strangers: bool = False
-    world_violations: List[str] = Field(default_factory=list)
+    world_checks: List[Dict[str, Any]] = Field(default_factory=list, description="[{fact, verdict, evidence}]")
     bad_text: List[str] = Field(default_factory=list)
     time_of_day: str = "unclear"
     fix: str = ""
+
+
+
+class FrameDescription(BaseModel):
+    """Blind description of a keyframe (frame_describe.yaml)."""
+    people: List[str] = Field(default_factory=list)
+    outside_view: str = ""
+    objects: List[str] = Field(default_factory=list)
+    visible_text: List[str] = Field(default_factory=list)
+
+
+class WorldVerdict(BaseModel):
+    """Per-fact verdicts of world_judge.yaml: [{fact, verdict, evidence}]."""
+    checks: List[Dict[str, Any]] = Field(default_factory=list)

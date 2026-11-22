@@ -78,6 +78,11 @@ class T2IClient:
             handles = [open(p, "rb") for p in reference_images]
             try:
                 kwargs["model"] = model or self._edit_model
+                if Config.T2I_EDIT_STEPS:
+                    kwargs["extra_body"] = {**kwargs["extra_body"], "num_inference_steps": int(Config.T2I_EDIT_STEPS)}
+                if Config.T2I_EDIT_CFG:
+                    kwargs["extra_body"] = {**kwargs["extra_body"], "true_cfg_scale": float(Config.T2I_EDIT_CFG),
+                                            "guidance_scale": float(Config.T2I_EDIT_CFG)}
                 response = self._edit_client.images.edit(image=handles, **kwargs)
             finally:
                 for h in handles:

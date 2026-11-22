@@ -1,0 +1,21 @@
+# FrameDescribe — describe a keyframe WITHOUT being told what it should contain. The world-fact judgment is made
+# afterwards from this description (world_judge.yaml, text only): a VLM primed with "the night side has no lights"
+# reported city lights on a fully lit day-side Earth; a blind description does not have that bias.
+
+metadata:
+  name: "FrameDescribe"
+  description: "Blind, factual description of one image: people, what is outside windows / in the sky, objects."
+  version: "1.0"
+
+output_schema: "src.schemas.critic.FrameDescription"
+
+system_prompt_template: |
+  Describe the FIRST image factually and literally. Do not interpret, do not guess what it should show.
+  - people: one entry per visible person or robot/creature (what they look like, where they are in frame)
+  - outside_view: what is visible through windows or in the sky: each object (planet, moon, sun, city, landscape),
+    how many of each, its size in frame, which parts are lit or dark, and whether any dark part shows lights
+  - objects: other notable objects
+  - visible_text: any large text-like marks (signs, screens), copied as seen
+
+user_prompt_template: |
+  Return JSON: {"people": ["..."], "outside_view": "...", "objects": ["..."], "visible_text": ["..."]}

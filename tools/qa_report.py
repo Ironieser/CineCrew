@@ -76,7 +76,7 @@ Answer ONLY JSON: {{"garbled_text": bool, "captions_or_subtitles": bool, "human_
 "figures_visible": int, "visible_text": [{{"text": "...", "garbled": bool, "prominent": bool}}],
 "identity_mismatch": ["names of expected characters who do NOT look like their reference image"],
 "expected_characters_present": bool, "wrong_extra_person": bool, "duplicated_unique_object": bool, "time_of_day": "day|dusk|night|unclear", "raining": "yes|no|unclear",
-"world_checks": [{{"fact": 1, "verdict": "violated|holds|not_visible", "evidence": "what in the frames shows it"}}],
+
 "notes": "short"}}
 - garbled_text: any malformed/fake lettering visible (signs, labels, screens). Ignore abstract waveforms and icons.
 - human_glowing_eyes: a human's eyes emit light (not just reflections).
@@ -94,9 +94,6 @@ Answer ONLY JSON: {{"garbled_text": bool, "captions_or_subtitles": bool, "human_
   confirm identity, only that nobody expected is missing.
 - wrong_extra_person: a prominent person who matches NONE of the film's cast (a stranger), or a cast member shown
   twice. A cast member at the edge or in the background is fine.
-- world_checks: the film's world facts, numbered: {facts}. Judge EACH fact separately: "violated" only when the
-  frames clearly show the opposite (e.g. the window shows the Moon where the fact says Earth), with the visible
-  evidence; "not_visible" when the frames do not show what the fact is about (e.g. no planet in view); else "holds".
 - time_of_day: judge from the sky, windows and light (an interior with black windows and lamps on is night).
 - raining: rain drops, wet streaks on windows, wet reflective streets, umbrellas in use.
 - duplicated_unique_object: a one-of-a-kind object appears twice in one frame (two Earths, two suns, two moons, the same person twice)."""
@@ -114,6 +111,25 @@ def reference_board(refs):
     for n, t in tiles:
         board.paste(t, (x, 50)); d.text((x, h + 60), n, fill=(255, 255, 255)); x += t.width + 20
     out = Path(tempfile.mkdtemp()) / "refs.jpg"; board.save(out, quality=88)
+    return out
+
+
+def world_checks(frame, facts, cast=""):
+    """Describe the frame blind, then judge the world facts from the text (a VLM primed with the facts reports what
+    it was told to look for). Same agents as the keyframe FrameCheck."""
+    from src.engine import ConfigurableAgent
+    from src.agents.dailies_reviewer.frame_check import BUILTIN_FACTS
+    d = ROOT / "src" / "agents" / "dailies_reviewer"
+    desc = ConfigurableAgent(config_path=str(d / "frame_describe.yaml")).run(images=[str(frame)])
+    allf = BUILTIN_FACTS + list(facts)
+    wv = ConfigurableAgent(config_path=str(d / "world_judge.yaml")).run(cast=cast or "unknown",
+        facts=" ".join(f"({i}) {f}" for i, f in enumerate(allf, 1)), description=desc.model_dump_json())
+    out = []
+    for c in wv.checks:   # re-index onto the story's own facts (built-ins first)
+        c = dict(c); i = int(c.get("fact") or 0)
+        c["fact"] = i - len(BUILTIN_FACTS) if i > len(BUILTIN_FACTS) else i
+        c["text"] = allf[i - 1] if 1 <= i <= len(allf) else "?"
+        out.append(c)
     return out
 
 
@@ -228,7 +244,8 @@ def main():
             try:
                 refs = [(c, sheet_of[c] if Path(sheet_of[c]).is_absolute() else str(ROOT / sheet_of[c]))
                         for c in chars if sheet_of.get(c)]
-                vj = vlm_check(frames(raw_clip.get(s["shot_id"], clip)),
+                frames_used = frames(raw_clip.get(s["shot_id"], clip))
+                vj = vlm_check(frames_used,
                                "; ".join(f"{c} ({looks.get(c, '')})" for c in chars),
                                "; ".join(f"{n} ({looks.get(n, '')[:80]})" for n in names.values()),
                                reference_board(refs) if refs else None,
@@ -254,11 +271,11 @@ def main():
                         r["identity_mismatch"] = mism
                 facts = (ledger.get(s["shot_id"]) or {}).get("world_facts") or []
                 wv = []
-                for c in (vj.get("world_checks") or []):
+                for c in world_checks(frames_used[len(frames_used) // 2], facts,
+                                      "; ".join(f"{n}: {looks.get(n, '')[:100]}" for n in names.values())):
                     if isinstance(c, dict) and str(c.get("verdict", "")).lower() == "violated" and c.get("evidence"):
-                        i = int(c.get("fact") or 0)
-                        wv.append(f"{facts[i - 1] if 1 <= i <= len(facts) else '?'} — seen: {c.get('evidence')}")
-                if (ledger.get(s["shot_id"]) or {}).get("world_facts"):
+                        wv.append(f"{c.get('text', '?')} — seen: {c.get('evidence')}")
+                if True:   # built-in facts (one-of-a-kind bodies appear once) apply to every shot
                     r["gates"]["visual.world"] = not wv
                     if wv:
                         r["world_violations"] = wv

@@ -16,6 +16,7 @@ lose exactly this kind of state between independently rendered shots; the ledger
 """
 
 import logging
+import re
 from pathlib import Path
 from typing import List
 
@@ -44,8 +45,9 @@ class ScriptSupervisorAgent:
         try:
             plan = self._agent.run(script=script, characters=chars, props=props, shots=shots)
             by_id = {x.shot_id: x.continuity for x in plan.shots}
+            facts = [clean_fact(f) for f in plan.world_facts]
             for c in by_id.values():      # story-wide facts travel with every shot's entry
-                c.world_facts = list(plan.world_facts)
+                c.world_facts = [f for f in facts if f]
         except Exception as e:
             logger.warning("ScriptSupervisor LLM call failed (%s); ledger left empty", e)
             return blueprint
@@ -93,6 +95,18 @@ class ScriptSupervisorAgent:
             shot.narrative_layer.continuity = cur
             prev = cur
         return notes
+
+
+_EXPLAIN = re.compile(r",?\s*(?:indicating|suggesting|which (?:means|shows|indicates)|meaning|implying|as if|showing that)\b[^.;]*",
+                      re.I)
+
+
+def clean_fact(f: str) -> str:
+    """World facts must be checkable from frames: drop explanatory clauses ("..., indicating abandonment") and turn
+    'motionless' (a checker reads a spinning planet as moving) into 'stays at the same place in the sky'."""
+    f = _EXPLAIN.sub("", f or "").strip().rstrip(",;")
+    f = re.sub(r"\bmotionless\b", "staying at the same place (it may still spin)", f, flags=re.I)
+    return f if f.endswith(".") else (f + "." if f else f)
 
 
 def continuity_sentence(c: ContinuityState, library: AssetLibrary, on_screen=None) -> str:

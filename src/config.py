@@ -85,6 +85,9 @@ class Config:
     # reference-conditioned edits (TI2I keyframes) may live on a different server than text-to-image (e.g. sheets)
     T2I_EDIT_BASE_URL = _env("T2I_EDIT_BASE_URL") or T2I_BASE_URL
     T2I_EDIT_MODEL = _env("T2I_EDIT_MODEL") or T2I_MODEL
+    # distilled edit models (e.g. a Lightning LoRA) need their step count and no CFG; empty = server defaults
+    T2I_EDIT_STEPS = _env("T2I_EDIT_STEPS", default="")
+    T2I_EDIT_CFG = _env("T2I_EDIT_CFG", default="")
 
     # ── Video (T2V / I2V execution of the FilmDSL jobs) ──────────────────────
     VIDEO_MODEL = _env("VIDEO_MODEL", default="wan22-t2v")  # wan22-t2v | wan22-i2v
