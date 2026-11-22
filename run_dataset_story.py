@@ -102,6 +102,26 @@ def load_story(story_dir: Path) -> tuple[str, list[str], dict[str, Path]]:
     return script_content, character_names, char_images
 
 
+def link_prop_images(asset_library, prop_dir: Path) -> None:
+    """
+    Link <story_dir>/prop_list/<Name>/best.png to the matching prop (name or id, case/space-insensitive).
+    A prop image can come from anywhere — a photo, or a code render where physical accuracy matters (a planet
+    with a dark night side); keyframes of shots that stage the prop use it as a reference picture.
+    """
+    from src.schemas.assets import VisualReferences
+    if not prop_dir.is_dir():
+        return
+    norm = lambda s: "".join(ch for ch in s.lower() if ch.isalnum())
+    for d in sorted(p for p in prop_dir.iterdir() if p.is_dir()):
+        img = next((d / n for n in ("best.png", "best.jpg") if (d / n).exists()), None)
+        if img is None:
+            continue
+        for prop in asset_library.props:
+            if norm(d.name) in (norm(prop.name), norm(prop.id), norm(prop.id.replace("prop_", ""))):
+                prop.visual_references = VisualReferences(canonical_image_path=_relative(img))
+                print(f"   🖼  [{prop.id}] linked prop image: {img.name}", flush=True)
+
+
 def link_character_images(asset_library, char_images: dict[str, Path]) -> None:
     """
     Link the reference images in character_list/ to the
@@ -228,6 +248,8 @@ def run_story(
 
     print("\n🔗 Linking character reference images...", flush=True)
     link_character_images(asset_library, char_images)
+    if story_dir is not None:
+        link_prop_images(asset_library, Path(story_dir) / "prop_list")
     if _stage_option("art_department", "generate_references", False):
         wb.generate_references(asset_library, assets_base)
         missing = [c.id for c in asset_library.characters

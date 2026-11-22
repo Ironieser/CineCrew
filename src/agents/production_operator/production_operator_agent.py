@@ -303,6 +303,20 @@ class ProductionOperatorAgent:
         prompt = img.resolved_ti2i if (refs and img.resolved_ti2i) else img.resolved_t2i
         if not prompt:
             return
+        # props staged in this shot that have a reference picture (critical first): exact look, e.g. a code-rendered
+        # planet whose night side must be dark
+        if library is not None and shot.staging_layer:
+            staged = [library.get_prop_by_id(e.asset_id) for e in shot.staging_layer.entities
+                      if hasattr(library, "get_prop_by_id")]
+            staged = [p for p in staged if p and p.visual_references and p.visual_references.canonical_image_path
+                      and Path(p.visual_references.canonical_image_path).exists()]
+            staged.sort(key=lambda p: {"critical": 0, "supporting": 1}.get(p.importance, 2))
+            for p in staged:
+                if len(refs) >= 3:
+                    break
+                refs = refs + [p.visual_references.canonical_image_path]
+                prompt = (f"{prompt}\nPicture {len(refs)} is the {p.name}: reproduce it exactly as shown "
+                          f"(shape, lit and dark parts, colours).")
         # the location's establishing shot as one more reference: the same set in every shot of the scene
         env = shot.staging_layer.environment_id if shot.staging_layer else None
         loc = library.get_location_by_id(env) if (library and env and hasattr(library, "get_location_by_id")) else None

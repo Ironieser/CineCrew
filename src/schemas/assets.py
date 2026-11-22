@@ -142,6 +142,9 @@ class PropAsset(BaseModel):
         default="supporting",
         description="How important this prop is to the narrative (critical=plot essential, supporting=scene enhancement, background=ambient detail)"
     )
+    visual_references: Optional["VisualReferences"] = Field(
+        None, description="Reference image of the prop (supplied in prop_list/ or rendered by code); conditions keyframes"
+    )
     usage_count: int = Field(default=0, description="How many times this prop appears")
     
     # Phase 2: Visual References (T2I generated images)

@@ -286,16 +286,20 @@ def create(fields: dict, upload: bytes = None) -> dict:
                 f"composition, set, lighting and the characters' positions.")
         h3_prompt = h3_prompt.replace("\n\nsummary:", f"\n{line}\n\nsummary:", 1) if "\n\nsummary:" in h3_prompt \
             else f"{line}\n{h3_prompt}"
-    if fl2va_first:
+    kf_end = None
+    if fl2va_first:   # pin both ends to checked frames: the start frame, and the end derived from it by the camera move
+        kf_end = end_frame(kf, prompt, dur)
         h3_prompt = ("How the reference pictures align with the target video — Picture 1 (from Shot 1) aligns with the "
-                     "0.00-second mark of the target video.\n\n" + h3_prompt)
+                     f"0.00-second mark of the target video; Picture 2 (from Shot 1) aligns with the {dur:.2f}-second mark "
+                     "of the target video.\n\n" + h3_prompt)
     body = {"model": "MiniMaxAI/MiniMax-H3", "prompt": h3_prompt, "seconds": int(dur), "num_outputs_per_prompt": 1,
             "num_inference_steps": STEPS, "flow_shift": 12.0, "audio_flow_shift": 3.0,
             "target": {"short_edge": 768, "aspect_ratio": "16:9", "duration_seconds": dur}}
     if extra.get("seed") is not None:
         body["seed"] = int(extra["seed"])
     if fl2va_first:
-        body.update(task="fl2va", conditions=[{"type": "image", "uri": upload_ref(kf), "role": "keyframe", "frame_index": 0}])
+        body.update(task="fl2va", conditions=[{"type": "image", "uri": upload_ref(kf), "role": "keyframe", "frame_index": 0},
+                                              {"type": "image", "uri": upload_ref(kf_end), "role": "keyframe", "frame_index": -1}])
         base = pick(FL2VA_URLS)
     elif subjects:
         body.update(task="ref2va", conditions=[{"type": "image", "uri": upload_ref(s["image"]), "role": "reference"} for s in subjects]
@@ -539,6 +543,23 @@ def harvest_voice(clip: Path, image: str, line: str) -> None:
                     "-i", str(clip), "-ac", "1", "-ar", "24000", "-af", "loudnorm=I=-20", str(out)], check=True)
     out.with_suffix(".txt").write_text(line)
     print(f"[h3_proxy] voice memory: {out.name} ({t1 - t0:.1f}s) from {clip.name}", flush=True)
+
+
+def end_frame(kf: str, prompt: str, dur: float) -> str:
+    """Last frame for a silent keyframe shot, derived deterministically from the checked first frame: a push-in /
+    dolly-in / zoom-in becomes a centred crop (the camera moved closer), anything else keeps the frame. Without a
+    pinned end the 8-step model drifts (EchoStation: a second Earth appeared mid-shot)."""
+    from PIL import Image
+    p = Path(kf) if Path(kf).is_absolute() else ROOT / kf
+    im = Image.open(p).convert("RGB")
+    low = (prompt or "").lower()
+    if re.search(r"push(es|ing)?[ -]in|dolly(ing)?[ -]in|zoom(s|ing)?[ -]in|moves? (in|closer)|pushes? toward", low):
+        k = 0.82 if dur >= 5 else 0.88
+        w, h = im.size; cw, ch = int(w * k), int(h * k)
+        im = im.crop(((w - cw) // 2, (h - ch) // 2, (w + cw) // 2, (h + ch) // 2)).resize((w, h), Image.LANCZOS)
+    out = LOG_DIR / f"end_{p.stem}_{uuid.uuid4().hex[:6]}.png"
+    im.save(out)
+    return str(out)
 
 
 def status(pid: str) -> dict:
