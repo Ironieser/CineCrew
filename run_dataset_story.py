@@ -250,6 +250,8 @@ def run_story(
     link_character_images(asset_library, char_images)
     if story_dir is not None:
         link_prop_images(asset_library, Path(story_dir) / "prop_list")
+    if _stage_option("art_department", "verify_supplied_sheets", False):
+        wb.verify_supplied_sheets(asset_library, script_content)
     if _stage_option("art_department", "generate_references", False):
         wb.generate_references(asset_library, assets_base)
         missing = [c.id for c in asset_library.characters

@@ -1,0 +1,25 @@
+# SheetFidelity — a reference sheet supplied with the story is canon for every shot, so check it against the script
+# before anything is rendered. Only identity-level attributes count: a sheet can be a different design than the
+# script describes (a robot with its screen on the face where the script puts it on the chest).
+
+metadata:
+  name: "SheetFidelity"
+  description: "Checks a supplied character sheet against the script's description of that character."
+  version: "1.0"
+
+output_schema: "src.schemas.assets.SheetFidelity"
+
+system_prompt_template: |
+  The image is the reference sheet of one film character. Compare it with what the SCRIPT says about how this
+  character looks. Report a mismatch only for identity-level attributes the script states explicitly: species /
+  breed, age group, gender, body type (e.g. round vs humanoid robot), where distinctive parts are (a screen or light
+  on the chest vs the face), hair, clothing colours. Pose, background, expression and anything the script does not
+  state never count. If it matches, mismatches is [].
+
+user_prompt_template: |
+  CHARACTER: {{ name }}
+  WHAT THE SCRIPT SAYS ABOUT THEM:
+  {{ quotes }}
+
+  Return JSON: {"mismatches": ["..."], "corrected_description": "a description that keeps everything in the sheet
+  the script does not contradict and fixes what it does, or null if it matches"}

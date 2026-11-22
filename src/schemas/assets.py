@@ -213,3 +213,10 @@ class CharacterFidelity(BaseModel):
 class AssetFidelityReport(BaseModel):
     """AssetFidelity output: character descriptions checked against the script (art_department/asset_fidelity.yaml)."""
     characters: List[CharacterFidelity] = Field(default_factory=list)
+
+
+
+class SheetFidelity(BaseModel):
+    """SheetFidelity output: a supplied reference sheet checked against the script."""
+    mismatches: List[str] = Field(default_factory=list)
+    corrected_description: Optional[str] = None

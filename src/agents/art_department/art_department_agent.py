@@ -202,6 +202,37 @@ class ArtDepartmentAgent:
             print(f"   🔎 [AssetFidelity] corrected {n}", flush=True)
         return notes
 
+    def verify_supplied_sheets(self, asset_lib: AssetLibrary, script: str) -> List[str]:
+        """
+        Check every supplied character sheet (character_list/) against what the script says about that character
+        (sheet_fidelity.yaml). On an identity-level mismatch the sheet is unlinked for THIS run only (the dataset file
+        is untouched) and the description corrected, so generate_references renders a sheet that follows the script.
+        """
+        from ...engine import ConfigurableAgent
+        agent = ConfigurableAgent(config_path=str(Path(__file__).resolve().parent / "sheet_fidelity.yaml"))
+        notes = []
+        for ch in asset_lib.characters:
+            img = ch.visual_references.canonical_image_path if ch.visual_references else None
+            if not img or not Path(img).exists():
+                continue
+            names = [n for n in re.split(r"[()（）]", ch.name) if n.strip()] + [ch.name]
+            quotes = [para.strip() for para in script.split("\n") if any(n.strip() in para for n in names)]
+            if not quotes:
+                continue
+            try:
+                r = agent.run(images=[img], name=ch.name, quotes="\n".join(quotes)[:3000])
+            except Exception as e:
+                logger.warning("SheetFidelity failed for %s (%s)", ch.id, e)
+                continue
+            if r.mismatches:
+                notes.append(f"{ch.id}: {'; '.join(r.mismatches)[:200]}")
+                ch.visual_references.canonical_image_path = None      # this run renders its own sheet
+                if r.corrected_description:
+                    ch.description = r.corrected_description
+        for n in notes:
+            print(f"   🔎 [SheetFidelity] supplied sheet contradicts the script, re-rendering for this run: {n}", flush=True)
+        return notes
+
     def _t2i_client(self):
         if self._t2i is None:
             from ...adapters.t2i_client import T2IClient
