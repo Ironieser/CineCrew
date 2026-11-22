@@ -26,7 +26,15 @@ user_prompt_template: |
   WORLD FACTS
   {{ facts }}
 
+  THE SHOT IS MEANT TO SHOW
+  {{ action }}
+
   FRAME DESCRIPTION
   {{ description }}
 
-  Return JSON: {"checks": [{"fact": 1, "verdict": "violated|holds|not_visible", "evidence": "..."}]}
+  Also judge whether the frame shows what the shot is meant to show: "yes", "partly" (its main subject is there,
+  details differ), or "no" (the main subject is absent or something else entirely is shown, e.g. a face close-up
+  where a planet through a window was meant), with a short reason.
+
+  Return JSON: {"checks": [{"fact": 1, "verdict": "violated|holds|not_visible", "evidence": "..."}],
+  "action_shown": "yes|partly|no", "action_reason": "..."}

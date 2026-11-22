@@ -28,7 +28,8 @@ ROOT = Path(__file__).resolve().parents[1]
 PY = sys.executable
 # dead air is not a reason to regenerate: post_production trims it (it is still graded on the post film)
 # hard gates only (calibrated on data/calib); judge / generic VLM verdicts are advisory
-SHOT_GATES = ("audio.asr", "visual.continuity", "visual.text", "visual.identity", "visual.world", "visual.presence")
+SHOT_GATES = ("audio.asr", "visual.continuity", "visual.text", "visual.identity", "visual.world", "visual.presence",
+              "visual.action")
 
 
 def sh(*args, env=None):

@@ -72,6 +72,12 @@ class ContinuityState(BaseModel):
                                                                       "(e.g. 'the window shows Earth, never the Moon')")
 
 
+class BeatCoverage(BaseModel):
+    """BeatCoverage output: the script's key visual beats and the ones no planned shot shows."""
+    beats: List[str] = Field(default_factory=list)
+    missing: List[str] = Field(default_factory=list)
+
+
 class ShotContinuity(BaseModel):
     shot_id: str
     continuity: ContinuityState

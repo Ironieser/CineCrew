@@ -50,6 +50,8 @@ def diagnose(q: dict, review: dict, ledger: dict) -> List[Tuple[str, str]]:
         out.append(("B", "a person who is not in the cast appears: " + (v.get("notes") or "stranger in frame")))
     if g.get("visual.world") is False:
         out.append(("C", "the frames contradict the film's world: " + "; ".join(q.get("world_violations") or [])))
+    if g.get("visual.action") is False:
+        out.append(("E", "the shot's main subject is not shown: " + (q.get("action_reason") or "")))
     if g.get("visual.continuity") is False:
         ce = q.get("continuity_expected") or {}
         out.append(("C", f"the frames read as {v.get('time_of_day')} (raining: {v.get('raining')}) but the shot is "

@@ -1,0 +1,25 @@
+# BeatCoverage — the script's key visual beats (its turns and its closing image) must each be a shot. Quoted lines are
+# checked deterministically (skills/script_coverage.py); beats need reading: a film can speak every line and still
+# drop the image the story ends on (EchoStation: the dark night side of Earth became a close-up of a face).
+
+metadata:
+  name: "BeatCoverage"
+  description: "Lists the script's key visual beats and checks which of them no planned shot shows."
+  version: "1.0"
+
+output_schema: "src.schemas.blueprint.BeatCoverage"
+
+system_prompt_template: |
+  You are a script supervisor. From the SCRIPT, list its 3-6 key VISUAL beats in order: the moments a viewer must
+  SEE for the story to work (a key action, a reveal, a handover, and always the closing image). Each beat is one
+  short sentence of what is on screen. Then read the SHOT LIST and mark every beat that no shot clearly shows
+  (a shot that only mentions it in dialogue or shows something else instead does not count).
+
+user_prompt_template: |
+  SCRIPT
+  {{ script }}
+
+  SHOT LIST
+  {{ shots }}
+
+  Return JSON: {"beats": ["..."], "missing": ["beats from the list that no shot shows"]}

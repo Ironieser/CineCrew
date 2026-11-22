@@ -51,10 +51,10 @@ class FrameCheckAgent:
         if True:   # describe blind, then judge the facts from the text (no priming)
             facts = BUILTIN_FACTS + (list(cont.world_facts) if cont else [])
             desc = self._describe.run(images=[image])
-            wv = self._world.run(cast="; ".join(f"{c.name}: {(c.description or '')[:100]}" for c in library.characters),
+            wv = self._world.run(action=shot.narrative_layer.narrative_action, cast="; ".join(f"{c.name}: {(c.description or '')[:100]}" for c in library.characters),
                                  facts=" ".join(f"({i}) {f}" for i, f in enumerate(facts, 1)),
                                  description=desc.model_dump_json())
-            fc.world_checks = wv.checks
+            fc.world_checks = wv.checks + [{"action_shown": wv.action_shown, "action_reason": wv.action_reason}]
             fc.fix = (fc.fix + " " if fc.fix else "") + f"[seen: {desc.outside_view[:200]}]"
         return fc
 
@@ -72,6 +72,8 @@ class FrameCheckAgent:
         facts = BUILTIN_FACTS + ((cont0.world_facts if cont0 else []) or [])
         viol = []
         for c in fc.world_checks:
+            if "action_shown" in c:
+                continue
             if str(c.get("verdict", "")).lower() == "violated" and c.get("evidence"):
                 i = int(c.get("fact") or 0)
                 viol.append(f"{facts[i - 1] if 1 <= i <= len(facts) else '?'} (seen: {c.get('evidence')})")
@@ -79,6 +81,9 @@ class FrameCheckAgent:
             out.append("contradicts the film's world: " + "; ".join(viol))
         if fc.bad_text:
             out.append("garbled text: " + "; ".join(fc.bad_text[:3]))
+        act = next((c for c in fc.world_checks if "action_shown" in c), None)
+        if act and str(act.get("action_shown", "")).lower() == "no":
+            out.append("does not show the shot's main subject: " + str(act.get("action_reason", ""))[:160])
         cont = shot.narrative_layer.continuity
         if cont and cont.time_of_day != "none" and fc.time_of_day in _DARK and \
                 fc.time_of_day not in _DARK.get(cont.time_of_day, {fc.time_of_day}):

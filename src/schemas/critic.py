@@ -112,5 +112,7 @@ class FrameDescription(BaseModel):
 
 
 class WorldVerdict(BaseModel):
-    """Per-fact verdicts of world_judge.yaml: [{fact, verdict, evidence}]."""
+    """Per-fact verdicts of world_judge.yaml: [{fact, verdict, evidence}] + whether the shot's main subject is shown."""
     checks: List[Dict[str, Any]] = Field(default_factory=list)
+    action_shown: str = "yes"
+    action_reason: str = ""

@@ -114,7 +114,7 @@ def reference_board(refs):
     return out
 
 
-def world_checks(frame, facts, cast=""):
+def world_checks(frame, facts, cast="", action=""):
     """Describe the frame blind, then judge the world facts from the text (a VLM primed with the facts reports what
     it was told to look for). Same agents as the keyframe FrameCheck."""
     from src.engine import ConfigurableAgent
@@ -122,7 +122,7 @@ def world_checks(frame, facts, cast=""):
     d = ROOT / "src" / "agents" / "dailies_reviewer"
     desc = ConfigurableAgent(config_path=str(d / "frame_describe.yaml")).run(images=[str(frame)])
     allf = BUILTIN_FACTS + list(facts)
-    wv = ConfigurableAgent(config_path=str(d / "world_judge.yaml")).run(cast=cast or "unknown",
+    wv = ConfigurableAgent(config_path=str(d / "world_judge.yaml")).run(cast=cast or "unknown", action=action or "-",
         facts=" ".join(f"({i}) {f}" for i, f in enumerate(allf, 1)), description=desc.model_dump_json())
     out = []
     for c in wv.checks:   # re-index onto the story's own facts (built-ins first)
@@ -130,6 +130,7 @@ def world_checks(frame, facts, cast=""):
         c["fact"] = i - len(BUILTIN_FACTS) if i > len(BUILTIN_FACTS) else i
         c["text"] = allf[i - 1] if 1 <= i <= len(allf) else "?"
         out.append(c)
+    out.append({"action_shown": wv.action_shown, "action_reason": wv.action_reason})
     return out
 
 
@@ -271,8 +272,16 @@ def main():
                         r["identity_mismatch"] = mism
                 facts = (ledger.get(s["shot_id"]) or {}).get("world_facts") or []
                 wv = []
-                for c in world_checks(frames_used[len(frames_used) // 2], facts,
-                                      "; ".join(f"{n}: {looks.get(n, '')[:100]}" for n in names.values())):
+                wc = world_checks(frames_used[len(frames_used) // 2], facts,
+                                  "; ".join(f"{n}: {looks.get(n, '')[:100]}" for n in names.values()),
+                                  s["narrative_layer"].get("narrative_action", ""))
+                act = wc.pop() if wc and "action_shown" in wc[-1] else {}
+                if str(act.get("action_shown", "yes")).lower() == "no":   # the shot's main subject is missing
+                    r["gates"]["visual.action"] = False
+                    r["action_reason"] = act.get("action_reason", "")
+                else:
+                    r["gates"]["visual.action"] = True
+                for c in wc:
                     if isinstance(c, dict) and str(c.get("verdict", "")).lower() == "violated" and c.get("evidence"):
                         wv.append(f"{c.get('text', '?')} — seen: {c.get('evidence')}")
                 if True:   # built-in facts (one-of-a-kind bodies appear once) apply to every shot

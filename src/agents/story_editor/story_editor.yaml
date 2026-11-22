@@ -92,3 +92,9 @@ user_prompt_template: |
   that each of them is the dialogue of its own shot, verbatim, in story order:
   {% for l in coverage_feedback %}- "{{ l }}"
   {% endfor %}{% endif %}
+  {% if beat_feedback %}
+
+  BEAT CHECK FAILED: no shot showed these key visual beats. Each must be its own shot, shown on screen (not only
+  mentioned in dialogue), in story order; the closing image is the last shot:
+  {% for b in beat_feedback %}- {{ b }}
+  {% endfor %}{% endif %}

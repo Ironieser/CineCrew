@@ -93,6 +93,24 @@ class StoryEditorAgent:
             still = missing_lines(script_segment, spoken(result))
             if still:
                 print(f"   ⚠️  [StoryEditor] still missing after re-plan: {still}", flush=True)
+        # beat coverage: the key visual beats (a reveal, the closing image) must each be a shot
+        try:
+            beat_agent = ConfigurableAgent(config_path=str(_HERE / "beat_coverage.yaml"))
+            listing = lambda r: "\n".join(f"- {i.shot_id}: {i.narrative_layer.narrative_action}" for i in r.shots)
+            bc = beat_agent.run(script=script_segment, shots=listing(result))
+            if bc.missing:
+                print(f"   ⚠️  [StoryEditor] key beats with no shot: {bc.missing}; re-planning", flush=True)
+                retry = self._agent.run(script_segment=script_segment, asset_context=asset_context,
+                                        hallucination_guard=hallucination_guard,
+                                        coverage_feedback=missing_lines(script_segment, spoken(result)),
+                                        beat_feedback=bc.missing)
+                bc2 = beat_agent.run(script=script_segment, shots=listing(retry))
+                lines_ok = len(missing_lines(script_segment, spoken(retry))) <= len(missing_lines(script_segment, spoken(result)))
+                if len(bc2.missing) < len(bc.missing) and lines_ok:
+                    result = retry
+                    print(f"   ✅ [StoryEditor] re-plan covers more beats (still missing: {bc2.missing})", flush=True)
+        except Exception as e:
+            print(f"   ⚠️  [StoryEditor] beat coverage check skipped ({e})", flush=True)
 
         for item in result.shots:
             blueprint.shots.append(
