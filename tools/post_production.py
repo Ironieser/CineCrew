@@ -27,6 +27,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 LEAD, TAIL = 0.4, 1.0
 W, H, FPS = 1344, 768, 24
 DEFAULT_FONT = "/System/Library/Fonts/Hiragino Sans GB.ttc"
@@ -132,13 +133,18 @@ def main():
         dia = s["narrative_layer"].get("dialogue") or {}
         line = dia.get("text") if dia.get("has_dialogue") else None
         t0, t1 = 0.0, d
+        from src.skills.cut_detect import longest_clean_span
+        clean = longest_clean_span(src, d)   # two shots in one clip: keep the longest continuous one if it is most of it
+        if clean and clean != (0.0, d):
+            t0, t1 = clean
+            print(f"[post] {s['shot_id']}: internal cut trimmed, keeping {t0:.2f}-{t1:.2f}s", flush=True)
         span = q.get("speech_span")
         if line and span:
             lead, tail = span; speech_end = d - tail
             if lead > LEAD + 0.3:
-                t0 = lead - LEAD
+                t0 = max(t0, lead - LEAD)
             if tail > TAIL + 0.3:
-                t1 = min(d, speech_end + TAIL)
+                t1 = min(t1, speech_end + TAIL)
         seg_d = t1 - t0
         target = -20 if line else -30
         afilt = [loudnorm_filter(src, t0, t1, target), "aresample=48000", "afade=t=in:d=0.06", f"afade=t=out:st={max(0, seg_d - 0.06):.3f}:d=0.06"]

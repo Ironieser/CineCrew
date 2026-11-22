@@ -29,7 +29,7 @@ PY = sys.executable
 # dead air is not a reason to regenerate: post_production trims it (it is still graded on the post film)
 # hard gates only (calibrated on data/calib); judge / generic VLM verdicts are advisory
 SHOT_GATES = ("audio.asr", "visual.continuity", "visual.text", "visual.identity", "visual.world", "visual.presence",
-              "visual.action")
+              "visual.action", "visual.cut")
 
 
 def sh(*args, env=None):

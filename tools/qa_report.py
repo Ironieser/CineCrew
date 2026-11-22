@@ -232,6 +232,13 @@ def main():
         elif got and len(norm(got)) > 6:
             r["asr_unexpected_speech"] = got
         mv = mean_volume(clip); vols.append((mv, bool(line))); r["loudness_lufs"] = mv
+        from src.skills.cut_detect import cuts as _cuts   # an internal hard cut = two shots rendered as one clip
+        ct, _ = _cuts(str(raw_clip.get(s["shot_id"], clip)) if a.post else str(clip))
+        if a.post:   # post-production trims edge cuts away; grade what is left in the post clip
+            ct, _ = _cuts(str(clip))
+        r["gates"]["visual.cut"] = not ct
+        if ct:
+            r["internal_cuts_s"] = [round(t, 2) for t in ct]
         att = (rl.get("visual_review") or {}).get("clips") or []
         scored = [x for c in att for x in c.get("attempts", []) if "score" in x]
         # the verdict on the clip actually kept (falls back to the latest one)

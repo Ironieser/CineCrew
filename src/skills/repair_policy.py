@@ -50,6 +50,8 @@ def diagnose(q: dict, review: dict, ledger: dict) -> List[Tuple[str, str]]:
         out.append(("B", "a person who is not in the cast appears: " + (v.get("notes") or "stranger in frame")))
     if g.get("visual.world") is False:
         out.append(("C", "the frames contradict the film's world: " + "; ".join(q.get("world_violations") or [])))
+    if g.get("visual.cut") is False:
+        out.append(("D", f"the clip cuts to a different shot at {q.get('internal_cuts_s')} s; it must be one continuous shot"))
     if g.get("visual.action") is False:
         out.append(("E", "the shot's main subject is not shown: " + (q.get("action_reason") or "")))
     if g.get("visual.continuity") is False:
