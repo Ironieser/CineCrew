@@ -48,11 +48,23 @@ def qa(run: Path, hint: str, post=False) -> dict:
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("story"); ap.add_argument("--hint", default=""); ap.add_argument("--rounds", type=int, default=2)
+    ap.add_argument("story", nargs="?", default=None, help="story dir (script_synopsis.json); omit with --from-source")
+    ap.add_argument("--hint", default=""); ap.add_argument("--rounds", type=int, default=2)
+    ap.add_argument("--from-source", default=None, help="adapt this source text first (novel excerpt / science topic)")
+    ap.add_argument("--kind", default="novel excerpt"); ap.add_argument("--seconds", type=int, default=60)
     ap.add_argument("--run", default=None, help="continue from an already rendered run directory")
     a = ap.parse_args()
     env = dict(os.environ); env.setdefault("PIPELINE_SETTINGS", str(ROOT / "configs" / "pipeline_settings_h3.yaml"))
-    t0 = time.time(); log = {"story": a.story, "rounds": []}
+    t0 = time.time()
+    if a.from_source:   # source material -> filmable script (ScreenwriterAgent) -> our_dataset/<Story>
+        sys.path.insert(0, str(ROOT))
+        from src.agents.screenwriter import ScreenwriterAgent
+        sp = ScreenwriterAgent().write(Path(a.from_source).read_text(), kind=a.kind, seconds=a.seconds)
+        a.story = str(ScreenwriterAgent.save(sp, ROOT / "our_dataset"))
+        print(f"[produce] adapted '{sp.title}' -> {a.story}", flush=True)
+    if not a.story:
+        sys.exit("[produce] give a story directory or --from-source")
+    log = {"story": a.story, "rounds": []}
     story = Path(a.story)
     if a.run:
         run = Path(a.run)
