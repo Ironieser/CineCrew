@@ -337,12 +337,27 @@ def main():
         content = {"script_lines": len(script_lines(script)), "missing_lines": miss}
     else:
         content = None
+    # pacing metrics (advisory until calibrated on our own films): shot lengths, time to the first line, the longest
+    # stretch without speech
+    durs = [x.get("duration", 0) for x in shots if x.get("duration")]
+    t, first_line, gaps, last_speech = 0.0, None, [], 0.0
+    for x in shots:
+        if x.get("dialogue") and x.get("speech_span"):
+            lead, tail = x["speech_span"]
+            if first_line is None:
+                first_line = round(t + lead, 2)
+            gaps.append(t + lead - last_speech); last_speech = t + x["duration"] - tail
+        t += x.get("duration", 0)
+    gaps.append(t - last_speech)
+    pacing = {"shots": len(durs), "avg_shot_s": round(sum(durs) / len(durs), 2) if durs else None,
+              "max_shot_s": max(durs) if durs else None, "first_line_s": first_line,
+              "longest_silence_s": round(max(gaps), 2) if gaps else None}
     film = Path(a.film) if a.film else run / "media" / "film.mp4"
     flen = duration(film) if film.exists() else sum(x.get("duration", 0) for x in shots)
     film_gates["pacing.length"] = bool(abs(flen - planned) <= 0.25 * planned) if planned else True
     total = [g for x in shots for g in x.get("gates", {}).values()] + list(film_gates.values())
     report = {"run": str(run), "film": str(film), "film_length": round(flen, 2), "planned_length": round(planned, 2),
-              "voice_min_similarity": vsim, "content": content, "loudness_range_db": [min(vv), max(vv)] if vv else None,
+              "voice_min_similarity": vsim, "content": content, "pacing": pacing, "loudness_range_db": [min(vv), max(vv)] if vv else None,
               "film_gates": film_gates, "shots": shots,
               "vlm_errors": sum(1 for x in shots if x.get("vlm_error")), "passed": sum(total), "total": len(total), "all_pass": all(total)}
     out = run / ("qa_report_post" if a.post else "qa_report")
@@ -353,7 +368,7 @@ def main():
         bad = [k for k, v in x.get("gates", {}).items() if not v]
         note = (x.get("vlm") or {}).get("notes", "") if bad else ""
         md.append(f"| {x['shot']} | {x.get('duration', '')} | {x.get('review_score', '')} | {', '.join(bad) or '—'} | {note} |")
-    md += ["", f"film gates: {film_gates}", f"voice min cosine per speaker: {vsim}"]
+    md += ["", f"film gates: {film_gates}", f"voice min cosine per speaker: {vsim}", f"pacing: {pacing}"]
     out.with_suffix(".md").write_text("\n".join(md))
     print("\n".join(md))
 
