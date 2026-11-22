@@ -55,6 +55,8 @@ def main():
     ap.add_argument("--keep", default="", help="comma-separated shot_id prefixes whose existing clips are reused")
     ap.add_argument("--only", default="", help="comma-separated shot_id prefixes to regenerate; all other clips reused")
     ap.add_argument("--resync-characters", action="store_true")
+    ap.add_argument("--tier", default=None, choices=["draft", "final"],
+                    help="final: render on the full-schedule H3 replicas (no turbo LoRA)")
     ap.add_argument("--repair", default=None, help="repair plan JSON (src/skills/repair_policy.plan): per-shot prompt "
                                                    "prefix/suffix, seed offset, duration delta, judge prompt")
     ap.add_argument("--no-judge", action="store_true")
@@ -93,6 +95,9 @@ def main():
             if p.exists():
                 kept[job.job_id] = str(p)
     todo = VideoJobBatch(scene_id=batch.scene_id, jobs=[j for j in batch.jobs if j.job_id not in kept])
+    if a.tier:
+        for j in todo.jobs:
+            j.extra["tier"] = a.tier
     if a.repair:   # regenerate with what QA found, not a blind re-roll of the same prompt and seed
         rp = json.loads(Path(a.repair).read_text())
         for j in todo.jobs:

@@ -37,6 +37,12 @@ def sh(*args, env=None):
     subprocess.run([str(a) for a in args], check=True, cwd=ROOT, env=env)
 
 
+def _dotenv_has(prefix: str) -> bool:
+    p = ROOT / ".env"
+    return p.exists() and any(l.strip().startswith(prefix) and "=" in l and l.split("=", 1)[1].strip()
+                              for l in p.read_text().splitlines())
+
+
 def qa(run: Path, hint: str, post=False) -> dict:
     sh("python3", "tools/qa_report.py", run, "--hint", hint, *(["--post"] if post else []))
     rep = json.loads((run / ("qa_report_post.json" if post else "qa_report.json")).read_text())
@@ -116,6 +122,16 @@ def main():
         (run / "memory" / f"repair_round_{rnd}.json").write_text(json.dumps(rp, ensure_ascii=False, indent=1))
         sh(PY, "tools/resume_production.py", run, "--only", ",".join(rp), "--resync-characters", "--max-retries", "1",
            "--repair", run / "memory" / f"repair_round_{rnd}.json")
+    # final tier: re-render the closing shot and the shots still failing after the repair rounds on the full-schedule
+    # H3 replicas (no turbo LoRA), when they are configured (H3_FINAL_*_URL)
+    if os.environ.get("H3_FINAL_FL2VA_URL") or os.environ.get("H3_FINAL_REF2VA_URL") or _dotenv_has("H3_FINAL_"):
+        shots = [s["shot"] for s in rep["shots"]]
+        keep_failing = [s["shot"] for s in rep["shots"] if any(not s["gates"].get(g, True) for g in SHOT_GATES)]
+        final = sorted(set(keep_failing + shots[-1:]))
+        log["final_tier"] = final
+        print(f"[produce] final tier (full-schedule H3) for {final}", flush=True)
+        sh(PY, "tools/resume_production.py", run, "--only", ",".join(final), "--resync-characters", "--max-retries", "0",
+           "--tier", "final")
     sh("python3", "tools/post_production.py", run)
     final = qa(run, a.hint, post=True)
     log.update(final={"passed": final["passed"], "total": final["total"], "all_pass": final["all_pass"],

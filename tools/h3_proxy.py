@@ -55,7 +55,11 @@ from src.config import Config  # noqa: E402  (loads .env)
 FL2VA_URLS = [u.strip().rstrip("/") for u in os.getenv("H3_FL2VA_URL", "http://127.0.0.1:30010/v1").split(",") if u.strip()]
 REF2VA_URLS = [u.strip().rstrip("/") for u in os.getenv("H3_REF2VA_URL", "http://127.0.0.1:30020/v1").split(",") if u.strip()]
 FL2VA, REF2VA = FL2VA_URLS[0], REF2VA_URLS[0]
-INFLIGHT = {u: 0 for u in FL2VA_URLS + REF2VA_URLS}
+# final tier: replicas WITHOUT the 8-step turbo LoRA, run at the full schedule (key shots, still-failing shots)
+FINAL_FL2VA_URLS = [u.strip().rstrip("/") for u in os.getenv("H3_FINAL_FL2VA_URL", "").split(",") if u.strip()]
+FINAL_REF2VA_URLS = [u.strip().rstrip("/") for u in os.getenv("H3_FINAL_REF2VA_URL", "").split(",") if u.strip()]
+FINAL_STEPS = int(os.getenv("H3_FINAL_STEPS", "50"))
+INFLIGHT = {u: 0 for u in FL2VA_URLS + REF2VA_URLS + FINAL_FL2VA_URLS + FINAL_REF2VA_URLS}
 
 
 _HEALTH = {}   # url -> (ok, checked_at)
@@ -297,17 +301,21 @@ def create(fields: dict, upload: bytes = None) -> dict:
             "target": {"short_edge": 768, "aspect_ratio": "16:9", "duration_seconds": dur}}
     if extra.get("seed") is not None:
         body["seed"] = int(extra["seed"])
+    final = str(extra.get("tier", "")).lower() == "final" and (FINAL_FL2VA_URLS or FINAL_REF2VA_URLS)
+    if final:
+        body["num_inference_steps"] = FINAL_STEPS
+    pool = lambda draft, fin: (fin or draft) if final else draft
     if fl2va_first:
         body.update(task="fl2va", conditions=[{"type": "image", "uri": upload_ref(kf), "role": "keyframe", "frame_index": 0},
                                               {"type": "image", "uri": upload_ref(kf_end), "role": "keyframe", "frame_index": -1}])
-        base = pick(FL2VA_URLS)
+        base = pick(pool(FL2VA_URLS, FINAL_FL2VA_URLS))
     elif subjects:
         body.update(task="ref2va", conditions=[{"type": "image", "uri": upload_ref(s["image"]), "role": "reference"} for s in subjects]
                     + ([{"type": "image", "uri": upload_ref(kf), "role": "reference"}] if kf else [])
                     + [{"type": "audio", "uri": upload_ref(v), "role": "reference"} for v in audio_conds])
-        base = pick(REF2VA_URLS)
+        base = pick(pool(REF2VA_URLS, FINAL_REF2VA_URLS))
     else:
-        body.update(task="t2va", conditions=[]); base = pick(FL2VA_URLS)
+        body.update(task="t2va", conditions=[]); base = pick(pool(FL2VA_URLS, FINAL_FL2VA_URLS))
     try:
         job = _post(f"{base}/videos", body)
     except Exception:
@@ -320,7 +328,8 @@ def create(fields: dict, upload: bytes = None) -> dict:
     (LOG_DIR / f"{pid}.json").write_text(json.dumps({"in": {k: v for k, v in fields.items()}, "h3_request": body},
                                                     ensure_ascii=False, indent=1))
     print(f"[h3_proxy] {pid} -> {base.split(':')[-1].split('/')[0]} {body['task']} {dur:.0f}s dialogue={bool(dialogue)} "
-          f"keyframe={'first-frame' if fl2va_first else ('reference' if kf else 'none')}", flush=True)
+          f"keyframe={'first-frame' if fl2va_first else ('reference' if kf else 'none')}"
+          f"{' FINAL ' + str(FINAL_STEPS) + ' steps' if final else ''}", flush=True)
     return {"id": pid, "object": "video", "status": "queued", "model": fields.get("model", "minimax-h3")}
 
 

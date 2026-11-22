@@ -240,6 +240,14 @@ random new seed and an LLM rewrite of the appearance text from the rejection rea
 Dead air alone is never regenerated (post-production trims it); a failure against a stale character expectation is
 not regenerated either. `resume_production.py --repair <plan.json>` applies a plan by hand.
 
+### Draft and final tiers
+
+Draft renders use the 8-step turbo LoRA (FP8). Key shots get a final render on replicas served WITHOUT the LoRA at the
+full schedule (50 steps; the released weights are CFG-distilled, so a step is one forward): `serve.sh <variant>
+<tag> none` on the cluster, then `H3_FINAL_FL2VA_URL` / `H3_FINAL_REF2VA_URL` (and optionally `H3_FINAL_STEPS`) for
+the proxy. With those set, `produce.py` re-renders the closing shot and every shot still failing after the repair
+rounds at `--tier final`; `resume_production.py --tier final` does it by hand. Expect ~6x the draft time per clip.
+
 ### Judge calibration
 
 VisualJudge answers a fixed checklist (`checks`: right_characters, identity_matches, main_action_shown,
