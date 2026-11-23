@@ -274,6 +274,10 @@ def run_pipeline(
             ctx["scene_blueprint"] = ScriptSupervisorAgent().run(
                 ctx["scene_blueprint"], ctx["script_segment"], ctx["asset_library"]
             )
+            if _opt(stage_spec, "verify_location_plates", False):   # plates were rendered before the facts existed
+                ArtDepartmentAgent().verify_location_plates(
+                    ctx["asset_library"], ctx["scene_blueprint"], base_path=_assets_base,
+                    retries=int(_opt(stage_spec, "plate_retries", 3)))
 
         # ── Stage 4: TechnicalDirector → shots[].render_layer (Layer 3) ──────────
         elif stage_id == "technical_director":

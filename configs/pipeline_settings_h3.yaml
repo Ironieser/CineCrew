@@ -46,6 +46,8 @@ pipeline:
       design_voices: false   # write a fixed TTS voice identity into each CharacterAsset.voice_design
     - id: script_supervisor
       enabled: true          # continuity ledger: per-shot time of day, weather, lighting, prop holders, wardrobe
+      verify_location_plates: true   # check location plates against the ledger's world facts; re-render violators
+      plate_retries: 3
     - id: technical_director
       enabled: true
     - id: dailies_reviewer

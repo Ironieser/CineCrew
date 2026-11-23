@@ -17,12 +17,28 @@ from ...engine import ConfigurableAgent
 from ...schemas.assets import AssetLibrary
 from ...schemas.blueprint import ShotBlueprint
 from ...schemas.critic import FrameCheck
+from ..script_supervisor import judged_facts
 from .visual_judge import _reference_images, _reference_sheet
 
 _HERE = Path(__file__).resolve().parent
 # built-in fact checked for every frame (generators duplicate planets / suns across a window and a sky)
 BUILTIN_FACTS = ["Each one-of-a-kind celestial body (a particular planet, the sun, a moon) appears at most once."]
 _DARK = {"night": {"night"}, "dusk": {"dusk", "night", "day"}, "dawn": {"dawn", "day", "dusk"}, "day": {"day", "dusk", "dawn"}}
+
+
+def world_violations(image: str, facts: List[str], cast: str = "none (no people)", action: str = "-") -> List[str]:
+    """Blind description, then the text-only world judge (the same two agents FrameCheckAgent.check uses), for any
+    still: a keyframe or a location plate. Returns "fact (seen: evidence)" for every violated fact."""
+    desc = ConfigurableAgent(config_path=str(_HERE / "frame_describe.yaml")).run(images=[image])
+    wv = ConfigurableAgent(config_path=str(_HERE / "world_judge.yaml")).run(
+        action=action, cast=cast, facts=" ".join(f"({i}) {f}" for i, f in enumerate(facts, 1)),
+        description=desc.model_dump_json())
+    out = []
+    for c in wv.checks:
+        if str(c.get("verdict", "")).lower() == "violated" and c.get("evidence"):
+            i = int(c.get("fact") or 0)
+            out.append(f"{facts[i - 1] if 1 <= i <= len(facts) else '?'} (seen: {c.get('evidence')})")
+    return out
 
 
 class FrameCheckAgent:
@@ -49,7 +65,7 @@ class FrameCheckAgent:
             action=shot.narrative_layer.narrative_action,
         )
         if True:   # describe blind, then judge the facts from the text (no priming)
-            facts = BUILTIN_FACTS + (list(cont.world_facts) if cont else [])
+            facts = BUILTIN_FACTS + judged_facts(cont.world_facts if cont else [])
             desc = self._describe.run(images=[image])
             wv = self._world.run(action=shot.narrative_layer.narrative_action, cast="; ".join(f"{c.name}: {(c.description or '')[:100]}" for c in library.characters),
                                  facts=" ".join(f"({i}) {f}" for i, f in enumerate(facts, 1)),
@@ -69,7 +85,7 @@ class FrameCheckAgent:
         if fc.strangers:
             out.append("a person outside the cast appears")
         cont0 = shot.narrative_layer.continuity
-        facts = BUILTIN_FACTS + ((cont0.world_facts if cont0 else []) or [])
+        facts = BUILTIN_FACTS + judged_facts(cont0.world_facts if cont0 else [])
         viol = []
         for c in fc.world_checks:
             if "action_shown" in c:

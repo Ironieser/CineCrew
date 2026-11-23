@@ -27,7 +27,10 @@ system_prompt_template: |
     appear"), never as a requirement that someone is in every shot,
     (c) a story-critical visible state (a planet's night side shows no lights). Never lighting exclusivity ("only
     amber lights"), never a character's appearance or what a screen shows (other checks cover those). One short
-    clause each, only what is seen: no explanations or meanings.
+    clause each, only what is seen: no explanations or meanings. Write what a single picture shows, never a
+    vantage point a picture cannot prove ("from the Moon's perspective", "seen from orbit"): give the shape, size
+    and completeness instead ("the whole Earth is a small round disc surrounded by black space; no planet horizon or
+    surface fills the window").
   - weather: what is seen or heard ("heavy rain", "light rain on the windows", "clear", "none" where there is no
     weather, e.g. in space or on the Moon). Keep it constant within a scene unless the script changes it. Interior
     shots still show the weather through windows.

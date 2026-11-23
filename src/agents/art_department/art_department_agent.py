@@ -233,6 +233,104 @@ class ArtDepartmentAgent:
             print(f"   🔎 [SheetFidelity] supplied sheet contradicts the script, re-rendering for this run: {n}", flush=True)
         return notes
 
+    def verify_location_plates(self, asset_lib: AssetLibrary, blueprint, base_path: str = DEFAULT_ASSETS_PATH,
+                               retries: int = 3) -> List[str]:
+        """
+        Check every location plate against the film's world facts (the continuity ledger, written after the plates
+        were rendered) and re-render the plates that contradict them. Every keyframe of a scene is conditioned on its
+        plate, so a wrong view through a window (a planet horizon where the story needs a distant globe) reaches every
+        shot. Props with a reference picture that are staged in the location (e.g. a code-rendered planet) condition
+        the re-render. The new plate is written to this run's references; a supplied plate is never overwritten.
+        Returns human-readable notes.
+        """
+        import random
+        import shutil
+        from ...adapters.t2i_client import split_negative
+        from ..dailies_reviewer.frame_check import BUILTIN_FACTS, world_violations
+        from ..script_supervisor import judged_facts
+
+        ref_dir = Path(base_path) / "references"
+        notes = []
+        for loc in asset_lib.locations:
+            img = loc.visual_references.canonical_image_path if loc.visual_references else None
+            if not img or not Path(img).exists():
+                continue
+            shots = [s for s in blueprint.shots
+                     if s.staging_layer is None or s.staging_layer.environment_id in (loc.id, None)]
+            story_facts: List[str] = []
+            for s in shots:
+                c = s.narrative_layer.continuity if s.narrative_layer else None
+                for f in judged_facts(c.world_facts if c else []):
+                    if f not in story_facts:
+                        story_facts.append(f)
+            if not story_facts:
+                continue
+            facts = BUILTIN_FACTS + story_facts
+            action = f"an empty establishing shot of {loc.name}"
+            try:
+                bad = world_violations(img, facts, action=action)
+            except Exception as e:
+                logger.warning("PlateCheck failed for %s (%s)", loc.id, e)
+                continue
+            if not bad:
+                print(f"   🔎 [PlateCheck] {loc.id}: consistent with the world facts", flush=True)
+                continue
+            print(f"   🔎 [PlateCheck] {loc.id}: {'; '.join(bad)[:300]} -> re-rendering", flush=True)
+            props = []
+            for s in shots:
+                for e in (s.staging_layer.entities if s.staging_layer else []):
+                    p = asset_lib.get_prop_by_id(e.asset_id)
+                    if p and p not in props and p.visual_references and p.visual_references.canonical_image_path \
+                            and Path(p.visual_references.canonical_image_path).exists():
+                        props.append(p)
+            props.sort(key=lambda p: {"critical": 0, "supporting": 1}.get(p.importance, 2))
+            props = props[:2]
+            base = loc.visual_references.generation_prompt or FallbackGenerator.location_visual(loc, asset_lib.global_style)
+            positive, negative = split_negative(base)
+            prompt = (f"{positive}\nThe picture shows the empty set: no people. It must respect: {' '.join(story_facts)}"
+                      f"\nCORRECTION (the previous picture of this set was wrong): {'; '.join(bad)[:500]}")
+            for i, p in enumerate(props, 1):
+                prompt += (f"\nPicture {i} is NOT the set: it is the {p.name}, which is seen in the set (e.g. through a "
+                           f"window) looking exactly like this picture: shape, size, lit and dark parts, colours.")
+            refs = [p.visual_references.canonical_image_path for p in props] or None
+            best, best_bad = None, bad
+            for k in range(max(1, retries)):
+                tmp = ref_dir / f"{loc.id}.try{k}.png"
+                try:
+                    self._t2i_client().render_to_file(tmp, prompt=prompt, negative_prompt=negative, reference_images=refs,
+                                                      seed=random.randint(0, 2**31 - 1))
+                    still = world_violations(str(tmp), facts, action=action)
+                except Exception as e:
+                    print(f"      ❌ plate attempt {k + 1}: {type(e).__name__}: {e}", flush=True)
+                    continue
+                print(f"      plate attempt {k + 1}: {len(still)} violation(s)", flush=True)
+                if len(still) < len(best_bad):
+                    best, best_bad = tmp, still
+                if not still:
+                    break
+            if best is None:
+                notes.append(f"{loc.id}: plate contradicts the world facts; no better plate found")
+                continue
+            out = ref_dir / f"{loc.id}.png"
+            if Path(img).resolve() == out.resolve():
+                n = len(list(ref_dir.glob(f"{loc.id}.bad*.png"))) + 1
+                shutil.copy(out, ref_dir / f"{loc.id}.bad{n}.png")
+            shutil.copy(best, out)
+            loc.visual_references = VisualReferences(
+                canonical_image_path=str(out), generation_prompt=prompt,
+                generation_params={"model": "edit" if refs else self._t2i_client().model,
+                                   "conditioned_on": [p.id for p in props], "plate_check": best_bad},
+                generation_timestamp=datetime.now().isoformat(),
+            )
+            (Path(base_path) / "locations").mkdir(parents=True, exist_ok=True)
+            (Path(base_path) / "locations" / f"{loc.id}.json").write_text(loc.model_dump_json(indent=2))
+            notes.append(f"{loc.id}: re-rendered ({len(bad)} -> {len(best_bad)} violations)")
+        if notes:
+            (Path(base_path) / "asset_library.json").write_text(asset_lib.model_dump_json(indent=2))
+        for n in notes:
+            print(f"   🔎 [PlateCheck] {n}", flush=True)
+        return notes
+
     def _t2i_client(self):
         if self._t2i is None:
             from ...adapters.t2i_client import T2IClient

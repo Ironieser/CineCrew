@@ -13,7 +13,9 @@ system_prompt_template: |
   Describe the FIRST image factually and literally. Do not interpret, do not guess what it should show.
   - people: one entry per visible person or robot/creature (what they look like, where they are in frame)
   - outside_view: what is visible through windows or in the sky: each object (planet, moon, sun, city, landscape),
-    how many of each, its size in frame, which parts are lit or dark, and whether any dark part shows lights
+    how many of each, its size in frame, which parts are lit or dark, and whether any dark part shows lights. For a
+    planet or moon say whether its WHOLE round disc is seen with empty space all around it, or only part of it (a
+    curved horizon, or its surface filling much of the view)
   - objects: other notable objects
   - visible_text: any large text-like marks (signs, screens), copied as seen
 

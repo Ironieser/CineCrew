@@ -109,6 +109,17 @@ def clean_fact(f: str) -> str:
     return f if f.endswith(".") else (f + "." if f else f)
 
 
+_PRESENCE = re.compile(r"\b(?:people|persons?|characters?|anyone|anybody|nobody|no-?one|no one|one else|"
+                       r"crew members?|(?:is|are) (?:present|alone))\b", re.I)
+
+
+def judged_facts(facts) -> List[str]:
+    """The world facts a frame is judged against. Who may be present is left to the stranger / presence detector
+    (calibrated on labelled shots): a text judge reads "only X and Y are present" as "X and Y must both be visible"
+    and fails frames that show only one of them. Presence facts still go into the generation prompt."""
+    return [f for f in (facts or []) if f and not _PRESENCE.search(f)]
+
+
 def continuity_sentence(c: ContinuityState, library: AssetLibrary, on_screen=None) -> str:
     """Prompt text for one shot's ledger entry (used by ProductionOperator). Props are mentioned only when held by
     someone on screen or changing in this shot, so fixed set dressing does not crowd the prompt."""

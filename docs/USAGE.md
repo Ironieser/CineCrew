@@ -217,6 +217,14 @@ keeps time moving forward and props with their holder unless a hand-over is reco
 job prompt (only props held by on-screen characters or changing hands), shown to the VisualJudge, and checked by
 `qa_report` (`visual.continuity`: day/night and rain read from frames; a night shot must read as night).
 
+World facts (2–4 per film) are judged describe-then-judge: a blind frame description, then a text-only judge.
+Facts about who may be present are written into prompts but not judged there (`judged_facts`): the stranger /
+presence detector covers them. With `verify_location_plates: true` the location plates, rendered before the ledger
+existed, are judged against the world facts right after this stage; a plate that contradicts them (e.g. a planet
+horizon where the story needs a distant globe) is re-rendered with the violation as a correction and the staged
+props that have a reference picture (e.g. a code-rendered planet) as conditioning, up to `plate_retries` times. The
+new plate goes to the run's `assets/references/`; a supplied plate is never overwritten.
+
 ### Hands-off production
 
 `tools/produce.py <story_dir> --hint "..."` runs planning + rendering, then up to `--rounds` QA → regenerate-failed

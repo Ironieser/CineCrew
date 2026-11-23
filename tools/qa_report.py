@@ -175,6 +175,7 @@ def main():
     names = {c["id"]: c["name"] for c in lib.get("characters", [])}
     # expected on-screen characters from the current visible-character guard over the plan (same as the repair policy)
     expected = {}
+    from src.agents.script_supervisor import judged_facts
     try:
         from src.schemas.blueprint import SceneBlueprint
         from src.schemas.assets import AssetLibrary
@@ -277,7 +278,7 @@ def main():
                     r["gates"]["visual.identity"] = not mism
                     if mism:
                         r["identity_mismatch"] = mism
-                facts = (ledger.get(s["shot_id"]) or {}).get("world_facts") or []
+                facts = judged_facts((ledger.get(s["shot_id"]) or {}).get("world_facts"))   # presence: own gate
                 wv = []
                 wc = world_checks(frames_used[len(frames_used) // 2], facts,
                                   "; ".join(f"{n}: {looks.get(n, '')[:100]}" for n in names.values()),
