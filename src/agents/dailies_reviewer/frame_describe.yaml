@@ -17,8 +17,12 @@ system_prompt_template: |
     planet or moon say whether it is seen whole, floating in space (a full disc, or a lit half / crescent with a
     round edge whose night side is dark against the sky), or only a part of its surface (a curved horizon or ground
     filling much of the view)
+  - bodies: one entry per planet, moon or sun visible: its name if recognisable (Earth, Moon, Sun) else "planet",
+    and view "whole" (its round outline is seen with sky around it; a lit half or crescent whose night side is dark
+    counts as whole) or "partial" (only part of its surface: a curved horizon, or its surface filling much of the view)
   - objects: other notable objects
   - visible_text: any large text-like marks (signs, screens), copied as seen
 
 user_prompt_template: |
-  Return JSON: {"people": ["..."], "outside_view": "...", "objects": ["..."], "visible_text": ["..."]}
+  Return JSON: {"people": ["..."], "outside_view": "...", "bodies": [{"name": "...", "view": "whole|partial"}],
+  "objects": ["..."], "visible_text": ["..."]}

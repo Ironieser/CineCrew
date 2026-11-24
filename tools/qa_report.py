@@ -123,14 +123,14 @@ def world_checks(frame, facts, cast="", action=""):
     """Describe the frame blind, then judge the world facts from the text (a VLM primed with the facts reports what
     it was told to look for). Same agents as the keyframe FrameCheck."""
     from src.engine import ConfigurableAgent
-    from src.agents.dailies_reviewer.frame_check import BUILTIN_FACTS
+    from src.agents.dailies_reviewer.frame_check import BUILTIN_FACTS, framing_checks
     d = ROOT / "src" / "agents" / "dailies_reviewer"
     desc = ConfigurableAgent(config_path=str(d / "frame_describe.yaml")).run(images=[str(frame)])
     allf = BUILTIN_FACTS + list(facts)
     wv = ConfigurableAgent(config_path=str(d / "world_judge.yaml")).run(cast=cast or "unknown", action=action or "-",
         facts=" ".join(f"({i}) {f}" for i, f in enumerate(allf, 1)), description=desc.model_dump_json())
     out = []
-    for c in wv.checks:   # re-index onto the story's own facts (built-ins first)
+    for c in list(wv.checks) + framing_checks(desc, allf):   # re-index onto the story's own facts (built-ins first)
         c = dict(c); i = int(c.get("fact") or 0)
         c["fact"] = i - len(BUILTIN_FACTS) if i > len(BUILTIN_FACTS) else i
         c["text"] = allf[i - 1] if 1 <= i <= len(allf) else "?"

@@ -108,10 +108,17 @@ class HumanCount(BaseModel):
     humans: List[str] = Field(default_factory=list, description="one entry per human: where, apparent age, gender, clothes")
 
 
+class BodyView(BaseModel):
+    """How one celestial body is framed: the whole round outline, or only part of its surface."""
+    name: str = ""
+    view: str = Field("whole", description="whole | partial")
+
+
 class FrameDescription(BaseModel):
     """Blind description of a keyframe (frame_describe.yaml)."""
     people: List[str] = Field(default_factory=list)
     outside_view: str = ""
+    bodies: List[BodyView] = Field(default_factory=list)
     objects: List[str] = Field(default_factory=list)
     visible_text: List[str] = Field(default_factory=list)
 

@@ -88,6 +88,11 @@ def release(u):
     with _LOCK:
         INFLIGHT[u] = max(0, INFLIGHT.get(u, 0) - 1)
 STEPS = int(os.getenv("H3_STEPS", "8"))
+# dialogue shots in two passes: FL2VA from the checked keyframe (silent, composition pinned), then Ref2VA video editing
+# of that clip (<Video 1>) with the speaker's voice (<Audio 1>) to add the line. Ref2VA alone treats the keyframe as a
+# loose reference and re-composes the shot (a planet seen whole became an orbital horizon).
+TWO_PASS = os.getenv("H3_DIALOGUE_TWO_PASS", "0").lower() in ("1", "true", "yes")
+SILENT_TAKE = "\nThe characters are silent in this take: mouths closed, no speech."
 PORT = int(os.getenv("H3_PROXY_PORT", "30100"))
 REF_SSH_HOST = os.getenv("REF_SSH_HOST", "")
 REF_REMOTE_DIR = os.getenv("REF_REMOTE_DIR", "")
@@ -282,8 +287,12 @@ def create(fields: dict, upload: bytes = None) -> dict:
     # the frame as one more reference picture; silent shots start from it as the first frame (FL2VA).
     kf = extra.get("keyframe")
     kf = kf if kf and (Path(kf).exists() or (ROOT / kf).exists()) else None
-    fl2va_first = bool(kf) and not dialogue
-    h3_prompt = rewrite(prompt, dialogue, speaker, voice, [] if fl2va_first else subjects)
+    two_pass = TWO_PASS and bool(kf) and bool(dialogue) and bool(subjects)
+    fl2va_first = bool(kf) and (not dialogue or two_pass)
+    if two_pass:   # pass 1: the silent take from the keyframe; the line is added by pass 2 (see status())
+        h3_prompt = rewrite(prompt + SILENT_TAKE, None, None, None, [])
+    else:
+        h3_prompt = rewrite(prompt, dialogue, speaker, voice, [] if fl2va_first else subjects)
     if kf and not fl2va_first and subjects:
         k = len(subjects) + 1
         line = (f"<Picture {k}> is the opening frame of this shot (not a character): the video starts from its "
@@ -325,10 +334,14 @@ def create(fields: dict, upload: bytes = None) -> dict:
     with _LOCK:
         JOBS[pid] = {"base": base, "h3_id": job["id"],
                      "harvest": (spk_img, dialogue) if (dialogue and spk_img and not audio_conds) else None}
+        if two_pass:
+            JOBS[pid]["pass2"] = {"subjects": subjects, "audio": audio_conds, "dialogue": dialogue, "speaker": speaker,
+                                  "voice": voice, "seconds": int(dur), "target": body["target"],
+                                  "seed": body.get("seed"), "final": bool(final)}
     (LOG_DIR / f"{pid}.json").write_text(json.dumps({"in": {k: v for k, v in fields.items()}, "h3_request": body},
                                                     ensure_ascii=False, indent=1))
     print(f"[h3_proxy] {pid} -> {base.split(':')[-1].split('/')[0]} {body['task']} {dur:.0f}s dialogue={bool(dialogue)} "
-          f"keyframe={'first-frame' if fl2va_first else ('reference' if kf else 'none')}"
+          f"keyframe={'first-frame' if fl2va_first else ('reference' if kf else 'none')}{' two-pass' if two_pass else ''}"
           f"{' FINAL ' + str(FINAL_STEPS) + ' steps' if final else ''}", flush=True)
     return {"id": pid, "object": "video", "status": "queued", "model": fields.get("model", "minimax-h3")}
 
@@ -571,13 +584,77 @@ def end_frame(kf: str, prompt: str, dur: float) -> str:
     return str(out)
 
 
+def edit_prompt(p2: dict) -> str:
+    """Pass 2 of a two-pass dialogue shot: Ref2VA video editing that keeps <Video 1> and adds the spoken line."""
+    defs = [f"<Subject {i}> is {('the ' + x['appearance'].rstrip('.')) if x.get('appearance') else 'the character'} in "
+            f"<Picture {i}>; this is {x.get('name') or 'a character'}." for i, x in enumerate(p2["subjects"], 1)]
+    spk = next((f"<Subject {i}>" for i, x in enumerate(p2["subjects"], 1) if x.get("name") == p2.get("speaker")),
+               "<Subject 1>")
+    voice_line = f"<Audio 1> is the voice timbre reference for {spk}'s voice.\n" if p2["audio"] else ""
+    voice_ref = ", using the voice timbre referenced from <Audio 1>" if p2["audio"] else ""
+    return ("subject_definitions:\n" + "\n".join(defs) + "\n<Video 1> is the source video for the editing task.\n"
+            + voice_line +
+            f"\nsummary:\n[video editing + audio reference] The target video is an edited version of <Video 1>. The "
+            f"edit animates {spk}'s face to speak the line; everything else in <Video 1> is kept exactly: framing, "
+            f"camera movement, set, lighting, the view through the windows, and every character's position and motion."
+            f"\n\nretention_analysis:\n<Video 1> (source video editing): fully_preserved - the original framing, camera "
+            f"movement, set, lighting, view through the windows and all characters are maintained; only {spk}'s mouth "
+            f"is newly animated to speak.\n"
+            + (f"<Audio 1>: reference - the target audio references the voice timbre of <Audio 1> for {spk}'s spoken "
+               f"line.\n" if p2["audio"] else "") +
+            f"\ndetailed_description:\nThe target video is in realistic photographic style.\n[Shot 1] The shot is "
+            f"<Video 1>, unchanged. {spk} (S1) speaks{voice_ref}: <d>[{LANG}] {p2['dialogue']}</d> Exactly as the voice "
+            f"stops, the lips close and the jaw stops moving; the rest of the shot continues as in <Video 1>. No "
+            f"subtitles, captions, or overlaid text appear on screen.\n\noverall_soundscape:\n{spk}'s clear spoken line"
+            f"{' in the voice timbre of <Audio 1>' if p2['audio'] else ''}"
+            f"{(' (' + p2['voice'].splitlines()[0] + ')') if p2.get('voice') else ''}, over the quiet ambient sound of "
+            f"<Video 1>.\n\nnon_diegetic_music:\nN/A")
+
+
+def start_pass2(pid: str, j: dict) -> None:
+    """Pass 1 is done: upload its clip as <Video 1> and submit the Ref2VA edit that adds the line."""
+    p2 = j.pop("pass2")
+    clip = LOG_DIR / f"{pid}_pass1.mp4"
+    clip.write_bytes(urllib.request.urlopen(f"{j['base']}/videos/{j['h3_id']}/content", timeout=300).read())
+    body = {"model": "MiniMaxAI/MiniMax-H3", "prompt": edit_prompt(p2), "seconds": p2["seconds"],
+            "num_outputs_per_prompt": 1, "num_inference_steps": FINAL_STEPS if p2["final"] else STEPS,
+            "flow_shift": 12.0, "audio_flow_shift": 3.0, "target": p2["target"], "task": "ref2va",
+            "conditions": [{"type": "image", "uri": upload_ref(x["image"]), "role": "reference"} for x in p2["subjects"]]
+            + [{"type": "video", "uri": upload_ref(str(clip)), "role": "reference"}]
+            + [{"type": "audio", "uri": upload_ref(v), "role": "reference"} for v in p2["audio"]]}
+    if p2.get("seed") is not None:
+        body["seed"] = p2["seed"]
+    base = pick(FINAL_REF2VA_URLS if (p2["final"] and FINAL_REF2VA_URLS) else REF2VA_URLS)
+    try:
+        job = _post(f"{base}/videos", body)
+    except Exception:
+        release(base); raise
+    if not j.get("released"):
+        release(j["base"])
+    j.update(base=base, h3_id=job["id"], released=False)
+    (LOG_DIR / f"{pid}_pass2.json").write_text(json.dumps({"h3_request": body}, ensure_ascii=False, indent=1))
+    print(f"[h3_proxy] {pid} pass 2 -> {base.split(':')[-1].split('/')[0]} ref2va edit of the silent take", flush=True)
+
+
 def status(pid: str) -> dict:
     j = JOBS.get(pid)
     if not j:
         return {"id": pid, "status": "failed", "error": {"message": "unknown id"}}
+    if j.get("starting"):   # pass 2 is being submitted: never report the silent take as the result
+        return {"id": pid, "object": "video", "status": "in_progress", "error": None}
     st = json.load(urllib.request.urlopen(f"{j['base']}/videos/{j['h3_id']}", timeout=60))
     s = st.get("status", "")
     s = {"pending": "queued", "running": "in_progress", "processing": "in_progress"}.get(s, s)
+    if s == "completed" and j.get("pass2"):   # two-pass dialogue shot: the silent take is ready, add the line
+        with _LOCK:
+            go = j.get("pass2") is not None and not j.get("starting")
+            j["starting"] = True
+        if go:
+            try:
+                start_pass2(pid, j)
+            finally:
+                j["starting"] = False
+        return {"id": pid, "object": "video", "status": "in_progress", "error": None}
     if s in ("completed", "failed") and not j.get("released"):
         j["released"] = True; release(j["base"])
     err = st.get("error")

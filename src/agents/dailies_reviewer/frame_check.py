@@ -48,6 +48,31 @@ def closed_cast(facts) -> bool:
     return any(_PRESENCE.search(f or "") for f in (facts or []))
 
 
+_DISC = re.compile(r"\b(?:disc|disk|sphere|globe|ball|orb)\b", re.I)
+_BODY = re.compile(r"\b(earth|moon|sun|mars|jupiter|saturn|venus|planet)\b", re.I)
+
+
+def framing_checks(desc, facts: List[str]) -> List[dict]:
+    """Deterministic check of how a planet is framed. A fact that shows a body as a disc / sphere / globe is violated
+    when the blind description sees only part of it (a horizon filling the window). The text judge, given a long
+    compound fact, flagged this in 1 of 3 runs on the same description; the description itself is stable."""
+    out = []
+    for i, f in enumerate(facts, 1):
+        if not _DISC.search(f or ""):
+            continue
+        m = _BODY.search(f)   # the body the fact is about (its first one: "Earth ... from the Moon's near side")
+        if not m:
+            continue
+        name = m.group(1).lower()
+        seen = [b for b in getattr(desc, "bodies", []) or []
+                if (name in (b.name or "").lower() or (name == "planet" and b.name)) and b.view == "partial"]
+        if seen:
+            out.append({"fact": i, "verdict": "violated",
+                        "evidence": f"only part of {seen[0].name} is visible (a curved horizon or its surface "
+                                    f"filling the view), not the whole {name}"})
+    return out
+
+
 def world_violations(image: str, facts: List[str], cast: str = "none (no people)", action: str = "-") -> List[str]:
     """Blind description, then the text-only world judge (the same two agents FrameCheckAgent.check uses), for any
     still: a keyframe or a location plate. Returns "fact (seen: evidence)" for every violated fact."""
@@ -56,7 +81,7 @@ def world_violations(image: str, facts: List[str], cast: str = "none (no people)
         action=action, cast=cast, facts=" ".join(f"({i}) {f}" for i, f in enumerate(facts, 1)),
         description=desc.model_dump_json())
     out = []
-    for c in wv.checks:
+    for c in list(wv.checks) + framing_checks(desc, facts):
         if str(c.get("verdict", "")).lower() == "violated" and c.get("evidence"):
             i = int(c.get("fact") or 0)
             out.append(f"{facts[i - 1] if 1 <= i <= len(facts) else '?'} (seen: {c.get('evidence')})")
@@ -92,7 +117,8 @@ class FrameCheckAgent:
             wv = self._world.run(action=shot.narrative_layer.narrative_action, cast="; ".join(f"{c.name}: {(c.description or '')[:100]}" for c in library.characters),
                                  facts=" ".join(f"({i}) {f}" for i, f in enumerate(facts, 1)),
                                  description=desc.model_dump_json())
-            fc.world_checks = wv.checks + [{"action_shown": wv.action_shown, "action_reason": wv.action_reason}]
+            fc.world_checks = wv.checks + framing_checks(desc, facts) + \
+                [{"action_shown": wv.action_shown, "action_reason": wv.action_reason}]
         if cont and closed_cast(cont.world_facts):   # closed cast: more humans than the cast has people = a stranger
             humans = count_humans(image)
             if len(humans) > len(human_cast(library)):

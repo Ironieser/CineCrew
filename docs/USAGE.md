@@ -255,6 +255,15 @@ random new seed and an LLM rewrite of the appearance text from the rejection rea
 Dead air alone is never regenerated (post-production trims it); a failure against a stale character expectation is
 not regenerated either. `resume_production.py --repair <plan.json>` applies a plan by hand.
 
+### Two-pass dialogue shots
+
+H3 Ref2VA (the only mode that takes a voice reference) treats the keyframe as a loose reference and re-composes the
+shot. With `H3_DIALOGUE_TWO_PASS=1` the proxy renders a dialogue shot that has a keyframe in two passes: FL2VA from
+the keyframe (silent take, first / last frame pinned), then Ref2VA video editing of that clip (`<Video 1>`, retention
+`fully_preserved`) with the character sheets and the speaker's voice (`<Audio 1>`) to add the line. The client sees
+one job. On EchoStation shot 06 the edit kept framing, set and view, ASR read the line exactly and the voice matched
+the reference (0.81 vs 0.83 single-pass). Costs a second render per dialogue shot.
+
 ### Draft and final tiers
 
 Draft renders use the 8-step turbo LoRA (FP8). Key shots get a final render on replicas served WITHOUT the LoRA at the
