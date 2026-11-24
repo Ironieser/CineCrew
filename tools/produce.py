@@ -122,8 +122,12 @@ def main():
         if not rp:
             break
         (run / "memory" / f"repair_round_{rnd}.json").write_text(json.dumps(rp, ensure_ascii=False, indent=1))
-        sh(PY, "tools/resume_production.py", run, "--only", ",".join(rp), "--resync-characters", "--max-retries", "1",
-           "--repair", run / "memory" / f"repair_round_{rnd}.json")
+        # a shot already on the final tier (a continued run) is repaired on the final tier, not swapped for a draft
+        was_final = set(prev_log.get("final_tier") or [])
+        for group, tier in (([x for x in rp if x not in was_final], []), ([x for x in rp if x in was_final], ["--tier", "final"])):
+            if group:
+                sh(PY, "tools/resume_production.py", run, "--only", ",".join(group), "--resync-characters", "--max-retries",
+                   "1", "--repair", run / "memory" / f"repair_round_{rnd}.json", *tier)
     # final tier: re-render the closing shot and the shots still failing after the repair rounds on the full-schedule
     # H3 replicas (no turbo LoRA), when they are configured (H3_FINAL_*_URL)
     if os.environ.get("H3_FINAL_FL2VA_URL") or os.environ.get("H3_FINAL_REF2VA_URL") or _dotenv_has("H3_FINAL_"):
