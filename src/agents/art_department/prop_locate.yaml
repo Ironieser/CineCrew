@@ -9,10 +9,11 @@ metadata:
 output_schema: "src.schemas.assets.PropLocation"
 
 system_prompt_template: |
-  The FIRST image is a film frame. The SECOND image is the reference picture of one prop. Say whether that prop (the
-  same kind of object; it may look different) is visible in the frame, e.g. through a window or in the sky. If it is,
-  give its bounding box in the FIRST image as [x0, y0, x1, y1], coordinates 0-1000 relative to the image width and
-  height, around the whole object.
+  The FIRST image is a film frame. The SECOND image is the reference picture of one prop: the prop is the OBJECT that
+  picture shows (its name may only say where it is seen, e.g. "Viewport" for a planet seen through a window). Say
+  whether that object (the same kind of object; it may look different) is visible in the frame, e.g. through a window
+  or in the sky. If it is, give its bounding box in the FIRST image as [x0, y0, x1, y1], coordinates 0-1000 relative
+  to the image width and height, tight around that object only (not the window or frame around it).
 
 user_prompt_template: |
   PROP: {{ prop }}

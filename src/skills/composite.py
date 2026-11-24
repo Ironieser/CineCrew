@@ -55,9 +55,17 @@ def locate_disc(image_path: str, box: Sequence[float], pad: float = 0.35) -> Opt
     k = max(1.0, max(X1 - X0, Y1 - Y0) / 240.0)               # work on <= 240 px for the flood fill
     sub = im.crop((X0, Y0, X1, Y1)).resize((max(1, int((X1 - X0) / k)), max(1, int((Y1 - Y0) / k))))
     L = np.asarray(sub, dtype=np.float32)
-    best = max(_components(L > BODY), key=lambda c: c[0], default=None)
-    if best is None or best[0] < 30:
-        return None
+    comps = sorted((c for c in _components(L > BODY) if c[0] >= 30), key=lambda c: -c[0])[:5]
+    for c in comps:   # largest first; the first one that fits as an unobstructed disc (ground / lamps do not)
+        fit = _fit_disc(L, c)
+        if fit:
+            cx, cy, r = fit
+            return X0 + cx * k, Y0 + cy * k, r * k
+    return None
+
+
+def _fit_disc(L: np.ndarray, best) -> Optional[Tuple[float, float, float]]:
+    """(cx, cy, r) in `L`'s pixels if component `best` is a lit disc / half-disc surrounded by sky, else None."""
     _, ys, xs = best
     bx0, bx1, by0, by1 = xs.min(), xs.max() + 1, ys.min(), ys.max() + 1
     w, h = bx1 - bx0, by1 - by0
@@ -85,7 +93,7 @@ def locate_disc(image_path: str, box: Sequence[float], pad: float = 0.35) -> Opt
     lit = inside & (L > BODY)
     if (dark_half.sum() + lit.sum()) < 0.8 * inside.sum():
         return None                                             # something else inside the disc
-    return X0 + cx * k, Y0 + cy * k, r * k
+    return cx, cy, r
 
 
 def paste_disc(image_path: str, sprite_path: str, disc: Tuple[float, float, float], out_path: str = None,
