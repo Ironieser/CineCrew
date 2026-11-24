@@ -333,14 +333,14 @@ def main():
         film_gates["audio.loudness"] = bool(max(dv) - min(dv) <= 4 and (not av or max(av) <= min(dv)))
     if (run / "script.txt").exists():   # content: every quoted script line is spoken in the film's plan
         from collections import Counter
-        from src.skills.script_coverage import missing_lines, norm, script_lines
+        from src.skills.script_coverage import missing_lines, norm as cnorm, script_lines
         script = (run / "script.txt").read_text()
         miss = missing_lines(script, [x.get("dialogue") or "" for x in shots])
         film_gates["content.dialogue_coverage"] = not miss
         # a line said more often than the script has it (a recovered line re-assigned to a second shot)
-        have, said = Counter(norm(l) for l in script_lines(script)), Counter(norm(x["dialogue"]) for x in shots if x.get("dialogue"))
-        repeated = [x["dialogue"] for x in shots if x.get("dialogue") and have.get(norm(x["dialogue"]))
-                    and said[norm(x["dialogue"])] > have[norm(x["dialogue"])]]
+        have, said = Counter(cnorm(l) for l in script_lines(script)), Counter(cnorm(x["dialogue"]) for x in shots if x.get("dialogue"))
+        repeated = [x["dialogue"] for x in shots if x.get("dialogue") and have.get(cnorm(x["dialogue"]))
+                    and said[cnorm(x["dialogue"])] > have[cnorm(x["dialogue"])]]
         film_gates["content.no_repeated_lines"] = not repeated
         content = {"script_lines": len(script_lines(script)), "missing_lines": miss, "repeated_lines": sorted(set(repeated))}
     else:
