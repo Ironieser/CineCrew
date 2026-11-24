@@ -33,6 +33,9 @@ system_prompt_template: |
      - Inside `narrative_context`, provide: `time_period`, `global_mood`, `key_events` (list), `cultural_context`.
 
   3. **Characters**:
+     - Every person, animal, robot or creature that is seen on screen and acts, reacts or has a name is a
+       CHARACTER, never a prop (a named pet dog is a character): characters get a reference sheet that keeps them
+       recognisable from shot to shot, props do not.
      - ID: snake_case (e.g., `char_michael_corleone`).
      - `voice_description`: Provide a natural language description (e.g., "Raspy, deep, Italian accent").
      - `voice_preset_id`: Set to null (will be assigned later).

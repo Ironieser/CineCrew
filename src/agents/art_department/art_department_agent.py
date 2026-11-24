@@ -104,6 +104,8 @@ class ArtDepartmentAgent:
                 logger.warning("Guard failed: %s", e)
                 asset_lib.project_settings = ProjectSettings()
 
+        promote_living_props(asset_lib)
+
         # Save
         save_assets(asset_lib, base_path)
         logger.info("Assets saved to %s", base_path)
@@ -340,6 +342,30 @@ class ArtDepartmentAgent:
             from .character_prompt import CharacterPromptAgent
             self._char_prompter = CharacterPromptAgent()
         return self._char_prompter
+
+
+_LIVING = re.compile(r"\b(?:dog|puppy|cat|kitten|bird|parrot|horse|pony|rabbit|bunny|hamster|pet|animal|creature|"
+                     r"shiba|corgi|retriever|terrier|poodle|husky|tabby)\b|柴犬|小狗|小猫|宠物", re.I)
+_THING = re.compile(r"\b(?:toy|collar|leash|bowl|statue|figurine|plush|picture|poster|photo|food|bed|cage|house|"
+                    r"bag|pouch|tag|treat|bone)\b|玩具|项圈|狗绳|食盆|袋", re.I)
+
+
+def promote_living_props(asset_lib: AssetLibrary) -> List[str]:
+    """A living being filed as a prop (a pet dog) gets no reference sheet and drifts from shot to shot (and is then
+    flagged as a stranger). Move props whose name or description is an animal, and not an object for one (a dog
+    collar, a cat toy), to the characters. Returns the promoted ids."""
+    from ...schemas.assets import CharacterAsset
+    moved = []
+    for p in list(asset_lib.props):
+        if _THING.search(p.name or "") or not _LIVING.search(f"{p.name} {p.visual_description}"):
+            continue
+        cid = "char_" + re.sub(r"^prop_", "", p.id)
+        if asset_lib.get_character_by_id(cid) is None:
+            asset_lib.characters.append(CharacterAsset(id=cid, name=p.name, description=p.visual_description))
+        asset_lib.props.remove(p)
+        moved.append(cid)
+        print(f"   🔎 [ArtDepartment] {p.id} is a living being: moved to the characters as {cid}", flush=True)
+    return moved
 
 
 def _has_image(refs: Optional[VisualReferences]) -> bool:
