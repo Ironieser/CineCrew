@@ -111,15 +111,21 @@ class VideoClient:
         return video.id
 
     def wait(self, video_id: str):
-        """GET /videos/{id} until status is terminal. Returns the final video object."""
-        deadline = time.monotonic() + self.timeout
+        """GET /videos/{id} until status is terminal. Returns the final video object. Time a job spends queued behind
+        other jobs on the same backend does not count against `timeout` (a hard cap of 4x still applies): a busy
+        replica must not fail the jobs waiting for it."""
+        start = time.monotonic()
+        deadline = start + self.timeout
         while True:
             video = self._client.videos.retrieve(video_id)
             status = getattr(video, "status", "")
             if status in ("completed", "failed"):
                 return video
-            if time.monotonic() > deadline:
-                raise TimeoutError(f"video {video_id} still {status!r} after {self.timeout:.0f}s")
+            now = time.monotonic()
+            if status == "queued":
+                deadline = max(deadline, now + self.timeout)
+            if now > deadline or now - start > 4 * self.timeout:
+                raise TimeoutError(f"video {video_id} still {status!r} after {now - start:.0f}s")
             time.sleep(self.poll_interval)
 
     def download(self, video_id: str, path: Path) -> Path:

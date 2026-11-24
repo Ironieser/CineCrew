@@ -95,6 +95,8 @@ def main():
             if p.exists():
                 kept[job.job_id] = str(p)
     todo = VideoJobBatch(scene_id=batch.scene_id, jobs=[j for j in batch.jobs if j.job_id not in kept])
+    # clips the re-rendered jobs already have: a re-render that fails (timeout, backend down) must not lose the shot
+    prior = {j.job_id: str(clips_dir / f"{j.job_id}.mp4") for j in todo.jobs if (clips_dir / f"{j.job_id}.mp4").exists()}
     if a.tier:
         for j in todo.jobs:
             j.extra["tier"] = a.tier
@@ -119,6 +121,12 @@ def main():
                               keyframes=opts.get("keyframes", True), stitch=False,
                               parallel=int(opts.get("parallel", 1)), library=lib,
                               keyframe_retries=opts.get("keyframe_retries"))
+
+    rendered = {r.job_id for r in results if r.video_path}
+    for job in todo.jobs:
+        if job.job_id not in rendered and job.job_id in prior and Path(prior[job.job_id]).exists():
+            kept[job.job_id] = prior[job.job_id]
+            print(f"[resume] {job.shot_id}: re-render failed, keeping the previous clip", flush=True)
 
     # merge kept clips back into the blueprint in shot/segment order, then stitch
     by_shot = {s.shot_id: s for s in bp.shots}

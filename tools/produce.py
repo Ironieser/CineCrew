@@ -56,6 +56,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("story", nargs="?", default=None, help="story dir (script_synopsis.json); omit with --from-source")
     ap.add_argument("--hint", default=""); ap.add_argument("--rounds", type=int, default=2)
+    ap.add_argument("--final-max", type=int, default=3, help="shots re-rendered on the final tier (closing shot first)")
     ap.add_argument("--from-source", default=None, help="adapt this source text first (novel excerpt / science topic)")
     ap.add_argument("--kind", default="novel excerpt"); ap.add_argument("--seconds", type=int, default=60)
     ap.add_argument("--run", default=None, help="continue from an already rendered run directory")
@@ -125,9 +126,13 @@ def main():
     # final tier: re-render the closing shot and the shots still failing after the repair rounds on the full-schedule
     # H3 replicas (no turbo LoRA), when they are configured (H3_FINAL_*_URL)
     if os.environ.get("H3_FINAL_FL2VA_URL") or os.environ.get("H3_FINAL_REF2VA_URL") or _dotenv_has("H3_FINAL_"):
+        # bounded: a full-schedule clip costs ~6x a draft one and each tier has one replica per mode, so the closing
+        # shot goes first, then the shortest still-failing shots, at most --final-max in all
         shots = [s["shot"] for s in rep["shots"]]
+        dur = {s["shot"]: float(s.get("duration") or 99) for s in rep["shots"]}
         keep_failing = [s["shot"] for s in rep["shots"] if any(not s["gates"].get(g, True) for g in SHOT_GATES)]
-        final = sorted(set(keep_failing + shots[-1:]))
+        rest = sorted((x for x in keep_failing if x not in shots[-1:]), key=lambda x: dur.get(x, 99))
+        final = sorted((shots[-1:] + rest)[:a.final_max])
         log["final_tier"] = final
         print(f"[produce] final tier (full-schedule H3) for {final}", flush=True)
         sh(PY, "tools/resume_production.py", run, "--only", ",".join(final), "--resync-characters", "--max-retries", "0",
