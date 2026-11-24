@@ -109,7 +109,8 @@ def link_prop_images(asset_library, prop_dir: Path) -> None:
     with a dark night side); keyframes of shots that stage the prop use it as a reference picture. An optional
     sprite.png (RGBA cut-out) next to it is pasted over the generated prop where a frame shows it unobstructed.
     """
-    from src.schemas.assets import VisualReferences
+    import re
+    from src.schemas.assets import PropAsset, VisualReferences
     if not prop_dir.is_dir():
         return
     norm = lambda s: "".join(ch for ch in s.lower() if ch.isalnum())
@@ -117,13 +118,26 @@ def link_prop_images(asset_library, prop_dir: Path) -> None:
         img = next((d / n for n in ("best.png", "best.jpg") if (d / n).exists()), None)
         if img is None:
             continue
-        for prop in asset_library.props:
-            if norm(d.name) in (norm(prop.name), norm(prop.id), norm(prop.id.replace("prop_", ""))):
-                sprite = d / "sprite.png"   # optional RGBA cut-out (code renders): pasted over the generated prop
-                prop.visual_references = VisualReferences(canonical_image_path=_relative(img),
-                                                          sprite_path=_relative(sprite) if sprite.exists() else None)
-                print(f"   🖼  [{prop.id}] linked prop image: {img.name}" + (" + sprite" if sprite.exists() else ""),
-                      flush=True)
+        key = norm(d.name)
+        # exact name / id first; else the prop whose name is contained in the folder name or contains it (the
+        # planner names the same object differently from run to run: "Earth Viewport", "Viewport")
+        match = [p for p in asset_library.props if key in (norm(p.name), norm(p.id), norm(p.id.replace("prop_", "")))]
+        if not match:
+            match = sorted((p for p in asset_library.props if len(norm(p.name)) >= 4
+                            and (norm(p.name) in key or key in norm(p.name))), key=lambda p: -len(norm(p.name)))
+        if not match:   # a supplied prop picture is an asset of the story even if the planner did not list it
+            name = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", d.name).replace("_", " ").strip()
+            prop = PropAsset(id="prop_" + re.sub(r"[^a-z0-9]+", "_", name.lower()).strip("_"), name=name,
+                             visual_description=f"{name}, exactly as in its reference picture", importance="critical")
+            asset_library.props.append(prop)
+            match = [prop]
+            print(f"   🖼  [{prop.id}] supplied prop not in the plan: added", flush=True)
+        prop = match[0]
+        sprite = d / "sprite.png"   # optional RGBA cut-out (code renders): pasted over the generated prop
+        prop.visual_references = VisualReferences(canonical_image_path=_relative(img),
+                                                  sprite_path=_relative(sprite) if sprite.exists() else None)
+        print(f"   🖼  [{prop.id}] linked prop image {d.name}/{img.name}" + (" + sprite" if sprite.exists() else ""),
+              flush=True)
 
 
 def link_character_images(asset_library, char_images: dict[str, Path]) -> None:
