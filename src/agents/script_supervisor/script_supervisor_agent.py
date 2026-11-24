@@ -45,7 +45,10 @@ class ScriptSupervisorAgent:
         try:
             plan = self._agent.run(script=script, characters=chars, props=props, shots=shots)
             by_id = {x.shot_id: x.continuity for x in plan.shots}
-            facts = [clean_fact(f) for f in plan.world_facts]
+            # one checkable clause per fact (a text judge handles "A; B" worse than A and B), then keep only the
+            # clauses the script supports
+            facts = [clean_fact(g) for f in plan.world_facts for g in re.split(r";\s*", f or "") if g.strip()]
+            facts = self._grounded([f for f in facts if f], script)
             for c in by_id.values():      # story-wide facts travel with every shot's entry
                 c.world_facts = [f for f in facts if f]
         except Exception as e:
@@ -55,6 +58,25 @@ class ScriptSupervisorAgent:
         for line in report:
             print(f"   📋 {line}", flush=True)
         return blueprint
+
+    @staticmethod
+    def _grounded(facts: List[str], script: str) -> List[str]:
+        """Drop world facts the script does not state or directly imply (fact_grounding.yaml); keep all if the check
+        fails."""
+        if not facts:
+            return facts
+        try:
+            r = ConfigurableAgent(config_path=str(_HERE / "fact_grounding.yaml")).run(
+                script=script[:12000], facts="\n".join(f"{i}. {f}" for i, f in enumerate(facts, 1)))
+        except Exception as e:
+            logger.warning("FactGrounding failed (%s); world facts kept as written", e)
+            return facts
+        dropped = {v.i for v in r.verdicts if not v.supported}
+        keep = [f for i, f in enumerate(facts, 1) if i not in dropped]
+        for f in facts:
+            if f not in keep:
+                print(f"   📋 world fact not in the script, dropped: {f}", flush=True)
+        return keep
 
     @staticmethod
     def repair(blueprint: SceneBlueprint, by_id: dict, library: AssetLibrary) -> List[str]:

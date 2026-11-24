@@ -83,6 +83,17 @@ class ShotContinuity(BaseModel):
     continuity: ContinuityState
 
 
+class FactVerdict(BaseModel):
+    i: int = 0
+    supported: bool = True
+    script_evidence: str = Field("", description="the script words (any language) the fact's main point rests on")
+
+
+class FactGrounding(BaseModel):
+    """fact_grounding.yaml output: one verdict per candidate world fact."""
+    verdicts: List[FactVerdict] = Field(default_factory=list)
+
+
 class ContinuityPlan(BaseModel):
     """ScriptSupervisor output: story-wide visual facts + one ledger entry per shot, in shot order."""
     world_facts: List[str] = Field(default_factory=list, description="Visual facts of this story's world that every "

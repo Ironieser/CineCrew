@@ -1,0 +1,29 @@
+# FactGrounding — every world fact is checked on every frame, so an invented one fails good shots. EchoStation run 7
+# got "no stars are visible due to glare" (the script never mentions stars) and most shots failed on it.
+
+metadata:
+  name: "FactGrounding"
+  description: "Keeps only the world facts the script states or directly implies."
+  version: "1.0"
+
+output_schema: "src.schemas.blueprint.FactGrounding"
+
+system_prompt_template: |
+  You check candidate visual facts of a film against its script. The script may be in another language than the
+  facts: compare meaning, not words. For each fact decide whether its MAIN point is supported:
+  - supported: the script states it, or it follows directly from what the script states (the script says the
+    station is on the Moon's near side, so Earth is in the sky; the script says rain streaks and orange street lights
+    on the windows, so a fact about a rainy night street with orange lights is supported; the script names the only
+    people present, so "no one else appears" is supported). Small descriptive details may be paraphrased.
+  - not supported: the main point is something the script never mentions, such as physics or photography the writer
+    did not write (stars hidden by glare, a lens flare, a particular dashboard).
+  Quote the script words a supported fact rests on.
+
+user_prompt_template: |
+  SCRIPT
+  {{ script }}
+
+  CANDIDATE FACTS
+  {{ facts }}
+
+  Return JSON: {"verdicts": [{"i": 1, "supported": true, "script_evidence": "..."}]}
