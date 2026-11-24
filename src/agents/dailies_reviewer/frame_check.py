@@ -10,6 +10,7 @@ FrameCheckAgent — calibrated, specific checks on a single keyframe (frame_chec
 sheets, missing characters, strangers, world facts, generated text, time of day. `failures()` turns a verdict into
 the list of problems that block the keyframe; ProductionOperator iterates keyframes until it is empty.
 """
+import re
 from pathlib import Path
 from typing import List, Optional
 
@@ -24,6 +25,27 @@ _HERE = Path(__file__).resolve().parent
 # built-in fact checked for every frame (generators duplicate planets / suns across a window and a sky)
 BUILTIN_FACTS = ["Each one-of-a-kind celestial body (a particular planet, the sun, a moon) appears at most once."]
 _DARK = {"night": {"night"}, "dusk": {"dusk", "night", "day"}, "dawn": {"dawn", "day", "dusk"}, "day": {"day", "dusk", "dawn"}}
+
+
+_NONHUMAN = re.compile(r"\b(?:robot|android|droid|machine|dog|puppy|cat|kitten|bird|parrot|horse|animal|creature|shiba|"
+                       r"retriever|terrier|tabby)\b|机器人|柴犬|小狗|小猫|狗|猫", re.I)
+
+
+def human_cast(library: AssetLibrary) -> List[str]:
+    """Names of the cast members who are people (robots and animals are not counted as humans)."""
+    return [c.name for c in library.characters
+            if not _NONHUMAN.search(f"{c.name} {c.description or ''} {c.clothing_style or ''}")]
+
+
+def count_humans(image: str) -> List[str]:
+    """Every human in `image` (count_humans.yaml): one entry each, background people included."""
+    return ConfigurableAgent(config_path=str(_HERE / "count_humans.yaml")).run(images=[image]).humans
+
+
+def closed_cast(facts) -> bool:
+    """The ledger forbids anyone but the cast ("no people other than X and Y appear")."""
+    from ..script_supervisor.script_supervisor_agent import _PRESENCE
+    return any(_PRESENCE.search(f or "") for f in (facts or []))
 
 
 def world_violations(image: str, facts: List[str], cast: str = "none (no people)", action: str = "-") -> List[str]:
@@ -71,6 +93,11 @@ class FrameCheckAgent:
                                  facts=" ".join(f"({i}) {f}" for i, f in enumerate(facts, 1)),
                                  description=desc.model_dump_json())
             fc.world_checks = wv.checks + [{"action_shown": wv.action_shown, "action_reason": wv.action_reason}]
+        if cont and closed_cast(cont.world_facts):   # closed cast: more humans than the cast has people = a stranger
+            humans = count_humans(image)
+            if len(humans) > len(human_cast(library)):
+                fc.strangers = True
+                fc.fix = (fc.fix + " " if fc.fix else "") + f"[{len(humans)} people seen: {'; '.join(humans)[:200]}]"
             fc.fix = (fc.fix + " " if fc.fix else "") + f"[seen: {desc.outside_view[:200]}]"
         return fc
 

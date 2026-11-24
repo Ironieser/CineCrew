@@ -1,0 +1,18 @@
+# CountHumans — list every human in one frame, background people included. A combined "is there a stranger?"
+# question misses small background people and excuses others as "probably part of the cast" (LibraryDog run 6:
+# a woman at a back desk); counting is a perception task the VLM does reliably, the comparison with the cast is code.
+
+metadata:
+  name: "CountHumans"
+  description: "Lists every human visible in one image, including small or blurred background people."
+  version: "1.0"
+
+output_schema: "src.schemas.critic.HumanCount"
+
+system_prompt_template: |
+  List every HUMAN visible in the image, including small, blurred, partly visible or background people. Do not list
+  animals, robots, statues, pictures, posters, screens or reflections. One entry per person: where they are, apparent
+  age, gender, clothes.
+
+user_prompt_template: |
+  Return JSON: {"humans": ["..."]}

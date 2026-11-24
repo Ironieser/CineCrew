@@ -17,6 +17,8 @@ for the visual ones vs 0.43 / 0.43 for the previous judge + VLM set):
   visual.continuity  time of day / rain read from frames match the continuity ledger (night is strict)
   visual.text        no prominent garbled text (VLM transcription; adjacent repeated tokens count as garbled)
   visual.identity    expected characters match their reference board; no glowing human eyes
+  visual.presence    no stranger; with a closed cast (a "no people other than ..." world fact) the humans on screen are
+                     counted (count_humans.yaml) and may not outnumber the cast's people (robots / animals excluded)
   audio.voice        same speaker across shots: speaker-embedding cosine >= 0.75 (resemblyzer)   [film-level]
   audio.loudness     dialogue clips within 4 LU (EBU R128), ambience-only clips not louder        [film-level]
   content.dialogue_coverage  every quoted script line is spoken                                  [film-level]
@@ -93,8 +95,10 @@ Answer ONLY JSON: {{"garbled_text": bool, "captions_or_subtitles": bool, "human_
 - expected_characters_present: for each expected character a figure consistent with them is visible, robots
   included. A back view, an over-the-shoulder foreground or a silhouette counts as present: you are not asked to
   confirm identity, only that nobody expected is missing.
-- wrong_extra_person: a prominent person who matches NONE of the film's cast (a stranger), or a cast member shown
-  twice. A cast member at the edge or in the background is fine.
+- wrong_extra_person: a clearly visible person who matches NONE of the film's cast (a stranger), or a cast member
+  shown twice. A cast member at the edge or in the background is fine. Each cast member is at most ONE person in a
+  frame: if more people are visible than cast members they could be (two older women when the cast has one), the
+  extra ones are strangers. Never excuse a person as "probably part of the cast" without naming who they are.
 - time_of_day: judge from the sky, windows and light (an interior with black windows and lamps on is night).
 - raining: rain drops, wet streaks on windows, wet reflective streets, umbrellas in use.
 - duplicated_unique_object: a one-of-a-kind object appears twice in one frame (two Earths, two suns, two moons, the same person twice)."""
@@ -177,6 +181,9 @@ def main():
     # expected on-screen characters from the current visible-character guard over the plan (same as the repair policy)
     expected = {}
     from src.agents.script_supervisor import judged_facts
+    from src.agents.dailies_reviewer.frame_check import closed_cast, count_humans, human_cast
+    from src.schemas.assets import AssetLibrary as _Lib
+    people = human_cast(_Lib.model_validate(lib))   # cast members who are people (robots / animals are not)
     try:
         from src.schemas.blueprint import SceneBlueprint
         from src.schemas.assets import AssetLibrary
@@ -299,6 +306,13 @@ def main():
                         r["world_violations"] = wv
                 # strangers (people outside the cast) are a hard failure; presence counts stay advisory
                 r["gates"]["visual.presence"] = not vj.get("wrong_extra_person")
+                if closed_cast((ledger.get(s["shot_id"]) or {}).get("world_facts")):
+                    # counted, not asked: a VLM asked "is there a stranger?" misses small background people
+                    n_h = max(len(count_humans(str(f))) for f in frames_used[:2])
+                    r["humans_counted"] = n_h
+                    if n_h > len(people):
+                        r["gates"]["visual.presence"] = False
+                        r["strangers"] = f"{n_h} people on screen, the cast has {len(people)}"
                 r["advisory"]["visual.vlm"] = bool(not vj.get("garbled_text") and not vj.get("captions_or_subtitles")
                                                 and not vj.get("human_glowing_eyes")
                                                 and (not chars or vj.get("expected_characters_present", True)

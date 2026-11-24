@@ -103,6 +103,11 @@ class FrameCheck(BaseModel):
 
 
 
+class HumanCount(BaseModel):
+    """Every human in one frame (count_humans.yaml): counted, not identified."""
+    humans: List[str] = Field(default_factory=list, description="one entry per human: where, apparent age, gender, clothes")
+
+
 class FrameDescription(BaseModel):
     """Blind description of a keyframe (frame_describe.yaml)."""
     people: List[str] = Field(default_factory=list)
