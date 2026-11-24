@@ -85,6 +85,8 @@ def main():
 
     keep = [k for k in a.keep.split(",") if k]
     only = [k for k in a.only.split(",") if k]
+    if a.only is not None and a.only.strip() and not only:
+        sys.exit("[resume] --only names no shot")
     if only:
         keep = sorted({j.shot_id for j in batch.jobs if not any(j.shot_id.startswith(o) for o in only)})
     clips_dir = run / "media" / "clips"

@@ -80,6 +80,7 @@ def main():
         runs = sorted((ROOT / "data" / "runs" / "dataset" / story.name).glob("*/"), key=lambda p: p.stat().st_mtime)
         run = runs[-1]
     log["run"] = str(run); log["render_s"] = round(time.time() - t0)
+    prev_log = json.loads((run / "produce_log.json").read_text()) if (run / "produce_log.json").exists() else {}
     lib = json.loads((run / "assets" / "asset_library.json").read_text())
     missing = [c["id"] for c in lib.get("characters", [])
                if not ((c.get("visual_references") or {}).get("canonical_image_path"))]
@@ -132,11 +133,14 @@ def main():
         dur = {s["shot"]: float(s.get("duration") or 99) for s in rep["shots"]}
         keep_failing = [s["shot"] for s in rep["shots"] if any(not s["gates"].get(g, True) for g in SHOT_GATES)]
         rest = sorted((x for x in keep_failing if x not in shots[-1:]), key=lambda x: dur.get(x, 99))
-        final = sorted((shots[-1:] + rest)[:a.final_max])
-        log["final_tier"] = final
-        print(f"[produce] final tier (full-schedule H3) for {final}", flush=True)
-        sh(PY, "tools/resume_production.py", run, "--only", ",".join(final), "--resync-characters", "--max-retries", "0",
-           "--tier", "final")
+        done_before = set(prev_log.get("final_tier") or [])   # a continued run: its closing shot may be final already
+        closing = [x for x in shots[-1:] if x not in done_before or x in keep_failing]
+        final = sorted((closing + rest)[:max(0, a.final_max)])
+        log["final_tier"] = sorted(set(final) | done_before)
+        if final:   # never call resume with an empty --only (that re-renders every shot)
+            print(f"[produce] final tier (full-schedule H3) for {final}", flush=True)
+            sh(PY, "tools/resume_production.py", run, "--only", ",".join(final), "--resync-characters", "--max-retries",
+               "0", "--tier", "final")
     sh("python3", "tools/post_production.py", run)
     final = qa(run, a.hint, post=True)
     log.update(final={"passed": final["passed"], "total": final["total"], "all_pass": final["all_pass"],
