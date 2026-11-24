@@ -88,15 +88,28 @@ def main():
     if only:
         keep = sorted({j.shot_id for j in batch.jobs if not any(j.shot_id.startswith(o) for o in only)})
     clips_dir = run / "media" / "clips"
+    # the clip each job currently has is the one the last run SELECTED (it can be a retry in clips/retry_N/), not
+    # whatever sits at clips/<job>.mp4 (attempt 0, possibly the rejected one)
+    selected = {}
+    prev_final = run / "shots" / "scene_blueprint_final.json"
+    if prev_final.exists():
+        for s0 in SceneBlueprint.model_validate_json(prev_final.read_text()).shots:
+            for p0 in ((s0.render_layer.video.video_clip_paths or []) if s0.render_layer else []):
+                p0 = Path(p0) if Path(p0).is_absolute() else ROOT / p0
+                if p0.exists() and p0.parent.name != "post":
+                    selected[p0.stem] = str(p0)
+
+    def current_clip(job_id: str):
+        p = selected.get(job_id) or (str(clips_dir / f"{job_id}.mp4") if (clips_dir / f"{job_id}.mp4").exists() else None)
+        return p
+
     kept = {}
     for job in batch.jobs:
-        if any(job.shot_id.startswith(k) for k in keep):
-            p = clips_dir / f"{job.job_id}.mp4"
-            if p.exists():
-                kept[job.job_id] = str(p)
+        if any(job.shot_id.startswith(k) for k in keep) and current_clip(job.job_id):
+            kept[job.job_id] = current_clip(job.job_id)
     todo = VideoJobBatch(scene_id=batch.scene_id, jobs=[j for j in batch.jobs if j.job_id not in kept])
     # clips the re-rendered jobs already have: a re-render that fails (timeout, backend down) must not lose the shot
-    prior = {j.job_id: str(clips_dir / f"{j.job_id}.mp4") for j in todo.jobs if (clips_dir / f"{j.job_id}.mp4").exists()}
+    prior = {j.job_id: current_clip(j.job_id) for j in todo.jobs if current_clip(j.job_id)}
     if a.tier:
         for j in todo.jobs:
             j.extra["tier"] = a.tier
