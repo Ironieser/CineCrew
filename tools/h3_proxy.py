@@ -204,6 +204,12 @@ def validate(text: str, dialogue, ref: bool, speaker=None, voice=None, subjects=
                 text = text[:end] + f" {who} (S1){desc} says: <d>[{LANG}] {line}</d> and then closes their lips." + text[end:]
     else:
         text = re.sub(r"<d>.*?</d>", "", text, flags=re.S)
+    off = bool(dialogue) and not (speaker and speaker in {x.get("name") for x in (subjects or [])})
+    if off and "lips remain completely closed" not in text:   # an off-screen line: nobody on screen lip-syncs it
+        end = text.find("\n\noverall_soundscape")
+        end = end if end >= 0 else len(text)
+        text = (text[:end] + " The line is an off-screen voice; every on-screen character's lips remain completely "
+                "closed while it is heard." + text[end:])
     text = re.sub(r"<style sentence>\s*", "The target video uses a realistic cinematic style. ", text)
     text = re.sub(r"<(the voice|voice|speaker)>", "An unseen voice", text).replace("[required_markup]", "")
     if "no legible lettering" not in text:
@@ -287,12 +293,18 @@ def create(fields: dict, upload: bytes = None) -> dict:
     # the frame as one more reference picture; silent shots start from it as the first frame (FL2VA).
     kf = extra.get("keyframe")
     kf = kf if kf and (Path(kf).exists() or (ROOT / kf).exists()) else None
-    two_pass = TWO_PASS and bool(kf) and bool(dialogue) and bool(subjects)
-    fl2va_first = bool(kf) and (not dialogue or two_pass)
+    # who speaks: an on-screen referenced character, or an off-screen voice (radio, loudspeaker, narrator). Ref2VA
+    # lip-syncs a line to whoever is on screen, so an off-screen line is rendered FL2VA from the keyframe with the
+    # line as a voiceover and every on-screen mouth closed (EchoStation: Earth's radio reply was spoken on camera).
+    on_screen_speaker = bool(dialogue) and bool(speaker) and speaker in {x.get("name") for x in subjects}
+    two_pass = TWO_PASS and bool(kf) and on_screen_speaker
+    off_screen_line = bool(dialogue) and not on_screen_speaker
+    fl2va_first = bool(kf) and (not dialogue or two_pass or off_screen_line)
     if two_pass:   # pass 1: the silent take from the keyframe; the line is added by pass 2 (see status())
         h3_prompt = rewrite(prompt + SILENT_TAKE, None, None, None, [])
-    else:
-        h3_prompt = rewrite(prompt, dialogue, speaker, voice, [] if fl2va_first else subjects)
+    else:   # an off-screen line on FL2VA keeps the line: rewrite() writes it as a voiceover (no subjects -> off-screen)
+        h3_prompt = rewrite(prompt, dialogue, speaker if on_screen_speaker else None, voice,
+                            [] if fl2va_first else subjects)
     if kf and not fl2va_first and subjects:
         k = len(subjects) + 1
         line = (f"<Picture {k}> is the opening frame of this shot (not a character): the video starts from its "
