@@ -62,6 +62,7 @@ class VODirectorAgent:
         """Refine narrative_layer.dialogue (+ performance emotion) on every shot; other layers untouched."""
         print("--- [VODirector] Dialogue + performance direction → narrative_layer ---", flush=True)
         self.emotion_history = []
+        self._recovered = set()
         if design_voices:
             self.design_voices(asset_library)
         char_ctx = build_character_context(asset_library)
@@ -70,10 +71,30 @@ class VODirectorAgent:
                 continue
             self._enrich_dialogue(shot, char_ctx, script_segment, asset_library)
         self._spoken_lines_only(blueprint)
+        self._no_repeated_lines(blueprint, script_segment, self._recovered)
         for shot in blueprint.shots:
             if shot.narrative_layer is not None and infer_emotion:
                 self._direct_performance(shot, asset_library)
         return blueprint
+
+    @staticmethod
+    def _no_repeated_lines(blueprint: SceneBlueprint, script: str, recovered=()) -> None:
+        """A line is spoken as many times as the script has it (once, usually). The extractor that recovers lines
+        for silent shots re-assigns lines another shot already speaks (LibraryDog: "它替你交罚款？" in shots 08 and
+        10); extra copies are removed, recovered ones first. Lines not found in the script are left alone."""
+        from collections import Counter
+        from ...skills.script_coverage import norm, script_lines
+        allowed = Counter(norm(l) for l in script_lines(script))
+        groups = {}
+        for i, shot in enumerate(blueprint.shots):
+            d = shot.narrative_layer.dialogue if shot.narrative_layer else None
+            if d and d.has_dialogue and d.text and allowed.get(norm(d.text)):
+                groups.setdefault(norm(d.text), []).append((shot.shot_id in recovered, i, shot))
+        for key, items in groups.items():
+            for _, _, shot in sorted(items)[allowed[key]:]:     # planner's own lines first, then in shot order
+                d = shot.narrative_layer.dialogue
+                print(f"   ✂️  [{shot.shot_id}] '{d.text}' is already spoken in another shot: now silent", flush=True)
+                d.has_dialogue, d.text = False, None
 
     @staticmethod
     def _spoken_lines_only(blueprint: SceneBlueprint) -> None:
@@ -148,6 +169,7 @@ class VODirectorAgent:
             text=extraction.full_dialogue,
             voice_preset=self._voice_preset(speaker, library),
         )
+        self._recovered.add(shot.shot_id)
         print(f"   ✅ [{shot.shot_id}] dialogue recovered: speaker={speaker}, {len(extraction.full_dialogue)} chars", flush=True)
 
     @staticmethod

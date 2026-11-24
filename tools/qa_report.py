@@ -20,6 +20,7 @@ for the visual ones vs 0.43 / 0.43 for the previous judge + VLM set):
   audio.voice        same speaker across shots: speaker-embedding cosine >= 0.75 (resemblyzer)   [film-level]
   audio.loudness     dialogue clips within 4 LU (EBU R128), ambience-only clips not louder        [film-level]
   content.dialogue_coverage  every quoted script line is spoken                                  [film-level]
+  content.no_repeated_lines  no line is spoken more often than the script has it                 [film-level]
   pacing.length      film length within ±25 % of the planned total                                  [film-level]
 Advisory (recorded under "advisory", never gate): visual.review (VisualJudge score), visual.vlm (presence count,
 generic flags).
@@ -331,11 +332,17 @@ def main():
     if dv:   # dialogue level consistent across shots; ambience-only shots never louder than speech
         film_gates["audio.loudness"] = bool(max(dv) - min(dv) <= 4 and (not av or max(av) <= min(dv)))
     if (run / "script.txt").exists():   # content: every quoted script line is spoken in the film's plan
-        from src.skills.script_coverage import missing_lines, script_lines
+        from collections import Counter
+        from src.skills.script_coverage import missing_lines, norm, script_lines
         script = (run / "script.txt").read_text()
         miss = missing_lines(script, [x.get("dialogue") or "" for x in shots])
         film_gates["content.dialogue_coverage"] = not miss
-        content = {"script_lines": len(script_lines(script)), "missing_lines": miss}
+        # a line said more often than the script has it (a recovered line re-assigned to a second shot)
+        have, said = Counter(norm(l) for l in script_lines(script)), Counter(norm(x["dialogue"]) for x in shots if x.get("dialogue"))
+        repeated = [x["dialogue"] for x in shots if x.get("dialogue") and have.get(norm(x["dialogue"]))
+                    and said[norm(x["dialogue"])] > have[norm(x["dialogue"])]]
+        film_gates["content.no_repeated_lines"] = not repeated
+        content = {"script_lines": len(script_lines(script)), "missing_lines": miss, "repeated_lines": sorted(set(repeated))}
     else:
         content = None
     # pacing metrics (advisory until calibrated on our own films): shot lengths, time to the first line, the longest
