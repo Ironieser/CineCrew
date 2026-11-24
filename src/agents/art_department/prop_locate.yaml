@@ -1,0 +1,20 @@
+# PropLocate — is a prop (e.g. a planet seen through a window) visible in a frame, and roughly where. Code then fits
+# the body exactly (src/skills/composite.py) and pastes the prop's exact sprite over the generated one.
+
+metadata:
+  name: "PropLocate"
+  description: "Finds one prop in a frame: visible or not, and its rough bounding box."
+  version: "1.0"
+
+output_schema: "src.schemas.assets.PropLocation"
+
+system_prompt_template: |
+  The FIRST image is a film frame. The SECOND image is the reference picture of one prop. Say whether that prop (the
+  same kind of object; it may look different) is visible in the frame, e.g. through a window or in the sky. If it is,
+  give its bounding box in the FIRST image as [x0, y0, x1, y1], coordinates 0-1000 relative to the image width and
+  height, around the whole object.
+
+user_prompt_template: |
+  PROP: {{ prop }}
+
+  Return JSON: {"present": true|false, "box": [x0, y0, x1, y1]}

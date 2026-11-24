@@ -18,7 +18,8 @@ system_prompt_template: |
   (a still frame cannot show it); otherwise "holds". A fact about one part of something (e.g. a planet's night
   side) is "not_visible" unless the description mentions that part: a lit day side says nothing about the night
   side. A planet that a fact places "in space" as a sphere, globe or disc is violated by a description where only part
-  of it is seen (a curved horizon, or its surface filling the view): that is a view from low orbit, not from afar.
+  of its surface is seen (a curved horizon, or its surface filling the view): that is a view from low orbit, not from
+  afar. A lit half or crescent floating in space with its night side dark IS a whole planet seen from afar.
   Never infer beyond the description.
 
 user_prompt_template: |

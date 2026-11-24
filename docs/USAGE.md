@@ -225,6 +225,13 @@ horizon where the story needs a distant globe) is re-rendered with the violation
 props that have a reference picture (e.g. a code-rendered planet) as conditioning, up to `plate_retries` times. The
 new plate goes to the run's `assets/references/`; a supplied plate is never overwritten.
 
+Exact world props: a prop in `prop_list/<Name>/` may carry `sprite.png` next to `best.png` — an RGBA cut-out, e.g.
+from a code render (`our_dataset/EchoStation/earth/render_plate.py` writes both). For props the world facts name,
+every keyframe (and re-rendered plate) is searched for the prop (`prop_locate.yaml`, a rough VLM box), the body is
+fitted exactly in code (`src/skills/composite.py`: largest bright disc against a dark sky; round bodies only) and,
+when sky surrounds it, the sprite is pasted over the generated one. Image / video models redraw such props from their
+prior (a planet's dark night side comes out lit); silent shots keep the pasted frame as their pinned first frame.
+
 ### Hands-off production
 
 `tools/produce.py <story_dir> --hint "..."` runs planning + rendering, then up to `--rounds` QA → regenerate-failed

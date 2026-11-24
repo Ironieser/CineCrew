@@ -14,8 +14,9 @@ system_prompt_template: |
   - people: one entry per visible person or robot/creature (what they look like, where they are in frame)
   - outside_view: what is visible through windows or in the sky: each object (planet, moon, sun, city, landscape),
     how many of each, its size in frame, which parts are lit or dark, and whether any dark part shows lights. For a
-    planet or moon say whether its WHOLE round disc is seen with empty space all around it, or only part of it (a
-    curved horizon, or its surface filling much of the view)
+    planet or moon say whether it is seen whole, floating in space (a full disc, or a lit half / crescent with a
+    round edge whose night side is dark against the sky), or only a part of its surface (a curved horizon or ground
+    filling much of the view)
   - objects: other notable objects
   - visible_text: any large text-like marks (signs, screens), copied as seen
 

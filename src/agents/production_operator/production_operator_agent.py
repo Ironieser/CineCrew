@@ -337,6 +337,12 @@ class ProductionOperatorAgent:
         review_log: List[dict] = []
         best: Optional[tuple] = None                     # (n_failures, path, prompt)
         base_prompt = prompt
+        # world props (a planet the facts describe) with an exact picture: checked on every frame, sprite pasted over
+        wprops = []
+        if judge and library is not None and cont is not None and cont.world_facts:
+            from ..art_department.prop_insert import world_props
+            from ..script_supervisor import judged_facts
+            wprops = world_props(library, judged_facts(cont.world_facts))
         for attempt in range(max_retries + 1):
             path = out_dir / f"{shot.shot_id}_kf{attempt}.png"
             print(f"   🖼  [{shot.shot_id}] keyframe attempt {attempt + 1} ({'TI2I' if refs else 'T2I'})", flush=True)
@@ -355,6 +361,9 @@ class ProductionOperatorAgent:
                 break
             try:
                 from ..dailies_reviewer.frame_check import FrameCheckAgent
+                if wprops:   # exact world props (code-rendered sprites) pasted where seen unobstructed
+                    from ..art_department.prop_insert import insert_props
+                    insert_props(str(path), wprops)
                 fc = FrameCheckAgent().check(str(path), shot, library, expected)
                 fails = FrameCheckAgent.failures(fc, shot, [names.get(c, c) for c in expected])
             except Exception as e:

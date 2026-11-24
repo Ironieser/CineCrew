@@ -29,5 +29,13 @@ img = np.zeros((H, W, 3), np.float32)
 stars = rng.random((H, W)) > 0.9988
 img[stars] = rng.uniform(0.25, 0.8, (stars.sum(), 1))
 img[disk] = lit[disk]
-Image.fromarray((np.clip(img, 0, 1) * 255).astype(np.uint8)).save(HERE.parent / "prop_list" / "EarthViewport" / "best.png")
-print("wrote prop_list/EarthViewport/best.png")
+out = HERE.parent / "prop_list" / "EarthViewport"
+Image.fromarray((np.clip(img, 0, 1) * 255).astype(np.uint8)).save(out / "best.png")
+# sprite: the planet alone with a transparent background (night side opaque black), cropped to the disc, so the
+# pipeline can paste the exact planet over a generated one (src/skills/composite.py)
+alpha = np.clip((1 - np.sqrt(r2)) * R + 0.5, 0, 1)                      # 1 px anti-aliased rim
+rgba = np.dstack([np.where(disk[..., None], lit, 0), alpha])
+x0, y0 = cx - R - 1, cy - R - 1
+Image.fromarray((np.clip(rgba, 0, 1) * 255).astype(np.uint8), "RGBA").crop((x0, y0, x0 + 2 * R + 2, y0 + 2 * R + 2)) \
+    .save(out / "sprite.png")
+print("wrote prop_list/EarthViewport/best.png, sprite.png")

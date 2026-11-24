@@ -239,8 +239,10 @@ class ArtDepartmentAgent:
         Check every location plate against the film's world facts (the continuity ledger, written after the plates
         were rendered) and re-render the plates that contradict them. Every keyframe of a scene is conditioned on its
         plate, so a wrong view through a window (a planet horizon where the story needs a distant globe) reaches every
-        shot. Props with a reference picture that are staged in the location (e.g. a code-rendered planet) condition
-        the re-render. The new plate is written to this run's references; a supplied plate is never overwritten.
+        shot. Props the world facts name that have a reference picture (e.g. a code-rendered planet seen through a
+        window) condition the re-render, and a plate whose view of them differs from that picture (a planet's dark half
+        rendered lit) is re-rendered too. The new plate is written to this run's references; a supplied plate is never
+        overwritten.
         Returns human-readable notes.
         """
         import random
@@ -248,6 +250,7 @@ class ArtDepartmentAgent:
         from ...adapters.t2i_client import split_negative
         from ..dailies_reviewer.frame_check import BUILTIN_FACTS, world_violations
         from ..script_supervisor import judged_facts
+        from .prop_insert import insert_props, world_props
 
         ref_dir = Path(base_path) / "references"
         notes = []
@@ -267,6 +270,8 @@ class ArtDepartmentAgent:
                 continue
             facts = BUILTIN_FACTS + story_facts
             action = f"an empty establishing shot of {loc.name}"
+            staged = {e.asset_id for s in shots for e in (s.staging_layer.entities if s.staging_layer else [])}
+            props = world_props(asset_lib, story_facts, staged)
             try:
                 bad = world_violations(img, facts, action=action)
             except Exception as e:
@@ -276,30 +281,23 @@ class ArtDepartmentAgent:
                 print(f"   🔎 [PlateCheck] {loc.id}: consistent with the world facts", flush=True)
                 continue
             print(f"   🔎 [PlateCheck] {loc.id}: {'; '.join(bad)[:300]} -> re-rendering", flush=True)
-            props = []
-            for s in shots:
-                for e in (s.staging_layer.entities if s.staging_layer else []):
-                    p = asset_lib.get_prop_by_id(e.asset_id)
-                    if p and p not in props and p.visual_references and p.visual_references.canonical_image_path \
-                            and Path(p.visual_references.canonical_image_path).exists():
-                        props.append(p)
-            props.sort(key=lambda p: {"critical": 0, "supporting": 1}.get(p.importance, 2))
-            props = props[:2]
             base = loc.visual_references.generation_prompt or FallbackGenerator.location_visual(loc, asset_lib.global_style)
             positive, negative = split_negative(base)
-            prompt = (f"{positive}\nThe picture shows the empty set: no people. It must respect: {' '.join(story_facts)}"
-                      f"\nCORRECTION (the previous picture of this set was wrong): {'; '.join(bad)[:500]}")
+            prompt = f"{positive}\nThe picture shows the empty set: no people. It must respect: {' '.join(story_facts)}"
             for i, p in enumerate(props, 1):
                 prompt += (f"\nPicture {i} is NOT the set: it is the {p.name}, which is seen in the set (e.g. through a "
-                           f"window) looking exactly like this picture: shape, size, lit and dark parts, colours.")
+                           f"window) looking exactly like this picture: shape, lit and dark parts, colours.")
             refs = [p.visual_references.canonical_image_path for p in props] or None
-            best, best_bad = None, bad
+            best, best_bad, last = None, bad, bad
             for k in range(max(1, retries)):
                 tmp = ref_dir / f"{loc.id}.try{k}.png"
                 try:
-                    self._t2i_client().render_to_file(tmp, prompt=prompt, negative_prompt=negative, reference_images=refs,
-                                                      seed=random.randint(0, 2**31 - 1))
+                    self._t2i_client().render_to_file(
+                        tmp, negative_prompt=negative, reference_images=refs, seed=random.randint(0, 2**31 - 1),
+                        prompt=f"{prompt}\nCORRECTION (the previous picture of this set was wrong): {'; '.join(last)[:500]}")
+                    insert_props(str(tmp), props)   # exact sprite pasted where the prop is seen unobstructed
                     still = world_violations(str(tmp), facts, action=action)
+                    last = still or last
                 except Exception as e:
                     print(f"      ❌ plate attempt {k + 1}: {type(e).__name__}: {e}", flush=True)
                     continue

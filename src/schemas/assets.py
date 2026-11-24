@@ -35,6 +35,11 @@ class VisualReferences(BaseModel):
         default_factory=list,
         description="Paths to additional angle/lighting variations"
     )
+    sprite_path: Optional[str] = Field(
+        None,
+        description="Cut-out of the object (RGBA, transparent background), e.g. from a code render; pasted over the "
+                    "generated object in frames where it is fully visible and differs from the reference"
+    )
 
 
 class AudioReferences(BaseModel):
@@ -220,3 +225,9 @@ class SheetFidelity(BaseModel):
     """SheetFidelity output: a supplied reference sheet checked against the script."""
     mismatches: List[str] = Field(default_factory=list)
     corrected_description: Optional[str] = None
+
+
+class PropLocation(BaseModel):
+    """PropLocation output: whether a prop is visible in a frame and its rough box (refined by code)."""
+    present: bool = Field(False, description="the prop is visible in the frame")
+    box: List[int] = Field(default_factory=list, description="[x0, y0, x1, y1] of the prop in the frame, 0-1000")

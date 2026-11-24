@@ -106,7 +106,8 @@ def link_prop_images(asset_library, prop_dir: Path) -> None:
     """
     Link <story_dir>/prop_list/<Name>/best.png to the matching prop (name or id, case/space-insensitive).
     A prop image can come from anywhere — a photo, or a code render where physical accuracy matters (a planet
-    with a dark night side); keyframes of shots that stage the prop use it as a reference picture.
+    with a dark night side); keyframes of shots that stage the prop use it as a reference picture. An optional
+    sprite.png (RGBA cut-out) next to it is pasted over the generated prop where a frame shows it unobstructed.
     """
     from src.schemas.assets import VisualReferences
     if not prop_dir.is_dir():
@@ -118,8 +119,11 @@ def link_prop_images(asset_library, prop_dir: Path) -> None:
             continue
         for prop in asset_library.props:
             if norm(d.name) in (norm(prop.name), norm(prop.id), norm(prop.id.replace("prop_", ""))):
-                prop.visual_references = VisualReferences(canonical_image_path=_relative(img))
-                print(f"   🖼  [{prop.id}] linked prop image: {img.name}", flush=True)
+                sprite = d / "sprite.png"   # optional RGBA cut-out (code renders): pasted over the generated prop
+                prop.visual_references = VisualReferences(canonical_image_path=_relative(img),
+                                                          sprite_path=_relative(sprite) if sprite.exists() else None)
+                print(f"   🖼  [{prop.id}] linked prop image: {img.name}" + (" + sprite" if sprite.exists() else ""),
+                      flush=True)
 
 
 def link_character_images(asset_library, char_images: dict[str, Path]) -> None:
