@@ -69,9 +69,38 @@ class VODirectorAgent:
             if shot.narrative_layer is None:
                 continue
             self._enrich_dialogue(shot, char_ctx, script_segment, asset_library)
-            if infer_emotion:
+        self._spoken_lines_only(blueprint)
+        for shot in blueprint.shots:
+            if shot.narrative_layer is not None and infer_emotion:
                 self._direct_performance(shot, asset_library)
         return blueprint
+
+    @staticmethod
+    def _spoken_lines_only(blueprint: SceneBlueprint) -> None:
+        """Dialogue text is what is said, nothing else: narration around a quote is dropped (spoken_only), and a
+        line recovered that way which another shot already speaks as its own line is removed here (the shot stays,
+        silent) — otherwise the line is said twice."""
+        from ...skills.script_coverage import norm, spoken_only
+        clean = {}
+        for shot in blueprint.shots:
+            d = shot.narrative_layer.dialogue if shot.narrative_layer else None
+            if d and d.has_dialogue and d.text and spoken_only(d.text) == d.text:
+                clean.setdefault(norm(d.text), shot.shot_id)
+        for shot in blueprint.shots:
+            d = shot.narrative_layer.dialogue if shot.narrative_layer else None
+            if not (d and d.has_dialogue and d.text):
+                continue
+            said = spoken_only(d.text)
+            if said == d.text:
+                continue
+            other = clean.get(norm(said))
+            if other and other != shot.shot_id:
+                print(f"   ✂️  [{shot.shot_id}] dialogue was narration + a line {other} already speaks: now silent",
+                      flush=True)
+                d.has_dialogue, d.text = False, None
+            else:
+                print(f"   ✂️  [{shot.shot_id}] dialogue narration dropped: {d.text[:40]}… -> {said}", flush=True)
+                d.text = said
 
     # ── 1. dialogue ────────────────────────────────────────────────────────
 
