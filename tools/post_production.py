@@ -12,6 +12,7 @@ post_production: "Post Supervisor" pass over a rendered run -> <run>/media/film_
 
 Uses shots/scene_blueprint_final.json (kept clips, dialogue) and qa_report.json (speech spans from tools/qa_report.py):
   - trims dead air on dialogue shots: keep <= LEAD s before the first word and <= TAIL s after the last
+  - cuts silent shots to their planned length + 0.5 s (the last + 1.5 s for the fade): the video model renders >= 4 s
   - levels loudness per clip (dialogue -20 LUFS, ambience-only -30 LUFS), 60 ms audio fades at every cut
   - burns the dialogue line as a subtitle while it is spoken (Pillow-rendered PNG overlay; no ffmpeg drawtext needed)
   - fade in from black on the first shot, fade out (video + audio) on the last, final loudnorm -16 LUFS
@@ -117,6 +118,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("run_dir"); ap.add_argument("--no-subs", action="store_true")
     ap.add_argument("--no-bed", action="store_true", help="no per-scene ambience bed"); ap.add_argument("--font", default=DEFAULT_FONT)
+    ap.add_argument("--no-pace-trim", action="store_true", help="keep silent shots at their rendered length "
+                    "(default: cut to the planned length + 0.5 s; video models render >= 4 s)")
     a = ap.parse_args()
     runp = Path(a.run_dir); post = runp / "media" / "post"; post.mkdir(parents=True, exist_ok=True)
     bp = json.loads((runp / "shots" / "scene_blueprint_final.json").read_text())
@@ -145,6 +148,11 @@ def main():
                 t0 = max(t0, lead - LEAD)
             if tail > TAIL + 0.3:
                 t1 = min(t1, speech_end + TAIL)
+        planned = (s.get("staging_layer") or {}).get("duration_seconds")
+        if not line and planned and not a.no_pace_trim:   # the model's minimum clip length is not the edit's pace
+            keep = max(2.0, float(planned) + (1.5 if i == n - 1 else 0.5))
+            if t1 - t0 > keep + 0.3:
+                t1 = t0 + keep
         seg_d = t1 - t0
         target = -20 if line else -30
         afilt = [loudnorm_filter(src, t0, t1, target), "aresample=48000", "afade=t=in:d=0.06", f"afade=t=out:st={max(0, seg_d - 0.06):.3f}:d=0.06"]
