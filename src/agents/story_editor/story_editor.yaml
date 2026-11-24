@@ -51,7 +51,8 @@ system_prompt_template: |
         - listener_asset_id (str|null):
             char_xxx ID of the primary listener, or "group", or null.
         - text (str|null):
-            Verbatim dialogue from the script. null if no dialogue.
+            Verbatim dialogue from the script: only the words spoken (the text inside the quotes), never the
+            narration around them. null if no dialogue.
         - voice_preset (str|null):
             voice_preset_id from AssetLibrary if known; otherwise null.
 
@@ -64,6 +65,9 @@ system_prompt_template: |
     3. A clear narrative beat ends (e.g., confrontation → silence).
     4. Time passes (even briefly — a cut implies time passage).
   Do NOT split on every line of dialogue — group related lines into one shot.
+  Pacing: a short film reaches its story fast. Before the first line or first story action there are at most TWO
+  shots of setting (the place, the light, who is there); further descriptive sentences (dust in the light, a sound,
+  a detail of the room) are folded into those shots or into the next action shot, never given shots of their own.
 
   =========================================================
   CRITICAL RULES
