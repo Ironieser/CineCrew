@@ -114,6 +114,16 @@ class BodyView(BaseModel):
     view: str = Field("whole", description="whole | partial")
 
 
+class BodyOutline(BaseModel):
+    name: str = ""
+    outline: str = Field("complete", description="complete | cut_off")
+
+
+class BodyFramingReport(BaseModel):
+    """body_framing.yaml output."""
+    bodies: List[BodyOutline] = Field(default_factory=list)
+
+
 class FrameDescription(BaseModel):
     """Blind description of a keyframe (frame_describe.yaml)."""
     people: List[str] = Field(default_factory=list)

@@ -12,6 +12,7 @@ metadata:
   version: "1.0"
 
 output_schema: "src.schemas.critic.VisualReview"
+temperature: 0   # a checker: the same input gets the same verdict
 
 system_prompt_template: |
   You are the Dailies Reviewer of a film production, checking generated footage

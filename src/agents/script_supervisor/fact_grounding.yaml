@@ -7,6 +7,7 @@ metadata:
   version: "1.0"
 
 output_schema: "src.schemas.blueprint.FactGrounding"
+temperature: 0   # a checker: the same input gets the same verdict
 
 system_prompt_template: |
   You check candidate visual facts of a film against its script. The script may be in another language than the

@@ -98,6 +98,9 @@ class ConfigurableAgent:
         self._name = metadata.get("name", path.stem)
         # Optional: metadata.model in the YAML, or a top-level model, overrides Config.LLM_MODEL for this agent only
         self._model_override = metadata.get("model") or self._config.get("model")
+        # checkers set `temperature: 0`: the same frame must get the same verdict (server default sampling made a
+        # blind description call one orbital-horizon frame "partial" twice, then "whole" four times)
+        self._temperature = self._config.get("temperature", metadata.get("temperature"))
 
         # Output schema: dotted path -> Pydantic model class
         schema_path = self._config.get("output_schema")
@@ -151,6 +154,7 @@ class ConfigurableAgent:
                 user_prompt,
                 model=self._model_override,
                 images=images,
+                temperature=self._temperature,
             )
             result_content = llm_result.content
             token_usage = llm_result.usage

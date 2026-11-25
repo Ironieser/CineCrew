@@ -9,6 +9,7 @@ metadata:
   version: "1.0"
 
 output_schema: "src.schemas.critic.FrameCheck"
+temperature: 0   # a checker: the same input gets the same verdict
 
 system_prompt_template: |
   You check ONE generated keyframe (the first image) for a film shot. {{ reference_note }}

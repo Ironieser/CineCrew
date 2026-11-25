@@ -7,6 +7,7 @@ metadata:
   version: "1.0"
 
 output_schema: "src.schemas.assets.PropLocation"
+temperature: 0   # a checker: the same input gets the same verdict
 
 system_prompt_template: |
   The FIRST image is a film frame. The SECOND image is the reference picture of one prop: the prop is the OBJECT that

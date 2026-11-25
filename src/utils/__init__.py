@@ -70,6 +70,7 @@ def generate_structured_data(
     user_content: str,
     model: Optional[str] = None,
     images: Optional[List[str]] = None,
+    temperature: Optional[float] = None,
 ):
     """
     Generic generation function that explicitly returns the LLMResult[T] envelope.
@@ -91,6 +92,8 @@ def generate_structured_data(
         max_retries=Config.LLM_MAX_RETRIES,
         max_completion_tokens=Config.LLM_MAX_COMPLETION_TOKENS,
     )
+    if temperature is not None:
+        kwargs["temperature"] = float(temperature)
     # Prefer create_with_completion to obtain both content and the raw completion (instructor >= 1.0)
     if hasattr(client, "create_with_completion"):
         content, raw = client.create_with_completion(**kwargs)

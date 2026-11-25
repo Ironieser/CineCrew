@@ -6,6 +6,7 @@ metadata:
   version: "1.0"
 
 output_schema: "src.schemas.critic.WorldVerdict"
+temperature: 0   # a checker: the same input gets the same verdict
 
 system_prompt_template: |
   You compare a factual description of one film frame with the film's world facts. The description never names

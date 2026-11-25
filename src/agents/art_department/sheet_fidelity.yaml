@@ -8,6 +8,7 @@ metadata:
   version: "1.0"
 
 output_schema: "src.schemas.assets.SheetFidelity"
+temperature: 0   # a checker: the same input gets the same verdict
 
 system_prompt_template: |
   The image is the reference sheet of one film character. Compare it with what the SCRIPT says about how this

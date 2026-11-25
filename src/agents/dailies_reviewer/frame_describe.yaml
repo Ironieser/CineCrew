@@ -8,6 +8,7 @@ metadata:
   version: "1.0"
 
 output_schema: "src.schemas.critic.FrameDescription"
+temperature: 0   # a checker: the same input gets the same verdict
 
 system_prompt_template: |
   Describe the FIRST image factually and literally. Do not interpret, do not guess what it should show.

@@ -8,6 +8,7 @@ metadata:
   version: "1.0"
 
 output_schema: "src.schemas.critic.HumanCount"
+temperature: 0   # a checker: the same input gets the same verdict
 
 system_prompt_template: |
   List every HUMAN visible in the image, including small, blurred, partly visible or background people. Do not list

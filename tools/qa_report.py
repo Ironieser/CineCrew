@@ -122,20 +122,16 @@ def reference_board(refs):
 def world_checks(frame, facts, cast="", action=""):
     """Describe the frame blind, then judge the world facts from the text (a VLM primed with the facts reports what
     it was told to look for). Same agents as the keyframe FrameCheck."""
-    from src.engine import ConfigurableAgent
-    from src.agents.dailies_reviewer.frame_check import BUILTIN_FACTS, framing_checks
-    d = ROOT / "src" / "agents" / "dailies_reviewer"
-    desc = ConfigurableAgent(config_path=str(d / "frame_describe.yaml")).run(images=[str(frame)])
+    from src.agents.dailies_reviewer.frame_check import BUILTIN_FACTS, judge_world
     allf = BUILTIN_FACTS + list(facts)
-    wv = ConfigurableAgent(config_path=str(d / "world_judge.yaml")).run(cast=cast or "unknown", action=action or "-",
-        facts=" ".join(f"({i}) {f}" for i, f in enumerate(allf, 1)), description=desc.model_dump_json())
+    jw = judge_world(str(frame), allf, cast=cast or "unknown", action=action or "-")
     out = []
-    for c in list(wv.checks) + framing_checks(desc, allf):   # re-index onto the story's own facts (built-ins first)
+    for c in jw["checks"]:   # re-index onto the story's own facts (built-ins first)
         c = dict(c); i = int(c.get("fact") or 0)
         c["fact"] = i - len(BUILTIN_FACTS) if i > len(BUILTIN_FACTS) else i
         c["text"] = allf[i - 1] if 1 <= i <= len(allf) else "?"
         out.append(c)
-    out.append({"action_shown": wv.action_shown, "action_reason": wv.action_reason})
+    out.append({"action_shown": jw["action_shown"], "action_reason": jw["action_reason"]})
     return out
 
 

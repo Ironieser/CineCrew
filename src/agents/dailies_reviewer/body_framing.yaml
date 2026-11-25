@@ -1,0 +1,22 @@
+# BodyFraming — one focused question per frame: is each planet / moon seen whole or cut off? Asked inside a full
+# blind description, the VLM called an orbital horizon filling the window "whole"; asked alone, it judges the outline.
+
+metadata:
+  name: "BodyFraming"
+  description: "For each planet, moon or sun in a frame: is its round outline complete or cut off?"
+  version: "1.0"
+
+output_schema: "src.schemas.critic.BodyFramingReport"
+temperature: 0   # a checker: the same input gets the same verdict
+
+system_prompt_template: |
+  Look only at the planets, moons and suns in the image (through windows or in the sky), not at the ground under
+  the camera. For each one decide its outline:
+  - "complete": you can follow its round edge all the way around, with sky on every side (a dark night side that
+    blends into the sky still counts as part of a complete planet).
+  - "cut_off": part of its round outline is hidden by a window frame or the edge of the picture, or it is so close
+    that its curved surface fills much of the window like a horizon.
+  Name each body if recognisable (Earth, Moon, Sun), else "planet".
+
+user_prompt_template: |
+  Return JSON: {"bodies": [{"name": "...", "outline": "complete|cut_off"}]}
