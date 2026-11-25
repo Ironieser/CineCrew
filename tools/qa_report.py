@@ -144,9 +144,10 @@ def vlm_check(paths, chars, cast="", board=None, facts=""):
     client = OpenAI(api_key=Config.LLM_API_KEY or "EMPTY", base_url=Config.LLM_BASE_URL)
     err = None
     for attempt in range(3):   # a long text list can still yield invalid JSON (unescaped quotes): retry
-        r = client.chat.completions.create(model=Config.MODEL_NAME, temperature=0 if attempt == 0 else 0.2,
-                                           max_tokens=1200, response_format={"type": "json_object"},
-                                           messages=[{"role": "user", "content": content}])
+        from src.adapters.outage import with_outage_retry
+        r = with_outage_retry(lambda: client.chat.completions.create(
+            model=Config.MODEL_NAME, temperature=0 if attempt == 0 else 0.2, max_tokens=1200,
+            response_format={"type": "json_object"}, messages=[{"role": "user", "content": content}]), "QA VLM")
         try:
             return json.loads(r.choices[0].message.content)
         except json.JSONDecodeError as e:

@@ -97,6 +97,8 @@ class Config:
     VIDEO_FPS = int(_env("VIDEO_FPS", default="16"))
     VIDEO_POLL_INTERVAL = float(_env("VIDEO_POLL_INTERVAL", default="5"))
     VIDEO_TIMEOUT = float(_env("VIDEO_TIMEOUT", default="1800"))
+    # how long a call waits out an unreachable backend (VPN / tunnel drop) before failing (src/adapters/outage.py)
+    BACKEND_OUTAGE_WAIT = float(_env("BACKEND_OUTAGE_WAIT", default="1800"))
 
     # ── Legacy attribute names (kept so older code / traces keep working) ─────
     USE_AZURE = LLM_PROVIDER == "azure"

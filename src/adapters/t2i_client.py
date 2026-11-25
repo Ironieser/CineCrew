@@ -23,6 +23,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from ..config import Config
+from .outage import with_outage_retry
 
 
 class T2IClient:
@@ -83,12 +84,16 @@ class T2IClient:
                 if Config.T2I_EDIT_CFG:
                     kwargs["extra_body"] = {**kwargs["extra_body"], "true_cfg_scale": float(Config.T2I_EDIT_CFG),
                                             "guidance_scale": float(Config.T2I_EDIT_CFG)}
-                response = self._edit_client.images.edit(image=handles, **kwargs)
+                def _edit():
+                    for h in handles:
+                        h.seek(0)
+                    return self._edit_client.images.edit(image=handles, **kwargs)
+                response = with_outage_retry(_edit, "keyframe edit")
             finally:
                 for h in handles:
                     h.close()
         else:
-            response = self._client.images.generate(**kwargs)
+            response = with_outage_retry(lambda: self._client.images.generate(**kwargs), "image")
         return _decode_image(response)
 
     def render_to_file(self, out_path: Path, **kwargs) -> Path:

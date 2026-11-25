@@ -28,6 +28,7 @@ from typing import Any, Dict, List, Optional
 from pydantic import BaseModel, Field
 
 from ..config import Config
+from .outage import with_outage_retry
 from ..schemas.video_jobs import VideoJob, VideoJobBatch
 from . import media_tools
 
@@ -117,7 +118,7 @@ class VideoClient:
         start = time.monotonic()
         deadline = start + self.timeout
         while True:
-            video = self._client.videos.retrieve(video_id)
+            video = with_outage_retry(lambda: self._client.videos.retrieve(video_id), f"{video_id} status")
             status = getattr(video, "status", "")
             if status in ("completed", "failed"):
                 return video
@@ -162,7 +163,7 @@ class VideoClient:
         result = VideoResult(job_id=job.job_id, shot_id=job.shot_id, segment_id=job.segment_id)
         print(f"   🎬 [{name}] {'I2V' if job.image_reference else 'T2V'} {job.size} {job.duration:.1f}s", flush=True)
         try:
-            result.video_id = self.submit(job)
+            result.video_id = with_outage_retry(lambda: self.submit(job), f"{name} submit")
             video = self.wait(result.video_id)
             if video.status != "completed":
                 err = getattr(video, "error", None)
@@ -170,7 +171,8 @@ class VideoClient:
                 result.error = getattr(err, "message", None) or str(err) or "generation failed"
                 print(f"      ❌ {result.error}", flush=True)
                 return result
-            result.video_path = str(self.download(result.video_id, Path(output_dir) / f"{name}.mp4"))
+            result.video_path = str(with_outage_retry(
+                lambda: self.download(result.video_id, Path(output_dir) / f"{name}.mp4"), f"{name} download"))
             result.status = "completed"
             print(f"      ✅ {result.video_path}", flush=True)
         except TimeoutError as e:

@@ -95,11 +95,12 @@ def generate_structured_data(
     if temperature is not None:
         kwargs["temperature"] = float(temperature)
     # Prefer create_with_completion to obtain both content and the raw completion (instructor >= 1.0)
+    from ..adapters.outage import with_outage_retry
     if hasattr(client, "create_with_completion"):
-        content, raw = client.create_with_completion(**kwargs)
+        content, raw = with_outage_retry(lambda: client.create_with_completion(**kwargs), "LLM")
         usage = _usage_from_completion(raw)
         return LLMResult(content=content, usage=usage, latency=time.perf_counter() - start, raw_response=raw)
-    content = client.chat.completions.create(**kwargs)
+    content = with_outage_retry(lambda: client.chat.completions.create(**kwargs), "LLM")
     return LLMResult(
         content=content,
         usage=TokenUsage(),
