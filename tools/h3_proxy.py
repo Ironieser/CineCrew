@@ -325,7 +325,15 @@ def create(fields: dict, upload: bytes = None) -> dict:
     final = str(extra.get("tier", "")).lower() == "final" and (FINAL_FL2VA_URLS or FINAL_REF2VA_URLS)
     if final:
         body["num_inference_steps"] = FINAL_STEPS
-    pool = lambda draft, fin: (fin or draft) if final else draft
+    def pool(draft, fin):   # final tier on a live full-schedule replica; none up (allocation ended): draft + draft steps
+        if not final:
+            return draft
+        live = [u for u in fin if healthy(u)]
+        if live:
+            return live
+        body["num_inference_steps"] = STEPS
+        print("[h3_proxy] no final replica up for this mode: draft replica, draft steps", flush=True)
+        return draft
     if fl2va_first:
         body.update(task="fl2va", conditions=[{"type": "image", "uri": upload_ref(kf), "role": "keyframe", "frame_index": 0},
                                               {"type": "image", "uri": upload_ref(kf_end), "role": "keyframe", "frame_index": -1}])
@@ -615,7 +623,8 @@ def edit_prompt(p2: dict) -> str:
             + (f"<Audio 1>: reference - the target audio references the voice timbre of <Audio 1> for {spk}'s spoken "
                f"line.\n" if p2["audio"] else "") +
             f"\ndetailed_description:\nThe target video is in realistic photographic style.\n[Shot 1] The shot is "
-            f"<Video 1>, unchanged. {spk} (S1) speaks{voice_ref}: <d>[{LANG}] {p2['dialogue']}</d> Exactly as the voice "
+            f"<Video 1>, unchanged. Within the first second {spk} (S1) starts speaking{voice_ref} and says the whole "
+            f"line, finishing at least one second before the end: <d>[{LANG}] {p2['dialogue']}</d> Exactly as the voice "
             f"stops, the lips close and the jaw stops moving; the rest of the shot continues as in <Video 1>. No "
             f"subtitles, captions, or overlaid text appear on screen.\n\noverall_soundscape:\n{spk}'s clear spoken line"
             f"{' in the voice timbre of <Audio 1>' if p2['audio'] else ''}"
@@ -625,9 +634,10 @@ def edit_prompt(p2: dict) -> str:
 
 def start_pass2(pid: str, j: dict) -> None:
     """Pass 1 is done: upload its clip as <Video 1> and submit the Ref2VA edit that adds the line."""
-    p2 = j.pop("pass2")
+    p2 = j["pass2"]   # removed only once pass 2 is submitted: a failed submit must never return the silent take
     clip = LOG_DIR / f"{pid}_pass1.mp4"
-    clip.write_bytes(urllib.request.urlopen(f"{j['base']}/videos/{j['h3_id']}/content", timeout=300).read())
+    if not clip.exists():
+        clip.write_bytes(urllib.request.urlopen(f"{j['base']}/videos/{j['h3_id']}/content", timeout=300).read())
     body = {"model": "MiniMaxAI/MiniMax-H3", "prompt": edit_prompt(p2), "seconds": p2["seconds"],
             "num_outputs_per_prompt": 1, "num_inference_steps": FINAL_STEPS if p2["final"] else STEPS,
             "flow_shift": 12.0, "audio_flow_shift": 3.0, "target": p2["target"], "task": "ref2va",
@@ -636,13 +646,18 @@ def start_pass2(pid: str, j: dict) -> None:
             + [{"type": "audio", "uri": upload_ref(v), "role": "reference"} for v in p2["audio"]]}
     if p2.get("seed") is not None:
         body["seed"] = p2["seed"]
-    base = pick(FINAL_REF2VA_URLS if (p2["final"] and FINAL_REF2VA_URLS) else REF2VA_URLS)
+    finals = [u for u in FINAL_REF2VA_URLS if healthy(u)] if p2["final"] else []
+    if p2["final"] and not finals:   # the full-schedule replica is gone (allocation ended): draft replica, draft steps
+        body["num_inference_steps"] = STEPS
+        print(f"[h3_proxy] {pid} pass 2: no final Ref2VA replica up, using a draft one", flush=True)
+    base = pick(finals or REF2VA_URLS)
     try:
         job = _post(f"{base}/videos", body)
     except Exception:
         release(base); raise
     if not j.get("released"):
         release(j["base"])
+    j.pop("pass2", None)
     j.update(base=base, h3_id=job["id"], released=False)
     (LOG_DIR / f"{pid}_pass2.json").write_text(json.dumps({"h3_request": body}, ensure_ascii=False, indent=1))
     print(f"[h3_proxy] {pid} pass 2 -> {base.split(':')[-1].split('/')[0]} ref2va edit of the silent take", flush=True)
@@ -654,6 +669,8 @@ def status(pid: str) -> dict:
         return {"id": pid, "status": "failed", "error": {"message": "unknown id"}}
     if j.get("starting"):   # pass 2 is being submitted: never report the silent take as the result
         return {"id": pid, "object": "video", "status": "in_progress", "error": None}
+    if j.get("failed"):
+        return {"id": pid, "object": "video", "status": "failed", "error": {"message": j["failed"]}}
     st = json.load(urllib.request.urlopen(f"{j['base']}/videos/{j['h3_id']}", timeout=60))
     s = st.get("status", "")
     s = {"pending": "queued", "running": "in_progress", "processing": "in_progress"}.get(s, s)
@@ -664,8 +681,15 @@ def status(pid: str) -> dict:
         if go:
             try:
                 start_pass2(pid, j)
+            except Exception as e:   # retried on the next polls; after 3 failures the job fails (the shot keeps its clip)
+                j["pass2_failures"] = j.get("pass2_failures", 0) + 1
+                print(f"[h3_proxy] {pid} pass 2 submit failed ({j['pass2_failures']}): {type(e).__name__}: {e}", flush=True)
+                if j["pass2_failures"] >= 3:
+                    j.pop("pass2", None); j["failed"] = f"pass 2 could not be submitted: {type(e).__name__}: {e}"
             finally:
                 j["starting"] = False
+        if j.get("failed"):
+            return {"id": pid, "object": "video", "status": "failed", "error": {"message": j["failed"]}}
         return {"id": pid, "object": "video", "status": "in_progress", "error": None}
     if s in ("completed", "failed") and not j.get("released"):
         j["released"] = True; release(j["base"])
